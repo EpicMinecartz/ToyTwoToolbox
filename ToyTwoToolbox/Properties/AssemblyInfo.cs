@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ToyTwoToolbox")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Toy Story 2 Toolbox")]
+[assembly: AssemblyDescription("Edit level files and save files to your hearts content")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("EMC")]
 [assembly: AssemblyProduct("ToyTwoToolbox")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright © EpicMinecartz 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

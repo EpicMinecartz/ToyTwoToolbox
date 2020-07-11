@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>t2tbicon_XSz_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,6 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FirstOpenPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FirstOpenPanel.Designer.cs">
+      <DependentUpon>FirstOpenPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="T2TTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DarkThemeMenuRender.cs" />
+    <Compile Include="DarkThemeTabControlRender.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,6 +66,25 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SessionManager.Designer.cs">
+      <DependentUpon>SessionManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="T2Control_NGNEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_NGNEditor.Designer.cs">
+      <DependentUpon>T2Control_NGNEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XF.cs" />
+    <EmbeddedResource Include="FirstOpenPanel.resx">
+      <DependentUpon>FirstOpenPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -60,7 +93,14 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SessionManager.resx">
+      <DependentUpon>SessionManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_NGNEditor.resx">
+      <DependentUpon>T2Control_NGNEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -70,6 +110,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\T2T\BuzzFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\Default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\SaveAs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\ntid\Refresh_32x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\T2T\aclui_126.png" />
+    <Content Include="t2tbicon_XSz_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
