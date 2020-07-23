@@ -94,39 +94,39 @@ namespace ToyTwoToolbox {
             this.ToolStripSeparator1,
             this.ForceGCToolStripMenuItem});
             this.ApplicationToolStripMenuItem.Name = "ApplicationToolStripMenuItem";
-            this.ApplicationToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.ApplicationToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.ApplicationToolStripMenuItem.Text = "Application";
             // 
             // RestartToolStripMenuItem
             // 
             this.RestartToolStripMenuItem.Name = "RestartToolStripMenuItem";
-            this.RestartToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.RestartToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.RestartToolStripMenuItem.Text = "Restart";
             this.RestartToolStripMenuItem.Click += new System.EventHandler(this.RestartToolStripMenuItem_Click);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // ForceExitToolStripMenuItem
             // 
             this.ForceExitToolStripMenuItem.Name = "ForceExitToolStripMenuItem";
-            this.ForceExitToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.ForceExitToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.ForceExitToolStripMenuItem.Text = "Force Exit";
             this.ForceExitToolStripMenuItem.Click += new System.EventHandler(this.ForceExitToolStripMenuItem_Click);
             // 
             // ToolStripSeparator1
             // 
             this.ToolStripSeparator1.Name = "ToolStripSeparator1";
-            this.ToolStripSeparator1.Size = new System.Drawing.Size(119, 6);
+            this.ToolStripSeparator1.Size = new System.Drawing.Size(122, 6);
             // 
             // ForceGCToolStripMenuItem
             // 
             this.ForceGCToolStripMenuItem.Name = "ForceGCToolStripMenuItem";
-            this.ForceGCToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.ForceGCToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.ForceGCToolStripMenuItem.Text = "Force GC";
             this.ForceGCToolStripMenuItem.Click += new System.EventHandler(this.ForceGCToolStripMenuItem_Click);
             // 
@@ -137,27 +137,27 @@ namespace ToyTwoToolbox {
             this.ArchiveToolStripMenuItem,
             this.ClearToolStripMenuItem});
             this.LogToolStripMenuItem.Name = "LogToolStripMenuItem";
-            this.LogToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
+            this.LogToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.LogToolStripMenuItem.Text = "Log";
             // 
             // ExportToolStripMenuItem
             // 
             this.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem";
-            this.ExportToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.ExportToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.ExportToolStripMenuItem.Text = "Export...";
             this.ExportToolStripMenuItem.Click += new System.EventHandler(this.ExportToolStripMenuItem_Click);
             // 
             // ArchiveToolStripMenuItem
             // 
             this.ArchiveToolStripMenuItem.Name = "ArchiveToolStripMenuItem";
-            this.ArchiveToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.ArchiveToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.ArchiveToolStripMenuItem.Text = "Archive...";
             this.ArchiveToolStripMenuItem.Click += new System.EventHandler(this.ArchiveToolStripMenuItem_Click);
             // 
             // ClearToolStripMenuItem
             // 
             this.ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
-            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.ClearToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.ClearToolStripMenuItem.Text = "Clear";
             this.ClearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItem_Click);
             // 
@@ -168,7 +168,7 @@ namespace ToyTwoToolbox {
             this.ErrorDisplay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ErrorDisplay.ForeColor = System.Drawing.Color.White;
             this.ErrorDisplay.Name = "ErrorDisplay";
-            this.ErrorDisplay.Size = new System.Drawing.Size(57, 20);
+            this.ErrorDisplay.Size = new System.Drawing.Size(58, 20);
             this.ErrorDisplay.Text = "0 Errors";
             this.ErrorDisplay.Click += new System.EventHandler(this.ErrorDisplay_Click);
             // 
@@ -211,6 +211,7 @@ namespace ToyTwoToolbox {
             // RestartSession
             // 
             this.RestartSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RestartSession.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.RestartSession.ForeColor = System.Drawing.Color.Black;
             this.RestartSession.Location = new System.Drawing.Point(197, 31);
             this.RestartSession.Name = "RestartSession";
@@ -223,6 +224,7 @@ namespace ToyTwoToolbox {
             // ObliterateSession
             // 
             this.ObliterateSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ObliterateSession.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ObliterateSession.ForeColor = System.Drawing.Color.Red;
             this.ObliterateSession.Location = new System.Drawing.Point(221, 31);
             this.ObliterateSession.Name = "ObliterateSession";
@@ -235,6 +237,8 @@ namespace ToyTwoToolbox {
             // StopSession
             // 
             this.StopSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.StopSession.FlatAppearance.BorderSize = 0;
+            this.StopSession.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.StopSession.Location = new System.Drawing.Point(149, 31);
             this.StopSession.Name = "StopSession";
             this.StopSession.Size = new System.Drawing.Size(46, 23);
@@ -257,9 +261,10 @@ namespace ToyTwoToolbox {
             // UseArgs
             // 
             this.UseArgs.AutoSize = true;
+            this.UseArgs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UseArgs.Location = new System.Drawing.Point(152, 7);
             this.UseArgs.Name = "UseArgs";
-            this.UseArgs.Size = new System.Drawing.Size(69, 17);
+            this.UseArgs.Size = new System.Drawing.Size(66, 17);
             this.UseArgs.TabIndex = 5;
             this.UseArgs.Text = "Use Args";
             this.UseArgs.UseVisualStyleBackColor = true;
@@ -267,9 +272,10 @@ namespace ToyTwoToolbox {
             // UseDebug
             // 
             this.UseDebug.AutoSize = true;
+            this.UseDebug.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.UseDebug.Location = new System.Drawing.Point(88, 7);
             this.UseDebug.Name = "UseDebug";
-            this.UseDebug.Size = new System.Drawing.Size(58, 17);
+            this.UseDebug.Size = new System.Drawing.Size(55, 17);
             this.UseDebug.TabIndex = 5;
             this.UseDebug.Text = "Debug";
             this.UseDebug.UseVisualStyleBackColor = true;
@@ -278,7 +284,9 @@ namespace ToyTwoToolbox {
             // 
             this.SessionList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.SessionList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.SessionList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SessionList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SessionList.FormattingEnabled = true;
             this.SessionList.Location = new System.Drawing.Point(60, 32);
             this.SessionList.Name = "SessionList";
@@ -287,6 +295,7 @@ namespace ToyTwoToolbox {
             // 
             // NewSession
             // 
+            this.NewSession.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.NewSession.Location = new System.Drawing.Point(7, 3);
             this.NewSession.Name = "NewSession";
             this.NewSession.Size = new System.Drawing.Size(75, 23);

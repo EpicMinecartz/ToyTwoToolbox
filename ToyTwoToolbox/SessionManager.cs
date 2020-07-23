@@ -10,7 +10,13 @@ using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
 	public partial class SessionManager : Form {
+		[System.Runtime.InteropServices.DllImportAttribute("uxtheme.dll")]
+		private static extern int SetWindowTheme(IntPtr hWnd, string appname, string idlist);
 
+		protected override void OnHandleCreated(EventArgs e) {
+			SetWindowTheme(this.Handle, "", "");
+			base.OnHandleCreated(e);
+		}
 		public SessionManager() {
 			InitializeComponent();
 			SMptr = this;

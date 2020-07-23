@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
     /// <summary>
-    /// EXtended WinForms Functionaility
+    /// eXtended winforms Functionaility
     /// </summary>
     class XF {
 		public static System.Collections.IEnumerable GetControls(System.Windows.Forms.Control parent, bool searchContainers) {
@@ -71,6 +71,24 @@ namespace ToyTwoToolbox {
 			return false;
 		}
 
+		public static int CEIO(int Value, int Start, int Target, int correction, int TotalDuration) {
+			return (int)(-Target / 2 * (Math.Cos(Math.PI * Value / TotalDuration) - 1) + Start) - correction;
+		}
+
+
+		public static IEnumerable<ctrlType> GetControlsOfType<ctrlType>(Control parent, bool searchContainers = true) where ctrlType : Control {
+			List<ctrlType> ctrls = new List<ctrlType>();
+			foreach (Control ctrl in parent.Controls) {
+				if (ctrl is ctrlType) {
+					ctrls.Add((ctrlType)ctrl);
+				}
+				if (searchContainers && ctrl.Controls.Count > 0) {
+					ctrls.AddRange(GetControlsOfType<ctrlType>(ctrl, searchContainers));
+				}
+			}
+			if (parent is ctrlType) { ctrls.Add((ctrlType)parent); }
+			return ctrls;
+		}
 
 	}
 }

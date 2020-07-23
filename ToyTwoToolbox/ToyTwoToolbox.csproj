@@ -35,6 +35,7 @@
     <ApplicationIcon>t2tbicon_XSz_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,11 +48,77 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AShape.cs" />
+    <Compile Include="CreateNewFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateNewFile.Designer.cs">
+      <DependentUpon>CreateNewFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F_Base.cs" />
+    <Compile Include="F_NGN.cs" />
+    <Compile Include="FileProcessor.cs" />
     <Compile Include="FirstOpenPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FirstOpenPanel.Designer.cs">
       <DependentUpon>FirstOpenPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CjClutter.ObjLoader.Loader\Common\StringExtensions.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\DataStore.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\IDataStore.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\IElementGroup.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\IFaceGroup.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\IGroupDataStore.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\IMaterialLibrary.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\INormalDataStore.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\ITextureDataStore.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\IVertexDataStore.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\Elements\Face.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\Elements\Group.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\Material.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\Vec3.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\VertexData\Normal.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\VertexData\Texture.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\VertexData\Vertex.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\IMaterialLibraryLoader.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\IMaterialLibraryLoaderFacade.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\IObjLoader.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\IObjLoaderFactory.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\LoaderBase.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\LoadResult.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\MaterialLibraryLoader.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\MaterialLibraryLoaderFacade.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\MaterialStreamProvider.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\ObjLoader.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Loaders\ObjLoaderFactory.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\FaceParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\GroupParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\Interfaces\IFaceParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\Interfaces\IGroupParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\Interfaces\IMaterialLibraryParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\Interfaces\INormalParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\Interfaces\ITextureParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\Interfaces\ITypeParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\Interfaces\IUseMaterialParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\Interfaces\IVertexParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\MaterialLibraryParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\NormalParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\TextureParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\TypeParserBase.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\UseMaterialParser.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\VertexParser.cs" />
+    <Compile Include="F_Save.cs" />
+    <Compile Include="Material.cs" />
+    <Compile Include="Patch.cs" />
+    <Compile Include="Primitive.cs" />
+    <Compile Include="RawPrimPatchContainer.cs" />
+    <Compile Include="Shape.cs" />
+    <Compile Include="T2Control_SaveEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_SaveEditor.Designer.cs">
+      <DependentUpon>T2Control_SaveEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="T2TTabControl.cs">
       <SubType>Component</SubType>
@@ -78,7 +145,15 @@
     <Compile Include="T2Control_NGNEditor.Designer.cs">
       <DependentUpon>T2Control_NGNEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="TabController.cs" />
+    <Compile Include="Texture.cs" />
+    <Compile Include="Vector2.cs" />
+    <Compile Include="Vector3.cs" />
+    <Compile Include="WFA.cs" />
     <Compile Include="XF.cs" />
+    <EmbeddedResource Include="CreateNewFile.resx">
+      <DependentUpon>CreateNewFile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FirstOpenPanel.resx">
       <DependentUpon>FirstOpenPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,6 +176,10 @@
     <EmbeddedResource Include="T2Control_NGNEditor.resx">
       <DependentUpon>T2Control_NGNEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_SaveEditor.resx">
+      <DependentUpon>T2Control_SaveEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="CjClutter.ObjLoader.Loader\CjClutter.ObjLoader.Loader.csproj" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

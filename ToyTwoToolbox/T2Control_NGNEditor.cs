@@ -12,6 +12,7 @@ namespace ToyTwoToolbox {
         public T2Control_NGNEditor() {
             InitializeComponent();
             tabControl1.DrawItem += new DrawItemEventHandler(DarkThemeTabControlRender.tabControl_DrawItem);
+            this.Dock = DockStyle.Fill;
         }
 
     }

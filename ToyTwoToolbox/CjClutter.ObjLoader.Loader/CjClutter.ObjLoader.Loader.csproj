@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>CjClutter.ObjLoader</PackageId>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Copyright>Copyright ©  2018</Copyright>
+    <Product>CjClutter.ObjLoader</Product>
+    <Authors>Chris Jansson</Authors>
+    <RepositoryUrl>https://github.com/chrisjansson/ObjLoader</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Company></Company>
+    <Description>A simple Wavefront .obj and .mtl loader</Description>
+    <PackageLicenseUrl>https://github.com/chrisjansson/ObjLoader/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/chrisjansson/ObjLoader</PackageProjectUrl>
+    <PackageTags>obj wavefront 3d</PackageTags>
+    <Title>CjClutter.ObjLoader</Title>
+  </PropertyGroup>
+</Project>

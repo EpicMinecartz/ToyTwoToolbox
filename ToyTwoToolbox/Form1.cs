@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
@@ -12,19 +14,27 @@ namespace ToyTwoToolbox {
         public string wlid;
         public bool UnsavedWork;
         public bool SMSC = false;
+        public TabController TabControl;
+
+
 
         public Form1() {
             InitializeComponent();
             menuStrip1.Renderer = new DarkThemeMenuRender();
             toolStrip1.Renderer = new DarkThemeMenuRender();
             tabControl1.DrawItem += new DrawItemEventHandler(DarkThemeTabControlRender.tabControl_DrawItem);
-
+            TabControl = new TabController(tabControl1);
             XF.CenterObject(firstOpenPanel1);
+
+  
+
+       
         }
 
         public void Destroy() {
             SMSC = true;
             this.Close();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -54,11 +64,7 @@ namespace ToyTwoToolbox {
         }
 
         private void nGNToolStripMenuItem_Click(object sender, EventArgs e) {
-            tabControl1.Visible = true;
-            tabControl1.TabPages.Add("New File");
-            T2Control_NGNEditor NewNGN = new T2Control_NGNEditor();
-            NewNGN.Dock = DockStyle.Fill;
-            tabControl1.TabPages[tabControl1.TabCount - 1].Controls.Add(NewNGN);
+            CreateFile(FileProcessor.FileTypes.NGN);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -76,6 +82,45 @@ namespace ToyTwoToolbox {
             } else {
                 e.Cancel = !SessionManager.SMptr.RedirectShutdown(LSID);
             }
+        }
+
+        private void toolStripButton5_Click(object sender, EventArgs e) {
+            XF.CenterObject(firstOpenPanel1);
+        }
+
+        private void nGNToolStripMenuItem1_Click(object sender, EventArgs e) {
+            nGNToolStripMenuItem.PerformClick();
+        }
+
+
+        public void ProcessFile(string str) {
+
+        }
+
+        /// <summary>
+        /// Create a new file within T2T <para/>
+        /// Tabs are linked to files, but files arent linked to tabs, allowing views to be duplicated
+        /// </summary>
+        public void CreateFile(FileProcessor.FileTypes fileType) {
+
+            firstOpenPanel1.Visible = false;
+            tabControl1.Visible = true;
+
+            F_Base file = FileProcessor.CreateFile(fileType, TabControl.CalculateUntitledTabName(fileType));
+            TabControl.CreateTab(file);
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
+
+        }
+
+        private void NewtoolStripSplitButton_ButtonClick(object sender, EventArgs e) {
+            CreateNewFile c = new CreateNewFile();
+            c.ShowDialog();
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e) {
+            CreateFile(FileProcessor.FileTypes.Save);
         }
     }
 }

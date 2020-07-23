@@ -169,7 +169,8 @@ namespace ToyTwoToolbox {
             //Draw a border around TabPage
             r.Inflate(3, 3);
             TabPage tp = TabPages[SelectedIndex];
-            SolidBrush PaintBrush = new SolidBrush(tp.BackColor);
+            SolidBrush PaintBrush = new SolidBrush(tp.BackColor); //TabControl Border
+            Pen PaintPen = new Pen(PaintBrush);
             e.Graphics.FillRectangle(PaintBrush, r);
             ControlPaint.DrawBorder(e.Graphics, r, PaintBrush.Color, ButtonBorderStyle.Outset);
             //Draw the Tabs
@@ -177,10 +178,28 @@ namespace ToyTwoToolbox {
                 tp = TabPages[index];
                 r = GetTabRect(index);
                 ButtonBorderStyle bs = ButtonBorderStyle.Outset;
-                if (index == SelectedIndex) bs = ButtonBorderStyle.Inset;
                 PaintBrush.Color = tp.BackColor;
-                e.Graphics.FillRectangle(PaintBrush, r);
-                ControlPaint.DrawBorder(e.Graphics, r, PaintBrush.Color, bs);
+                PaintPen.Color = PaintBrush.Color;
+                if (index == SelectedIndex) {
+                    //bs = ButtonBorderStyle.Outset;
+                    //Console.WriteLine(PaintBrush.Color);
+                    e.Graphics.FillRectangle(new SolidBrush(m_Backcolor), r);
+                    //e.Graphics.DrawLine(new Pen(PaintBrush.Color,1), new Point(r.Left, r.Top), new Point(r.Right, r.Top));
+                    //e.Graphics.DrawLine(new Pen(PaintBrush.Color, 1), new Point(r.Left, r.Bottom), new Point(r.Left, r.Top));
+
+
+                    //ControlPaint.DrawBorder(e.Graphics, r, PaintBrush.Color, bs,);
+
+
+                    ControlPaint.DrawBorder(e.Graphics, r, PaintBrush.Color, 1, ButtonBorderStyle.Outset, PaintBrush.Color, 1, ButtonBorderStyle.Outset, PaintBrush.Color, 1, ButtonBorderStyle.Inset, PaintBrush.Color, 0, ButtonBorderStyle.None);
+                } else {
+                    bs = ButtonBorderStyle.Inset;
+                    e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 0)), r);
+                    ControlPaint.DrawBorder(e.Graphics, r, PaintBrush.Color, bs);
+                }
+                //PaintBrush.Color = tp.BackColor;
+                //e.Graphics.FillRectangle(PaintBrush, r);
+                //ControlPaint.DrawBorder(e.Graphics, r, PaintBrush.Color, bs);
                 PaintBrush.Color = tp.ForeColor;
 
                 //Set up rotation for left and right aligned tabs
