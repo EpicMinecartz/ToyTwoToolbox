@@ -30,7 +30,6 @@ namespace ToyTwoToolbox {
         }
 
         public void HealthBarChanged(object sender, EventArgs e) {
-            toggleBuzzGod.Checked = false;
             fieldBuzzHealth.Value = t2Control_HealthMeter1.Health;
         }
 
@@ -46,7 +45,7 @@ namespace ToyTwoToolbox {
 
 
 
-        F_Save loadedSave = null; //THIS IS NOT A NEW SAVE IT IS A REFERENCE
+        F_Save loadedSave = null;
 
         /// <summary>
         /// [<seealso cref="Main.Unsafe"/>] This function does not do any saftey checks and you must contract integrity yourself
@@ -54,7 +53,6 @@ namespace ToyTwoToolbox {
         /// <param name="file">The file to load into the visual editor</param>
         public void LoadFile(F_Save save) {
             loadedSave = save;
-            //trackMusic.BackColor = XF.GetTransparentColor(this);
             this.fieldSaveName.Text = save.name;
             this.fieldBuzzLives.Value = save.lives;
             this.fieldBuzzHealth.Value = save.health;
@@ -65,25 +63,7 @@ namespace ToyTwoToolbox {
             trackMusic.Value = save.musicVolume;
             labelSoundVolume.Text = "Sound Volume: " + save.soundVolume.ToString();
             trackSound.Value = save.soundVolume;
-            fieldLastLevel.Value = save.lastlevel;
             fieldLevel.SelectedIndex = 0;
-        }
-
-        public bool SaveChanges(bool JustMemory = false, string path = "") {
-            loadedSave.name = this.fieldSaveName.Text;
-            loadedSave.lives = (int)this.fieldBuzzLives.Value;
-            loadedSave.health = (int)this.fieldBuzzHealth.Value;
-            loadedSave.health = (int)this.fieldBuzzHealth.Value;
-            loadedSave.cameratype = (radioCameraActive.Checked) ? 192 : 128;
-            loadedSave.musicVolume = trackMusic.Value;
-            loadedSave.soundVolume = trackSound.Value;
-            loadedSave.lastlevel = (int)fieldLastLevel.Value;
-            loadedSave.tokensraw = F_Save.ConvertBinTokensToRawTokens(loadedSave.tokens);
-            loadedSave.unlocksraw = F_Save.TokUnlockToInt(loadedSave.unlocks);
-            if (JustMemory == false) { 
-                return loadedSave.Export((path == null) ? loadedSave.FilePath : path); 
-            }
-            return false;
         }
 
         public void InvalidateTokenToggles() {
@@ -96,7 +76,7 @@ namespace ToyTwoToolbox {
             checkTokMyst.Checked = tokens[(int)Tokens.Mystery];
             checkTokBoss.Checked = tokens[(int)Tokens.Boss];
             toggleInvisibleTokens.Checked = tokens[(int)Tokens.Invis];
-            labelInvisTokens.Text = (tokens.IndexOf(true) < 5 && tokens.IndexOf(true) > -1) ? "Hide Tokens:" : "Unlock level without tokens:";
+            labelInvisTokens.Text = (tokens.IndexOf(true) == -1) ? "Unlock level\nwithout tokens:" : "Hide Tokens";
         }
 
         public void ToggleTokenStates(bool state, int tokenID = -1) {
@@ -136,16 +116,7 @@ namespace ToyTwoToolbox {
 
 
         private void T2Control_SaveEditor_Load(object sender, EventArgs e) {
-            fieldMovies.LargeImageList = SessionManager.GetMovieImageList();
-            fieldMovies.SmallImageList = SessionManager.GetMovieImageList();
-            List<string> MovieNames = new List<string>() { "Trailer (Always Enabled)", "Level 1 Intro", "Level 2 Intro", "Level 3 Bonus", "Level 4 Intro", "Level 5 Intro", "Level 6 Bonus", "Level 7 Intro", "Level 8 Intro", "Level 9 Bonus", "Level 10 Intro", "Level 11 Intro", "Level 12 Intro", "Level 12 Bonus", "Level 13 Intro", "Level 14 Intro", "Level 15 Bonus 1", "Level 15 Bonus 2", "End", "Unused 1", "Unused 2" };
-            for (int i = 1;i < fieldMovies.Items.Count;i++) {
-                ListViewItem mov = fieldMovies.Items[i];
-                mov.ImageIndex = i;
-                mov.Text = MovieNames[i];
-                mov.Checked = loadedSave.movies[i-1] == 1;
-            }
-            fieldMovies.Items[1].Checked = true;
+
         }
 
         private void t2Control_TextBox1_TextChanged(object sender, EventArgs e) {
@@ -177,11 +148,11 @@ namespace ToyTwoToolbox {
         }
 
         private void butSetSaveNameTL_Click(object sender, EventArgs e) {
-            fieldSaveName.Text = "TOK " + F_Save.GetTokenCount(F_Save.ConvertBinTokensToRawTokens(loadedSave.tokens)) + " LEV " + fieldLastLevel.Value.ToString();
+            fieldSaveName.Text = "Not IMPL";
         }
 
         private void fieldBuzzHealth_ValueChanged(object sender, EventArgs e) {
-            this.toggleBuzzGod.Checked = false;
+            this.toggleBuzzGod.Checked = fieldBuzzHealth.Value > 32766;
             this.t2Control_HealthMeter1.CalculateHealth((int)fieldBuzzHealth.Value);
         }
 
@@ -207,167 +178,6 @@ namespace ToyTwoToolbox {
 
         private void checkTokHamm_CheckedChanged(object sender, EventArgs e) {
 
-        }
-
-        private void groupBox8_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void labelMusicVolume_Click(object sender, EventArgs e) {
-
-        }
-
-        private void labelSoundVolume_Click(object sender, EventArgs e) {
-
-        }
-
-        private void radioCameraPassive_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e) {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void toggleInvisibleTokens_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void labelInvisTokens_Click(object sender, EventArgs e) {
-
-        }
-
-        private void checkEditAllLevels_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void checkTokBoss_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void checkTokMyst_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void checkTokRC_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void checkTokCollect_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e) {
-
-        }
-
-        private void groupBox4_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void fieldMovies_SelectedIndexChanged(object sender, EventArgs e) {
-            butMoviesLockSel.Enabled = (fieldMovies.SelectedIndices.Count > 0);
-            butMoviesLockSel.Enabled = (fieldMovies.SelectedIndices.Count > 0);
-
-        }
-
-        private void groupBox7_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e) {
-
-        }
-
-        private void t2Control_HealthMeter1_Load(object sender, EventArgs e) {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e) {
-
-        }
-
-        private void groupBox6_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void fieldBuzzLives_ValueChanged(object sender, EventArgs e) {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e) {
-
-        }
-
-        private void fieldSaveName_TextChanged(object sender, EventArgs e) {
-
-        }
-
-        private void radioCameraActive_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e) {
-
-        }
-
-        private void butUnlockUnlock_Click(object sender, EventArgs e) {
-
-        }
-
-        private void butUnlockLock_Click(object sender, EventArgs e) {
-
-        }
-
-        private void checkUnlockGrapple_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void checkUnlockHover_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void checkUnlockDisc_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void checkUnlockRocket_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void checkUnlockShield_CheckedChanged(object sender, EventArgs e) {
-
-        }
-
-        private void fieldMovies_ItemCheck(object sender, ItemCheckEventArgs e) {
-            if(e.Index == 0) { 
-                e.NewValue = CheckState.Checked; 
-            } else {
-                loadedSave.movies[e.Index-1] = Convert.ToInt32(e.NewValue);
-            }
-            
-            //butMoviesLockAll.Enabled = (fieldMovies.Items.Count == fieldMovies.CheckedIndices.Count);
-            //butMoviesUnlockAll.Enabled = (fieldMovies.CheckedIndices.Count == 0);
-        }
-
-        public void MovieButtonSelHandler(object sender, EventArgs e) {
-            foreach (ListViewItem item in fieldMovies.SelectedItems) {
-                item.Checked = (Button)sender == butMoviesUnlockSel;
-            }
-        }
-
-        public void MovieAllButtonHandler(object sender, EventArgs e) {
-            foreach (ListViewItem item in fieldMovies.Items) {
-                item.Checked = (Button)sender == butMoviesUnlockAll;
-            }
         }
     }
 }

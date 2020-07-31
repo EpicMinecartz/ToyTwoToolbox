@@ -38,6 +38,7 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,9 @@
     <Compile Include="CreateNewFile.Designer.cs">
       <DependentUpon>CreateNewFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extension_List.cs" />
+    <Compile Include="FileReader.cs" />
+    <Compile Include="FileWriter.cs" />
     <Compile Include="F_Base.cs" />
     <Compile Include="F_NGN.cs" />
     <Compile Include="FileProcessor.cs" />
@@ -110,26 +114,48 @@
     <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\VertexParser.cs" />
     <Compile Include="F_Save.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="MessageFade.cs" />
+    <Compile Include="T2Control_Checkbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Toggle.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Patch.cs" />
     <Compile Include="Primitive.cs" />
     <Compile Include="RawPrimPatchContainer.cs" />
     <Compile Include="Shape.cs" />
+    <Compile Include="T2Control_HealthMeter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_HealthMeter.Designer.cs">
+      <DependentUpon>T2Control_HealthMeter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="T2Control_Label.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="T2Control_SaveEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="T2Control_SaveEditor.Designer.cs">
       <DependentUpon>T2Control_SaveEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="T2Control_TextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="T2Control_TextBox.Designer.cs">
+      <DependentUpon>T2Control_TextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="T2TTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DarkThemeMenuRender.cs" />
     <Compile Include="DarkThemeTabControlRender.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,8 +183,14 @@
     <EmbeddedResource Include="FirstOpenPanel.resx">
       <DependentUpon>FirstOpenPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="T2Control_Checkbox.resx">
+      <DependentUpon>T2Control_Checkbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Toggle.resx">
+      <DependentUpon>Toggle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -173,11 +205,17 @@
     <EmbeddedResource Include="SessionManager.resx">
       <DependentUpon>SessionManager.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_HealthMeter.resx">
+      <DependentUpon>T2Control_HealthMeter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="T2Control_NGNEditor.resx">
       <DependentUpon>T2Control_NGNEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="T2Control_SaveEditor.resx">
       <DependentUpon>T2Control_SaveEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_TextBox.resx">
+      <DependentUpon>T2Control_TextBox.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="CjClutter.ObjLoader.Loader\CjClutter.ObjLoader.Loader.csproj" />
     <None Include="Properties\Settings.settings">
@@ -207,6 +245,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\T2T\aclui_126.png" />
+    <None Include="Resources\t2font.png" />
+    <None Include="Resources\T2Image_SaveUnlockShield.png" />
+    <None Include="Resources\T2Image_SaveUnlockRocket.png" />
+    <None Include="Resources\T2Image_SaveUnlockDisc.png" />
+    <None Include="Resources\T2Image_SaveUnlockHover.png" />
+    <None Include="Resources\T2Image_SaveUnlockGrapple.png" />
+    <None Include="Resources\T2Image_saveTokenHamm.png" />
+    <None Include="Resources\T2Image_SaveTokenCollectable.png" />
+    <None Include="Resources\T2Image_SaveTokenRace.png" />
+    <None Include="Resources\T2Image_SaveTokenSecret.png" />
+    <None Include="Resources\T2Image_SaveTokenBoss.png" />
+    <None Include="Resources\T2Image_SaveLives.png" />
+    <None Include="Resources\T2Image_SaveLifeBar.png" />
+    <None Include="Resources\T2Image_SaveLife.png" />
+    <None Include="Resources\T2Image_MovieImages.png" />
+    <None Include="Resources\T2Image_TokenAnim.gif" />
     <Content Include="t2tbicon_XSz_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

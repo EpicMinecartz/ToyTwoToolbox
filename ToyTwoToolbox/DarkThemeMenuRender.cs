@@ -53,11 +53,11 @@ namespace ToyTwoToolbox {
 		} 
 
 		protected override void OnRenderArrow(ToolStripArrowRenderEventArgs e) {
-			if (e.Item is ToolStripDropDownItem) {
-				e.ArrowColor = DarkTheme_UI_Text;
-			}
-			base.OnRenderArrow(e);
-		}
+            if (e.Item is ToolStripDropDownItem) {
+                e.ArrowColor = DarkTheme_UI_Text;
+            }
+            base.OnRenderArrow(e);
+        }
 
 
 		private void RenderSeparatorInternal1(Graphics g, ToolStripItem item, Rectangle bounds, bool vertical) {
@@ -220,29 +220,27 @@ namespace ToyTwoToolbox {
 			//                bounds)
 		}
 
-		protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e) {
+        protected override void OnRenderSplitButtonBackground(ToolStripItemRenderEventArgs e) {
+            base.OnRenderSplitButtonBackground(e);
+            DrawArrow(new ToolStripArrowRenderEventArgs(e.Graphics, e.Item as ToolStripSplitButton, ((ToolStripSplitButton)e.Item).DropDownButtonBounds, Color.FromArgb(240,240,240), ArrowDirection.Down));
+            //ToolStripSplitButton btn = e.Item as ToolStripSplitButton;
+            //Rectangle rc = btn.DropDownButtonBounds;
+            ////base.DrawArrow(new ToolStripArrowRenderEventArgs(e.Graphics, e.Item, rc, Color.Black, ArrowDirection.Right));
+            //    int x = rc.Left + rc.Width - 8;
+            //    int y = rc.Top + rc.Height / 2;
+            //    Point[] arrow = new Point[3];
+            //    arrow[0] = new Point(x, y - 5);
+            //    arrow[1] = new Point(x + 6, y);
+            //    arrow[2] = new Point(x, y + 5);
+            //    e.Graphics.FillPolygon(Brushes.Black, arrow);
+        }
+
+        public void DrawArrow(ToolStripArrowRenderEventArgs e) {
+            OnRenderArrow(e);
+        }
+
+        protected override void OnRenderToolStripBorder(ToolStripRenderEventArgs e) {
 
 		}
-
-		//======================
-
-		protected override void OnRenderImageMargin(ToolStripRenderEventArgs e) { }
-
-		protected override void OnRenderToolStripPanelBackground(ToolStripPanelRenderEventArgs e) { }
-
-
-		protected override void OnRenderToolStripContentPanelBackground(ToolStripContentPanelRenderEventArgs e) { }
-
-
-
-
-
-
-
-
-
-
-
-
-		}
+	}
 }

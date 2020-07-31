@@ -8,25 +8,40 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
-    public partial class FirstOpenPanel : UserControl {
-		Form1 Parent;
+
+
+
+	public partial class FirstOpenPanel : UserControl {
+
+		public event EventHandler OpenFile;
+		private void OnOpenFile(FOPEA e) {
+			if (OpenFile != null) {
+				OpenFile(this, e);
+			}
+		}
+
+		public event EventHandler CreateFile;
+		private void OnCreateFile(FOPEA e) {
+			if (CreateFile != null) {
+				CreateFile(this, e);
+			}
+		}
+
+
+		Form Parent;
         public FirstOpenPanel() {
             InitializeComponent();
+			
         }
 
-
-
         private void FirstOpenPanel_Load(object sender, EventArgs e) {
-			Parent = (Form1)(((FirstOpenPanel)sender).ParentForm);
+			Parent = ((FirstOpenPanel)sender).ParentForm;
             foreach (LinkLabel LL in XF.GetControlsOfType<LinkLabel>(this)) {
 				LL.MouseEnter += linkLabels_MouseEnter;
 				LL.MouseLeave += linkLabels_MouseLeave;
 			}
             panel1.Size = new Size(this.Width, this.Height);
 			panel1.Location = new Point(panel1.Location.X-panel1.Width, panel1.Location.Y); //this.Location.X - this.Width
-			//panel1.Location = new Point(this.Location.X, this.Location.Y); //this.Location.X - this.Width
-
-
 		}
 
         private void timer1_Tick(object sender, EventArgs e) {
@@ -49,7 +64,6 @@ namespace ToyTwoToolbox {
 			} else {
 				((UIA)panel1.Tag).ReverseAnimation(true);
 			}
-			
 			timer1.Start();
         }
 
@@ -66,14 +80,24 @@ namespace ToyTwoToolbox {
 		}
 
         private void LLopenFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-			OpenFileDialog OFD = new OpenFileDialog();
-			if (OFD.ShowDialog() == DialogResult.OK) {
-				Parent.ProcessFile(OFD.FileName);
-            }
-        }
+			OnOpenFile(new FOPEA(""));
+		}
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-			Parent.CreateFile(FileProcessor.FileTypes.NGN);
+			OnCreateFile(new FOPEA(FileType: FileProcessor.FileTypes.NGN));
+		}
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+			OnCreateFile(new FOPEA(FileType: FileProcessor.FileTypes.Save));
 		}
     }
+
+	public class FOPEA : EventArgs {
+		public string _FilePath;
+		public FileProcessor.FileTypes _FileType;
+		public FOPEA(string FilePath = null, FileProcessor.FileTypes FileType = FileProcessor.FileTypes.NULL) {
+			_FilePath = FilePath;
+			_FileType = FileType;
+		}
+	}
 }

@@ -118,22 +118,70 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="T2Image_SaveTokenBoss" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveTokenBoss.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\Default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="T2Image_SaveUnlockShield" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveUnlockShield.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Refresh_32x" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\ntid\Refresh_32x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="T2Image_SaveTokenSecret" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveTokenSecret.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="aclui_126" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\T2T\aclui_126.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveAs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\SaveAs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="T2Image_saveTokenHamm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_saveTokenHamm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_SaveUnlockDisc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveUnlockDisc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Refresh_32x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\ntid\Refresh_32x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_SaveUnlockHover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveUnlockHover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Default" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\Default.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="t2font" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\t2font.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="BuzzFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\T2T\BuzzFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="aclui_126" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\T2T\aclui_126.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="T2Image_SaveTokenRace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveTokenRace.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_SaveTokenCollectable" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveTokenCollectable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_SaveLifeBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveLifeBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_SaveUnlockGrapple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveUnlockGrapple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_SaveUnlockRocket" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveUnlockRocket.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_SaveLives" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveLives.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_SaveLife" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_SaveLife.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_MovieImages" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_MovieImages.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="T2Image_TokenAnim" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\T2Image_TokenAnim.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -9,12 +9,10 @@ namespace ToyTwoToolbox {
     /// <summary>
     /// This is the fileformat definition for NGN files
     /// </summary>
-    class F_NGN : F_Base {
+    public class F_NGN : F_Base {
         public FileProcessor.FileTypes FileType { get; } = FileProcessor.FileTypes.NGN;
         private string tempName;
         public string TempName { get => tempName; set => tempName = value; }
-        private string fileName;
-        public string FileName { get => fileName; set => fileName = value; }
         private string filePath;
         public string FilePath { get => filePath; set => filePath = value; }
 
@@ -22,7 +20,15 @@ namespace ToyTwoToolbox {
 
         }
 
-        public void save(string path) {
+        public static F_NGN ImportNGN(string path) {
+            return null;
+        }
+
+        public F_Base Import(string path) {
+            return ImportNGN(path);
+        }
+
+        public bool Export(string path) {
             throw new NotImplementedException();
         }
     }

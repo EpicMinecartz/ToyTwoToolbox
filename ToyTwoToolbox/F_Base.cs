@@ -7,11 +7,11 @@ namespace ToyTwoToolbox {
     public interface F_Base {
         //Type FileType { get; }
         FileProcessor.FileTypes FileType { get; }
-        string FileName { get; set; }
         string TempName { get; set; }
         string FilePath { get; set; }
 
-        void save(string path);
+        F_Base Import(string path);
+        bool Export(string path = "");
 
     }
 }

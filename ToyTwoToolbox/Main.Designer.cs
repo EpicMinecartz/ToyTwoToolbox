@@ -1,5 +1,5 @@
 ﻿namespace ToyTwoToolbox {
-    partial class Form1 {
+    partial class Main {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -23,7 +23,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -33,6 +34,7 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +67,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new ToyTwoToolbox.T2TTabControl();
             this.firstOpenPanel1 = new ToyTwoToolbox.FirstOpenPanel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -94,6 +97,7 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.reloadFileToolStripMenuItem,
+            this.closeFileToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
@@ -115,14 +119,14 @@
             // nGNToolStripMenuItem
             // 
             this.nGNToolStripMenuItem.Name = "nGNToolStripMenuItem";
-            this.nGNToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nGNToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.nGNToolStripMenuItem.Text = "&NGN";
             this.nGNToolStripMenuItem.Click += new System.EventHandler(this.nGNToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem1
             // 
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem1.Text = "&Save";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
             // 
@@ -133,6 +137,7 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.openToolStripMenuItem.Text = "&Open...";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -141,6 +146,7 @@
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
@@ -158,6 +164,14 @@
             this.reloadFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.reloadFileToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.reloadFileToolStripMenuItem.Text = "&Reload File";
+            // 
+            // closeFileToolStripMenuItem
+            // 
+            this.closeFileToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.aclui_126;
+            this.closeFileToolStripMenuItem.Name = "closeFileToolStripMenuItem";
+            this.closeFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.closeFileToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.closeFileToolStripMenuItem.Text = "&Close File";
             // 
             // toolStripSeparator1
             // 
@@ -380,6 +394,7 @@
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton2.Text = "Save selected file";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripButton3
             // 
@@ -390,6 +405,7 @@
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton3.Text = "Save selected file as...";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // toolStripButton4
             // 
@@ -425,13 +441,14 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(993, 562);
-            this.tabControl1.TabIndex = 5;
+            this.tabControl1.TabIndex = 3;
             // 
             // firstOpenPanel1
             // 
@@ -441,8 +458,9 @@
             this.firstOpenPanel1.Name = "firstOpenPanel1";
             this.firstOpenPanel1.Size = new System.Drawing.Size(580, 115);
             this.firstOpenPanel1.TabIndex = 5;
+            this.firstOpenPanel1.Load += new System.EventHandler(this.firstOpenPanel1_Load);
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -455,10 +473,13 @@
             this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(600, 400);
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "Toy Two Toolbox";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.form1_Closing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.DragLeave += new System.EventHandler(this.Form1_DragLeave);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -507,13 +528,15 @@
         private System.Windows.Forms.ToolStripSplitButton NewtoolStripSplitButton;
         private System.Windows.Forms.ToolStripMenuItem nGNToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem2;
-        private T2TTabControl tabControl1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
         private FirstOpenPanel firstOpenPanel1;
+        private T2TTabControl tabControl1;
+        private System.Windows.Forms.ToolStripMenuItem closeFileToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

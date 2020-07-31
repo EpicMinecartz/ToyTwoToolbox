@@ -119,5 +119,165 @@ namespace ToyTwoToolbox.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap t2font {
+            get {
+                object obj = ResourceManager.GetObject("t2font", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_MovieImages {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_MovieImages", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveLife {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveLife", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveLifeBar {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveLifeBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveLives {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveLives", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveTokenBoss {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveTokenBoss", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveTokenCollectable {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveTokenCollectable", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_saveTokenHamm {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_saveTokenHamm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveTokenRace {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveTokenRace", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveTokenSecret {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveTokenSecret", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveUnlockDisc {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveUnlockDisc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveUnlockGrapple {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveUnlockGrapple", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveUnlockHover {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveUnlockHover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveUnlockRocket {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveUnlockRocket", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_SaveUnlockShield {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_SaveUnlockShield", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap T2Image_TokenAnim {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_TokenAnim", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

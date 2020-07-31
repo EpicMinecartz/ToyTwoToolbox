@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ToyTwoToolbox.Properties;
 
 namespace ToyTwoToolbox {
 	public partial class SessionManager : Form {
@@ -23,6 +24,10 @@ namespace ToyTwoToolbox {
 		}
 
 
+		public static void ReportException() {
+
+        }
+
 		//Any Variables here are accessable via other forms
 
 		//<Runtime.InteropServices.DllImport("kernel32.dll")>
@@ -36,30 +41,24 @@ namespace ToyTwoToolbox {
 
 
 
-
-
-
-
+		public List<string> BT = new List<string>() { "a", "b", "rc" };
+		public Version ver2 = typeof(SessionManager).Assembly.GetName().Version;
+		public bool RequestingShutdown = false;
+		public List<EC> EDict = new List<EC>();
+		public bool ClientActive = false;
+		public Form MainSession = new Form();
+		public string MainArg = null;
+		public List<Form> SessionPool = new List<Form>();
+		public Int16 TEC = 0;
 
 		//SYSTEM WIDE GLOBAL VARIABLES
 		public static SessionManager SMptr;
-		public List<string> BT = new List<string>() { "a", "b", "rc" };
-		public Version ver2 = typeof(SessionManager).Assembly.GetName().Version;
-		//INSTANT C# TODO TASK: Instance fields cannot be initialized using other instance fields in C#:
-		//ORIGINAL LINE: Public Ver As String = ver2.ToString.Remove(ver2.ToString.Length - 2, 2) & BT.Item(ver2.Revision)
 		public static string ver = null;
-		public bool RequestingShutdown = false;
 		public static bool Debug = false;
 		public static bool PrintMessages = false;
-		public List<EC> EDict = new List<EC>();
-		public bool ClientActive = false;
-		public List<Form> SessionPool = new List<Form>();
-		public Form MainSession = new Form();
-		public string MainArg = null;
-
+		//we have a list of variables that we create once, only if required to save on memory and performance overhead
+		public static ImageList MovieImageList; //SMptr.GetMovieList
 		//public List<float> Sine = WARP3D.NU3D.GenerateSine();
-
-		public Int16 TEC = 0;
 
 #if DEBUG
 		private bool DebugA = true;
@@ -214,7 +213,7 @@ namespace ToyTwoToolbox {
 					SM("SM:POOL > Session pool is empty!", "[FATAL]", Color.FromArgb(255, 0, 0));
 					SM("SM:POOL > Unable to migrate session host!", "[FATAL]", Color.FromArgb(255, 0, 0));
 				} else {
-					Form1 CMain = (Form1)SessionPool[SessionPool.Count - 1];
+					Main CMain = (Main)SessionPool[SessionPool.Count - 1];
 					if (!(CMain.LSID == SessionPool.Count - 1)) {
 						ReRegisterSessions();
 					}
@@ -229,7 +228,7 @@ namespace ToyTwoToolbox {
 		}
 
 		private Form CreateNewSession(string StartupParam = "", bool ForceDebug = false, int SessionPoolID = 0) {
-			Form1 NM = new Form1();
+			Main NM = new Main();
 			try {
 				if (SessionPoolID == 0) {
 					SessionPool.Add(NM);
@@ -250,7 +249,7 @@ namespace ToyTwoToolbox {
 		}
 
 		private Form ReloadSession(int SessionID) {
-			Form1 Session = (Form1)SessionPool[SessionID];
+			Main Session = (Main)SessionPool[SessionID];
 			bool SessionDebug = Session.Debug;
 
 			DestroySession(SessionID, true);
@@ -265,7 +264,7 @@ namespace ToyTwoToolbox {
 		public bool ReRegisterSessions() {
 			SM("SM:POOL > Reconfiguring session state...", "");
 			for (var i = 0;i < SessionPool.Count;i++) {
-				Form1 Session = (Form1)SessionPool[i];
+				Main Session = (Main)SessionPool[i];
 				Session.wlid = GenerateWLID(i);
 				Session.LSID = i;
 				Session.Text = "Toy 2 Toobox" + ((i > 0) ? i.ToString() : ""); //should be split at : and get old title, then reappend
@@ -286,7 +285,7 @@ namespace ToyTwoToolbox {
 
 		public bool RedirectShutdown(int LocalID, bool RetainExecution = false, bool Obliterate = false) {
 			try {
-				Form1 Session = (Form1)SessionPool[LocalID];
+				Main Session = (Main)SessionPool[LocalID];
 				bool Destroy = false;
 
 				if (Obliterate == true) {
@@ -423,5 +422,27 @@ namespace ToyTwoToolbox {
         private void ErrorDisplay_Click(object sender, EventArgs e) {
 			//EL.ELPopulate(EDict);
 		}
+
+		public static ImageList GetMovieImageList() {
+			if (MovieImageList == null) {
+                ImageList MIL = new ImageList {
+                    ImageSize = new Size(64, 64),
+                    ColorDepth = ColorDepth.Depth32Bit
+                };
+                for (int i = 0;i < Resources.T2Image_MovieImages.Height / 64;i++) {
+					Bitmap cloneBitmap = Resources.T2Image_MovieImages.Clone(
+											new Rectangle {
+												Width = 64,
+												Height = 64,
+												X = 0,
+												Y = i*64
+											}, Resources.T2Image_MovieImages.PixelFormat);
+					MIL.Images.Add(cloneBitmap);
+                }
+				return MIL;
+            }
+			return MovieImageList;
+		}
+
 	}
 }

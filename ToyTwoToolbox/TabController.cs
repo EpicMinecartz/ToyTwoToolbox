@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,21 +12,21 @@ namespace ToyTwoToolbox {
     /// </summary>
     public class TabController {
         TabControl TabContainer;
-        List<TCTab> Tabs = new List<TCTab>();
+        public List<TCTab> Tabs = new List<TCTab>();
         List<string> TabPaths = new List<string>();
         public TabController(TabControl target) {
             TabContainer = target;
         }
 
         public void CreateTab(F_Base file, string tabNameOverride = "") {
-            string tabName = (file.FileName == null) ? file.TempName : file.FileName;
+            string tabName = (file.FilePath == null) ? file.TempName : System.IO.Path.GetFileNameWithoutExtension(file.FilePath);
             if (tabNameOverride != "") {
                 tabName = CalculateTabName(file);
             }
 
             TabPage TP = new TabPage(tabName);
 
-            TCTab tc = new TCTab { name = tabName, file = file, tabpage = TP };
+            TCTab tc = new TCTab { Name = tabName, File = file, tabpage = TP };
             Tabs.Add(tc);
             TabPaths.Add(file.FilePath);
 
@@ -33,12 +34,14 @@ namespace ToyTwoToolbox {
 
 
             //now we add the correct controls to the tab
-            if (tc.file.FileType == FileProcessor.FileTypes.NGN) {
-                T2Control_NGNEditor NGNEditor = new T2Control_NGNEditor();
-                tc.tabpage.Controls.Add(NGNEditor);
-            } if (tc.file.FileType == FileProcessor.FileTypes.Save) {
-                T2Control_SaveEditor SaveEditor = new T2Control_SaveEditor();
-                tc.tabpage.Controls.Add(SaveEditor);
+            //quick note for all you guys that arent me
+            //yes its fucky, i know, but its done now, want to rewrite how it works? sure, but make sure everything else works
+            //to put it in tl;dr land, here we see what type of file we are dealing with, and add an editor to the TCTab we made above
+            //literally, we just register it inside the TCTab and then add it to it's associated tab page, take a look 0_0
+            if (tc.File.FileType == FileProcessor.FileTypes.NGN) {
+                tc.ImplementEditor(new T2Control_NGNEditor((F_NGN)file));
+            } if (tc.File.FileType == FileProcessor.FileTypes.Save) {
+                tc.ImplementEditor(new T2Control_SaveEditor((F_Save)file));
             }
 
 
@@ -48,7 +51,7 @@ namespace ToyTwoToolbox {
         public string CalculateUntitledTabName(FileProcessor.FileTypes fileType) {
             int unnamedCount = 0;
             foreach (TCTab tc in Tabs) {
-                if (tc.file.FileType == fileType && tc.file.FileName == null) {
+                if (tc.File.FileType == fileType && tc.File.FilePath == null) {
                     unnamedCount++;
                 }
             }
@@ -63,7 +66,7 @@ namespace ToyTwoToolbox {
             if (Tabs.Count > 0) {
                 int clonecount = 0;
                 foreach (TCTab tc in Tabs) {
-                    if (tc.file.FilePath == file.FilePath) {
+                    if (tc.File.FilePath == file.FilePath) {
                         clonecount++;
                     }
                 }
@@ -77,10 +80,28 @@ namespace ToyTwoToolbox {
         /// A TCTab holds the tab information for each opened file, thus the tab.
         /// </summary>
         public class TCTab {
-            public string name;
-            public F_Base file;
+            public string Name;
+            public F_Base File;
             public bool isClone = false;
+            public UserControl editor;
             public TabPage tabpage;
+
+            public void ImplementEditor(UserControl editorControl) {
+                editor = editorControl;
+                tabpage.Controls.Add(editorControl);
+                if (editorControl is T2Control_SaveEditor) {
+
+                }
+            }
+
+            //call this to save the the loaded file in the selected tab based on the editor, not the file direct
+            public void Save(string path) {
+                if (editor is T2Control_SaveEditor) {
+                    if (((T2Control_SaveEditor)editor).SaveChanges(false, path) == true ) {
+                        tabpage.Text = System.IO.Path.GetFileNameWithoutExtension(File.FilePath);
+                    }
+                }
+            }
         }
 
     }
