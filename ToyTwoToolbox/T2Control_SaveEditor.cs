@@ -59,6 +59,7 @@ namespace ToyTwoToolbox {
             this.fieldBuzzLives.Value = save.lives;
             this.fieldBuzzHealth.Value = save.health;
             this.t2Control_HealthMeter1.Health = save.health;
+            this.t2Control_HealthMeter1.CalculateHealth(save.health);
             this.toggleBuzzGod.Checked = save.health > 32766;
             radioCameraActive.Checked = (save.cameratype == (int)F_Save.CameraType.active);
             labelMusicVolume.Text = "Music Volume: " + save.musicVolume.ToString();
@@ -67,21 +68,32 @@ namespace ToyTwoToolbox {
             trackSound.Value = save.soundVolume;
             fieldLastLevel.Value = save.lastlevel;
             fieldLevel.SelectedIndex = 0;
+            fieldMovies.Items[0].Checked = true;
         }
 
         public bool SaveChanges(bool JustMemory = false, string path = "") {
-            loadedSave.name = this.fieldSaveName.Text;
-            loadedSave.lives = (int)this.fieldBuzzLives.Value;
-            loadedSave.health = (int)this.fieldBuzzHealth.Value;
-            loadedSave.health = (int)this.fieldBuzzHealth.Value;
-            loadedSave.cameratype = (radioCameraActive.Checked) ? 192 : 128;
-            loadedSave.musicVolume = trackMusic.Value;
-            loadedSave.soundVolume = trackSound.Value;
-            loadedSave.lastlevel = (int)fieldLastLevel.Value;
-            loadedSave.tokensraw = F_Save.ConvertBinTokensToRawTokens(loadedSave.tokens);
-            loadedSave.unlocksraw = F_Save.TokUnlockToInt(loadedSave.unlocks);
-            if (JustMemory == false) { 
-                return loadedSave.Export((path == null) ? loadedSave.FilePath : path); 
+            if (path == "" || path == null) {
+                SaveFileDialog SFD = new SaveFileDialog {
+                    DefaultExt = ".sav",
+                    Filter = "T2 Save (.sav)|*.sav|All files (*.*)|*.*",
+                    FileName = (loadedSave.FilePath == null) ? loadedSave.TempName : System.IO.Path.GetFileNameWithoutExtension(loadedSave.FilePath)
+                };
+                if (SFD.ShowDialog() == DialogResult.OK) {
+                    path = SFD.FileName;
+                    loadedSave.name = this.fieldSaveName.Text;
+                    loadedSave.lives = (int)this.fieldBuzzLives.Value;
+                    loadedSave.health = (int)this.fieldBuzzHealth.Value;
+                    loadedSave.health = (int)this.fieldBuzzHealth.Value;
+                    loadedSave.cameratype = (radioCameraActive.Checked) ? 192 : 128;
+                    loadedSave.musicVolume = trackMusic.Value;
+                    loadedSave.soundVolume = trackSound.Value;
+                    loadedSave.lastlevel = (int)fieldLastLevel.Value;
+                    loadedSave.tokensraw = F_Save.ConvertBinTokensToRawTokens(loadedSave.tokens);
+                    loadedSave.unlocksraw = F_Save.TokUnlockToInt(loadedSave.unlocks);
+                    if (JustMemory == false) { 
+                        return loadedSave.Export((path == null) ? loadedSave.FilePath : path); 
+                    }
+                }
             }
             return false;
         }
@@ -115,12 +127,12 @@ namespace ToyTwoToolbox {
         }
 
         public void ToggleUnlockStates(bool state, int unlockID = -1) {
-            if (unlockID != -1) {
+            if (unlockID == -1) {
                 loadedSave.unlocks = (List<bool>)XF.GenerateListData<bool>(1, 5, state);
             } else {
                 loadedSave.unlocks[unlockID] = state;
             }
-            InvalidateTokenToggles();
+            InvalidateUnlockToggles();
         }
 
 
@@ -136,6 +148,15 @@ namespace ToyTwoToolbox {
 
 
         private void T2Control_SaveEditor_Load(object sender, EventArgs e) {
+            this.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, this, new object[] { true });
+            groupBox1.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, groupBox1, new object[] { true });
+            groupBox2.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, groupBox2, new object[] { true });
+            groupBox3.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, groupBox3, new object[] { true });
+            groupBox4.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, groupBox4, new object[] { true });
+            groupBox5.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, groupBox5, new object[] { true });
+            groupBox6.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, groupBox6, new object[] { true });
+            groupBox7.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, groupBox7, new object[] { true });
+            groupBox8.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, groupBox8, new object[] { true });
             fieldMovies.LargeImageList = SessionManager.GetMovieImageList();
             fieldMovies.SmallImageList = SessionManager.GetMovieImageList();
             List<string> MovieNames = new List<string>() { "Trailer (Always Enabled)", "Level 1 Intro", "Level 2 Intro", "Level 3 Bonus", "Level 4 Intro", "Level 5 Intro", "Level 6 Bonus", "Level 7 Intro", "Level 8 Intro", "Level 9 Bonus", "Level 10 Intro", "Level 11 Intro", "Level 12 Intro", "Level 12 Bonus", "Level 13 Intro", "Level 14 Intro", "Level 15 Bonus 1", "Level 15 Bonus 2", "End", "Unused 1", "Unused 2" };
@@ -146,6 +167,13 @@ namespace ToyTwoToolbox {
                 mov.Checked = loadedSave.movies[i-1] == 1;
             }
             fieldMovies.Items[1].Checked = true;
+            Resize += Form1_Resize;
+            this.SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.SupportsTransparentBackColor, true);
+
+        }
+
+        private void Form1_Resize(object sender, System.EventArgs e) {
+            this.Update();
         }
 
         private void t2Control_TextBox1_TextChanged(object sender, EventArgs e) {
@@ -320,11 +348,11 @@ namespace ToyTwoToolbox {
         }
 
         private void butUnlockUnlock_Click(object sender, EventArgs e) {
-
+            ToggleUnlockStates(true);
         }
 
         private void butUnlockLock_Click(object sender, EventArgs e) {
-
+            ToggleUnlockStates(false);
         }
 
         private void checkUnlockGrapple_CheckedChanged(object sender, EventArgs e) {

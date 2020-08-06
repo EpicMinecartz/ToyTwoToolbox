@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace ToyTwoToolbox {
 
@@ -24,14 +25,17 @@ namespace ToyTwoToolbox {
 
         public Main() {
             InitializeComponent();
+            TabControl = new TabController(tabControl1);
+            tabControl1.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, tabControl1, new object[] { true });
             menuStrip1.Renderer = new DarkThemeMenuRender();
             toolStrip1.Renderer = new DarkThemeMenuRender();
             tabControl1.DrawItem += new DrawItemEventHandler(DarkThemeTabControlRender.tabControl_DrawItem);
+            tabControl1.TabRequestDestroy += new TabRequestDestroyEventHandler(TabControl.TabRequestDestroy);
             this.firstOpenPanel1.OpenFile += new EventHandler(FOPM);
             this.firstOpenPanel1.CreateFile += new EventHandler(FOPM);
-            TabControl = new TabController(tabControl1);
+            
             XF.CenterObject(firstOpenPanel1);
-            MessageFader = new MessageFade();
+            MessageFader = new MessageFade(this);
         }
 
         public void FOPM(object sender, EventArgs e) {
@@ -60,6 +64,7 @@ namespace ToyTwoToolbox {
             foreach (string file in files) {
                 OpenFile(file);
             }
+            MessageFader.FadeOut();
         }
 
         private void Form1_DragLeave(object sender, EventArgs e) {
@@ -121,7 +126,7 @@ namespace ToyTwoToolbox {
         }
 
         private void toolStripButton5_Click(object sender, EventArgs e) {
-            XF.CenterObject(firstOpenPanel1);
+            closeFileToolStripMenuItem.PerformClick();
         }
 
         private void nGNToolStripMenuItem1_Click(object sender, EventArgs e) {
@@ -137,14 +142,15 @@ namespace ToyTwoToolbox {
             firstOpenPanel1.Visible = false;
             tabControl1.Visible = true;
 
-            F_Base file = FileProcessor.CreateFile(fileType, TabControl.CalculateUntitledTabName(fileType));
+            F_Base file = FileProcessor.CreateFile(fileType, TabControl);
             TabControl.CreateTab(file);
         }
 
         public void OpenFile(string path = "") {
-
             if (path == "") {
-                OpenFileDialog OFD = new OpenFileDialog();
+                OpenFileDialog OFD = new OpenFileDialog {
+                    Filter = "T2T Files | *.NGN;*.SAV|Level File | *.NGN|Save File | *.SAV|All files (*.*)|*.*"
+                };
                 if (OFD.ShowDialog() == DialogResult.OK) {
                     path = OFD.FileName;
                 }
@@ -188,12 +194,6 @@ namespace ToyTwoToolbox {
         }
 
         public void SaveFile(string path = "") {
-            if (path == "" || path == null) {
-                SaveFileDialog SFD = new SaveFileDialog();
-                if (SFD.ShowDialog() == DialogResult.OK) {
-                    path = SFD.FileName;
-                }
-            }
             //TabControl.Tabs[tabControl1.SelectedIndex].File.Export(path);
             TabControl.Tabs[tabControl1.SelectedIndex].Save(path);
         }
@@ -202,6 +202,15 @@ namespace ToyTwoToolbox {
             SaveFile();
         }
 
+        private void toolStripButton1_Click(object sender, EventArgs e) {
+            openToolStripMenuItem.PerformClick();
+        }
 
+        private void closeFileToolStripMenuItem_Click(object sender, EventArgs e) {
+            DialogResult msg = MessageBox.Show("Are you sure you want to close this file?", "Close?", MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+            if (msg == DialogResult.Yes) {
+                TabControl.CloseTab();
+            }
+        }
     }
 }

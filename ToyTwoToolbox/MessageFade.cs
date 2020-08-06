@@ -121,7 +121,7 @@ namespace ToyTwoToolbox {
 
 		public object FadeIn(Form ParentForReposition = null) {
 
-			Overlay.Show(ParentForReposition);
+			if (Overlay.Visible == true) { Overlay.Show(ParentForReposition); }
 			//If ParentForReposition IsNot Nothing Then Reposition(ParentForReposition) : ParentForReposition.Focus() Else Reposition(Overlay.Owner) : Overlay.Owner.Focus()
 			if (ParentForReposition != null) {
 				Reposition(ParentForReposition);
@@ -130,7 +130,7 @@ namespace ToyTwoToolbox {
 			}
 			//Overlay.BringToFront()
 			if (Overlay.Opacity > 0) {
-				MessageBox.Show("opr not ready for inst");
+				//MessageBox.Show("opr not ready for inst");
 			}
 			FadingIn = true;
 			Renderer.Start();
@@ -177,7 +177,7 @@ namespace ToyTwoToolbox {
 			BackColor = Color.Black,
 			ForeColor = Color.White,
 			Font = new Font("Segoe UI Light", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (System.Byte)((0))),
-			OpacityMax = 0.5,
+			OpacityMax = 0.8,
 			OpacityMin = 0.0
 		};
 

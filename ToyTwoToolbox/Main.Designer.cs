@@ -66,8 +66,8 @@
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new ToyTwoToolbox.T2TTabControl();
-            this.firstOpenPanel1 = new ToyTwoToolbox.FirstOpenPanel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.firstOpenPanel1 = new ToyTwoToolbox.FirstOpenPanel();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -76,6 +76,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.AllowDrop = true;
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
@@ -87,6 +88,9 @@
             this.menuStrip1.Size = new System.Drawing.Size(993, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.menuStrip1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.menuStrip1.DragLeave += new System.EventHandler(this.Form1_DragLeave);
             // 
             // fileToolStripMenuItem
             // 
@@ -172,6 +176,7 @@
             this.closeFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
             this.closeFileToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.closeFileToolStripMenuItem.Text = "&Close File";
+            this.closeFileToolStripMenuItem.Click += new System.EventHandler(this.closeFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -330,6 +335,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.AllowDrop = true;
             this.toolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -347,6 +353,9 @@
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
+            this.toolStrip1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.toolStrip1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.toolStrip1.DragLeave += new System.EventHandler(this.Form1_DragLeave);
             // 
             // NewtoolStripSplitButton
             // 
@@ -384,6 +393,7 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "Open File...";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripButton2
             // 
@@ -429,6 +439,7 @@
             // 
             // panel1
             // 
+            this.panel1.AllowDrop = true;
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -438,10 +449,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(993, 562);
             this.panel1.TabIndex = 4;
+            this.panel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.panel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.panel1.DragLeave += new System.EventHandler(this.Form1_DragLeave);
             // 
             // tabControl1
             // 
+            this.tabControl1.AllowDrop = true;
             this.tabControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.tabControl1.ControlBox = true;
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -449,9 +465,14 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(993, 562);
             this.tabControl1.TabIndex = 3;
+            this.tabControl1.Visible = false;
+            this.tabControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.tabControl1.DragLeave += new System.EventHandler(this.Form1_DragLeave);
             // 
             // firstOpenPanel1
             // 
+            this.firstOpenPanel1.AllowDrop = true;
             this.firstOpenPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.firstOpenPanel1.BackColor = System.Drawing.Color.Transparent;
             this.firstOpenPanel1.Location = new System.Drawing.Point(212, 284);
@@ -459,9 +480,13 @@
             this.firstOpenPanel1.Size = new System.Drawing.Size(580, 115);
             this.firstOpenPanel1.TabIndex = 5;
             this.firstOpenPanel1.Load += new System.EventHandler(this.firstOpenPanel1_Load);
+            this.firstOpenPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.firstOpenPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.firstOpenPanel1.DragLeave += new System.EventHandler(this.Form1_DragLeave);
             // 
             // Main
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));

@@ -23,29 +23,31 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.ListViewItem listViewItem22 = new System.Windows.Forms.ListViewItem("Intro", 0);
-            System.Windows.Forms.ListViewItem listViewItem23 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem24 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem25 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem26 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem27 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem28 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem29 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem30 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem31 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem32 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem33 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem34 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem35 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem36 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem37 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem38 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem39 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem40 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem41 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem42 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Intro", 0);
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem("");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(T2Control_SaveEditor));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.fieldLastLevel = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelMusicVolume = new System.Windows.Forms.Label();
             this.labelSoundVolume = new System.Windows.Forms.Label();
             this.radioCameraActive = new System.Windows.Forms.RadioButton();
@@ -98,9 +100,8 @@
             this.checkUnlockDisc = new ToyTwoToolbox.T2Control_Checkbox();
             this.checkUnlockRocket = new ToyTwoToolbox.T2Control_Checkbox();
             this.checkUnlockShield = new ToyTwoToolbox.T2Control_Checkbox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.fieldLastLevel = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fieldLastLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMusic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackSound)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -114,7 +115,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fieldLastLevel)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -140,6 +140,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // fieldLastLevel
+            // 
+            this.fieldLastLevel.Location = new System.Drawing.Point(333, 77);
+            this.fieldLastLevel.Name = "fieldLastLevel";
+            this.fieldLastLevel.Size = new System.Drawing.Size(49, 29);
+            this.fieldLastLevel.TabIndex = 14;
+            this.fieldLastLevel.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(300, 46);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 21);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Last level entered:";
             // 
             // labelMusicVolume
             // 
@@ -577,49 +598,49 @@
             this.fieldMovies.GridLines = true;
             this.fieldMovies.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.fieldMovies.HideSelection = false;
-            listViewItem22.StateImageIndex = 0;
-            listViewItem23.StateImageIndex = 0;
-            listViewItem24.StateImageIndex = 0;
-            listViewItem25.StateImageIndex = 0;
-            listViewItem26.StateImageIndex = 0;
-            listViewItem27.StateImageIndex = 0;
-            listViewItem28.StateImageIndex = 0;
-            listViewItem29.StateImageIndex = 0;
-            listViewItem30.StateImageIndex = 0;
-            listViewItem31.StateImageIndex = 0;
-            listViewItem32.StateImageIndex = 0;
-            listViewItem33.StateImageIndex = 0;
-            listViewItem34.StateImageIndex = 0;
-            listViewItem35.StateImageIndex = 0;
-            listViewItem36.StateImageIndex = 0;
-            listViewItem37.StateImageIndex = 0;
-            listViewItem38.StateImageIndex = 0;
-            listViewItem39.StateImageIndex = 0;
-            listViewItem40.StateImageIndex = 0;
-            listViewItem41.StateImageIndex = 0;
-            listViewItem42.StateImageIndex = 0;
+            listViewItem1.StateImageIndex = 0;
+            listViewItem2.StateImageIndex = 0;
+            listViewItem3.StateImageIndex = 0;
+            listViewItem4.StateImageIndex = 0;
+            listViewItem5.StateImageIndex = 0;
+            listViewItem6.StateImageIndex = 0;
+            listViewItem7.StateImageIndex = 0;
+            listViewItem8.StateImageIndex = 0;
+            listViewItem9.StateImageIndex = 0;
+            listViewItem10.StateImageIndex = 0;
+            listViewItem11.StateImageIndex = 0;
+            listViewItem12.StateImageIndex = 0;
+            listViewItem13.StateImageIndex = 0;
+            listViewItem14.StateImageIndex = 0;
+            listViewItem15.StateImageIndex = 0;
+            listViewItem16.StateImageIndex = 0;
+            listViewItem17.StateImageIndex = 0;
+            listViewItem18.StateImageIndex = 0;
+            listViewItem19.StateImageIndex = 0;
+            listViewItem20.StateImageIndex = 0;
+            listViewItem21.StateImageIndex = 0;
             this.fieldMovies.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem22,
-            listViewItem23,
-            listViewItem24,
-            listViewItem25,
-            listViewItem26,
-            listViewItem27,
-            listViewItem28,
-            listViewItem29,
-            listViewItem30,
-            listViewItem31,
-            listViewItem32,
-            listViewItem33,
-            listViewItem34,
-            listViewItem35,
-            listViewItem36,
-            listViewItem37,
-            listViewItem38,
-            listViewItem39,
-            listViewItem40,
-            listViewItem41,
-            listViewItem42});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5,
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10,
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15,
+            listViewItem16,
+            listViewItem17,
+            listViewItem18,
+            listViewItem19,
+            listViewItem20,
+            listViewItem21});
             this.fieldMovies.Location = new System.Drawing.Point(4, 26);
             this.fieldMovies.Margin = new System.Windows.Forms.Padding(2);
             this.fieldMovies.Name = "fieldMovies";
@@ -947,6 +968,7 @@
             this.checkUnlockGrapple.ShowToken = false;
             this.checkUnlockGrapple.Size = new System.Drawing.Size(126, 95);
             this.checkUnlockGrapple.TabIndex = 4;
+            this.checkUnlockGrapple.Tag = "4";
             this.checkUnlockGrapple.Text = "Grappling Hook";
             this.checkUnlockGrapple.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkUnlockGrapple.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -972,6 +994,7 @@
             this.checkUnlockHover.ShowToken = false;
             this.checkUnlockHover.Size = new System.Drawing.Size(126, 95);
             this.checkUnlockHover.TabIndex = 3;
+            this.checkUnlockHover.Tag = "3";
             this.checkUnlockHover.Text = "Hover Boots";
             this.checkUnlockHover.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkUnlockHover.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -997,6 +1020,7 @@
             this.checkUnlockDisc.ShowToken = false;
             this.checkUnlockDisc.Size = new System.Drawing.Size(126, 95);
             this.checkUnlockDisc.TabIndex = 2;
+            this.checkUnlockDisc.Tag = "2";
             this.checkUnlockDisc.Text = "Disc Launcher";
             this.checkUnlockDisc.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkUnlockDisc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1022,6 +1046,7 @@
             this.checkUnlockRocket.ShowToken = false;
             this.checkUnlockRocket.Size = new System.Drawing.Size(126, 95);
             this.checkUnlockRocket.TabIndex = 1;
+            this.checkUnlockRocket.Tag = "1";
             this.checkUnlockRocket.Text = "Rocket Boots";
             this.checkUnlockRocket.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkUnlockRocket.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1046,32 +1071,12 @@
             this.checkUnlockShield.ShowToken = false;
             this.checkUnlockShield.Size = new System.Drawing.Size(126, 95);
             this.checkUnlockShield.TabIndex = 0;
+            this.checkUnlockShield.Tag = "0";
             this.checkUnlockShield.Text = "Cosmic Shield";
             this.checkUnlockShield.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkUnlockShield.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkUnlockShield.UseVisualStyleBackColor = false;
             this.checkUnlockShield.CheckedChanged += new System.EventHandler(this.checkUnlockShield_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(300, 46);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 21);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Last level entered:";
-            // 
-            // fieldLastLevel
-            // 
-            this.fieldLastLevel.Location = new System.Drawing.Point(333, 77);
-            this.fieldLastLevel.Name = "fieldLastLevel";
-            this.fieldLastLevel.Size = new System.Drawing.Size(49, 29);
-            this.fieldLastLevel.TabIndex = 14;
-            this.fieldLastLevel.Value = new decimal(new int[] {
-            15,
-            0,
-            0,
-            0});
             // 
             // T2Control_SaveEditor
             // 
@@ -1091,6 +1096,7 @@
             this.Load += new System.EventHandler(this.T2Control_SaveEditor_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fieldLastLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMusic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackSound)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -1109,7 +1115,6 @@
             this.groupBox8.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fieldLastLevel)).EndInit();
             this.ResumeLayout(false);
 
         }

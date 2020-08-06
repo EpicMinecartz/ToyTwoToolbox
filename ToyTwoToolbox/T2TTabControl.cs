@@ -68,9 +68,13 @@ namespace ToyTwoToolbox {
         private const int WM_NOTIFY = 0x4E;
         private const int WM_REFLECT = WM_USER + 0x1C00;
 
+        private const int WM_NCHITTEST = 0x0084;
+        private const int HTTRANSPARENT = -1;
+        private const int HTCLIENT = 1;
+
         #endregion
 
-        #region BackColor/ForeColor Manipulation
+                #region BackColor/ForeColor Manipulation
 
         //As well as exposing the property to the Designer we want it to behave just like any other 
         //controls BackColor property so we need some clever manipulation.
@@ -136,6 +140,22 @@ namespace ToyTwoToolbox {
 
         #endregion
 
+
+        private bool m_ControlBox = false;
+        [Browsable(true), Description("Display buttons in the tab such as a close button")]
+        public bool ControlBox {
+            get {
+                return m_ControlBox;
+            }
+            set {
+                if (m_ControlBox.Equals(value)) return;
+                m_ControlBox = value;
+                Invalidate();
+                ResetVars();
+            }
+        }
+
+
         protected override void OnParentBackColorChanged(EventArgs e) {
             base.OnParentBackColorChanged(e);
             Invalidate();
@@ -150,6 +170,23 @@ namespace ToyTwoToolbox {
         protected override void OnSelectedIndexChanged(EventArgs e) {
             base.OnSelectedIndexChanged(e);
             Invalidate();
+        }
+
+        protected override void OnMouseDown(MouseEventArgs e) {
+            if (m_ControlBox == true) {
+                Rectangle r = this.GetTabRect(this.SelectedIndex);
+                Rectangle closeButton = new Rectangle(r.Right - 15, r.Top + 4, 11, 11);
+                if (closeButton.Contains(e.Location)) {
+                    TabRequestDestroy.Invoke(this, this.SelectedIndex);
+                    //this.TabPages.Remove(this.SelectedTab);
+                }
+            }
+            base.OnMouseDown(e);
+            Invalidate();
+        }
+
+        public void DestroyTab(int tabID) {
+
         }
 
 
@@ -212,40 +249,66 @@ namespace ToyTwoToolbox {
                     r = new Rectangle(-(r.Height >> 1), -(r.Width >> 1), r.Height, r.Width);
                 }
                 //Draw the Tab Text
-                if (tp.Enabled)
-                    e.Graphics.DrawString(tp.Text, Font, PaintBrush, (RectangleF)r, sf);
-                else
+                Rectangle TabText = new Rectangle(r.X, r.Y, r.Width-((m_ControlBox == true) ? 15 : 0), r.Height);
+                //debug - draw text region
+                //e.Graphics.DrawRectangle(Pens.Red, TabText);
+                if (tp.Enabled) {
+                    e.Graphics.DrawString(tp.Text, Font, PaintBrush, TabText, sf);
+                } else {
                     ControlPaint.DrawStringDisabled(e.Graphics, tp.Text, Font, tp.BackColor, (RectangleF)r, sf);
+                }
+
+                if (m_ControlBox == true) {
+                    e.Graphics.DrawString("X", Font, Brushes.Red, r.Right - 15, r.Top + 4);
+                    e.Graphics.DrawRectangle(Pens.DarkGray, new Rectangle(r.Right - 15, r.Top + 4, 11, 11));
+                }
+
+
+
+                //e.Graphics.DrawString(this.tabControl1.TabPages[e.Index].Text, Font, Brushes.Black, e.Bounds.Left + 12, e.Bounds.Top + 4);
+                //e.DrawFocusRectangle();
 
                 e.Graphics.ResetTransform();
             }
-
             PaintBrush.Dispose();
-
         }
 
 
         [Description("Occurs as a tab is being changed.")]
         public event SelectedTabPageChangeEventHandler SelectedIndexChanging;
 
-        protected override void WndProc(ref Message m) {
-            if (m.Msg == (WM_REFLECT + WM_NOTIFY)) {
-                NMHDR hdr = (NMHDR)(Marshal.PtrToStructure(m.LParam, typeof(NMHDR)));
-                if (hdr.code == TCN_SELCHANGING) {
-                    TabPage tp = TestTab(PointToClient(Cursor.Position));
-                    if (tp != null) {
-                        TabPageChangeEventArgs e = new TabPageChangeEventArgs(SelectedTab, tp);
-                        if (SelectedIndexChanging != null)
-                            SelectedIndexChanging(this, e);
-                        if (e.Cancel || tp.Enabled == false) {
-                            m.Result = new IntPtr(1);
-                            return;
-                        }
-                    }
-                }
-            }
-            base.WndProc(ref m);
-        }
+        [Description("Occurs as a tab is being closed.")]
+        public event TabRequestDestroyEventHandler TabRequestDestroy;
+
+
+        //The default hit-test for a TabControl's
+        //background is HTTRANSPARENT, preventing
+        //me from receiving mouse and drag events
+        //over the background.  I catch this and 
+        //replace HTTRANSPARENT with HTCLIENT to 
+        //allow the user to drag over us when we 
+        //have no TabPages.
+        //protected override void WndProc(ref Message m) {
+        //    //if (m.Msg == (WM_REFLECT + WM_NOTIFY)) {
+        //    //    NMHDR hdr = (NMHDR)(Marshal.PtrToStructure(m.LParam, typeof(NMHDR)));
+        //    //    if (hdr.code == TCN_SELCHANGING) {
+        //    //        TabPage tp = TestTab(PointToClient(Cursor.Position));
+        //    //        if (tp != null) {
+        //    //            TabPageChangeEventArgs e = new TabPageChangeEventArgs(SelectedTab, tp);
+        //    //            if (SelectedIndexChanging != null)
+        //    //                SelectedIndexChanging(this, e);
+        //    //            if (e.Cancel || tp.Enabled == false) {
+        //    //                m.Result = new IntPtr(1);
+        //    //                return;
+        //    //            }
+        //    //        }
+        //    //    }
+        //    //}
+        //    if (m.Msg == WM_NCHITTEST) {
+        //        if (m.Result.ToInt32() == HTTRANSPARENT) { m.Result = new IntPtr(HTCLIENT); }
+        //    }
+        //    base.WndProc(ref m);
+        //}
 
 
         private TabPage TestTab(Point pt) {
@@ -254,6 +317,10 @@ namespace ToyTwoToolbox {
                     return TabPages[index];
             }
             return null;
+        }
+
+        private void ResetVars() {
+
         }
 
     }
@@ -288,5 +355,6 @@ namespace ToyTwoToolbox {
 
 
     public delegate void SelectedTabPageChangeEventHandler(Object sender, TabPageChangeEventArgs e);
+    public delegate void TabRequestDestroyEventHandler(Object sender, int tabID);
 
 }

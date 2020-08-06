@@ -84,6 +84,9 @@ namespace ToyTwoToolbox {
             return buffer;
         }
 
+        public void ReplaceBytes(int ptr, byte[] replacement) {
+
+        }
 
 
         public void Nop(int count = 1) {

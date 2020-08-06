@@ -211,7 +211,7 @@ namespace ToyTwoToolbox {
             // RestartSession
             // 
             this.RestartSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RestartSession.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.RestartSession.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.RestartSession.ForeColor = System.Drawing.Color.Black;
             this.RestartSession.Location = new System.Drawing.Point(197, 31);
             this.RestartSession.Name = "RestartSession";
@@ -224,7 +224,7 @@ namespace ToyTwoToolbox {
             // ObliterateSession
             // 
             this.ObliterateSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ObliterateSession.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ObliterateSession.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ObliterateSession.ForeColor = System.Drawing.Color.Red;
             this.ObliterateSession.Location = new System.Drawing.Point(221, 31);
             this.ObliterateSession.Name = "ObliterateSession";
@@ -238,7 +238,7 @@ namespace ToyTwoToolbox {
             // 
             this.StopSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StopSession.FlatAppearance.BorderSize = 0;
-            this.StopSession.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.StopSession.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.StopSession.Location = new System.Drawing.Point(149, 31);
             this.StopSession.Name = "StopSession";
             this.StopSession.Size = new System.Drawing.Size(46, 23);
@@ -252,6 +252,7 @@ namespace ToyTwoToolbox {
             this.GroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.GroupBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.GroupBox1.Location = new System.Drawing.Point(10, 59);
             this.GroupBox1.Name = "GroupBox1";
             this.GroupBox1.Size = new System.Drawing.Size(234, 368);
@@ -261,10 +262,10 @@ namespace ToyTwoToolbox {
             // UseArgs
             // 
             this.UseArgs.AutoSize = true;
-            this.UseArgs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UseArgs.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.UseArgs.Location = new System.Drawing.Point(152, 7);
             this.UseArgs.Name = "UseArgs";
-            this.UseArgs.Size = new System.Drawing.Size(66, 17);
+            this.UseArgs.Size = new System.Drawing.Size(75, 18);
             this.UseArgs.TabIndex = 5;
             this.UseArgs.Text = "Use Args";
             this.UseArgs.UseVisualStyleBackColor = true;
@@ -272,10 +273,10 @@ namespace ToyTwoToolbox {
             // UseDebug
             // 
             this.UseDebug.AutoSize = true;
-            this.UseDebug.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UseDebug.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.UseDebug.Location = new System.Drawing.Point(88, 7);
             this.UseDebug.Name = "UseDebug";
-            this.UseDebug.Size = new System.Drawing.Size(55, 17);
+            this.UseDebug.Size = new System.Drawing.Size(64, 18);
             this.UseDebug.TabIndex = 5;
             this.UseDebug.Text = "Debug";
             this.UseDebug.UseVisualStyleBackColor = true;
@@ -286,7 +287,6 @@ namespace ToyTwoToolbox {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SessionList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
             this.SessionList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SessionList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SessionList.FormattingEnabled = true;
             this.SessionList.Location = new System.Drawing.Point(60, 32);
             this.SessionList.Name = "SessionList";
@@ -295,7 +295,7 @@ namespace ToyTwoToolbox {
             // 
             // NewSession
             // 
-            this.NewSession.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.NewSession.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.NewSession.Location = new System.Drawing.Point(7, 3);
             this.NewSession.Name = "NewSession";
             this.NewSession.Size = new System.Drawing.Size(75, 23);

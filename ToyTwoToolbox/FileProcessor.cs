@@ -21,7 +21,8 @@ namespace ToyTwoToolbox {
             string ext = Path.GetExtension(path);
             F_Base file;
             if (ext == ".ngn") {
-                file = FileProcessor.ImportNGN(path);
+                F_NGN f = new F_NGN();
+                file = f.Import(path);
             } else if (ext == ".sav") {
                 file = F_Save.ImportSave(path);
             } else {
@@ -35,7 +36,7 @@ namespace ToyTwoToolbox {
             return new F_NGN();
         }
 
-        public static F_Base CreateFile(FileTypes fileType, string fileName = "") {
+        public static F_Base CreateFile(FileTypes fileType, TabController tabController, string fileName = "") {
             F_Base file;
             if (fileType == FileTypes.NGN) {
                 file = new F_NGN();
@@ -45,9 +46,13 @@ namespace ToyTwoToolbox {
                 throw new TypeInitializationException("None", null);
                 file = null; 
             }
-            if (fileName != "" ) { file.TempName = fileName; }
+            if (fileName == "" ) { 
+                file.TempName = TabController.CalculateUntitledTabName(fileType, tabController); 
+            }
             return file;
         }
+
+       
 
         public static F_NGN ImportNGN(string path) {
             return new F_NGN();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -170,5 +171,131 @@ namespace ToyTwoToolbox {
             }
         }
 
+		public static string BytesToHex(byte[] bytes) {
+			char[] c = new char[(bytes.Length * 2)];
+			int b = 0;
+			for (var i = 0;i < bytes.Length;i++) {
+				b = (int)bytes[i] >> 4;
+				c[i * 2] = (char)(55 + b + (((b - 10) >> 31) & -7));
+				b = bytes[i] & 0xF;
+				c[i * 2 + 1] = (char)(55 + b + (((b - 10) >> 31) & -7));
+			}
+			return new string(c);
+		}
+
+		/// <summary>
+		/// This function takes any <seealso cref="Image"/> and outputs a standard
+		/// 24-bit bitmap from it
+		/// </summary>
+		/// <param name="IMG">Input Image</param>
+		/// <returns>Converted <seealso cref="Image"/></returns>
+		public static Image ProParseImage(Image IMG) {
+			try {
+				using (Bitmap oldBmp = new Bitmap(IMG)) {
+					using (Bitmap newBmp = new Bitmap(oldBmp)) {
+                        return newBmp.Clone(new Rectangle(0, 0, newBmp.Width, newBmp.Height), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+					}
+				}
+			} catch (Exception) {
+				return null;
+			}
+		}
+
+		public static void ExportImage(string FilePath, Image Img, System.Drawing.Imaging.ImageFormat BaseFormat, string OverrideFormat = null) {
+            System.Drawing.Imaging.ImageFormat Imgformat = null;
+			if (Img != null) {
+				Imgformat = BaseFormat;
+				if (!(string.IsNullOrEmpty(OverrideFormat))) {
+					if (OverrideFormat.ToLower().Contains("bmp")) {
+						Imgformat = System.Drawing.Imaging.ImageFormat.Bmp;
+					} else if (OverrideFormat.ToLower().Contains("jpeg")) {
+						Imgformat = System.Drawing.Imaging.ImageFormat.Jpeg;
+					} else if (OverrideFormat.ToLower().Contains("png")) {
+						Imgformat = System.Drawing.Imaging.ImageFormat.Png;
+					} else if (OverrideFormat.ToLower().Contains("gif")) {
+						Imgformat = System.Drawing.Imaging.ImageFormat.Gif;
+					}
+				}
+				Img.Save(FilePath, Imgformat);
+			}
+		}
+
+		public static void GenerateAlphaMap(Bitmap IMG) {
+			BitmapLocker bml = new BitmapLocker();
+			bml.AllocateLock(IMG);
+			byte[] pixels = bml.pixelData;
+			Int32 pix = 0;
+			for (int X = 0;X < IMG.Height;X++) {
+				for (int Y = 0;Y < IMG.Width;Y++) {
+					if (pixels[pix] == 0 && pixels[pix + 1] == 255 && pixels[pix + 2] == 0) { //maybe if (pixels[pix] == 0) for extra speeds?
+						pixels[pix + 1] = 0;
+					} else {
+						pixels[pix] = 255;
+						pixels[pix + 1] = 255;
+						pixels[pix + 2] = 255;
+					}
+					pix += 3;
+				}
+			}
+			bml.ReleaseLock(); // Unlock the bitmap data.
+		}
+
+		/// <summary>
+		/// Move an item in a list based on it's current position in the list
+		/// </summary>
+		/// <param name="list">The list to enumerate</param>
+		/// <param name="item">The index of the affected item</param>
+		/// <param name="offset">How much to move the affected item by</param>
+		/// <param name="pushToLimit">Whether to move as far as possible in that direction, or just do nothing</param>
+		public static void ListMoveItem(System.Collections.IList list, int index, int offset, bool pushToLimit = true) {
+			var item = list[index];
+			list.RemoveAt(index);
+			if (Math.Sign(offset) == 1) {
+				if (index + offset > list.Count) { if (pushToLimit) { offset = list.Count - index; } else { return; } }
+			} else {
+				if (index + offset < 0) { if (pushToLimit) { offset = -(index + (index - offset)); } else { return; } }
+			}
+			list.Insert(index + offset, item);
+		}
+
+	}
+
+	public static class Extentions {
+		/// <summary>This is an extention method for the List class that enables Deep Copying</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="Obj"></param>
+		/// <returns></returns>
+		public static T DeepCopy<T>(this T Obj) {
+			if (Obj.GetType().IsSerializable == false) {
+				return default(T);
+			}
+
+			using (System.IO.MemoryStream MStream = new System.IO.MemoryStream()) {
+				System.Runtime.Serialization.Formatters.Binary.BinaryFormatter Formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+				Formatter.Serialize(MStream, Obj);
+				MStream.Position = 0;
+				return (T)Formatter.Deserialize(MStream);
+			}
+		}
+
+		/// <summary>
+		/// Move an item in a list based on it's current position in the list
+		/// </summary>
+		/// <typeparam name="T">the list</typeparam>
+		/// <param name="list"></param>
+		/// <param name="item"></param>
+		/// <param name="offset"></param>
+		/// <param name="pushToLimit"></param>
+		//public static void MoveItem<T>(this T list, T item, int offset, bool pushToLimit = true) {
+		//	var litem = item;
+		//	int index = list.IndexOf(item);
+		//	list.Remove(item);
+		//	if (Math.Sign(offset) == 1) {
+		//		if (index + offset > list.Count) { if (pushToLimit) { offset = list.Count - index; } else { return; } }
+		//	} else {
+		//		if (index + offset < 0) { if(pushToLimit) { offset = -(index + (index - offset)); } else { return; } }
+		//	}
+		//	list.Insert(index + offset, litem);
+		//}
 	}
 }

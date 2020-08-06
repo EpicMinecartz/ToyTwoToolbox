@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using ToyTwoToolbox.Properties;
 
@@ -15,18 +16,131 @@ namespace ToyTwoToolbox {
 		private static extern int SetWindowTheme(IntPtr hWnd, string appname, string idlist);
 
 		protected override void OnHandleCreated(EventArgs e) {
+			//SetWindowTheme(this.Handle, "", "");
 			SetWindowTheme(this.Handle, "", "");
 			base.OnHandleCreated(e);
 		}
 		public SessionManager() {
+			ProcessArgs();
 			InitializeComponent();
+            foreach (Control ctrl in XF.GetControlsOfType<Control>(this, true)) {
+				SetWindowTheme(ctrl.Handle, "", "");
+			}
+            
 			SMptr = this;
+
+			DarkThemeCellDGV.BackColor = Color.FromArgb(0, 0, 0);
+			DarkThemeCellDGV.ForeColor = Color.FromArgb(240, 240, 240);
+			DarkThemeColumnDGV.BackColor = Color.FromArgb(15, 15, 15);
+			DarkThemeColumnDGV.BackColor = Color.FromArgb(240,240,240);
+			DarkThemeRowDGV.BackColor = Color.FromArgb(10, 10, 10);
+			DarkThemeRowDGV.BackColor = Color.FromArgb(240, 240, 240);
 		}
 
+		public static DataGridViewCellStyle DarkThemeCellDGV = new DataGridViewCellStyle();
+		public static DataGridViewCellStyle DarkThemeColumnDGV = new DataGridViewCellStyle();
+		public static DataGridViewCellStyle DarkThemeRowDGV = new DataGridViewCellStyle();
 
-		public static void ReportException() {
 
+		public enum RType {
+			DEBUG = 0,
+			INFO = 1,
+			WARNING = 2,
+			ERROR = 3
+		}
+
+		static List<Color> RTC = new List<Color> { 
+			Color.FromArgb(164, 164, 164), //RTC_DEBUG
+			Color.FromArgb(240, 240, 240), //RTC_INFO 
+			Color.FromArgb(240, 240, 0),   //RTC_WARN 
+			Color.FromArgb(240, 0, 0) 	   //RTC_ERROR
+		};
+
+		public static void ReportException(object sender, ThreadExceptionEventArgs e) { ReportException(sender, e.Exception); }
+		//public static void ReportException(object sender, UnhandledExceptionEventArgs e) { e.ExitAplication = false; ReportException(sender, e.); }
+		public static void ReportException(object sender, Exception e) {
+			
+			//mission critical exception, show console to user for reporting
+			SessionManager.SMptr.Opacity = 100;
+			SessionManager.SMptr.Show();
+			EC ecn = new EC {
+				EDesc = "APPLICATION EXCEPTION - " + e.GetType().Name,
+				ETime = DateTime.Now,
+				EType = "Fatal"
+			};
+			EDict.Add(ecn);
+			ReportEx(Environment.NewLine, RType.ERROR,Color.Red,false,false,false);
+			ReportEx("APPLICATION CRITICAL EXCEPTION DIFFUSED", RType.ERROR, Color.Red, false, false, false);
+			Report("EX-> " + e.GetType().Name, RType.ERROR);
+			SessionManager.SMptr.ErrorDisplay.Text = EDict.Count + " Errors";
+			//ReportEx();
+		}
+
+		public static void Report(string InboundText, RType ReportType = (RType)1) {
+			if (SessionManager.SMptr.InvokeRequired) {
+				SessionManager.SMptr.Invoke((MethodInvoker)delegate {
+					Report(InboundText, ReportType);
+				});
+				return;
+			}
+
+			if (Debug || ReportType == RType.ERROR) {
+				ReportEx(InboundText, ReportType);
+				//Console.WriteLine(InboundText);
+			}
+		}
+
+		public void DoSomething(string foo, int bar) {
+			if (this.InvokeRequired) {
+				this.Invoke((MethodInvoker)delegate {
+					DoSomething(foo, bar);
+				});
+				return;
+			}
+			// do something with foo and bar
+			this.Text = foo;
+			Console.WriteLine(bar);
+		}
+
+		public static void ReportEx(string InboundText, RType ReportType = (RType)1, Color BaseColor = new Color(), bool Time = true, bool Tag = true, bool Append = false) {
+			RichTextBox stdout = SessionManager.SMptr.Log;
+			DateTime reporttime = DateTime.Now;
+			if (ReportType == RType.ERROR) {
+				EC ecn = new EC {
+					EDesc = InboundText,
+					ETime = reporttime,
+					EType = "Error"
+				};
+				EDict.Add(ecn);
+				SessionManager.SMptr.ErrorDisplay.Text = EDict.Count + " Errors";
+			}
+
+			stdout.SuspendLayout(); //begin print
+
+			if (Append == false) { stdout.AppendText(Environment.NewLine); }
+
+			//PRINT TIME
+			if (Time) { 
+				stdout.SelectionColor = RTC[1];
+				stdout.AppendText("[" + reporttime.ToString("H:mm:ss") + "] "); 
+			}
+
+            //PRINT REPORT TYPE
+			if (Tag) {
+				stdout.SelectionColor = RTC[(int)ReportType];
+				stdout.AppendText("[" + ReportType.ToString() + "] ");
+            }
+
+
+			stdout.SelectionColor = RTC[1];
+			stdout.AppendText(InboundText);
+			stdout.ScrollToCaret();
+			stdout.ResumeLayout();
         }
+
+		public void AppendText(string text, Color color, bool addNewLine = false) {
+
+		}
 
 		//Any Variables here are accessable via other forms
 
@@ -44,18 +158,19 @@ namespace ToyTwoToolbox {
 		public List<string> BT = new List<string>() { "a", "b", "rc" };
 		public Version ver2 = typeof(SessionManager).Assembly.GetName().Version;
 		public bool RequestingShutdown = false;
-		public List<EC> EDict = new List<EC>();
 		public bool ClientActive = false;
 		public Form MainSession = new Form();
 		public string MainArg = null;
 		public List<Form> SessionPool = new List<Form>();
-		public Int16 TEC = 0;
+		
 
 		//SYSTEM WIDE GLOBAL VARIABLES
+		/// <summary>A pointer to the SessionManager window class</summary>
 		public static SessionManager SMptr;
 		public static string ver = null;
 		public static bool Debug = false;
 		public static bool PrintMessages = false;
+		public static List<EC> EDict = new List<EC>();
 		//we have a list of variables that we create once, only if required to save on memory and performance overhead
 		public static ImageList MovieImageList; //SMptr.GetMovieList
 		//public List<float> Sine = WARP3D.NU3D.GenerateSine();
@@ -73,18 +188,18 @@ namespace ToyTwoToolbox {
 
 			ProcessArgs();
 
-            ver = ver2.ToString().Remove(ver2.ToString().Length - 2, 2) + BT[ver2.Revision];
+			ver = ver2.ToString().Remove(ver2.ToString().Length - 2, 2) + BT[ver2.Revision];
 
-            PrintMessages = Debug; //Debug
+			PrintMessages = Debug; //Debug
 			if (ver2.Revision != 0) { this.Close(); }
-            SM("Log started at " + DateTime.Now.ToString("H:mm:ss"));
-            SM("Debug message printing " + PrintMessages.ToString().ToLower());
-            SM("WARNING! CPU overhead will be increased by debug printing");
+			SM("Log started at " + DateTime.Now.ToString("H:mm:ss"));
+			SM("Debug message printing " + PrintMessages.ToString().ToLower());
+			SM("WARNING! CPU overhead will be increased by debug printing");
 
-            CreateNewSession(MainArg, Debug);
-            MainSession = SessionPool[0];
-            SessionList.SelectedIndex = 0;
-        }
+			CreateNewSession(MainArg, Debug);
+			MainSession = SessionPool[0];
+			SessionList.SelectedIndex = 0;
+		}
 
 		private void ProcessArgs() {
 			string[] ApplicationArgs = Environment.GetCommandLineArgs();
@@ -107,7 +222,6 @@ namespace ToyTwoToolbox {
 			Debug = true;
 			this.Opacity = 100;
 			this.Show();
-			TEC += 1;
 			SM("================================================================", "", Color.FromArgb(255, 0, 0), NoInstName: true);
 			SM("APPLICATION EXCEPTION - " + e.TargetSite.Module.Name, "", Color.FromArgb(255, 0, 0), NoInstName: true);
 			SM("================================================================", "", Color.FromArgb(255, 0, 0), NoInstName: true);
@@ -361,31 +475,35 @@ namespace ToyTwoToolbox {
 			public string EType;
 		}
 
-        private void ForceExitToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void ForceExitToolStripMenuItem_Click(object sender, EventArgs e) {
 			System.Runtime.InteropServices.Marshal.StructureToPtr(0, new IntPtr(unchecked((int)0x123456789)), false);
 		}
 
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void ExitToolStripMenuItem_Click(object sender, EventArgs e) {
 			Application.Exit();
 			Application.ExitThread();
 		}
 
-        private void RestartToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void RestartToolStripMenuItem_Click(object sender, EventArgs e) {
 			Application.Restart();
 		}
 
-        private void ForceGCToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void ForceGCToolStripMenuItem_Click(object sender, EventArgs e) {
 			Int64 OldMem = System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64;
 			//SM(OldMem, "")
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
-			GC.Collect();
+			GCC();
 			//Dim MemDif As Int64 = OldMem - System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64
 			//SM(System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64, "")
 			SM("Garbage cleared up: " + Math.Round((OldMem - System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64) / Math.Pow(1024, 2), 2) + "MB", "");
 		}
 
-        private void ArchiveToolStripMenuItem_Click(object sender, EventArgs e) {
+		public static void GCC() {
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
+			GC.Collect();
+		}
+
+		private void ArchiveToolStripMenuItem_Click(object sender, EventArgs e) {
 			SaveFileDialog SFD = new SaveFileDialog();
 			SFD.Filter = "Rich Text File | *.RTF";
 			SFD.FileName = "T2T - " + DateTime.Now.ToString("ddmmyyyyHHmm");
@@ -394,7 +512,7 @@ namespace ToyTwoToolbox {
 			}
 		}
 
-        private void ExportToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void ExportToolStripMenuItem_Click(object sender, EventArgs e) {
 			SaveFileDialog SFD = new SaveFileDialog();
 			SFD.Filter = "Text File | *.TXT";
 			SFD.FileName = "T2T Archive - " + DateTime.Now.ToString("ddmmyyyyHHmm");
@@ -403,33 +521,33 @@ namespace ToyTwoToolbox {
 			}
 		}
 
-        private void ClearToolStripMenuItem_Click(object sender, EventArgs e) {
+		private void ClearToolStripMenuItem_Click(object sender, EventArgs e) {
 			Log.Clear();
 		}
 
-        private void StopSession_Click(object sender, EventArgs e) {
+		private void StopSession_Click(object sender, EventArgs e) {
 			DestroySession(SessionList.SelectedIndex);
 		}
 
-        private void RestartSession_Click(object sender, EventArgs e) {
+		private void RestartSession_Click(object sender, EventArgs e) {
 			ReloadSession(SessionList.SelectedIndex);
 		}
 
-        private void ObliterateSession_Click(object sender, EventArgs e) {
+		private void ObliterateSession_Click(object sender, EventArgs e) {
 			DestroySession(SessionList.SelectedIndex, true);
 		}
 
-        private void ErrorDisplay_Click(object sender, EventArgs e) {
-			//EL.ELPopulate(EDict);
+		private void ErrorDisplay_Click(object sender, EventArgs e) {
+            new ErrorDisplayer().ELPopulate(EDict);
 		}
 
 		public static ImageList GetMovieImageList() {
 			if (MovieImageList == null) {
-                ImageList MIL = new ImageList {
-                    ImageSize = new Size(64, 64),
-                    ColorDepth = ColorDepth.Depth32Bit
-                };
-                for (int i = 0;i < Resources.T2Image_MovieImages.Height / 64;i++) {
+				ImageList MIL = new ImageList {
+					ImageSize = new Size(64, 64),
+					ColorDepth = ColorDepth.Depth32Bit
+				};
+				for (int i = 0;i < Resources.T2Image_MovieImages.Height / 64;i++) {
 					Bitmap cloneBitmap = Resources.T2Image_MovieImages.Clone(
 											new Rectangle {
 												Width = 64,
@@ -438,9 +556,9 @@ namespace ToyTwoToolbox {
 												Y = i*64
 											}, Resources.T2Image_MovieImages.PixelFormat);
 					MIL.Images.Add(cloneBitmap);
-                }
+				}
 				return MIL;
-            }
+			}
 			return MovieImageList;
 		}
 

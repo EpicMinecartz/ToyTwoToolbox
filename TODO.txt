@@ -1,0 +1,14 @@
+DONE update health bar on load
+DONE intro not ticked load
+title bar debug
+DONE Untitled 
+file ext sav
+hide token ui toggle
+sfd default filename 
+slow sav save
+last level limit 15
+toggle inv when over 32k
+set tok insane value
+
+ngn:
+texture previews are normal size when replaced or pasted into the listviewTextures

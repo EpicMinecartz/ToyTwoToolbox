@@ -9,17 +9,17 @@ namespace ToyTwoToolbox {
     /// <seealso cref="rawPrim"/> Will contain the object
     /// 
     /// </summary>
-    class RawPrimContainer {
+    //public class RawPrimContainer {
 
-        object rawPrim;
+    //    object rawPrim;
 
-        public RawPrimContainer(Primitive Prim) {
-            rawPrim = Prim;
-        }
+    //    public RawPrimContainer(Primitive Prim) {
+    //        rawPrim = Prim;
+    //    }
 
-        public RawPrimContainer(Patch patch) {
-            rawPrim = patch;
-        }
+    //    public RawPrimContainer(Patch patch) {
+    //        rawPrim = patch;
+    //    }
 
-    }
+    //}
 }

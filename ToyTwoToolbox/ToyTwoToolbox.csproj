@@ -49,15 +49,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimationFrame.cs" />
+    <Compile Include="Animation.cs" />
+    <Compile Include="AreaPortal.cs" />
     <Compile Include="AShape.cs" />
+    <Compile Include="BitmapLocker.cs" />
+    <Compile Include="Character.cs" />
     <Compile Include="CreateNewFile.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CreateNewFile.Designer.cs">
       <DependentUpon>CreateNewFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="DynamicScaler.cs" />
+    <Compile Include="ErrorDisplayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ErrorDisplayer.Designer.cs">
+      <DependentUpon>ErrorDisplayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extension_List.cs" />
     <Compile Include="FileReader.cs" />
+    <Compile Include="FileReader2.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="F_Base.cs" />
     <Compile Include="F_NGN.cs" />
@@ -113,8 +126,13 @@
     <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\UseMaterialParser.cs" />
     <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\VertexParser.cs" />
     <Compile Include="F_Save.cs" />
+    <Compile Include="Geometry.cs" />
+    <Compile Include="IPrimitive.cs" />
+    <Compile Include="Linker.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MessageFade.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="SlotConfig.cs" />
     <Compile Include="T2Control_Checkbox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -179,6 +197,9 @@
     <Compile Include="XF.cs" />
     <EmbeddedResource Include="CreateNewFile.resx">
       <DependentUpon>CreateNewFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ErrorDisplayer.resx">
+      <DependentUpon>ErrorDisplayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FirstOpenPanel.resx">
       <DependentUpon>FirstOpenPanel.cs</DependentUpon>
@@ -261,6 +282,18 @@
     <None Include="Resources\T2Image_SaveLife.png" />
     <None Include="Resources\T2Image_MovieImages.png" />
     <None Include="Resources\T2Image_TokenAnim.gif" />
+    <None Include="Resources\AddMark_10580_inverse.png" />
+    <None Include="Resources\buzzUps.png" />
+    <None Include="Resources\buzzsowns.png" />
+    <None Include="Resources\126_Edit_16x16_72.png" />
+    <None Include="Resources\CopyHS.png" />
+    <None Include="Resources\Paste.png" />
+    <None Include="Resources\toy2alpham.png" />
+    <None Include="Resources\buzzRs.png" />
+    <None Include="Resources\Clearallrequests_8816.png" />
+    <None Include="Resources\Rename.png" />
+    <None Include="Resources\buzzFlipH.png" />
+    <None Include="Resources\buzzFlipV.png" />
     <Content Include="t2tbicon_XSz_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

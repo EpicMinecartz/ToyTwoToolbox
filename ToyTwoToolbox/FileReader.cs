@@ -10,14 +10,16 @@ namespace ToyTwoToolbox {
     /// As we now import files as bytes, we defo need a good way to read them
     /// these functions can be called randomly, but its highly advised to just create an inst
     /// </summary>
-    class FileReader {
+    class FileReader2 {
         /// <summary>
         /// dont modify this manually
         /// </summary>
         public byte[] fstream;
         public int foffset;
+        public bool forceNoSeek;
 
-        public FileReader(string path) {
+        public FileReader2(string path, bool disableSeek = false) {
+            forceNoSeek = disableSeek;
             fstream = File.ReadAllBytes(path);
         }
 
@@ -68,9 +70,9 @@ namespace ToyTwoToolbox {
         }
 
         public void checkInvalidSeek(bool seek, ref int offset) {
-            if (seek == true && offset != foffset) {
+            if (forceNoSeek == false && seek == true && offset != foffset) {
                 offset = foffset; //offset = (offset == -1) ? foffset : offset;
-                if (offset != -1) { SessionManager.SMptr.SM("ARSoN ContractProtection: Prevented an attempt to seek read with an offset"); }
+                //if (offset != -1) { SessionManager.SMptr.SM("ARSoN ContractProtection: Prevented an attempt to seek read with an offset"); }
             }
         }
 

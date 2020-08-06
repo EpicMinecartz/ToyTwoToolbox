@@ -11,10 +11,10 @@ namespace ToyTwoToolbox {
     /// Any creation, deletion or modification of tabs must be done in here to maintain integrity
     /// </summary>
     public class TabController {
-        TabControl TabContainer;
+        T2TTabControl TabContainer;
         public List<TCTab> Tabs = new List<TCTab>();
         List<string> TabPaths = new List<string>();
-        public TabController(TabControl target) {
+        public TabController(T2TTabControl target) {
             TabContainer = target;
         }
 
@@ -48,14 +48,28 @@ namespace ToyTwoToolbox {
             TabContainer.TabPages.Add(TP);
         }
 
-        public string CalculateUntitledTabName(FileProcessor.FileTypes fileType) {
+        public void CloseTab(int tabID = -1) {
+            if (tabID == -1) { tabID = TabContainer.SelectedIndex; }
+            //Tabs[tabID].File.
+            //TabContainer.
+            Tabs[tabID].tabpage.Dispose();
+            Tabs.RemoveAt(tabID);
+            TabPaths.RemoveAt(tabID);
+            SessionManager.GCC(); //lmao
+        }
+
+        public void TabRequestDestroy(Object sender, int tabID = -1) {
+            CloseTab(tabID);
+        }
+
+        public static string CalculateUntitledTabName(FileProcessor.FileTypes fileType, TabController tabController) {
             int unnamedCount = 0;
-            foreach (TCTab tc in Tabs) {
-                if (tc.File.FileType == fileType && tc.File.FilePath == null) {
+            foreach (TCTab tct in tabController.Tabs) {
+                if (tct.File.FileType == fileType && tct.File.FilePath == null) {
                     unnamedCount++;
                 }
             }
-            return "untitled " + Enum.GetName(typeof(FileProcessor.FileTypes), fileType) + " " + ((unnamedCount > 0) ? unnamedCount.ToString() : "");
+            return "Untitled " + Enum.GetName(typeof(FileProcessor.FileTypes), fileType) + " " + ((unnamedCount > 0) ? unnamedCount.ToString() : "");
         }
 
         public void CloneTab(int tabIndex) {
@@ -98,6 +112,10 @@ namespace ToyTwoToolbox {
             public void Save(string path) {
                 if (editor is T2Control_SaveEditor) {
                     if (((T2Control_SaveEditor)editor).SaveChanges(false, path) == true ) {
+                        tabpage.Text = System.IO.Path.GetFileNameWithoutExtension(File.FilePath);
+                    }
+                } else if (editor is T2Control_NGNEditor){
+                    if (((T2Control_NGNEditor)editor).SaveChanges(false, path) == true) {
                         tabpage.Text = System.IO.Path.GetFileNameWithoutExtension(File.FilePath);
                     }
                 }

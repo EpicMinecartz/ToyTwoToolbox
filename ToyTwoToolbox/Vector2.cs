@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace ToyTwoToolbox {
-    class Vector2 {
+    public class Vector2 {
         // data members - X, Y and Z values
         public double X;
         public double Y;

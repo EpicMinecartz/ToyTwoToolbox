@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 
 namespace ToyTwoToolbox {
-    class Texture {
-        string name;
-        int type;
-        Bitmap image;
+    public class Texture {
+        public string name;
+        public int type;
+        public Bitmap image;
 
         public void New() {
             image = new Bitmap(1, 1);

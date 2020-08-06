@@ -24,8 +24,8 @@ namespace ToyTwoToolbox {
             Hamm = 0,
             Collect = 1,
             RC = 2,
-            Mystery = 3,
-            Boss = 4,
+            Mystery = 4,
+            Boss = 3,
             Invis = 5
         }
 
@@ -161,7 +161,7 @@ namespace ToyTwoToolbox {
         }
 
         public static List<List<bool>> ConvertTokensToBin(List<int> tokensraw) {
-            if (tokensraw == null) { SessionManager.ReportException(); }
+            if (tokensraw == null) { SessionManager.Report("The raw token count was null [->F_Save->ConvertTokensToBin]"); }
             List<List<bool>> leveltokens = new List<List<bool>>();
             for (int i = 0;i < tokensraw.Count;i++) {
                 if (tokensraw[i] == 0) { leveltokens.Add(new List<bool>() { false, false, false, false, false, false }); }
