@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ToyTwoToolbox {
     public class AnimationFrame {
+        //this needs testing again
         public Vector3 Position;
         public Vector2 Rotation;
         public Vector3 Unknown;

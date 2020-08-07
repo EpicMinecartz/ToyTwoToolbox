@@ -221,7 +221,6 @@ namespace ToyTwoToolbox {
                             NodeCount++;
                         }
                     }
-                    SessionManager.Report("collected " + NodeCount + " node names", SessionManager.RType.INFO);
                     continue;
                 } else if (FID == 513) {//null data
                     if (chr.nodeCount > 0) {
@@ -402,10 +401,8 @@ namespace ToyTwoToolbox {
 
 
         public void Extract_Animations(Character chr, ref int ptr, int Contract_Length) {
-            //int ADRP = ptr;
-            //File.AppendAllText(Application.StartupPath + "ADR.dat", "[" + chr.name + "] [" + chr.Anims.Count + "] " + XF.BytesToHex(fr._readbytes(ref ADRP, Contract_Length)) + Environment.NewLine);
             int Contract_External_Length = ptr + Contract_Length;
-            int Contract_Internal_Length = ptr + 0; //WARNING ENSURE THIS DOESNT GET COMPILER OPTIMIZED OUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            int Contract_Internal_Length = ptr + 0; 
             int startofanimdata = ptr;
             Animation anim = new Animation {
                 id = fr._readint(ref ptr, 4),
@@ -447,10 +444,9 @@ namespace ToyTwoToolbox {
                         );
                         frameoffsetstorage = frameoffset - frameoffsetstorage;
                         Contract_Internal_Length += 10;
-                        //SessionManager.Report("reading from: " + internalFrameOffset.ToString() + " out of " + AnimRaw.Length + " | " + " I: " + i + " J: " + j, SessionManager.RType.WARNING);
                     }
                 } else {
-                    //SessionManager.Report("animation node was skipped", SessionManager.RType.WARNING);
+                    SessionManager.Report("animation node was skipped", SessionManager.RType.WARNING);
                 }
             }
             if (Contract_Internal_Length != Contract_Length || ptr != Contract_Length) { 
@@ -463,66 +459,6 @@ namespace ToyTwoToolbox {
 
 
             chr.Anims.Add(anim);
-        }
-
-
-
-
-
-
-
-
-
-        public void Extract_Animations2(Character chr, ref int ptr, int Contract_Length) {
-            int Contract_Internal_Length = ptr + 0; //WARNING ENSURE THIS DOESNT GET COMPILER OPTIMIZED OUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            int startofanimdata = ptr;
-            Animation anim = new Animation {
-                id = fr._readint(ref ptr, 4),
-                FrameCount = fr._readint(ref ptr, 2),
-                UNK1 = fr._readint(ref ptr, 2),
-                UNK2 = fr._readint(ref ptr, 2),
-                NodeCount = fr._readint(ref ptr, 2),
-                UNK3 = fr._readint(ref ptr, 2),
-                HPTR = fr._readint(ref ptr, 2)
-            };
-            int validIncrementor = 0;
-            for (int i = 0;i < anim.NodeCount;i++) {
-                int NodeOffset = fr._readint(ref ptr, 2);
-                anim.Nodes.Add(new Animation.Node {
-                    id = (NodeOffset < 0 || NodeOffset > 65532) ? NodeOffset : validIncrementor,
-                    offset = NodeOffset
-                });
-                Console.WriteLine((NodeOffset < 0 || NodeOffset > 65532) ? NodeOffset : validIncrementor);
-                if (NodeOffset > -1) { validIncrementor++; }
-            }
-            anim.UNK4 = fr._readint(ref ptr, 2);
-            anim.UNK5 = fr._readint(ref ptr, 2);
-            anim.UNK6 = fr._readint(ref ptr, 2);
-            anim.UNK7 = fr._readint(ref ptr, 2);
-            startofanimdata = ptr; //actual start of anim data
-            Contract_Internal_Length = ptr - Contract_Internal_Length;
-            for (int i = 0;i < anim.Nodes.Count;i++) {//for each node
-                if (anim.Nodes[i].id > -1 && anim.Nodes[i].id < 65533) {
-                    int nodeoffset = i * 20;
-                    for (int j = 0;j < anim.FrameCount;j++) {//for each frame of animation
-                        int internalFrameOffset = nodeoffset + ((j * validIncrementor) * 20);
-                        int frameoffset = startofanimdata + internalFrameOffset; //this is where we are reading from for each frame
-                        int frameoffsetstorage = frameoffset;
-                        anim.Nodes[i].frames.Add(
-                            new AnimationFrame(
-                                new Vector3(fr._readflt(ref frameoffset, 4), fr._readflt(ref frameoffset, 4), fr._readflt(ref frameoffset, 4)),
-                                new Vector2(fr._readflt(ref frameoffset, 4), fr._readflt(ref frameoffset, 4))
-                            )
-                        );
-                        frameoffsetstorage = frameoffset - frameoffsetstorage;
-                        Contract_Internal_Length +=  20;
-                    }
-                } else {
-                    SessionManager.Report("animation node was skipped", SessionManager.RType.WARNING);
-                }
-            }
-            chr.Anims.Add(anim);
-            if (Contract_Internal_Length != Contract_Length) { SessionManager.Report("The FCL contract was not fufilled <" + Contract_Internal_Length + "/" + Contract_Length + ">[->F_NGN->ARSON->Extract_Animations]",SessionManager.RType.WARNING); }
         }
 
         public void Extract_Shape_Patch(ref int ptr, Shape shape) {
@@ -619,6 +555,7 @@ namespace ToyTwoToolbox {
             File = (File == null) ? this : File;
             //so here we go through the file and see if 1. it's valid, and 2 how many threads we can create for each func
             //a nice game of leapfrog
+            //threads not used atm cant be arsed to sort it out again yet
             NGNSchema NS = new NGNSchema(File);
             FileReader fr = new FileReader(path);
             int functionLength;

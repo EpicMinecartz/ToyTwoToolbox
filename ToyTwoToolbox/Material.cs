@@ -6,7 +6,7 @@ using System.Text;
 namespace ToyTwoToolbox {
     public class Material {
         public int id;
-        public List<double> RGB;
+        public List<double> RGB; //ARGB actually
         public int textureIndex;
         public int data;
 

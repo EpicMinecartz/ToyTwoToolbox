@@ -30,7 +30,7 @@ namespace ToyTwoToolbox {
             rawVertexData = new List<Vector3>();
             rawVertexShading = new List<Color>();
             rawVertexTextureCoords = new List<Vector2>();
-            rawPrimitives = new List<IPrimitive>();
+            rawPrimitives = new List<IPrimitive>(); //sep is done down the pipeline
         }
 
         public Prim ReadPrimitive() {

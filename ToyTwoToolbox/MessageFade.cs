@@ -131,6 +131,8 @@ namespace ToyTwoToolbox {
 			//Overlay.BringToFront()
 			if (Overlay.Opacity > 0) {
 				//MessageBox.Show("opr not ready for inst");
+				// i broke it
+				//ill come back to this
 			}
 			FadingIn = true;
 			Renderer.Start();

@@ -64,13 +64,9 @@ namespace ToyTwoToolbox {
 
         private void T2Control_Checkbox_CheckedChanged(object sender, EventArgs e) {
             if (this.Checked == true) {
-                //this.BackColor = Color.FromArgb(0, 1, 0);
-                //this.ForeColor = Color.Black;
                 this.FlatAppearance.BorderSize = 1;
                 Token.Visible = _showToken;
             } else {
-                //this.BackColor = Color.Transparent;
-                //this.ForeColor = Color.FromArgb(240,240,240);
                 this.FlatAppearance.BorderSize = 0;
                 Token.Visible = false;
             }

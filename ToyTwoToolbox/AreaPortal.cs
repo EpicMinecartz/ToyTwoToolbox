@@ -11,5 +11,7 @@ namespace ToyTwoToolbox {
         public AreaPortal() {
             Vertices = new List<Vector3>();
         }
+
+
     }
 }

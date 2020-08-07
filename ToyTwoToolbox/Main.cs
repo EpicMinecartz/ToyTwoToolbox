@@ -38,16 +38,7 @@ namespace ToyTwoToolbox {
             MessageFader = new MessageFade(this);
         }
 
-        public void FOPM(object sender, EventArgs e) {
-            FOPEA F = (FOPEA)e;
-            if (F._FilePath != null) {
-                OpenFile(F._FilePath);
-            } 
-            if (F._FileType != FileProcessor.FileTypes.NULL) {
-                CreateFile(F._FileType);
-            }
 
-        }
 
         void Form1_DragEnter(object sender, DragEventArgs e) {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
@@ -160,6 +151,17 @@ namespace ToyTwoToolbox {
                 tabControl1.Visible = true;
                 F_Base file = FileProcessor.ProcessFile(path);
                 TabControl.CreateTab(file);
+            }
+
+        }
+
+        public void FOPM(object sender, EventArgs e) {
+            FOPEA F = (FOPEA)e;
+            if (F._FilePath != null) {
+                OpenFile(F._FilePath);
+            }
+            if (F._FileType != FileProcessor.FileTypes.NULL) {
+                CreateFile(F._FileType);
             }
 
         }

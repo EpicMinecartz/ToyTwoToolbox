@@ -20,6 +20,8 @@ namespace ToyTwoToolbox {
         public Int32 Unknown3;
         public Int32 Unknown4;
 
+        //the unk vars and the conversion are still unknown
+
         /// <summary>Convert this patch to a <see cref="IPrimitive"/> type</summary>
         /// <returns><see cref="IPrimitive"/></returns>
         public Patch() {
