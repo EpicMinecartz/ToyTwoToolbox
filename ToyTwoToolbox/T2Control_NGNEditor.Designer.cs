@@ -74,31 +74,6 @@
             this.listCharShapes = new System.Windows.Forms.ListBox();
             this.butPasteCharShapeData = new System.Windows.Forms.Button();
             this.butCopyCharShapeData = new System.Windows.Forms.Button();
-            this.t2TTabControl4 = new ToyTwoToolbox.T2TTabControl();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.t2TTabControl5 = new ToyTwoToolbox.T2TTabControl();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dgvChar = new System.Windows.Forms.DataGridView();
-            this.tabPage13 = new System.Windows.Forms.TabPage();
-            this.butRemoveCharShapeMaterial = new System.Windows.Forms.Button();
-            this.butNewCharShapeMaterial = new System.Windows.Forms.Button();
-            this.groupMaterialProperties = new System.Windows.Forms.GroupBox();
-            this.fieldMaterialUnknown = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboMaterialTexture = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.butAmbColorPicker = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericMaterialID = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericCharShapeID2 = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericCharShapeID = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.fieldShapeName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.dgvAnimationData = new System.Windows.Forms.DataGridView();
             this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -126,31 +101,7 @@
             this.butRemoveGeomShape = new System.Windows.Forms.Button();
             this.butImportGeomShape = new System.Windows.Forms.Button();
             this.listGeomShapes = new System.Windows.Forms.ListBox();
-            this.t2TTabControl3 = new ToyTwoToolbox.T2TTabControl();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.t2TTabControl6 = new ToyTwoToolbox.T2TTabControl();
-            this.tabPage14 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.dgvGeometry = new System.Windows.Forms.DataGridView();
-            this.tabPage15 = new System.Windows.Forms.TabPage();
-            this.butRemoveGeomMaterial = new System.Windows.Forms.Button();
-            this.butNewGeomMaterial = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboGeomMaterialTexture = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.butGeomMaterialColor = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.numericGeomMaterialID = new System.Windows.Forms.NumericUpDown();
-            this.label14 = new System.Windows.Forms.Label();
-            this.numericGeomShapeID2 = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
-            this.numericGeomShapeID = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
-            this.fieldGeomShapeName = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
+            this.GeomShapeEditor = new ToyTwoToolbox.T2Control_ShapeEditor();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
@@ -160,10 +111,11 @@
             this.butRemoveAreaPortal = new System.Windows.Forms.Button();
             this.butNewAreaPortal = new System.Windows.Forms.Button();
             this.dvgAP = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.APX = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.APY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.APZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.CharShapeEditor = new ToyTwoToolbox.T2Control_ShapeEditor();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -184,16 +136,6 @@
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
-            this.t2TTabControl4.SuspendLayout();
-            this.tabPage12.SuspendLayout();
-            this.t2TTabControl5.SuspendLayout();
-            this.tabPage11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvChar)).BeginInit();
-            this.tabPage13.SuspendLayout();
-            this.groupMaterialProperties.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaterialID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID)).BeginInit();
             this.tabPage9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAnimationData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericNodeID)).BeginInit();
@@ -209,16 +151,6 @@
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
-            this.t2TTabControl3.SuspendLayout();
-            this.tabPage8.SuspendLayout();
-            this.t2TTabControl6.SuspendLayout();
-            this.tabPage14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvGeometry)).BeginInit();
-            this.tabPage15.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericGeomMaterialID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericGeomShapeID2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericGeomShapeID)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
             this.splitContainer6.Panel1.SuspendLayout();
@@ -580,6 +512,8 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.butPasteCharShapeData);
+            this.splitContainer2.Panel1.Controls.Add(this.butCopyCharShapeData);
             this.splitContainer2.Panel1.Controls.Add(this.textBox1);
             this.splitContainer2.Panel1.Controls.Add(this.label10);
             this.splitContainer2.Panel1.Controls.Add(this.butNewChar);
@@ -718,9 +652,7 @@
             // 
             // splitContainer5.Panel2
             // 
-            this.splitContainer5.Panel2.Controls.Add(this.butPasteCharShapeData);
-            this.splitContainer5.Panel2.Controls.Add(this.butCopyCharShapeData);
-            this.splitContainer5.Panel2.Controls.Add(this.t2TTabControl4);
+            this.splitContainer5.Panel2.Controls.Add(this.CharShapeEditor);
             this.splitContainer5.Size = new System.Drawing.Size(1006, 346);
             this.splitContainer5.SplitterDistance = 234;
             this.splitContainer5.TabIndex = 1;
@@ -814,7 +746,7 @@
             this.butPasteCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Paste;
             this.butPasteCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butPasteCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPasteCharShapeData.Location = new System.Drawing.Point(137, 1);
+            this.butPasteCharShapeData.Location = new System.Drawing.Point(593, 9);
             this.butPasteCharShapeData.Name = "butPasteCharShapeData";
             this.butPasteCharShapeData.Size = new System.Drawing.Size(20, 20);
             this.butPasteCharShapeData.TabIndex = 14;
@@ -825,316 +757,11 @@
             this.butCopyCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.CopyHS;
             this.butCopyCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butCopyCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butCopyCharShapeData.Location = new System.Drawing.Point(116, 1);
+            this.butCopyCharShapeData.Location = new System.Drawing.Point(572, 9);
             this.butCopyCharShapeData.Name = "butCopyCharShapeData";
             this.butCopyCharShapeData.Size = new System.Drawing.Size(20, 20);
             this.butCopyCharShapeData.TabIndex = 13;
             this.butCopyCharShapeData.UseVisualStyleBackColor = true;
-            // 
-            // t2TTabControl4
-            // 
-            this.t2TTabControl4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.t2TTabControl4.ControlBox = false;
-            this.t2TTabControl4.Controls.Add(this.tabPage12);
-            this.t2TTabControl4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.t2TTabControl4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.t2TTabControl4.Location = new System.Drawing.Point(0, 0);
-            this.t2TTabControl4.Name = "t2TTabControl4";
-            this.t2TTabControl4.SelectedIndex = 0;
-            this.t2TTabControl4.Size = new System.Drawing.Size(766, 344);
-            this.t2TTabControl4.TabIndex = 3;
-            // 
-            // tabPage12
-            // 
-            this.tabPage12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage12.Controls.Add(this.t2TTabControl5);
-            this.tabPage12.Controls.Add(this.numericCharShapeID2);
-            this.tabPage12.Controls.Add(this.label5);
-            this.tabPage12.Controls.Add(this.numericCharShapeID);
-            this.tabPage12.Controls.Add(this.label4);
-            this.tabPage12.Controls.Add(this.fieldShapeName);
-            this.tabPage12.Controls.Add(this.label3);
-            this.tabPage12.Location = new System.Drawing.Point(4, 25);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(758, 315);
-            this.tabPage12.TabIndex = 3;
-            this.tabPage12.Text = "Selected Shape";
-            // 
-            // t2TTabControl5
-            // 
-            this.t2TTabControl5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.t2TTabControl5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.t2TTabControl5.ControlBox = false;
-            this.t2TTabControl5.Controls.Add(this.tabPage11);
-            this.t2TTabControl5.Controls.Add(this.tabPage13);
-            this.t2TTabControl5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.t2TTabControl5.Location = new System.Drawing.Point(2, 36);
-            this.t2TTabControl5.Name = "t2TTabControl5";
-            this.t2TTabControl5.SelectedIndex = 0;
-            this.t2TTabControl5.Size = new System.Drawing.Size(756, 277);
-            this.t2TTabControl5.TabIndex = 6;
-            // 
-            // tabPage11
-            // 
-            this.tabPage11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage11.Controls.Add(this.button4);
-            this.tabPage11.Controls.Add(this.button3);
-            this.tabPage11.Controls.Add(this.dgvChar);
-            this.tabPage11.Location = new System.Drawing.Point(4, 25);
-            this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(748, 248);
-            this.tabPage11.TabIndex = 3;
-            this.tabPage11.Text = "Shape Data";
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(643, 35);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(99, 23);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Convert to Prim";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(643, 6);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(99, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Convert to Patch";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // dgvChar
-            // 
-            this.dgvChar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvChar.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.dgvChar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChar.Location = new System.Drawing.Point(6, 6);
-            this.dgvChar.Name = "dgvChar";
-            this.dgvChar.Size = new System.Drawing.Size(631, 236);
-            this.dgvChar.TabIndex = 0;
-            // 
-            // tabPage13
-            // 
-            this.tabPage13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage13.Controls.Add(this.butRemoveCharShapeMaterial);
-            this.tabPage13.Controls.Add(this.butNewCharShapeMaterial);
-            this.tabPage13.Controls.Add(this.groupMaterialProperties);
-            this.tabPage13.Controls.Add(this.numericMaterialID);
-            this.tabPage13.Controls.Add(this.label6);
-            this.tabPage13.Location = new System.Drawing.Point(4, 25);
-            this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage13.Size = new System.Drawing.Size(748, 248);
-            this.tabPage13.TabIndex = 4;
-            this.tabPage13.Text = "Materials";
-            // 
-            // butRemoveCharShapeMaterial
-            // 
-            this.butRemoveCharShapeMaterial.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
-            this.butRemoveCharShapeMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butRemoveCharShapeMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butRemoveCharShapeMaterial.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butRemoveCharShapeMaterial.Location = new System.Drawing.Point(172, 14);
-            this.butRemoveCharShapeMaterial.Name = "butRemoveCharShapeMaterial";
-            this.butRemoveCharShapeMaterial.Size = new System.Drawing.Size(23, 23);
-            this.butRemoveCharShapeMaterial.TabIndex = 14;
-            this.butRemoveCharShapeMaterial.UseVisualStyleBackColor = true;
-            // 
-            // butNewCharShapeMaterial
-            // 
-            this.butNewCharShapeMaterial.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
-            this.butNewCharShapeMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butNewCharShapeMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butNewCharShapeMaterial.Location = new System.Drawing.Point(143, 14);
-            this.butNewCharShapeMaterial.Name = "butNewCharShapeMaterial";
-            this.butNewCharShapeMaterial.Size = new System.Drawing.Size(23, 23);
-            this.butNewCharShapeMaterial.TabIndex = 13;
-            this.butNewCharShapeMaterial.UseVisualStyleBackColor = true;
-            // 
-            // groupMaterialProperties
-            // 
-            this.groupMaterialProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupMaterialProperties.Controls.Add(this.fieldMaterialUnknown);
-            this.groupMaterialProperties.Controls.Add(this.label9);
-            this.groupMaterialProperties.Controls.Add(this.comboMaterialTexture);
-            this.groupMaterialProperties.Controls.Add(this.label8);
-            this.groupMaterialProperties.Controls.Add(this.butAmbColorPicker);
-            this.groupMaterialProperties.Controls.Add(this.label7);
-            this.groupMaterialProperties.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.groupMaterialProperties.Location = new System.Drawing.Point(6, 41);
-            this.groupMaterialProperties.Name = "groupMaterialProperties";
-            this.groupMaterialProperties.Size = new System.Drawing.Size(736, 201);
-            this.groupMaterialProperties.TabIndex = 6;
-            this.groupMaterialProperties.TabStop = false;
-            this.groupMaterialProperties.Text = "Material properties";
-            // 
-            // fieldMaterialUnknown
-            // 
-            this.fieldMaterialUnknown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.fieldMaterialUnknown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fieldMaterialUnknown.Location = new System.Drawing.Point(70, 133);
-            this.fieldMaterialUnknown.Name = "fieldMaterialUnknown";
-            this.fieldMaterialUnknown.Size = new System.Drawing.Size(161, 20);
-            this.fieldMaterialUnknown.TabIndex = 8;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 135);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 13);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Unknown:";
-            // 
-            // comboMaterialTexture
-            // 
-            this.comboMaterialTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.comboMaterialTexture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMaterialTexture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboMaterialTexture.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.comboMaterialTexture.FormattingEnabled = true;
-            this.comboMaterialTexture.Location = new System.Drawing.Point(61, 79);
-            this.comboMaterialTexture.Name = "comboMaterialTexture";
-            this.comboMaterialTexture.Size = new System.Drawing.Size(128, 21);
-            this.comboMaterialTexture.TabIndex = 6;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 82);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 13);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Texture:";
-            // 
-            // butAmbColorPicker
-            // 
-            this.butAmbColorPicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butAmbColorPicker.Location = new System.Drawing.Point(87, 28);
-            this.butAmbColorPicker.Name = "butAmbColorPicker";
-            this.butAmbColorPicker.Size = new System.Drawing.Size(44, 23);
-            this.butAmbColorPicker.TabIndex = 4;
-            this.butAmbColorPicker.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 33);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(75, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Ambient Color:";
-            // 
-            // numericMaterialID
-            // 
-            this.numericMaterialID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.numericMaterialID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericMaterialID.Location = new System.Drawing.Point(82, 15);
-            this.numericMaterialID.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericMaterialID.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericMaterialID.Name = "numericMaterialID";
-            this.numericMaterialID.Size = new System.Drawing.Size(55, 20);
-            this.numericMaterialID.TabIndex = 5;
-            this.numericMaterialID.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericMaterialID.ValueChanged += new System.EventHandler(this.numericMaterialID_ValueChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 17);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Material ID:";
-            // 
-            // numericCharShapeID2
-            // 
-            this.numericCharShapeID2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.numericCharShapeID2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericCharShapeID2.Location = new System.Drawing.Point(479, 10);
-            this.numericCharShapeID2.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericCharShapeID2.Name = "numericCharShapeID2";
-            this.numericCharShapeID2.Size = new System.Drawing.Size(55, 20);
-            this.numericCharShapeID2.TabIndex = 5;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(409, 12);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Shape ID 2:";
-            // 
-            // numericCharShapeID
-            // 
-            this.numericCharShapeID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.numericCharShapeID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericCharShapeID.Location = new System.Drawing.Point(326, 10);
-            this.numericCharShapeID.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericCharShapeID.Name = "numericCharShapeID";
-            this.numericCharShapeID.Size = new System.Drawing.Size(55, 20);
-            this.numericCharShapeID.TabIndex = 3;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(265, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Shape ID:";
-            // 
-            // fieldShapeName
-            // 
-            this.fieldShapeName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.fieldShapeName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fieldShapeName.Location = new System.Drawing.Point(82, 10);
-            this.fieldShapeName.Name = "fieldShapeName";
-            this.fieldShapeName.Size = new System.Drawing.Size(161, 20);
-            this.fieldShapeName.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Shape name:";
             // 
             // tabPage9
             // 
@@ -1366,7 +993,7 @@
             // 
             // splitContainer4.Panel2
             // 
-            this.splitContainer4.Panel2.Controls.Add(this.t2TTabControl3);
+            this.splitContainer4.Panel2.Controls.Add(this.GeomShapeEditor);
             this.splitContainer4.Size = new System.Drawing.Size(1006, 346);
             this.splitContainer4.SplitterDistance = 234;
             this.splitContainer4.TabIndex = 1;
@@ -1455,311 +1082,15 @@
             this.listGeomShapes.TabIndex = 0;
             this.listGeomShapes.SelectedIndexChanged += new System.EventHandler(this.listGeomShapes_SelectedIndexChanged);
             // 
-            // t2TTabControl3
+            // GeomShapeEditor
             // 
-            this.t2TTabControl3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.t2TTabControl3.ControlBox = false;
-            this.t2TTabControl3.Controls.Add(this.tabPage8);
-            this.t2TTabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.t2TTabControl3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.t2TTabControl3.Location = new System.Drawing.Point(0, 0);
-            this.t2TTabControl3.Name = "t2TTabControl3";
-            this.t2TTabControl3.SelectedIndex = 0;
-            this.t2TTabControl3.Size = new System.Drawing.Size(766, 344);
-            this.t2TTabControl3.TabIndex = 4;
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage8.Controls.Add(this.t2TTabControl6);
-            this.tabPage8.Controls.Add(this.numericGeomShapeID2);
-            this.tabPage8.Controls.Add(this.label15);
-            this.tabPage8.Controls.Add(this.numericGeomShapeID);
-            this.tabPage8.Controls.Add(this.label16);
-            this.tabPage8.Controls.Add(this.fieldGeomShapeName);
-            this.tabPage8.Controls.Add(this.label17);
-            this.tabPage8.Location = new System.Drawing.Point(4, 25);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(758, 315);
-            this.tabPage8.TabIndex = 3;
-            this.tabPage8.Text = "Selected Shape";
-            // 
-            // t2TTabControl6
-            // 
-            this.t2TTabControl6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.t2TTabControl6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.t2TTabControl6.ControlBox = false;
-            this.t2TTabControl6.Controls.Add(this.tabPage14);
-            this.t2TTabControl6.Controls.Add(this.tabPage15);
-            this.t2TTabControl6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.t2TTabControl6.Location = new System.Drawing.Point(2, 36);
-            this.t2TTabControl6.Name = "t2TTabControl6";
-            this.t2TTabControl6.SelectedIndex = 0;
-            this.t2TTabControl6.Size = new System.Drawing.Size(756, 277);
-            this.t2TTabControl6.TabIndex = 6;
-            // 
-            // tabPage14
-            // 
-            this.tabPage14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage14.Controls.Add(this.button1);
-            this.tabPage14.Controls.Add(this.button2);
-            this.tabPage14.Controls.Add(this.dgvGeometry);
-            this.tabPage14.Location = new System.Drawing.Point(4, 25);
-            this.tabPage14.Name = "tabPage14";
-            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(748, 248);
-            this.tabPage14.TabIndex = 3;
-            this.tabPage14.Text = "Shape Data";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(643, 35);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Convert to Prim";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(643, 6);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Convert to Patch";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // dgvGeometry
-            // 
-            this.dgvGeometry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvGeometry.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.dgvGeometry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvGeometry.Location = new System.Drawing.Point(6, 6);
-            this.dgvGeometry.Name = "dgvGeometry";
-            this.dgvGeometry.Size = new System.Drawing.Size(631, 236);
-            this.dgvGeometry.TabIndex = 0;
-            // 
-            // tabPage15
-            // 
-            this.tabPage15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage15.Controls.Add(this.butRemoveGeomMaterial);
-            this.tabPage15.Controls.Add(this.butNewGeomMaterial);
-            this.tabPage15.Controls.Add(this.groupBox1);
-            this.tabPage15.Controls.Add(this.numericGeomMaterialID);
-            this.tabPage15.Controls.Add(this.label14);
-            this.tabPage15.Location = new System.Drawing.Point(4, 25);
-            this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage15.Size = new System.Drawing.Size(748, 248);
-            this.tabPage15.TabIndex = 4;
-            this.tabPage15.Text = "Materials";
-            // 
-            // butRemoveGeomMaterial
-            // 
-            this.butRemoveGeomMaterial.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
-            this.butRemoveGeomMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butRemoveGeomMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butRemoveGeomMaterial.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butRemoveGeomMaterial.Location = new System.Drawing.Point(172, 14);
-            this.butRemoveGeomMaterial.Name = "butRemoveGeomMaterial";
-            this.butRemoveGeomMaterial.Size = new System.Drawing.Size(23, 23);
-            this.butRemoveGeomMaterial.TabIndex = 14;
-            this.butRemoveGeomMaterial.UseVisualStyleBackColor = true;
-            this.butRemoveGeomMaterial.Click += new System.EventHandler(this.butRemoveGeomMaterial_Click);
-            // 
-            // butNewGeomMaterial
-            // 
-            this.butNewGeomMaterial.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
-            this.butNewGeomMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butNewGeomMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butNewGeomMaterial.Location = new System.Drawing.Point(143, 14);
-            this.butNewGeomMaterial.Name = "butNewGeomMaterial";
-            this.butNewGeomMaterial.Size = new System.Drawing.Size(23, 23);
-            this.butNewGeomMaterial.TabIndex = 13;
-            this.butNewGeomMaterial.UseVisualStyleBackColor = true;
-            this.butNewGeomMaterial.Click += new System.EventHandler(this.butNewGeomMaterial_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.comboGeomMaterialTexture);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.butGeomMaterialColor);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.groupBox1.Location = new System.Drawing.Point(6, 41);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(736, 201);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Material properties";
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Location = new System.Drawing.Point(70, 133);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(161, 20);
-            this.textBox2.TabIndex = 8;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 135);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(56, 13);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "Unknown:";
-            // 
-            // comboGeomMaterialTexture
-            // 
-            this.comboGeomMaterialTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.comboGeomMaterialTexture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboGeomMaterialTexture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboGeomMaterialTexture.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.comboGeomMaterialTexture.FormattingEnabled = true;
-            this.comboGeomMaterialTexture.Location = new System.Drawing.Point(61, 79);
-            this.comboGeomMaterialTexture.Name = "comboGeomMaterialTexture";
-            this.comboGeomMaterialTexture.Size = new System.Drawing.Size(128, 21);
-            this.comboGeomMaterialTexture.TabIndex = 6;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 82);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(46, 13);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Texture:";
-            // 
-            // butGeomMaterialColor
-            // 
-            this.butGeomMaterialColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butGeomMaterialColor.Location = new System.Drawing.Point(87, 28);
-            this.butGeomMaterialColor.Name = "butGeomMaterialColor";
-            this.butGeomMaterialColor.Size = new System.Drawing.Size(44, 23);
-            this.butGeomMaterialColor.TabIndex = 4;
-            this.butGeomMaterialColor.UseVisualStyleBackColor = true;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 33);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(75, 13);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Ambient Color:";
-            // 
-            // numericGeomMaterialID
-            // 
-            this.numericGeomMaterialID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.numericGeomMaterialID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericGeomMaterialID.Location = new System.Drawing.Point(82, 15);
-            this.numericGeomMaterialID.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericGeomMaterialID.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericGeomMaterialID.Name = "numericGeomMaterialID";
-            this.numericGeomMaterialID.Size = new System.Drawing.Size(55, 20);
-            this.numericGeomMaterialID.TabIndex = 5;
-            this.numericGeomMaterialID.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(15, 17);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(61, 13);
-            this.label14.TabIndex = 4;
-            this.label14.Text = "Material ID:";
-            // 
-            // numericGeomShapeID2
-            // 
-            this.numericGeomShapeID2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.numericGeomShapeID2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericGeomShapeID2.Location = new System.Drawing.Point(479, 10);
-            this.numericGeomShapeID2.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericGeomShapeID2.Name = "numericGeomShapeID2";
-            this.numericGeomShapeID2.Size = new System.Drawing.Size(55, 20);
-            this.numericGeomShapeID2.TabIndex = 5;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(409, 12);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(64, 13);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Shape ID 2:";
-            // 
-            // numericGeomShapeID
-            // 
-            this.numericGeomShapeID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.numericGeomShapeID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericGeomShapeID.Location = new System.Drawing.Point(326, 10);
-            this.numericGeomShapeID.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericGeomShapeID.Name = "numericGeomShapeID";
-            this.numericGeomShapeID.Size = new System.Drawing.Size(55, 20);
-            this.numericGeomShapeID.TabIndex = 3;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(265, 12);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(55, 13);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "Shape ID:";
-            // 
-            // fieldGeomShapeName
-            // 
-            this.fieldGeomShapeName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.fieldGeomShapeName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fieldGeomShapeName.Location = new System.Drawing.Point(82, 10);
-            this.fieldGeomShapeName.Name = "fieldGeomShapeName";
-            this.fieldGeomShapeName.Size = new System.Drawing.Size(161, 20);
-            this.fieldGeomShapeName.TabIndex = 1;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 12);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(70, 13);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "Shape name:";
+            this.GeomShapeEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.GeomShapeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GeomShapeEditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.GeomShapeEditor.Location = new System.Drawing.Point(0, 0);
+            this.GeomShapeEditor.Name = "GeomShapeEditor";
+            this.GeomShapeEditor.Size = new System.Drawing.Size(766, 344);
+            this.GeomShapeEditor.TabIndex = 0;
             // 
             // tabPage6
             // 
@@ -1806,6 +1137,9 @@
             // 
             // listAreaPortals
             // 
+            this.listAreaPortals.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listAreaPortals.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.listAreaPortals.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listAreaPortals.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
@@ -1881,20 +1215,11 @@
             this.APY,
             this.APZ});
             this.dvgAP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dvgAP.EnableHeadersVisualStyles = false;
             this.dvgAP.Location = new System.Drawing.Point(0, 0);
             this.dvgAP.Name = "dvgAP";
             this.dvgAP.Size = new System.Drawing.Size(778, 423);
             this.dvgAP.TabIndex = 0;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1028, 431);
-            this.tabPage3.TabIndex = 4;
-            this.tabPage3.Text = "Shape Links";
             // 
             // APX
             // 
@@ -1910,6 +1235,26 @@
             // 
             this.APZ.HeaderText = "Z";
             this.APZ.Name = "APZ";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1028, 431);
+            this.tabPage3.TabIndex = 4;
+            this.tabPage3.Text = "Shape Links";
+            // 
+            // CharShapeEditor
+            // 
+            this.CharShapeEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.CharShapeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CharShapeEditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.CharShapeEditor.Location = new System.Drawing.Point(0, 0);
+            this.CharShapeEditor.Name = "CharShapeEditor";
+            this.CharShapeEditor.Size = new System.Drawing.Size(766, 344);
+            this.CharShapeEditor.TabIndex = 0;
             // 
             // T2Control_NGNEditor
             // 
@@ -1941,19 +1286,6 @@
             this.splitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
-            this.t2TTabControl4.ResumeLayout(false);
-            this.tabPage12.ResumeLayout(false);
-            this.tabPage12.PerformLayout();
-            this.t2TTabControl5.ResumeLayout(false);
-            this.tabPage11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvChar)).EndInit();
-            this.tabPage13.ResumeLayout(false);
-            this.tabPage13.PerformLayout();
-            this.groupMaterialProperties.ResumeLayout(false);
-            this.groupMaterialProperties.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaterialID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID)).EndInit();
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAnimationData)).EndInit();
@@ -1971,19 +1303,6 @@
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
-            this.t2TTabControl3.ResumeLayout(false);
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
-            this.t2TTabControl6.ResumeLayout(false);
-            this.tabPage14.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvGeometry)).EndInit();
-            this.tabPage15.ResumeLayout(false);
-            this.tabPage15.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericGeomMaterialID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericGeomShapeID2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericGeomShapeID)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.splitContainer6.Panel1.ResumeLayout(false);
             this.splitContainer6.Panel2.ResumeLayout(false);
@@ -2026,8 +1345,6 @@
         private System.Windows.Forms.Button butRemoveCharShape;
         private System.Windows.Forms.Button butImportCharShape;
         private System.Windows.Forms.ListBox listCharShapes;
-        private T2TTabControl t2TTabControl4;
-        private System.Windows.Forms.TabPage tabPage12;
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.Button butNewGeomShape;
@@ -2069,58 +1386,10 @@
         internal System.Windows.Forms.ToolStripMenuItem MoveDownToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelTextureInfo;
-        private T2TTabControl t2TTabControl5;
-        private System.Windows.Forms.TabPage tabPage11;
-        private System.Windows.Forms.TabPage tabPage13;
-        private System.Windows.Forms.NumericUpDown numericCharShapeID2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericCharShapeID;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox fieldShapeName;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupMaterialProperties;
-        private System.Windows.Forms.TextBox fieldMaterialUnknown;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboMaterialTexture;
-        private System.Windows.Forms.Label label8;
-        internal System.Windows.Forms.Button butAmbColorPicker;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericMaterialID;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button butPasteCharShapeData;
         private System.Windows.Forms.Button butCopyCharShapeData;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridView dgvChar;
-        private System.Windows.Forms.Button butRemoveCharShapeMaterial;
-        private System.Windows.Forms.Button butNewCharShapeMaterial;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label10;
-        private T2TTabControl t2TTabControl3;
-        private System.Windows.Forms.TabPage tabPage8;
-        private T2TTabControl t2TTabControl6;
-        private System.Windows.Forms.TabPage tabPage14;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dgvGeometry;
-        private System.Windows.Forms.TabPage tabPage15;
-        private System.Windows.Forms.Button butRemoveGeomMaterial;
-        private System.Windows.Forms.Button butNewGeomMaterial;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboGeomMaterialTexture;
-        private System.Windows.Forms.Label label12;
-        internal System.Windows.Forms.Button butGeomMaterialColor;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown numericGeomMaterialID;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.NumericUpDown numericGeomShapeID2;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.NumericUpDown numericGeomShapeID;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox fieldGeomShapeName;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ListBox listAreaPortals;
         private System.Windows.Forms.DataGridView dvgAP;
         private System.Windows.Forms.NumericUpDown numericAnimationID;
@@ -2136,5 +1405,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn APX;
         private System.Windows.Forms.DataGridViewTextBoxColumn APY;
         private System.Windows.Forms.DataGridViewTextBoxColumn APZ;
+        private T2Control_ShapeEditor GeomShapeEditor;
+        private T2Control_ShapeEditor CharShapeEditor;
     }
 }

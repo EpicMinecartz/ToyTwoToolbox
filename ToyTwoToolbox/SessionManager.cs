@@ -29,12 +29,16 @@ namespace ToyTwoToolbox {
             
 			SMptr = this;
 
-			DarkThemeCellDGV.BackColor = Color.FromArgb(0, 0, 0);
+			DarkThemeCellDGV.BackColor = Color.FromArgb(30, 30, 30);
 			DarkThemeCellDGV.ForeColor = Color.FromArgb(240, 240, 240);
+			DarkThemeCellDGV.SelectionBackColor = Color.FromArgb(50, 50, 50);
 			DarkThemeColumnDGV.BackColor = Color.FromArgb(15, 15, 15);
-			DarkThemeColumnDGV.BackColor = Color.FromArgb(240,240,240);
+			DarkThemeColumnDGV.ForeColor = Color.FromArgb(240,240,240);
+			DarkThemeColumnDGV.SelectionBackColor = Color.FromArgb(50, 50, 50);
 			DarkThemeRowDGV.BackColor = Color.FromArgb(10, 10, 10);
-			DarkThemeRowDGV.BackColor = Color.FromArgb(240, 240, 240);
+			DarkThemeRowDGV.ForeColor = Color.FromArgb(240, 240, 240);
+			DarkThemeRowDGV.SelectionBackColor = Color.FromArgb(50, 50, 50);
+			
 		}
 
 		public static DataGridViewCellStyle DarkThemeCellDGV = new DataGridViewCellStyle();
@@ -218,31 +222,6 @@ namespace ToyTwoToolbox {
 			}
 		}
 
-		public bool DiffuseCriticalError(Exception e) {
-			Debug = true;
-			this.Opacity = 100;
-			this.Show();
-			SM("================================================================", "", Color.FromArgb(255, 0, 0), NoInstName: true);
-			SM("APPLICATION EXCEPTION - " + e.TargetSite.Module.Name, "", Color.FromArgb(255, 0, 0), NoInstName: true);
-			SM("================================================================", "", Color.FromArgb(255, 0, 0), NoInstName: true);
-			SM("SM.DCE::Critical Runtime Error Diffused", "[_MAIN] [_SM] [FATAL] ", Color.FromArgb(255, 0, 0));
-			SM("SM.DCE::EX->" + e.GetType().Name, "[_MAIN] [_EXE] [FATAL] ", Color.FromArgb(255, 0, 0));
-			SM("SM.DCE::l->" + e.Source, "[_MAIN] [_EXE] [FATAL] ", Color.FromArgb(255, 0, 0));
-			SM(e.Message, "", Color.FromArgb(255, 0, 0));
-			SM("Stack Trace: " + Environment.NewLine + e.StackTrace, "", Color.LightGray);
-			SM("SM.DCE::EX->AREDMP -NOEXT -ADV", "[_MAIN] [_SM] [FATAL] ", Color.FromArgb(255, 0, 0));
-			SM("A_EXP->" + Application.ExecutablePath, "", Color.LightGray);
-
-			EC ecn = new EC {
-				EDesc = "APPLICATION EXCEPTION - " + e.GetType().Name + "::" + e.Message + "Stack Trace: " + Environment.NewLine + e.StackTrace,
-				ETime = DateTime.Now,
-				EType = "Fatal"
-			};
-			EDict.Add(ecn);
-			ErrorDisplay.Text = EDict.Count + " Errors";
-			return true;
-		}
-
 		public string WL(string TX, string Pre = "", Color color = new Color(), bool NOTD = false, bool nl = true, short Override = 0) {
 			if (((new System.Diagnostics.StackFrame(1)).GetMethod().Name == "SM") || Override != 0 || color == Color.Red || (Debug == true && PrintMessages == true)) {
 				if (color == new Color()) {
@@ -355,7 +334,7 @@ namespace ToyTwoToolbox {
 				NM.Init(StartupParam);
 				ClientActive = true;
 			} catch (Exception ex) {
-				DiffuseCriticalError(ex);
+				
 			}
 			CheckExecution();
 			//  RefreshUI()

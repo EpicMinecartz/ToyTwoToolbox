@@ -132,16 +132,29 @@
     <Compile Include="Material.cs" />
     <Compile Include="MessageFade.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SlotConfig.cs" />
     <Compile Include="T2Control_Checkbox.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="T2Control_DGV.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="T2Control_ShapeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_ShapeEditor.Designer.cs">
+      <DependentUpon>T2Control_ShapeEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Toggle.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Patch.cs" />
     <Compile Include="Primitive.cs" />
-    <Compile Include="RawPrimPatchContainer.cs" />
     <Compile Include="Shape.cs" />
     <Compile Include="T2Control_HealthMeter.cs">
       <SubType>UserControl</SubType>
@@ -207,6 +220,12 @@
     <EmbeddedResource Include="T2Control_Checkbox.resx">
       <DependentUpon>T2Control_Checkbox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_DGV.resx">
+      <DependentUpon>T2Control_DGV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_ShapeEditor.resx">
+      <DependentUpon>T2Control_ShapeEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Toggle.resx">
       <DependentUpon>Toggle.cs</DependentUpon>
     </EmbeddedResource>
@@ -215,14 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SessionManager.resx">
       <DependentUpon>SessionManager.cs</DependentUpon>
     </EmbeddedResource>
@@ -294,6 +308,12 @@
     <None Include="Resources\Rename.png" />
     <None Include="Resources\buzzFlipH.png" />
     <None Include="Resources\buzzFlipV.png" />
+    <None Include="Resources\BuzzFolder.png" />
+    <None Include="Resources\aclui_126.png" />
+    <None Include="Resources\Default.png" />
+    <None Include="Resources\Refresh_32x.png" />
+    <None Include="Resources\Save.png" />
+    <None Include="Resources\SaveAs.png" />
     <Content Include="t2tbicon_XSz_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

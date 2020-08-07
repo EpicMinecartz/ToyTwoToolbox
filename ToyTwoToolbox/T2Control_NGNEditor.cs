@@ -17,16 +17,9 @@ namespace ToyTwoToolbox {
             contextTexture.Renderer = new DarkThemeMenuRender();
             listviewTextures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listviewTextures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-            dgvChar.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            dgvChar.ColumnHeadersDefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            dgvChar.RowsDefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dgvAnimationData.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dgvAnimationData.ColumnHeadersDefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dgvAnimationData.RowsDefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            dgvGeometry.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            dgvGeometry.ColumnHeadersDefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            dgvGeometry.RowsDefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dvgAP.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dvgAP.ColumnHeadersDefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dvgAP.RowsDefaultCellStyle = SessionManager.DarkThemeCellDGV;
@@ -285,39 +278,27 @@ namespace ToyTwoToolbox {
             }
         }
 
-        public void LoadCharShape(int charID, int shapeID) {
-            Shape shape = loadedNGN.characters[charID].model.shapes[shapeID];
-            fieldShapeName.Text = shape.name;
-            numericCharShapeID.Value = shape.type;
-            numericCharShapeID2.Value = shape.type2;
-            numericMaterialID.Value = (shape.materials.Count > 0) ? 0 : -1;
-            comboMaterialTexture.Items.Clear();
-            foreach (Texture tex in loadedNGN.textures) {
-                comboMaterialTexture.Items.Add(tex.name);
-            }
-            comboMaterialTexture.SelectedIndex = 0;
-        }
-
         private void comboCharacters_SelectedIndexChanged(object sender, EventArgs e) {
             LoadCharacter(comboCharacters.SelectedIndex);
         }
 
         private void listShapes_SelectedIndexChanged(object sender, EventArgs e) {
-            LoadCharShape(comboCharacters.SelectedIndex, listCharShapes.SelectedIndex);
-            
+            //LoadCharShape(comboCharacters.SelectedIndex, listCharShapes.SelectedIndex);
+            Shape shp = loadedNGN.characters[comboCharacters.SelectedIndex].model.shapes[listCharShapes.SelectedIndex];
+            CharShapeEditor.ImportShape(ref shp, ref loadedNGN);
         }
 
-        private void numericMaterialID_ValueChanged(object sender, EventArgs e) {
-            Shape shape = loadedNGN.characters[comboCharacters.SelectedIndex].model.shapes[listCharShapes.SelectedIndex];
-            groupMaterialProperties.Enabled = (numericMaterialID.Value != -1);
-            if (numericMaterialID.Value != -1) {
-                Material mat = shape.materials[(int)numericMaterialID.Value];
-                List<double> AmbColor = mat.RGB;
-                butAmbColorPicker.BackColor = Color.FromArgb((int)AmbColor[0], (int)AmbColor[1], (int)AmbColor[2]);
-                comboMaterialTexture.SelectedIndex = (mat.textureIndex != 65535) ? mat.textureIndex : 0;
+        //private void numericMaterialID_ValueChanged(object sender, EventArgs e) {
+        //    Shape shape = loadedNGN.characters[comboCharacters.SelectedIndex].model.shapes[listCharShapes.SelectedIndex];
+        //    groupMaterialProperties.Enabled = (numericMaterialID.Value != -1);
+        //    if (numericMaterialID.Value != -1) {
+        //        Material mat = shape.materials[(int)numericMaterialID.Value];
+        //        List<double> AmbColor = mat.RGB;
+        //        butAmbColorPicker.BackColor = Color.FromArgb((int)AmbColor[0], (int)AmbColor[1], (int)AmbColor[2]);
+        //        comboMaterialTexture.SelectedIndex = (mat.textureIndex != 65535) ? mat.textureIndex : 0;
 
-            }
-        }
+        //    }
+        //}
 
 
         private void butNewChar_Click(object sender, EventArgs e) {
@@ -361,8 +342,10 @@ namespace ToyTwoToolbox {
         public void LoadGeometryData() {
             //well, i guess we only gotta populate the character list, the rest is on select basis
             comboGeometry.Items.Clear();
+            int i = 0;
             foreach (Geometry geom in loadedNGN.Geometries) {
-                comboGeometry.Items.Add(geom.name);
+                comboGeometry.Items.Add(geom.name == "" ? "Geom " + i.ToString().PadLeft(2, '0') : geom.name);
+                i++;
             }
             comboGeometry.SelectedIndex = 0;
         }
@@ -370,22 +353,17 @@ namespace ToyTwoToolbox {
 
         public void LoadGeometry(int id) {
             listGeomShapes.Items.Clear();
-            for (int i = 0;i < loadedNGN.Geometries[id].shapes.Count;i++) {
-                listGeomShapes.Items.Add((loadedNGN.Geometries[id].shapes[i].name == "") ? "Shape " + i.ToString().PadLeft(2, '0') : loadedNGN.Geometries[id].shapes[i].name);
+            GeomShapeEditor.Clear(true);
+            if (loadedNGN.Geometries.Count > 0) {
+                if (loadedNGN.Geometries[id].shapes.Count > 0) {
+                    for (int i = 0;i < loadedNGN.Geometries[id].shapes.Count;i++) {
+                        listGeomShapes.Items.Add((loadedNGN.Geometries[id].shapes[i].name == "") ? "Shape " + i.ToString().PadLeft(2, '0') : loadedNGN.Geometries[id].shapes[i].name);
+                    }
+                    GeomShapeEditor.Visible = true;
+                    listGeomShapes.SelectedIndex = 0;
+                }
             }
-        }
 
-        public void LoadGeomShape(int charID, int shapeID) {
-            Shape shape = loadedNGN.Geometries[charID].shapes[shapeID];
-            fieldGeomShapeName.Text = shape.name;
-            numericGeomShapeID.Value = shape.type;
-            numericGeomShapeID2.Value = shape.type2;
-            numericGeomMaterialID.Value = (shape.materials.Count > 0) ? 0 : -1;
-            comboGeomMaterialTexture.Items.Clear();
-            foreach (Texture tex in loadedNGN.textures) {
-                comboGeomMaterialTexture.Items.Add(tex.name);
-            }
-            comboGeomMaterialTexture.SelectedIndex = 0;
         }
 
         private void comboGeometry_SelectedIndexChanged(object sender, EventArgs e) {
@@ -393,12 +371,14 @@ namespace ToyTwoToolbox {
         }
 
         private void listGeomShapes_SelectedIndexChanged(object sender, EventArgs e) {
-            LoadGeomShape(comboGeometry.SelectedIndex, listGeomShapes.SelectedIndex);
+            //LoadGeomShape(comboGeometry.SelectedIndex, listGeomShapes.SelectedIndex);
+            Shape shp = loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes[listGeomShapes.SelectedIndex];
+            GeomShapeEditor.ImportShape(ref shp, ref loadedNGN);
         }
 
         private void butNewGeomShape_Click(object sender, EventArgs e) {
             loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes.Add(new Shape());
-            LoadCharacter(comboGeometry.SelectedIndex);
+            LoadGeometry(comboGeometry.SelectedIndex);
         }
 
         private void butImportGeomShape_Click(object sender, EventArgs e) {
@@ -424,6 +404,7 @@ namespace ToyTwoToolbox {
         private void butNewGeometry_Click(object sender, EventArgs e) {
             loadedNGN.Geometries.Add(new Geometry { name = "Untitled" });
             comboGeometry.Items.Add("Untitled");
+            comboGeometry.SelectedIndex = comboGeometry.Items.Count - 1;
         }
 
         private void butImportGeometry_Click(object sender, EventArgs e) {
@@ -487,25 +468,35 @@ namespace ToyTwoToolbox {
         }
 
         private void numericNodeID_ValueChanged(object sender, EventArgs e) {
-            foreach (AnimationFrame frame in loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames) {
-                dgvAnimationData.Rows.Add(1);
-                DataGridViewRow DGVRow = (DataGridViewRow)dgvAnimationData.Rows[dgvAnimationData.Rows.Count - 1];
-                DGVRow.Cells[0].Value = frame.Position.X;
-                DGVRow.Cells[1].Value = frame.Position.Y;
-                DGVRow.Cells[2].Value = frame.Position.Z;
-                DGVRow.Cells[3].Value = frame.Rotation.X;
-                DGVRow.Cells[4].Value = frame.Rotation.Y;
+            int framecount = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames.Count;
+            dgvAnimationData.Rows.Clear();
+            if (framecount > 0) {
+                dgvAnimationData.Rows.Add(framecount);
+                for (int i = 0;i < framecount;i++) {
+                    DataGridViewRow DGVRow = (DataGridViewRow)dgvAnimationData.Rows[i];
+                    AnimationFrame frame = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames[i];
+                    DGVRow.Cells[0].Value = frame.Position.X;
+                    DGVRow.Cells[1].Value = frame.Position.Y;
+                    DGVRow.Cells[2].Value = frame.Position.Z;
+                    DGVRow.Cells[3].Value = frame.Rotation.X;
+                    DGVRow.Cells[4].Value = frame.Rotation.Y;
+                }
             }
         }
 
         private void listAreaPortals_SelectedIndexChanged(object sender, EventArgs e) {
-            foreach (Vector3 position in loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices) {
-                dgvAnimationData.Rows.Add(1);
-                DataGridViewRow DGVRow = (DataGridViewRow)dvgAP.Rows[dvgAP.Rows.Count - 1];
-                DGVRow.Cells[0].Value = position.X;
-                DGVRow.Cells[1].Value = position.Y;
-                DGVRow.Cells[2].Value = position.Z;
+            dvgAP.Rows.Clear();
+            if (loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count > 0) {
+                dvgAP.Rows.Add(loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count);
+                for (int i = 0;i < loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count;i++) {
+                    DataGridViewRow DGVRow = (DataGridViewRow)dvgAP.Rows[i];
+                    Vector3 v = loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices[i];
+                    DGVRow.Cells[0].Value = v.X;
+                    DGVRow.Cells[1].Value = v.Y;
+                    DGVRow.Cells[2].Value = v.Z;
+                }
             }
         }
+
     }
 }

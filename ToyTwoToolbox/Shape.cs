@@ -6,6 +6,7 @@ using System.Text;
 
 namespace ToyTwoToolbox {
     public class Shape {
+        public int _SPType = 0; //this is an internal reference, we set this just to confirm the shape was prim/patch when decompressed 0=prim 1=patch
         public string name;
         public int type;
         public int type2;

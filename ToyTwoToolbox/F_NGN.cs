@@ -246,7 +246,8 @@ namespace ToyTwoToolbox {
                             } else {
                                 SessionManager.Report("The shape ID was invalid or null and was skipped <frs=" + seekPTR + "> [->F_NGN->ARSON->Extract_CharacterData]",SessionManager.RType.ERROR);
                             }
-                    }
+                        }
+                        SessionManager.Report("Context Owner:" + chr.name + " ShapeID:" + chr.model.shapes[chr.model.shapes.Count - 1].type + " ShapeID2:" + chr.model.shapes[chr.model.shapes.Count - 1].type2);
                     }
 
                     continue;
@@ -255,8 +256,9 @@ namespace ToyTwoToolbox {
                     //SessionManager.Report("this animation data will be sent to " + chr.name + " as anim " + chr.Anims.Count, SessionManager.RType.ERROR);
                     Extract_Animations(chr, ref seekPTR, FCL);
                 } else if (FID == 517) { //Things to do if we identify that this shape is a Patch shape
-                    PatchShape = new Shape();
-                    PatchShape.type = 255;
+                    PatchShape = new Shape {
+                        _SPType = 1
+                    };
                     Extract_Shape_Textures(ref seekPTR, PatchShape);
                 } else if (FID == 518) { //patch materials
                     Extract_Shape_Materials(ref seekPTR, PatchShape);
@@ -264,6 +266,7 @@ namespace ToyTwoToolbox {
                     Extract_Shape_Vertices(ref seekPTR, PatchShape);
                 } else if (FID == 520) {
                     Extract_Shape_Patch(ref seekPTR, PatchShape);
+                    chr.model.shapes.Add(PatchShape);
                 }
             }
 
@@ -461,6 +464,10 @@ namespace ToyTwoToolbox {
 
             chr.Anims.Add(anim);
         }
+
+
+
+
 
 
 
