@@ -374,15 +374,16 @@
             // nGNToolStripMenuItem1
             // 
             this.nGNToolStripMenuItem1.Name = "nGNToolStripMenuItem1";
-            this.nGNToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
+            this.nGNToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.nGNToolStripMenuItem1.Text = "NGN";
             this.nGNToolStripMenuItem1.Click += new System.EventHandler(this.nGNToolStripMenuItem1_Click);
             // 
             // saveToolStripMenuItem2
             // 
             this.saveToolStripMenuItem2.Name = "saveToolStripMenuItem2";
-            this.saveToolStripMenuItem2.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem2.Text = "Save";
+            this.saveToolStripMenuItem2.Click += new System.EventHandler(this.saveToolStripMenuItem2_Click);
             // 
             // toolStripButton1
             // 

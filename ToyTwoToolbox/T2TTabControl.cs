@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace ToyTwoToolbox {
     /// <summary>
@@ -15,6 +16,7 @@ namespace ToyTwoToolbox {
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
+        private bool debug = false;
 
         public T2TTabControl() {
             // This call is required by the Windows.Forms Form Designer.
@@ -45,7 +47,13 @@ namespace ToyTwoToolbox {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // T2TTabControl
+            // 
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.T2TTabControl_MouseMove);
+            this.ResumeLayout(false);
+
         }
         #endregion
 
@@ -175,14 +183,23 @@ namespace ToyTwoToolbox {
         protected override void OnMouseDown(MouseEventArgs e) {
             if (m_ControlBox == true) {
                 Rectangle r = this.GetTabRect(this.SelectedIndex);
-                Rectangle closeButton = new Rectangle(r.Right - 15, r.Top + 4, 11, 11);
-                if (closeButton.Contains(e.Location)) {
+                if (e.Button == MouseButtons.Left) {
+                    Rectangle closeButton = new Rectangle(r.Right - 15, r.Top + 4, 11, 11);
+                    if (closeButton.Contains(e.Location)) {
+                        TabRequestDestroy.Invoke(this, this.SelectedIndex);
+                        //this.TabPages.Remove(this.SelectedTab);
+                    }
+                } else if (e.Button == MouseButtons.Middle) {
                     TabRequestDestroy.Invoke(this, this.SelectedIndex);
-                    //this.TabPages.Remove(this.SelectedTab);
                 }
+
             }
             base.OnMouseDown(e);
             Invalidate();
+        }
+
+        private void T2TTabControl_MouseMove(object sender, MouseEventArgs e) {
+
         }
 
         public void DestroyTab(int tabID) {
@@ -251,7 +268,11 @@ namespace ToyTwoToolbox {
                 //Draw the Tab Text
                 Rectangle TabText = new Rectangle(r.X, r.Y, r.Width-((m_ControlBox == true) ? 15 : 0), r.Height);
                 //debug - draw text region
-                //e.Graphics.DrawRectangle(Pens.Red, TabText);
+                if (debug) {
+                    e.Graphics.DrawRectangle(Pens.Red, TabText);
+                    //e.Graphics.DrawString(TabText.Location.ToString(),Font,Brushes.AliceBlue,TabText.Location);
+                }
+
                 if (tp.Enabled) {
                     e.Graphics.DrawString(tp.Text, Font, PaintBrush, TabText, sf);
                 } else {
@@ -322,6 +343,7 @@ namespace ToyTwoToolbox {
         private void ResetVars() {
 
         }
+
 
     }
 

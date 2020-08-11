@@ -24,6 +24,12 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new ToyTwoToolbox.T2TTabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -56,6 +62,8 @@
             this.labelTextureInfo = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.butPasteCharShapeData = new System.Windows.Forms.Button();
+            this.butCopyCharShapeData = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.butNewChar = new System.Windows.Forms.Button();
@@ -63,7 +71,7 @@
             this.ButImportChar = new System.Windows.Forms.Button();
             this.comboCharacters = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.t2TTabControl1 = new ToyTwoToolbox.T2TTabControl();
+            this.CharEditor = new ToyTwoToolbox.T2TTabControl();
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.butNewCharShape = new System.Windows.Forms.Button();
@@ -72,8 +80,7 @@
             this.butRemoveCharShape = new System.Windows.Forms.Button();
             this.butImportCharShape = new System.Windows.Forms.Button();
             this.listCharShapes = new System.Windows.Forms.ListBox();
-            this.butPasteCharShapeData = new System.Windows.Forms.Button();
-            this.butCopyCharShapeData = new System.Windows.Forms.Button();
+            this.CharShapeEditor = new ToyTwoToolbox.T2Control_ShapeEditor();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.dgvAnimationData = new System.Windows.Forms.DataGridView();
             this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,7 +99,7 @@
             this.butImportGeometry = new System.Windows.Forms.Button();
             this.comboGeometry = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.t2TTabControl2 = new ToyTwoToolbox.T2TTabControl();
+            this.GeomEditor = new ToyTwoToolbox.T2TTabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.butNewGeomShape = new System.Windows.Forms.Button();
@@ -110,12 +117,18 @@
             this.butMoveAreaPortalUp = new System.Windows.Forms.Button();
             this.butRemoveAreaPortal = new System.Windows.Forms.Button();
             this.butNewAreaPortal = new System.Windows.Forms.Button();
-            this.dvgAP = new System.Windows.Forms.DataGridView();
+            this.dvgAP = new ToyTwoToolbox.T2Control_DGV();
             this.APX = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.APY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.APZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.CharShapeEditor = new ToyTwoToolbox.T2Control_ShapeEditor();
+            this.butShapeLinkMoveDown = new System.Windows.Forms.Button();
+            this.butShapeLinkMoveUp = new System.Windows.Forms.Button();
+            this.butRemoveShapeLink = new System.Windows.Forms.Button();
+            this.butNewShapeLink = new System.Windows.Forms.Button();
+            this.ShapeLinkEditor = new ToyTwoToolbox.T2Control_DGV();
+            this.slsid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sllid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -130,7 +143,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.t2TTabControl1.SuspendLayout();
+            this.CharEditor.SuspendLayout();
             this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -145,7 +158,7 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            this.t2TTabControl2.SuspendLayout();
+            this.GeomEditor.SuspendLayout();
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
@@ -157,6 +170,8 @@
             this.splitContainer6.Panel2.SuspendLayout();
             this.splitContainer6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvgAP)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ShapeLinkEditor)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -506,6 +521,7 @@
             this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.IsSplitterFixed = true;
             this.splitContainer2.Location = new System.Drawing.Point(3, 3);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -524,15 +540,38 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.t2TTabControl1);
+            this.splitContainer2.Panel2.Controls.Add(this.CharEditor);
             this.splitContainer2.Size = new System.Drawing.Size(1022, 425);
             this.splitContainer2.SplitterDistance = 38;
             this.splitContainer2.TabIndex = 1;
+            // 
+            // butPasteCharShapeData
+            // 
+            this.butPasteCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Paste;
+            this.butPasteCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butPasteCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butPasteCharShapeData.Location = new System.Drawing.Point(593, 9);
+            this.butPasteCharShapeData.Name = "butPasteCharShapeData";
+            this.butPasteCharShapeData.Size = new System.Drawing.Size(20, 20);
+            this.butPasteCharShapeData.TabIndex = 14;
+            this.butPasteCharShapeData.UseVisualStyleBackColor = true;
+            // 
+            // butCopyCharShapeData
+            // 
+            this.butCopyCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.CopyHS;
+            this.butCopyCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butCopyCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butCopyCharShapeData.Location = new System.Drawing.Point(572, 9);
+            this.butCopyCharShapeData.Name = "butCopyCharShapeData";
+            this.butCopyCharShapeData.Size = new System.Drawing.Size(20, 20);
+            this.butCopyCharShapeData.TabIndex = 13;
+            this.butCopyCharShapeData.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.textBox1.Location = new System.Drawing.Point(403, 10);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(161, 20);
@@ -609,19 +648,20 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Character:";
             // 
-            // t2TTabControl1
+            // CharEditor
             // 
-            this.t2TTabControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.t2TTabControl1.ControlBox = false;
-            this.t2TTabControl1.Controls.Add(this.tabPage10);
-            this.t2TTabControl1.Controls.Add(this.tabPage9);
-            this.t2TTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.t2TTabControl1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.t2TTabControl1.Location = new System.Drawing.Point(0, 0);
-            this.t2TTabControl1.Name = "t2TTabControl1";
-            this.t2TTabControl1.SelectedIndex = 0;
-            this.t2TTabControl1.Size = new System.Drawing.Size(1020, 381);
-            this.t2TTabControl1.TabIndex = 3;
+            this.CharEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.CharEditor.ControlBox = false;
+            this.CharEditor.Controls.Add(this.tabPage10);
+            this.CharEditor.Controls.Add(this.tabPage9);
+            this.CharEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CharEditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.CharEditor.Location = new System.Drawing.Point(0, 0);
+            this.CharEditor.Name = "CharEditor";
+            this.CharEditor.SelectedIndex = 0;
+            this.CharEditor.Size = new System.Drawing.Size(1020, 381);
+            this.CharEditor.TabIndex = 3;
+            this.CharEditor.Visible = false;
             // 
             // tabPage10
             // 
@@ -741,27 +781,17 @@
             this.listCharShapes.TabIndex = 0;
             this.listCharShapes.SelectedIndexChanged += new System.EventHandler(this.listShapes_SelectedIndexChanged);
             // 
-            // butPasteCharShapeData
+            // CharShapeEditor
             // 
-            this.butPasteCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Paste;
-            this.butPasteCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butPasteCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPasteCharShapeData.Location = new System.Drawing.Point(593, 9);
-            this.butPasteCharShapeData.Name = "butPasteCharShapeData";
-            this.butPasteCharShapeData.Size = new System.Drawing.Size(20, 20);
-            this.butPasteCharShapeData.TabIndex = 14;
-            this.butPasteCharShapeData.UseVisualStyleBackColor = true;
-            // 
-            // butCopyCharShapeData
-            // 
-            this.butCopyCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.CopyHS;
-            this.butCopyCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butCopyCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butCopyCharShapeData.Location = new System.Drawing.Point(572, 9);
-            this.butCopyCharShapeData.Name = "butCopyCharShapeData";
-            this.butCopyCharShapeData.Size = new System.Drawing.Size(20, 20);
-            this.butCopyCharShapeData.TabIndex = 13;
-            this.butCopyCharShapeData.UseVisualStyleBackColor = true;
+            this.CharShapeEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.CharShapeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CharShapeEditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.CharShapeEditor.Location = new System.Drawing.Point(0, 0);
+            this.CharShapeEditor.Name = "CharShapeEditor";
+            this.CharShapeEditor.Size = new System.Drawing.Size(766, 344);
+            this.CharShapeEditor.TabIndex = 0;
+            this.CharShapeEditor.Visible = false;
+            this.CharShapeEditor.ReportShapeNameUpdate += new ToyTwoToolbox.T2Control_ShapeEditor.ShapeNameUpdatedEventHandler(this.CharShapeEditor_ReportShapeNameUpdate);
             // 
             // tabPage9
             // 
@@ -792,7 +822,7 @@
             this.R2});
             this.dgvAnimationData.Location = new System.Drawing.Point(6, 87);
             this.dgvAnimationData.Name = "dgvAnimationData";
-            this.dgvAnimationData.Size = new System.Drawing.Size(1000, 259);
+            this.dgvAnimationData.Size = new System.Drawing.Size(0, 0);
             this.dgvAnimationData.TabIndex = 4;
             // 
             // X
@@ -870,6 +900,7 @@
             this.splitContainer3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer3.IsSplitterFixed = true;
             this.splitContainer3.Location = new System.Drawing.Point(3, 3);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -884,7 +915,7 @@
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.t2TTabControl2);
+            this.splitContainer3.Panel2.Controls.Add(this.GeomEditor);
             this.splitContainer3.Size = new System.Drawing.Size(1022, 425);
             this.splitContainer3.SplitterDistance = 38;
             this.splitContainer3.TabIndex = 0;
@@ -932,6 +963,7 @@
             // comboGeometry
             // 
             this.comboGeometry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.comboGeometry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboGeometry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboGeometry.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.comboGeometry.FormattingEnabled = true;
@@ -950,19 +982,20 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Geometry:";
             // 
-            // t2TTabControl2
+            // GeomEditor
             // 
-            this.t2TTabControl2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.t2TTabControl2.ControlBox = false;
-            this.t2TTabControl2.Controls.Add(this.tabPage7);
-            this.t2TTabControl2.Controls.Add(this.tabPage6);
-            this.t2TTabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.t2TTabControl2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.t2TTabControl2.Location = new System.Drawing.Point(0, 0);
-            this.t2TTabControl2.Name = "t2TTabControl2";
-            this.t2TTabControl2.SelectedIndex = 0;
-            this.t2TTabControl2.Size = new System.Drawing.Size(1020, 381);
-            this.t2TTabControl2.TabIndex = 3;
+            this.GeomEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.GeomEditor.ControlBox = false;
+            this.GeomEditor.Controls.Add(this.tabPage7);
+            this.GeomEditor.Controls.Add(this.tabPage6);
+            this.GeomEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GeomEditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.GeomEditor.Location = new System.Drawing.Point(0, 0);
+            this.GeomEditor.Name = "GeomEditor";
+            this.GeomEditor.SelectedIndex = 0;
+            this.GeomEditor.Size = new System.Drawing.Size(1020, 381);
+            this.GeomEditor.TabIndex = 3;
+            this.GeomEditor.Visible = false;
             // 
             // tabPage7
             // 
@@ -1091,6 +1124,7 @@
             this.GeomShapeEditor.Name = "GeomShapeEditor";
             this.GeomShapeEditor.Size = new System.Drawing.Size(766, 344);
             this.GeomShapeEditor.TabIndex = 0;
+            this.GeomShapeEditor.Visible = false;
             // 
             // tabPage6
             // 
@@ -1208,16 +1242,45 @@
             // 
             // dvgAP
             // 
+            this.dvgAP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dvgAP.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.dvgAP.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dvgAP.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvgAP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dvgAP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dvgAP.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.APX,
             this.APY,
             this.APZ});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dvgAP.DefaultCellStyle = dataGridViewCellStyle2;
             this.dvgAP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dvgAP.EnableHeadersVisualStyles = false;
+            this.dvgAP.GridColor = System.Drawing.Color.DimGray;
             this.dvgAP.Location = new System.Drawing.Point(0, 0);
             this.dvgAP.Name = "dvgAP";
+            this.dvgAP.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvgAP.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dvgAP.Size = new System.Drawing.Size(778, 423);
             this.dvgAP.TabIndex = 0;
             // 
@@ -1239,6 +1302,11 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.tabPage3.Controls.Add(this.butShapeLinkMoveDown);
+            this.tabPage3.Controls.Add(this.butShapeLinkMoveUp);
+            this.tabPage3.Controls.Add(this.butRemoveShapeLink);
+            this.tabPage3.Controls.Add(this.butNewShapeLink);
+            this.tabPage3.Controls.Add(this.ShapeLinkEditor);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -1246,15 +1314,115 @@
             this.tabPage3.TabIndex = 4;
             this.tabPage3.Text = "Shape Links";
             // 
-            // CharShapeEditor
+            // butShapeLinkMoveDown
             // 
-            this.CharShapeEditor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.CharShapeEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CharShapeEditor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.CharShapeEditor.Location = new System.Drawing.Point(0, 0);
-            this.CharShapeEditor.Name = "CharShapeEditor";
-            this.CharShapeEditor.Size = new System.Drawing.Size(766, 344);
-            this.CharShapeEditor.TabIndex = 0;
+            this.butShapeLinkMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butShapeLinkMoveDown.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzsowns;
+            this.butShapeLinkMoveDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butShapeLinkMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butShapeLinkMoveDown.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butShapeLinkMoveDown.Location = new System.Drawing.Point(93, 402);
+            this.butShapeLinkMoveDown.Name = "butShapeLinkMoveDown";
+            this.butShapeLinkMoveDown.Size = new System.Drawing.Size(23, 23);
+            this.butShapeLinkMoveDown.TabIndex = 8;
+            this.butShapeLinkMoveDown.UseVisualStyleBackColor = true;
+            this.butShapeLinkMoveDown.Click += new System.EventHandler(this.butShapeLinkMoveDown_Click);
+            // 
+            // butShapeLinkMoveUp
+            // 
+            this.butShapeLinkMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butShapeLinkMoveUp.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzUps;
+            this.butShapeLinkMoveUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butShapeLinkMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butShapeLinkMoveUp.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butShapeLinkMoveUp.Location = new System.Drawing.Point(64, 402);
+            this.butShapeLinkMoveUp.Name = "butShapeLinkMoveUp";
+            this.butShapeLinkMoveUp.Size = new System.Drawing.Size(23, 23);
+            this.butShapeLinkMoveUp.TabIndex = 7;
+            this.butShapeLinkMoveUp.UseVisualStyleBackColor = true;
+            this.butShapeLinkMoveUp.Click += new System.EventHandler(this.butShapeLinkMoveUp_Click);
+            // 
+            // butRemoveShapeLink
+            // 
+            this.butRemoveShapeLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butRemoveShapeLink.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
+            this.butRemoveShapeLink.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butRemoveShapeLink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butRemoveShapeLink.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butRemoveShapeLink.Location = new System.Drawing.Point(35, 402);
+            this.butRemoveShapeLink.Name = "butRemoveShapeLink";
+            this.butRemoveShapeLink.Size = new System.Drawing.Size(23, 23);
+            this.butRemoveShapeLink.TabIndex = 6;
+            this.butRemoveShapeLink.UseVisualStyleBackColor = true;
+            this.butRemoveShapeLink.Click += new System.EventHandler(this.butRemoveShapeLink_Click);
+            // 
+            // butNewShapeLink
+            // 
+            this.butNewShapeLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butNewShapeLink.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
+            this.butNewShapeLink.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butNewShapeLink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butNewShapeLink.Location = new System.Drawing.Point(6, 402);
+            this.butNewShapeLink.Name = "butNewShapeLink";
+            this.butNewShapeLink.Size = new System.Drawing.Size(23, 23);
+            this.butNewShapeLink.TabIndex = 5;
+            this.butNewShapeLink.UseVisualStyleBackColor = true;
+            this.butNewShapeLink.Click += new System.EventHandler(this.butNewShapeLink_Click);
+            // 
+            // ShapeLinkEditor
+            // 
+            this.ShapeLinkEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ShapeLinkEditor.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.ShapeLinkEditor.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.ShapeLinkEditor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ShapeLinkEditor.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShapeLinkEditor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.ShapeLinkEditor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ShapeLinkEditor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.slsid,
+            this.sllid});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ShapeLinkEditor.DefaultCellStyle = dataGridViewCellStyle5;
+            this.ShapeLinkEditor.EnableHeadersVisualStyles = false;
+            this.ShapeLinkEditor.GridColor = System.Drawing.Color.DimGray;
+            this.ShapeLinkEditor.Location = new System.Drawing.Point(0, 0);
+            this.ShapeLinkEditor.Name = "ShapeLinkEditor";
+            this.ShapeLinkEditor.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShapeLinkEditor.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.ShapeLinkEditor.Size = new System.Drawing.Size(1027, 396);
+            this.ShapeLinkEditor.TabIndex = 0;
+            // 
+            // slsid
+            // 
+            this.slsid.HeaderText = "Shape ID";
+            this.slsid.Name = "slsid";
+            // 
+            // sllid
+            // 
+            this.sllid.HeaderText = "Link ID";
+            this.sllid.Name = "sllid";
             // 
             // T2Control_NGNEditor
             // 
@@ -1280,7 +1448,7 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.t2TTabControl1.ResumeLayout(false);
+            this.CharEditor.ResumeLayout(false);
             this.tabPage10.ResumeLayout(false);
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel2.ResumeLayout(false);
@@ -1297,7 +1465,7 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            this.t2TTabControl2.ResumeLayout(false);
+            this.GeomEditor.ResumeLayout(false);
             this.tabPage7.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
@@ -1309,6 +1477,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
             this.splitContainer6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dvgAP)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ShapeLinkEditor)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1329,14 +1499,14 @@
         private System.Windows.Forms.Button butTextureRemove;
         private System.Windows.Forms.PictureBox pictureTexture;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private T2TTabControl t2TTabControl2;
+        private T2TTabControl GeomEditor;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.ComboBox comboGeometry;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ComboBox comboCharacters;
         private System.Windows.Forms.Label label2;
-        private T2TTabControl t2TTabControl1;
+        private T2TTabControl CharEditor;
         private System.Windows.Forms.TabPage tabPage10;
         private System.Windows.Forms.SplitContainer splitContainer5;
         private System.Windows.Forms.Button butNewCharShape;
@@ -1391,7 +1561,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox listAreaPortals;
-        private System.Windows.Forms.DataGridView dvgAP;
         private System.Windows.Forms.NumericUpDown numericAnimationID;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.DataGridView dgvAnimationData;
@@ -1402,10 +1571,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Z;
         private System.Windows.Forms.DataGridViewTextBoxColumn R1;
         private System.Windows.Forms.DataGridViewTextBoxColumn R2;
+        private T2Control_ShapeEditor GeomShapeEditor;
+        private T2Control_ShapeEditor CharShapeEditor;
+        private T2Control_DGV dvgAP;
         private System.Windows.Forms.DataGridViewTextBoxColumn APX;
         private System.Windows.Forms.DataGridViewTextBoxColumn APY;
         private System.Windows.Forms.DataGridViewTextBoxColumn APZ;
-        private T2Control_ShapeEditor GeomShapeEditor;
-        private T2Control_ShapeEditor CharShapeEditor;
+        private System.Windows.Forms.Button butShapeLinkMoveDown;
+        private System.Windows.Forms.Button butShapeLinkMoveUp;
+        private System.Windows.Forms.Button butRemoveShapeLink;
+        private System.Windows.Forms.Button butNewShapeLink;
+        private T2Control_DGV ShapeLinkEditor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slsid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sllid;
     }
 }

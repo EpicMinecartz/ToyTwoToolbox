@@ -1,26 +1,32 @@
-﻿using ObjLoader.Loader.Data;
-using ObjLoader.Loader.Data.DataStore;
-using ObjLoader.Loader.TypeParsers.Interfaces;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.TypeParsers
-{
-    public class UseMaterialParser : TypeParserBase, IUseMaterialParser
-    {
-        private readonly IElementGroup _elementGroup;
+using ToyTwoToolbox.ObjLoader.Loader.Data.DataStore;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers.Interfaces;
 
-        public UseMaterialParser(IElementGroup elementGroup)
-        {
-            _elementGroup = elementGroup;
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.TypeParsers {
+		public class UseMaterialParser : TypeParserBase, IUseMaterialParser {
+			private readonly IElementGroup _elementGroup;
 
-        protected override string Keyword
-        {
-            get { return "usemtl"; }
-        }
+			public UseMaterialParser(IElementGroup elementGroup) {
+				_elementGroup = elementGroup;
+			}
 
-        public override void Parse(string line)
-        {
-            _elementGroup.SetMaterial(line);
-        }
-    }
+			protected override string Keyword {
+				get {
+					return "usemtl";
+				}
+			}
+
+			public override void Parse(string line) {
+				_elementGroup.SetMaterial(line);
+			}
+		}
+	}
 }

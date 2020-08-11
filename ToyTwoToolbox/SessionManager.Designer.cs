@@ -174,6 +174,7 @@ namespace ToyTwoToolbox {
             // 
             // Panel1
             // 
+            this.Panel1.Controls.Add(this.UseDebug);
             this.Panel1.Controls.Add(this.SplitContainer1);
             this.Panel1.Controls.Add(this.MenuStrip1);
             this.Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -196,7 +197,6 @@ namespace ToyTwoToolbox {
             this.SplitContainer1.Panel1.Controls.Add(this.StopSession);
             this.SplitContainer1.Panel1.Controls.Add(this.GroupBox1);
             this.SplitContainer1.Panel1.Controls.Add(this.UseArgs);
-            this.SplitContainer1.Panel1.Controls.Add(this.UseDebug);
             this.SplitContainer1.Panel1.Controls.Add(this.SessionList);
             this.SplitContainer1.Panel1.Controls.Add(this.NewSession);
             this.SplitContainer1.Panel1.Controls.Add(this.Label1);
@@ -263,7 +263,7 @@ namespace ToyTwoToolbox {
             // 
             this.UseArgs.AutoSize = true;
             this.UseArgs.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.UseArgs.Location = new System.Drawing.Point(152, 7);
+            this.UseArgs.Location = new System.Drawing.Point(88, 6);
             this.UseArgs.Name = "UseArgs";
             this.UseArgs.Size = new System.Drawing.Size(75, 18);
             this.UseArgs.TabIndex = 5;
@@ -274,12 +274,13 @@ namespace ToyTwoToolbox {
             // 
             this.UseDebug.AutoSize = true;
             this.UseDebug.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.UseDebug.Location = new System.Drawing.Point(88, 7);
+            this.UseDebug.Location = new System.Drawing.Point(126, 3);
             this.UseDebug.Name = "UseDebug";
             this.UseDebug.Size = new System.Drawing.Size(64, 18);
             this.UseDebug.TabIndex = 5;
             this.UseDebug.Text = "Debug";
             this.UseDebug.UseVisualStyleBackColor = true;
+            this.UseDebug.CheckedChanged += new System.EventHandler(this.UseDebug_CheckedChanged);
             // 
             // SessionList
             // 

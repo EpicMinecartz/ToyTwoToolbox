@@ -14,7 +14,6 @@ namespace ToyTwoToolbox {
         /// This tag specifies that the function requires extra support to prevent damage
         /// </summary>
         public class Unsafe : Attribute {}
-        public bool Debug = false;
         public bool PrintMessages = false;
         public int LSID;
         public string wlid;
@@ -209,10 +208,11 @@ namespace ToyTwoToolbox {
         }
 
         private void closeFileToolStripMenuItem_Click(object sender, EventArgs e) {
-            DialogResult msg = MessageBox.Show("Are you sure you want to close this file?", "Close?", MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
-            if (msg == DialogResult.Yes) {
-                TabControl.CloseTab();
-            }
+            TabControl.CloseTab();
+        }
+
+        private void saveToolStripMenuItem2_Click(object sender, EventArgs e) {
+            saveToolStripMenuItem1.PerformClick();
         }
     }
 }

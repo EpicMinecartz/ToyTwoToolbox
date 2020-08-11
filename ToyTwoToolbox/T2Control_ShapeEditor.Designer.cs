@@ -23,22 +23,20 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.t2TTabControl4 = new ToyTwoToolbox.T2TTabControl();
             this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.fieldShapeName = new ToyTwoToolbox.T2Control_EditableLabel();
             this.t2TTabControl5 = new ToyTwoToolbox.T2TTabControl();
             this.tabPage11 = new System.Windows.Forms.TabPage();
             this.splitContainer7 = new System.Windows.Forms.SplitContainer();
             this.butRemovePrim = new System.Windows.Forms.Button();
             this.butAddPrim = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.numericPatchType = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.numericPatchMaterialID = new System.Windows.Forms.NumericUpDown();
-            this.radioPatch = new System.Windows.Forms.RadioButton();
-            this.radioPrim = new System.Windows.Forms.RadioButton();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.comboPrimitive = new System.Windows.Forms.ComboBox();
@@ -54,6 +52,7 @@
             this.U = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.V = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.comboMaterial = new System.Windows.Forms.ComboBox();
             this.butRemoveShapeMaterial = new System.Windows.Forms.Button();
             this.butNewShapeMaterial = new System.Windows.Forms.Button();
             this.groupMaterialProperties = new System.Windows.Forms.GroupBox();
@@ -63,13 +62,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.butAmbColorPicker = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.numericMaterialID = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.numericCharShapeID2 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericCharShapeID = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.fieldShapeName = new System.Windows.Forms.TextBox();
+            this.radioPatch = new System.Windows.Forms.RadioButton();
+            this.radioPrim = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.t2TTabControl4.SuspendLayout();
             this.tabPage12.SuspendLayout();
@@ -84,7 +84,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvShapeData)).BeginInit();
             this.tabPage13.SuspendLayout();
             this.groupMaterialProperties.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaterialID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID)).BeginInit();
             this.SuspendLayout();
@@ -105,6 +104,7 @@
             // tabPage12
             // 
             this.tabPage12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.tabPage12.Controls.Add(this.fieldShapeName);
             this.tabPage12.Controls.Add(this.t2TTabControl5);
             this.tabPage12.Controls.Add(this.numericCharShapeID2);
             this.tabPage12.Controls.Add(this.label2);
@@ -112,7 +112,6 @@
             this.tabPage12.Controls.Add(this.numericCharShapeID);
             this.tabPage12.Controls.Add(this.label4);
             this.tabPage12.Controls.Add(this.radioPatch);
-            this.tabPage12.Controls.Add(this.fieldShapeName);
             this.tabPage12.Controls.Add(this.radioPrim);
             this.tabPage12.Controls.Add(this.label3);
             this.tabPage12.Location = new System.Drawing.Point(4, 25);
@@ -121,6 +120,20 @@
             this.tabPage12.Size = new System.Drawing.Size(758, 315);
             this.tabPage12.TabIndex = 3;
             this.tabPage12.Text = "Selected Shape";
+            // 
+            // fieldShapeName
+            // 
+            this.fieldShapeName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fieldShapeName.BackColor = System.Drawing.Color.Transparent;
+            this.fieldShapeName.labelColor = System.Drawing.Color.Empty;
+            this.fieldShapeName.Location = new System.Drawing.Point(82, 9);
+            this.fieldShapeName.MaxWidth = 0;
+            this.fieldShapeName.Name = "fieldShapeName";
+            this.fieldShapeName.Overflow = false;
+            this.fieldShapeName.Size = new System.Drawing.Size(177, 20);
+            this.fieldShapeName.TabIndex = 12;
+            this.fieldShapeName.ReportTextUpdate += new ToyTwoToolbox.T2Control_EditableLabel.TextUpdatedEventHandler(this.fieldShapeName_ReportTextUpdate);
             // 
             // t2TTabControl5
             // 
@@ -202,15 +215,6 @@
             this.butAddPrim.UseVisualStyleBackColor = true;
             this.butAddPrim.Click += new System.EventHandler(this.butAddPrim_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(560, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Prim Format:";
-            // 
             // numericPatchType
             // 
             this.numericPatchType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -239,29 +243,6 @@
             this.numericPatchMaterialID.Size = new System.Drawing.Size(52, 20);
             this.numericPatchMaterialID.TabIndex = 8;
             this.numericPatchMaterialID.ValueChanged += new System.EventHandler(this.numericPatchMaterialID_ValueChanged);
-            // 
-            // radioPatch
-            // 
-            this.radioPatch.AutoSize = true;
-            this.radioPatch.Location = new System.Drawing.Point(682, 10);
-            this.radioPatch.Name = "radioPatch";
-            this.radioPatch.Size = new System.Drawing.Size(53, 17);
-            this.radioPatch.TabIndex = 7;
-            this.radioPatch.Text = "Patch";
-            this.radioPatch.UseVisualStyleBackColor = true;
-            // 
-            // radioPrim
-            // 
-            this.radioPrim.AutoSize = true;
-            this.radioPrim.Checked = true;
-            this.radioPrim.Location = new System.Drawing.Point(631, 10);
-            this.radioPrim.Name = "radioPrim";
-            this.radioPrim.Size = new System.Drawing.Size(45, 17);
-            this.radioPrim.TabIndex = 6;
-            this.radioPrim.TabStop = true;
-            this.radioPrim.Text = "Prim";
-            this.radioPrim.UseVisualStyleBackColor = true;
-            this.radioPrim.CheckedChanged += new System.EventHandler(this.radioPrim_CheckedChanged);
             // 
             // label21
             // 
@@ -299,15 +280,15 @@
             this.dgvShapeData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvShapeData.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.dgvShapeData.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvShapeData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvShapeData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvShapeData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvShapeData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvShapeData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvShapeData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.X,
@@ -320,28 +301,28 @@
             this.VColor,
             this.U,
             this.V});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvShapeData.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvShapeData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvShapeData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvShapeData.EnableHeadersVisualStyles = false;
             this.dgvShapeData.GridColor = System.Drawing.Color.DimGray;
             this.dgvShapeData.Location = new System.Drawing.Point(0, 0);
             this.dgvShapeData.Name = "dgvShapeData";
-            this.dgvShapeData.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvShapeData.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvShapeData.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvShapeData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvShapeData.Size = new System.Drawing.Size(740, 193);
             this.dgvShapeData.TabIndex = 0;
             this.dgvShapeData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellContentClick);
@@ -405,10 +386,10 @@
             // tabPage13
             // 
             this.tabPage13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.tabPage13.Controls.Add(this.comboMaterial);
             this.tabPage13.Controls.Add(this.butRemoveShapeMaterial);
             this.tabPage13.Controls.Add(this.butNewShapeMaterial);
             this.tabPage13.Controls.Add(this.groupMaterialProperties);
-            this.tabPage13.Controls.Add(this.numericMaterialID);
             this.tabPage13.Controls.Add(this.label6);
             this.tabPage13.Location = new System.Drawing.Point(4, 25);
             this.tabPage13.Name = "tabPage13";
@@ -417,13 +398,26 @@
             this.tabPage13.TabIndex = 4;
             this.tabPage13.Text = "Materials";
             // 
+            // comboMaterial
+            // 
+            this.comboMaterial.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.comboMaterial.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboMaterial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.comboMaterial.FormattingEnabled = true;
+            this.comboMaterial.Location = new System.Drawing.Point(89, 14);
+            this.comboMaterial.Name = "comboMaterial";
+            this.comboMaterial.Size = new System.Drawing.Size(148, 21);
+            this.comboMaterial.TabIndex = 15;
+            this.comboMaterial.SelectedIndexChanged += new System.EventHandler(this.comboMaterial_SelectedIndexChanged);
+            // 
             // butRemoveShapeMaterial
             // 
             this.butRemoveShapeMaterial.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
             this.butRemoveShapeMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butRemoveShapeMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butRemoveShapeMaterial.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butRemoveShapeMaterial.Location = new System.Drawing.Point(172, 14);
+            this.butRemoveShapeMaterial.Location = new System.Drawing.Point(272, 13);
             this.butRemoveShapeMaterial.Name = "butRemoveShapeMaterial";
             this.butRemoveShapeMaterial.Size = new System.Drawing.Size(23, 23);
             this.butRemoveShapeMaterial.TabIndex = 14;
@@ -434,7 +428,7 @@
             this.butNewShapeMaterial.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
             this.butNewShapeMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butNewShapeMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butNewShapeMaterial.Location = new System.Drawing.Point(143, 14);
+            this.butNewShapeMaterial.Location = new System.Drawing.Point(243, 13);
             this.butNewShapeMaterial.Name = "butNewShapeMaterial";
             this.butNewShapeMaterial.Size = new System.Drawing.Size(23, 23);
             this.butNewShapeMaterial.TabIndex = 13;
@@ -452,7 +446,6 @@
             this.groupMaterialProperties.Controls.Add(this.label8);
             this.groupMaterialProperties.Controls.Add(this.butAmbColorPicker);
             this.groupMaterialProperties.Controls.Add(this.label7);
-            this.groupMaterialProperties.Enabled = false;
             this.groupMaterialProperties.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.groupMaterialProperties.Location = new System.Drawing.Point(6, 41);
             this.groupMaterialProperties.Name = "groupMaterialProperties";
@@ -460,6 +453,7 @@
             this.groupMaterialProperties.TabIndex = 6;
             this.groupMaterialProperties.TabStop = false;
             this.groupMaterialProperties.Text = "Material properties";
+            this.groupMaterialProperties.Visible = false;
             // 
             // fieldMaterialUnknown
             // 
@@ -503,7 +497,7 @@
             // butAmbColorPicker
             // 
             this.butAmbColorPicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butAmbColorPicker.Location = new System.Drawing.Point(87, 28);
+            this.butAmbColorPicker.Location = new System.Drawing.Point(61, 28);
             this.butAmbColorPicker.Name = "butAmbColorPicker";
             this.butAmbColorPicker.Size = new System.Drawing.Size(44, 23);
             this.butAmbColorPicker.TabIndex = 4;
@@ -514,49 +508,25 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(9, 33);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(75, 13);
+            this.label7.Size = new System.Drawing.Size(34, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Ambient Color:";
-            // 
-            // numericMaterialID
-            // 
-            this.numericMaterialID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.numericMaterialID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericMaterialID.Location = new System.Drawing.Point(82, 15);
-            this.numericMaterialID.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericMaterialID.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericMaterialID.Name = "numericMaterialID";
-            this.numericMaterialID.Size = new System.Drawing.Size(55, 20);
-            this.numericMaterialID.TabIndex = 5;
-            this.numericMaterialID.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.numericMaterialID.ValueChanged += new System.EventHandler(this.numericMaterialID_ValueChanged);
+            this.label7.Text = "Color:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(15, 17);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.Size = new System.Drawing.Size(68, 13);
             this.label6.TabIndex = 4;
-            this.label6.Text = "Material ID:";
+            this.label6.Text = "Material Slot:";
             // 
             // numericCharShapeID2
             // 
+            this.numericCharShapeID2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericCharShapeID2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.numericCharShapeID2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericCharShapeID2.Location = new System.Drawing.Point(479, 10);
+            this.numericCharShapeID2.Location = new System.Drawing.Point(458, 10);
             this.numericCharShapeID2.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -567,10 +537,21 @@
             this.numericCharShapeID2.TabIndex = 5;
             this.numericCharShapeID2.ValueChanged += new System.EventHandler(this.numericCharShapeID2_ValueChanged);
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(526, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Prim Format:";
+            // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(409, 12);
+            this.label5.Location = new System.Drawing.Point(388, 12);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 13);
             this.label5.TabIndex = 4;
@@ -578,6 +559,7 @@
             // 
             // numericCharShapeID
             // 
+            this.numericCharShapeID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.numericCharShapeID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.numericCharShapeID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.numericCharShapeID.Location = new System.Drawing.Point(326, 10);
@@ -593,6 +575,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(265, 12);
             this.label4.Name = "label4";
@@ -600,16 +583,30 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Shape ID:";
             // 
-            // fieldShapeName
+            // radioPatch
             // 
-            this.fieldShapeName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.fieldShapeName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fieldShapeName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.fieldShapeName.Location = new System.Drawing.Point(82, 10);
-            this.fieldShapeName.Name = "fieldShapeName";
-            this.fieldShapeName.Size = new System.Drawing.Size(161, 20);
-            this.fieldShapeName.TabIndex = 1;
-            this.fieldShapeName.TextChanged += new System.EventHandler(this.fieldShapeName_TextChanged);
+            this.radioPatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioPatch.AutoSize = true;
+            this.radioPatch.Location = new System.Drawing.Point(648, 10);
+            this.radioPatch.Name = "radioPatch";
+            this.radioPatch.Size = new System.Drawing.Size(53, 17);
+            this.radioPatch.TabIndex = 7;
+            this.radioPatch.Text = "Patch";
+            this.radioPatch.UseVisualStyleBackColor = true;
+            // 
+            // radioPrim
+            // 
+            this.radioPrim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioPrim.AutoSize = true;
+            this.radioPrim.Checked = true;
+            this.radioPrim.Location = new System.Drawing.Point(597, 10);
+            this.radioPrim.Name = "radioPrim";
+            this.radioPrim.Size = new System.Drawing.Size(45, 17);
+            this.radioPrim.TabIndex = 6;
+            this.radioPrim.TabStop = true;
+            this.radioPrim.Text = "Prim";
+            this.radioPrim.UseVisualStyleBackColor = true;
+            this.radioPrim.CheckedChanged += new System.EventHandler(this.radioPrim_CheckedChanged);
             // 
             // label3
             // 
@@ -646,7 +643,6 @@
             this.tabPage13.PerformLayout();
             this.groupMaterialProperties.ResumeLayout(false);
             this.groupMaterialProperties.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericMaterialID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID)).EndInit();
             this.ResumeLayout(false);
@@ -676,13 +672,11 @@
         private System.Windows.Forms.Label label8;
         internal System.Windows.Forms.Button butAmbColorPicker;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericMaterialID;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericCharShapeID2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericCharShapeID;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox fieldShapeName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericPatchMaterialID;
         private System.Windows.Forms.Label label2;
@@ -700,5 +694,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn V;
         private System.Windows.Forms.Button butRemovePrim;
         private System.Windows.Forms.Button butAddPrim;
+        private T2Control_EditableLabel fieldShapeName;
+        private System.Windows.Forms.ComboBox comboMaterial;
     }
 }

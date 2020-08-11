@@ -1,26 +1,32 @@
-﻿using ObjLoader.Loader.Data;
-using ObjLoader.Loader.Data.DataStore;
-using ObjLoader.Loader.TypeParsers.Interfaces;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.TypeParsers
-{
-    public class GroupParser : TypeParserBase, IGroupParser
-    {
-        private readonly IGroupDataStore _groupDataStore;
+using ToyTwoToolbox.ObjLoader.Loader.Data.DataStore;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers.Interfaces;
 
-        public GroupParser(IGroupDataStore groupDataStore)
-        {
-            _groupDataStore = groupDataStore;
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.TypeParsers {
+		public class GroupParser : TypeParserBase, IGroupParser {
+			private readonly IGroupDataStore _groupDataStore;
 
-        protected override string Keyword
-        {
-            get { return "g"; }
-        }
+			public GroupParser(IGroupDataStore groupDataStore) {
+				_groupDataStore = groupDataStore;
+			}
 
-        public override void Parse(string line)
-        {
-            _groupDataStore.PushGroup(line);
-        }
-    }
+			protected override string Keyword {
+				get {
+					return "g";
+				}
+			}
+
+			public override void Parse(string line) {
+				_groupDataStore.PushGroup(line);
+			}
+		}
+	}
 }

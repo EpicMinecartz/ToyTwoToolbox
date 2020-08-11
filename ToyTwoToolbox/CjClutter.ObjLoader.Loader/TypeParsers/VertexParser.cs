@@ -1,36 +1,50 @@
+﻿
 using System;
-using ObjLoader.Loader.Data;
-using ObjLoader.Loader.Common;
-using ObjLoader.Loader.Data.DataStore;
-using ObjLoader.Loader.Data.VertexData;
-using ObjLoader.Loader.TypeParsers.Interfaces;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.TypeParsers
-{
-    public class VertexParser : TypeParserBase, IVertexParser
-    {
-        private readonly IVertexDataStore _vertexDataStore;
+using ToyTwoToolbox.ObjLoader.Loader.Common;
+using ToyTwoToolbox.ObjLoader.Loader.Data.DataStore;
+using ToyTwoToolbox.ObjLoader.Loader.Data.VertexData;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers.Interfaces;
 
-        public VertexParser(IVertexDataStore vertexDataStore)
-        {
-            _vertexDataStore = vertexDataStore;
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.TypeParsers {
+		public class VertexParser : TypeParserBase, IVertexParser {
+			private readonly IVertexDataStore _vertexDataStore;
+			private readonly IVertexColorDataStore _vertexColorDataStore;
 
-        protected override string Keyword
-        {
-            get { return "v"; }
-        }
+			public VertexParser(IVertexDataStore vertexDataStore) { //, vertexColorDataStore As IVertexColorDataStore)
+				_vertexDataStore = vertexDataStore;
+				_vertexColorDataStore = (ToyTwoToolbox.ObjLoader.Loader.Data.DataStore.IVertexColorDataStore)vertexDataStore;
+			}
 
-        public override void Parse(string line)
-        {
-            string[] parts = line.Split(new[]{' '}, StringSplitOptions.RemoveEmptyEntries);
+			protected override string Keyword {
+				get {
+					return "v";
+				}
+			}
 
-            var x = parts[0].ParseInvariantFloat();
-            var y = parts[1].ParseInvariantFloat();
-            var z = parts[2].ParseInvariantFloat();
+			public override void Parse(string line) {
+				string[] parts = line.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
-            var vertex = new Vertex(x, y, z);
-            _vertexDataStore.AddVertex(vertex);
-        }
-    }
+				var x = parts[0].ParseInvariantFloat();
+				var y = parts[1].ParseInvariantFloat();
+				var z = parts[2].ParseInvariantFloat();
+
+				var r = parts[3].ParseInvariantDec();
+				var g = parts[4].ParseInvariantDec();
+				var b = parts[5].ParseInvariantDec();
+
+				var vertex = new Vertex(x, y, z);
+				_vertexDataStore.AddVertex(vertex);
+
+				var vcol = new VertexColor(r, g, b);
+				_vertexColorDataStore.AddColor(vcol);
+			}
+		}
+	}
 }

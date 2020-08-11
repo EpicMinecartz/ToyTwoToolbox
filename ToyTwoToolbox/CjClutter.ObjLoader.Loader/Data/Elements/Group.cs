@@ -1,25 +1,42 @@
-﻿using System.Collections.Generic;
-using ObjLoader.Loader.Data.DataStore;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.Data.Elements
-{
-    public class Group : IFaceGroup
-    {
-        private readonly List<Face> _faces = new List<Face>();
-        
-        public Group(string name)
-        {
-            Name = name;
-        }
+using ToyTwoToolbox.ObjLoader.Loader.Data.DataStore;
 
-        public string Name { get; private set; }
-        public Material Material { get; set; }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.Data.Elements {
+		public class Group : IFaceGroup {
+			private readonly List<Face> _faces = new List<Face>();
 
-        public IList<Face> Faces { get { return _faces; } }
+			public Group(string name) {
+				this.Name = name;
+			}
 
-        public void AddFace(Face face)
-        {
-            _faces.Add(face);
-        }
-    }
+			private string privateName;
+			public string Name {
+				get {
+					return privateName;
+				}
+				private set {
+					privateName = value;
+				}
+			}
+			public Material Material {get; set;}
+
+			public IList<Face> Faces {
+				get {
+					return _faces;
+				}
+			}
+
+			public void AddFace(Face face) {
+				_faces.Add(face);
+			}
+		}
+	}
 }

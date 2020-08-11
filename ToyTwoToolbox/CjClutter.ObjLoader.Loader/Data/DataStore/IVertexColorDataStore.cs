@@ -6,9 +6,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
+using ToyTwoToolbox.ObjLoader.Loader.Data.VertexData;
+
 namespace ToyTwoToolbox {
-	namespace ObjLoader.Loader.TypeParsers.Interfaces {
-		public interface IFaceParser : ITypeParser {
+	namespace ObjLoader.Loader.Data.DataStore {
+		public interface IVertexColorDataStore {
+			void AddColor(VertexColor vertex);
 		}
 	}
 }

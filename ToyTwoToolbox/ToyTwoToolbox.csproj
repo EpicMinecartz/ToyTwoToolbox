@@ -55,6 +55,8 @@
     <Compile Include="AShape.cs" />
     <Compile Include="BitmapLocker.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\DataStore\IVertexColorDataStore.cs" />
+    <Compile Include="CjClutter.ObjLoader.Loader\Data\VertexData\VertexColor.cs" />
     <Compile Include="CreateNewFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,7 +72,6 @@
     </Compile>
     <Compile Include="Extension_List.cs" />
     <Compile Include="FileReader.cs" />
-    <Compile Include="FileReader2.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="F_Base.cs" />
     <Compile Include="F_NGN.cs" />
@@ -127,6 +128,12 @@
     <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\VertexParser.cs" />
     <Compile Include="F_Save.cs" />
     <Compile Include="Geometry.cs" />
+    <Compile Include="Importer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Importer.Designer.cs">
+      <DependentUpon>Importer.cs</DependentUpon>
+    </Compile>
     <Compile Include="IPrimitive.cs" />
     <Compile Include="Linker.cs" />
     <Compile Include="Material.cs" />
@@ -143,6 +150,12 @@
     </Compile>
     <Compile Include="T2Control_DGV.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="T2Control_EditableLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_EditableLabel.Designer.cs">
+      <DependentUpon>T2Control_EditableLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="T2Control_ShapeEditor.cs">
       <SubType>UserControl</SubType>
@@ -217,14 +230,23 @@
     <EmbeddedResource Include="FirstOpenPanel.resx">
       <DependentUpon>FirstOpenPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Importer.resx">
+      <DependentUpon>Importer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="T2Control_Checkbox.resx">
       <DependentUpon>T2Control_Checkbox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="T2Control_DGV.resx">
       <DependentUpon>T2Control_DGV.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_EditableLabel.resx">
+      <DependentUpon>T2Control_EditableLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="T2Control_ShapeEditor.resx">
       <DependentUpon>T2Control_ShapeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="T2TTabControl.resx">
+      <DependentUpon>T2TTabControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Toggle.resx">
       <DependentUpon>Toggle.cs</DependentUpon>

@@ -52,10 +52,13 @@ namespace ToyTwoToolbox {
             if (tabID == -1) { tabID = TabContainer.SelectedIndex; }
             //Tabs[tabID].File.
             //TabContainer.
-            Tabs[tabID].tabpage.Dispose();
-            Tabs.RemoveAt(tabID);
-            TabPaths.RemoveAt(tabID);
-            SessionManager.GCC(); //lmao
+            DialogResult msg = MessageBox.Show("Are you sure you want to close this file?", "Close?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (msg == DialogResult.Yes) {
+                Tabs[tabID].tabpage.Dispose();
+                Tabs.RemoveAt(tabID);
+                TabPaths.RemoveAt(tabID);
+                SessionManager.GCC(); //lmao
+            }
         }
 
         public void TabRequestDestroy(Object sender, int tabID = -1) {

@@ -1,14 +1,37 @@
-namespace ObjLoader.Loader.Data.VertexData
-{
-    public struct Texture
-    {
-        public Texture(float x, float y) : this()
-        {
-            X = x;
-            Y = y;
-        }
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-        public float X { get; private set; }
-        public float Y { get; private set; }
-    }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.Data.VertexData {
+		public struct TextureCoord {
+			public TextureCoord(float x, float y) : this() {
+				this.X = x;
+				this.Y = y;
+			}
+
+			private float privateX;
+			public float X {
+				get {
+					return privateX;
+				}
+				private set {
+					privateX = value;
+				}
+			}
+			private float privateY;
+			public float Y {
+				get {
+					return privateY;
+				}
+				private set {
+					privateY = value;
+				}
+			}
+		}
+	}
 }

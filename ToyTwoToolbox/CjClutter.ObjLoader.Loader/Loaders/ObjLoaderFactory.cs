@@ -1,37 +1,42 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
+
 using System.IO;
-using ObjLoader.Loader.Data.DataStore;
-using ObjLoader.Loader.TypeParsers;
+using ToyTwoToolbox.ObjLoader.Loader.Data.DataStore;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers;
 
-namespace ObjLoader.Loader.Loaders
-{
-    public interface IMaterialStreamProvider
-    {
-        Stream Open(string materialFilePath);
-    }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.Loaders {
+		public interface IMaterialStreamProvider {
+			Stream Open(string materialFilePath);
+		}
 
-    public class ObjLoaderFactory : IObjLoaderFactory
-    {
-        public IObjLoader Create()
-        {
-            return Create(new MaterialStreamProvider());
-        }
+		public class ObjLoaderFactory : IObjLoaderFactory {
+			public IObjLoader Create() {
+				return Create(new MaterialStreamProvider());
+			}
 
-        public IObjLoader Create(IMaterialStreamProvider materialStreamProvider)
-        {
-            var dataStore = new DataStore();
-            
-            var faceParser = new FaceParser(dataStore);
-            var groupParser = new GroupParser(dataStore);
-            var normalParser = new NormalParser(dataStore);
-            var textureParser = new TextureParser(dataStore);
-            var vertexParser = new VertexParser(dataStore);
+			public IObjLoader Create(IMaterialStreamProvider materialStreamProvider) {
+				var dataStore = new DataStore();
 
-            var materialLibraryLoader = new MaterialLibraryLoader(dataStore);
-            var materialLibraryLoaderFacade = new MaterialLibraryLoaderFacade(materialLibraryLoader, materialStreamProvider);
-            var materialLibraryParser = new MaterialLibraryParser(materialLibraryLoaderFacade);
-            var useMaterialParser = new UseMaterialParser(dataStore);
+				var faceParser = new FaceParser(dataStore);
+				var groupParser = new GroupParser(dataStore);
+				var normalParser = new NormalParser(dataStore);
+				var textureParser = new TextureParser(dataStore);
+				var vertexParser = new VertexParser(dataStore);
 
-            return new ObjLoader(dataStore, faceParser, groupParser, normalParser, textureParser, vertexParser, materialLibraryParser, useMaterialParser);
-        }
-    }
+				var materialLibraryLoader = new MaterialLibraryLoader(dataStore);
+				var materialLibraryLoaderFacade = new MaterialLibraryLoaderFacade(materialLibraryLoader, materialStreamProvider);
+				var materialLibraryParser = new MaterialLibraryParser(materialLibraryLoaderFacade);
+				var useMaterialParser = new UseMaterialParser(dataStore);
+
+				return new ObjLoader(dataStore, faceParser, groupParser, normalParser, textureParser, vertexParser, materialLibraryParser, useMaterialParser);
+			}
+		}
+	}
 }

@@ -1,61 +1,62 @@
-﻿using System;
-using ObjLoader.Loader.Common;
-using ObjLoader.Loader.Data;
-using ObjLoader.Loader.Data.DataStore;
-using ObjLoader.Loader.Data.Elements;
-using ObjLoader.Loader.TypeParsers.Interfaces;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.TypeParsers
-{
-    public class FaceParser : TypeParserBase, IFaceParser
-    {
-        private readonly IFaceGroup _faceGroup;
+using ToyTwoToolbox.ObjLoader.Loader.Common;
+using ToyTwoToolbox.ObjLoader.Loader.Data.DataStore;
+using ToyTwoToolbox.ObjLoader.Loader.Data.Elements;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers.Interfaces;
 
-        public FaceParser(IFaceGroup faceGroup)
-        {
-            _faceGroup = faceGroup;
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.TypeParsers {
+		public class FaceParser : TypeParserBase, IFaceParser {
+			private readonly IFaceGroup _faceGroup;
 
-        protected override string Keyword
-        {
-            get { return "f"; }
-        }
+			public FaceParser(IFaceGroup faceGroup) {
+				_faceGroup = faceGroup;
+			}
 
-        public override void Parse(string line)
-        {
-            var vertices = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+			protected override string Keyword {
+				get {
+					return "f";
+				}
+			}
 
-            var face = new Face();
+			public override void Parse(string line) {
+				var vertices = line.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var vertexString in vertices)
-            {
-                var faceVertex = ParseFaceVertex(vertexString);
-                face.AddVertex(faceVertex);
-            }
+				var face = new Face();
 
-            _faceGroup.AddFace(face);
-        }
+				foreach (var vertexString in vertices) {
+					var faceVertex = ParseFaceVertex(vertexString);
+					face.AddVertex(faceVertex);
+				}
 
-        private FaceVertex ParseFaceVertex(string vertexString)
-        {
-            var fields = vertexString.Split(new[]{'/'}, StringSplitOptions.None);
+				_faceGroup.AddFace(face);
+			}
 
-            var vertexIndex = fields[0].ParseInvariantInt();
-            var faceVertex = new FaceVertex(vertexIndex, 0, 0);
+			private FaceVertex ParseFaceVertex(string vertexString) {
+				var fields = vertexString.Split(new[] {'/'}, StringSplitOptions.None);
 
-            if(fields.Length > 1)
-            {
-                var textureIndex = fields[1].Length == 0 ? 0 : fields[1].ParseInvariantInt();
-                faceVertex.TextureIndex = textureIndex;
-            }
+				var vertexIndex = fields[0].ParseInvariantInt();
+				var faceVertex = new FaceVertex(vertexIndex, 0, 0);
 
-            if(fields.Length > 2)
-            {
-                var normalIndex = fields.Length > 2 && fields[2].Length == 0 ? 0 : fields[2].ParseInvariantInt();
-                faceVertex.NormalIndex = normalIndex;
-            }
+				if (fields.Length > 1) {
+					var textureIndex = (fields[1].Length == 0) ? 0 : fields[1].ParseInvariantInt();
+					faceVertex.TextureIndex = textureIndex;
+				}
 
-            return faceVertex;
-        }
-    }
+				if (fields.Length > 2) {
+					var normalIndex = (fields.Length > 2 && fields[2].Length == 0) ? 0 : fields[2].ParseInvariantInt();
+					faceVertex.NormalIndex = normalIndex;
+				}
+
+				return faceVertex;
+			}
+		}
+	}
 }

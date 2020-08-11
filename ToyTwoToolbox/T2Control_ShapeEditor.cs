@@ -9,30 +9,51 @@ using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
     public partial class T2Control_ShapeEditor : UserControl {
+        public delegate void ShapeNameUpdatedEventHandler(Object sender, string text);
+        [Description("Occurs when the user updates the shape name.")]
+        public event ShapeNameUpdatedEventHandler ReportShapeNameUpdate;
+
+
         Shape loadedShape;
         F_NGN loadedNGN;
         IPrimitive selectedPrim;
         public T2Control_ShapeEditor() {
             InitializeComponent();
-            //dgvShapeData.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            //dgvShapeData.ColumnHeadersDefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            //dgvShapeData.RowsDefaultCellStyle = SessionManager.DarkThemeCellDGV;
+            this.DoubleBuffered = true;
         }
 
-        public void ImportShape(ref Shape shape, ref F_NGN NGN) {
+        private void fieldShapeName_ReportTextUpdate(object sender, string text) {
+            if (ReportShapeNameUpdate != null) { 
+                ReportShapeNameUpdate.Invoke(this, text);
+                loadedShape.name = text;
+            }
+        }
+
+        public void ImportShape(ref Shape shape, ref F_NGN NGN, string altname = "") {
             loadedShape = shape;
             loadedNGN = NGN;
 
-            fieldShapeName.Text = shape.name;
+            fieldShapeName.Text = (shape.name == "") ? (altname == "") ? "<Untitled>" : altname : shape.name;
             numericCharShapeID.Value = shape.type;
             numericCharShapeID2.Value = shape.type2;
-            comboMaterialTexture.Items.Clear();
-            foreach (Texture tex in loadedNGN.textures) {
-                comboMaterialTexture.Items.Add(tex.name);
+
+            groupMaterialProperties.Visible = false;
+            comboMaterial.Items.Clear();
+            if (shape.materials.Count > 0) {
+                for (int i = 0;i < shape.materials.Count;i++) {
+                    comboMaterial.Items.Add("Material " + i);
+                }
             }
-            comboMaterialTexture.SelectedIndex = 0;
-            numericMaterialID.Value = (shape.materials.Count > 0) ? 0 : -1;
-            numericMaterialID.Maximum = shape.materials.Count;
+
+
+            comboMaterialTexture.Items.Clear();
+            if (loadedNGN.textures.Count > 0) {
+                foreach (Texture tex in loadedNGN.textures) {
+                    comboMaterialTexture.Items.Add(tex.name);
+                }
+                comboMaterialTexture.SelectedIndex = 0;
+            }
+
             dgvShapeData.Rows.Clear();
             comboPrimitive.Items.Clear();
             if (shape.rawPrimitives.Count > 0) {
@@ -49,10 +70,9 @@ namespace ToyTwoToolbox {
         public void Clear(bool Hide = false) {
             dgvShapeData.Rows.Clear();
             comboPrimitive.Items.Clear();
-            fieldShapeName.Clear();
+            fieldShapeName.Text = "";
             this.Visible = !Hide;
         }
-
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
             selectedPrim = loadedShape.rawPrimitives[comboPrimitive.SelectedIndex];
@@ -69,18 +89,24 @@ namespace ToyTwoToolbox {
                 DGVRow.Cells[1].Value = loadedShape.rawVertices[vertex].Y;
                 DGVRow.Cells[2].Value = loadedShape.rawVertices[vertex].Z;
 
-                DGVRow.Cells[3].Value = loadedShape.rawVertexData[vertex].X;
-                DGVRow.Cells[4].Value = loadedShape.rawVertexData[vertex].Y;
-                DGVRow.Cells[5].Value = loadedShape.rawVertexData[vertex].Y;
+                if (loadedShape.rawVertexData.Count >0) {
+                    DGVRow.Cells[3].Value = loadedShape.rawVertexData[vertex].X;
+                    DGVRow.Cells[4].Value = loadedShape.rawVertexData[vertex].Y;
+                    DGVRow.Cells[5].Value = loadedShape.rawVertexData[vertex].Y;
+                }
 
-                DGVRow.Cells[6].Value = loadedShape.rawVertexShading[vertex].A;
-                DGVRow.Cells[7].Style.BackColor = System.Drawing.Color.FromArgb(
-                    (int)loadedShape.rawVertexShading[vertex].R, 
-                    (int)loadedShape.rawVertexShading[vertex].G, 
-                    (int)loadedShape.rawVertexShading[vertex].B);
+                if (loadedShape.rawVertexShading.Count > 0) {
+                    DGVRow.Cells[6].Value = loadedShape.rawVertexShading[vertex].A;
+                    DGVRow.Cells[7].Style.BackColor = System.Drawing.Color.FromArgb(
+                        (int)loadedShape.rawVertexShading[vertex].R,
+                        (int)loadedShape.rawVertexShading[vertex].G,
+                        (int)loadedShape.rawVertexShading[vertex].B);
+                }
 
-                DGVRow.Cells[8].Value = loadedShape.rawVertexTextureCoords[vertex].Y;
-                DGVRow.Cells[9].Value = loadedShape.rawVertexTextureCoords[vertex].Y;
+                    if (loadedShape.rawVertexTextureCoords.Count > 0) {
+                        DGVRow.Cells[8].Value = loadedShape.rawVertexTextureCoords[vertex].Y;
+                        DGVRow.Cells[9].Value = loadedShape.rawVertexTextureCoords[vertex].Y;
+                    }
                 dgvShapeData.ResumeLayout();
             }
         }
@@ -89,28 +115,20 @@ namespace ToyTwoToolbox {
 
         }
 
-        private void numericMaterialID_ValueChanged(object sender, EventArgs e) {
-            groupMaterialProperties.Enabled = (numericMaterialID.Value != -1);
-            if (numericMaterialID.Value != -1) {
-                Material mat = loadedShape.materials[(int)numericMaterialID.Value];
-                List<double> AmbColor = mat.RGB;
-                butAmbColorPicker.BackColor = Color.FromArgb((int)AmbColor[0], (int)AmbColor[1], (int)AmbColor[2]);
+        private void comboMaterial_SelectedIndexChanged(object sender, EventArgs e) {
+            if (comboMaterial.SelectedIndex != -1) {
+                groupMaterialProperties.Visible = true;
+                Material mat = loadedShape.materials[comboMaterial.SelectedIndex];
+                butAmbColorPicker.BackColor = XF.NGNColToColor(mat.RGB);
                 comboMaterialTexture.SelectedIndex = (mat.textureIndex != 65535) ? mat.textureIndex : 0;
-
+            } else {
+                groupMaterialProperties.Visible = false;
             }
-        }
-        public void Hello() {
-            int HelloCount = 14;
-            for (int i = 0;i <= HelloCount;i++) {
-                Console.WriteLine("Hello");
-            }
-        }
-        private void butNewShapeMaterial_Click(object sender, EventArgs e) {
-            Hello();
         }
 
         private void fieldShapeName_TextChanged(object sender, EventArgs e) {
             loadedShape.name = fieldShapeName.Text;
+            //
         }
 
         private void numericCharShapeID_ValueChanged(object sender, EventArgs e) {
@@ -159,6 +177,12 @@ namespace ToyTwoToolbox {
 
         private void dgvShapeData_CellEndEdit(object sender, DataGridViewCellEventArgs e) {
 
+        }
+
+        private void butNewShapeMaterial_Click(object sender, EventArgs e) {
+            loadedShape.materials.Add(new Material());
+            comboMaterial.Items.Add("Material" + comboMaterial.Items.Count);
+            comboMaterial.SelectedIndex = comboMaterial.Items.Count-1;
         }
     }
 }

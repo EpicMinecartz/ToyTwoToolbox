@@ -1,17 +1,24 @@
-﻿using ObjLoader.Loader.Common;
-using ObjLoader.Loader.TypeParsers.Interfaces;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.TypeParsers
-{
-    public abstract class TypeParserBase : ITypeParser
-    {
-        protected abstract string Keyword { get; }
+using ToyTwoToolbox.ObjLoader.Loader.Common;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers.Interfaces;
 
-        public bool CanParse(string keyword)
-        {
-            return keyword.EqualsOrdinalIgnoreCase(Keyword);
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.TypeParsers {
+		public abstract class TypeParserBase : ITypeParser {
+			protected abstract string Keyword {get;}
 
-        public abstract void Parse(string line);
-    }
+			public bool CanParse(string keyword) {
+				return keyword.EqualsOrdinalIgnoreCase(this.Keyword);
+			}
+
+			public abstract void Parse(string line);
+		}
+	}
 }

@@ -1,25 +1,32 @@
-namespace ObjLoader.Loader.Loaders
-{
-    public class MaterialLibraryLoaderFacade : IMaterialLibraryLoaderFacade
-    {
-        private readonly IMaterialLibraryLoader _loader;
-        private readonly IMaterialStreamProvider _materialStreamProvider;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-        public MaterialLibraryLoaderFacade(IMaterialLibraryLoader loader, IMaterialStreamProvider materialStreamProvider)
-        {
-            _loader = loader;
-            _materialStreamProvider = materialStreamProvider;
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.Loaders {
+		public class MaterialLibraryLoaderFacade : IMaterialLibraryLoaderFacade {
+			private readonly IMaterialLibraryLoader _loader;
+			private readonly IMaterialStreamProvider _materialStreamProvider;
 
-        public void Load(string materialFileName)
-        {
-            using (var stream = _materialStreamProvider.Open(materialFileName))
-            {
-                if (stream != null)
-                {
-                    _loader.Load(stream);    
-                }
-            }
-        }
-    }
+			public MaterialLibraryLoaderFacade(IMaterialLibraryLoader loader, IMaterialStreamProvider materialStreamProvider) {
+				_loader = loader;
+				_materialStreamProvider = materialStreamProvider;
+			}
+
+			public void Load(string materialFileName) {
+				if (!materialFileName.Contains("\\")) {
+
+				}
+				using (var stream = _materialStreamProvider.Open(materialFileName)) {
+					if (stream != null) {
+						_loader.Load(stream);
+					}
+				}
+			}
+		}
+	}
 }

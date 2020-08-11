@@ -144,6 +144,11 @@
             // fieldLastLevel
             // 
             this.fieldLastLevel.Location = new System.Drawing.Point(333, 77);
+            this.fieldLastLevel.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
             this.fieldLastLevel.Name = "fieldLastLevel";
             this.fieldLastLevel.Size = new System.Drawing.Size(49, 29);
             this.fieldLastLevel.TabIndex = 14;
@@ -878,7 +883,7 @@
             // 
             // butSetSaveNameTL
             // 
-            this.butSetSaveNameTL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butSetSaveNameTL.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.butSetSaveNameTL.Location = new System.Drawing.Point(4, 57);
             this.butSetSaveNameTL.Margin = new System.Windows.Forms.Padding(2);
             this.butSetSaveNameTL.Name = "butSetSaveNameTL";

@@ -83,7 +83,7 @@ namespace ToyTwoToolbox {
 		public static void Report(string InboundText, RType ReportType = (RType)1) {
 			if (SessionManager.SMptr.InvokeRequired) {
 				SessionManager.SMptr.Invoke((MethodInvoker)delegate {
-					Report(InboundText, ReportType);
+					ReportEx(InboundText, ReportType);
 				});
 				return;
 			}
@@ -92,18 +92,6 @@ namespace ToyTwoToolbox {
 				ReportEx(InboundText, ReportType);
 				//Console.WriteLine(InboundText);
 			}
-		}
-
-		public void DoSomething(string foo, int bar) {
-			if (this.InvokeRequired) {
-				this.Invoke((MethodInvoker)delegate {
-					DoSomething(foo, bar);
-				});
-				return;
-			}
-			// do something with foo and bar
-			this.Text = foo;
-			Console.WriteLine(bar);
 		}
 
 		public static void ReportEx(string InboundText, RType ReportType = (RType)1, Color BaseColor = new Color(), bool Time = true, bool Tag = true, bool Append = false) {
@@ -191,7 +179,7 @@ namespace ToyTwoToolbox {
 
 
 			ProcessArgs();
-
+			UseDebug.Checked = Debug;
 			ver = ver2.ToString().Remove(ver2.ToString().Length - 2, 2) + BT[ver2.Revision];
 
 			PrintMessages = Debug; //Debug
@@ -200,7 +188,7 @@ namespace ToyTwoToolbox {
 			SM("Debug message printing " + PrintMessages.ToString().ToLower());
 			SM("WARNING! CPU overhead will be increased by debug printing");
 
-			CreateNewSession(MainArg, Debug);
+			CreateNewSession(MainArg);
 			MainSession = SessionPool[0];
 			SessionList.SelectedIndex = 0;
 		}
@@ -320,7 +308,7 @@ namespace ToyTwoToolbox {
 			return CreateNewSession();
 		}
 
-		private Form CreateNewSession(string StartupParam = "", bool ForceDebug = false, int SessionPoolID = 0) {
+		private Form CreateNewSession(string StartupParam = "", int SessionPoolID = 0) {
 			Main NM = new Main();
 			try {
 				if (SessionPoolID == 0) {
@@ -328,7 +316,6 @@ namespace ToyTwoToolbox {
 				} else {
 					SessionPool[SessionPoolID] = NM;
 				}
-				NM.Debug = ForceDebug;
 				NM.PrintMessages = PrintMessages;
 				NM.LSID = (SessionPoolID == 0) ? SessionPool.Count - 1 : SessionPoolID;
 				NM.Init(StartupParam);
@@ -343,11 +330,10 @@ namespace ToyTwoToolbox {
 
 		private Form ReloadSession(int SessionID) {
 			Main Session = (Main)SessionPool[SessionID];
-			bool SessionDebug = Session.Debug;
 
 			DestroySession(SessionID, true);
 			//Session.Destroy()
-			return CreateNewSession("", SessionDebug, SessionID);
+			return CreateNewSession("", SessionID);
 		}
 
 		private bool DestroySession(int SessionID, bool Obliterate = false) {
@@ -376,6 +362,7 @@ namespace ToyTwoToolbox {
 			return ((ID == 0) ? "" : "[" + ID + "]");
 		}
 
+		//needs fixing due to new session scripts
 		public bool RedirectShutdown(int LocalID, bool RetainExecution = false, bool Obliterate = false) {
 			try {
 				Main Session = (Main)SessionPool[LocalID];
@@ -445,7 +432,7 @@ namespace ToyTwoToolbox {
 		}
 
 		private void NewSession_Click(object sender, EventArgs e) {
-			CreateNewSession(((UseArgs.Checked == true) ? MainArg : ""), ((UseDebug.Checked == true) ? Debug : false));
+			CreateNewSession(((UseArgs.Checked == true) ? MainArg : ""));
 		}
 
 		public class EC {
@@ -541,5 +528,8 @@ namespace ToyTwoToolbox {
 			return MovieImageList;
 		}
 
-	}
+        private void UseDebug_CheckedChanged(object sender, EventArgs e) {
+			Debug = UseDebug.Checked;
+        }
+    }
 }

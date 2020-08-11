@@ -20,6 +20,7 @@ namespace ToyTwoToolbox {
             get { return _showToken; }
             set {
                 _showToken = value;
+                Token.Visible = _showToken;
                 Invalidate();
             }
         }

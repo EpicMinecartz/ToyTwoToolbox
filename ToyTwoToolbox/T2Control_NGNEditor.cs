@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
     public partial class T2Control_NGNEditor : UserControl {
         public T2Control_NGNEditor(F_NGN file) {
             InitializeComponent();
+            this.DoubleBuffered = true;
             tabControl1.DrawItem += new DrawItemEventHandler(DarkThemeTabControlRender.tabControl_DrawItem);
             contextTexture.Renderer = new DarkThemeMenuRender();
             listviewTextures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -23,9 +20,7 @@ namespace ToyTwoToolbox {
             dvgAP.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dvgAP.ColumnHeadersDefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dvgAP.RowsDefaultCellStyle = SessionManager.DarkThemeCellDGV;
-
-
-
+            dvgAP.GetType().InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty, null, dvgAP, new object[] { true });
 
             this.Dock = DockStyle.Fill;
             LoadFile(file);
@@ -39,14 +34,15 @@ namespace ToyTwoToolbox {
             LoadCharacterData();
             LoadGeometryData();
             LoadAreaPortals();
+            LoadShapeLinks();
         }
 
         public bool SaveChanges(bool JustMemory = false, string path = "") {
             if (path == "" || path == null) {
-                SaveFileDialog SFD = new SaveFileDialog { 
-                    Filter = "Level File | *.NGN|All files (*.*)|*.*", 
-                    DefaultExt = ".ngn", 
-                    FileName = (loadedNGN.FilePath == null) ? loadedNGN.TempName : System.IO.Path.GetFileNameWithoutExtension(loadedNGN.FilePath) 
+                SaveFileDialog SFD = new SaveFileDialog {
+                    Filter = "Level File | *.NGN|All files (*.*)|*.*",
+                    DefaultExt = ".ngn",
+                    FileName = (loadedNGN.FilePath == null) ? loadedNGN.TempName : System.IO.Path.GetFileNameWithoutExtension(loadedNGN.FilePath)
                 };
                 if (SFD.ShowDialog() == DialogResult.OK) {
                     path = SFD.FileName;
@@ -56,6 +52,15 @@ namespace ToyTwoToolbox {
                 }
             }
             return false;
+        }
+
+        private void CharShapeEditor_ReportShapeNameUpdate(object sender, string text) {
+            updateListBoxItem(listCharShapes, listCharShapes.SelectedIndex, text);
+        }
+
+
+        public void updateListBoxItem(ListBox listBox, int index, string name) {
+            listBox.Items[index] = name;
         }
 
         #region "Textures"
@@ -82,7 +87,7 @@ namespace ToyTwoToolbox {
             if (listviewTextures.SelectedIndices.Count > 0) {
                 Texture tex = loadedNGN.textures[listviewTextures.SelectedIndices[0]];
                 pictureTexture.Image = tex.image;
-                labelTextureInfo.Text = "Texture: "+tex.name+" Resolution: " + tex.image.Size.ToString() + " Index: " + listviewTextures.SelectedIndices[0];
+                labelTextureInfo.Text = "Texture: " + tex.name + " Resolution: " + tex.image.Size.ToString() + " Index: " + listviewTextures.SelectedIndices[0];
             }
         }
 
@@ -245,7 +250,7 @@ namespace ToyTwoToolbox {
 
         private void listviewTextures_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e) {
             if (e.IsSelected) {
-                e.Item.BackColor = Color.FromArgb(45,45,45);
+                e.Item.BackColor = Color.FromArgb(45, 45, 45);
             } else {
                 e.Item.BackColor = e.Item.ListView.BackColor;
             }
@@ -265,27 +270,43 @@ namespace ToyTwoToolbox {
         public void LoadCharacterData() {
             //well, i guess we only gotta populate the character list, the rest is on select basis
             comboCharacters.Items.Clear();
-            foreach (Character chr in loadedNGN.characters) {
-                comboCharacters.Items.Add(chr.name);
+            if (loadedNGN.characters.Count > 0) {
+                foreach (Character chr in loadedNGN.characters) {
+                    comboCharacters.Items.Add(chr.name);
+                }
+                comboCharacters.SelectedIndex = 0;
             }
-            comboCharacters.SelectedIndex = 0;
         }
 
         public void LoadCharacter(int id) {
             listCharShapes.Items.Clear();
-            for (int i = 0;i < loadedNGN.characters[id].model.shapes.Count;i++) {
-                listCharShapes.Items.Add((loadedNGN.characters[id].model.shapes[i].name == "") ? "Shape " + i.ToString().PadLeft(2,'0') : loadedNGN.characters[id].model.shapes[i].name);
+            CharEditor.Visible = true;
+            if (loadedNGN.characters[id].model.shapes.Count > 0) {
+                for (int i = 0;i < loadedNGN.characters[id].model.shapes.Count;i++) {
+                    listCharShapes.Items.Add((loadedNGN.characters[id].model.shapes[i].name == "") ? "<Shape " + i.ToString().PadLeft(2, '0') + ">" : loadedNGN.characters[id].model.shapes[i].name);
+                }
+                listCharShapes.SelectedIndex = 0;
             }
         }
 
         private void comboCharacters_SelectedIndexChanged(object sender, EventArgs e) {
-            LoadCharacter(comboCharacters.SelectedIndex);
+            if (comboCharacters.SelectedIndex != -1) {
+                LoadCharacter(comboCharacters.SelectedIndex);
+            } else {
+                CharEditor.Visible = false;
+            }
         }
 
         private void listShapes_SelectedIndexChanged(object sender, EventArgs e) {
             //LoadCharShape(comboCharacters.SelectedIndex, listCharShapes.SelectedIndex);
-            Shape shp = loadedNGN.characters[comboCharacters.SelectedIndex].model.shapes[listCharShapes.SelectedIndex];
-            CharShapeEditor.ImportShape(ref shp, ref loadedNGN);
+            if (listCharShapes.SelectedIndex != -1) {
+                CharShapeEditor.Visible = true;
+                Shape shp = loadedNGN.characters[comboCharacters.SelectedIndex].model.shapes[listCharShapes.SelectedIndex];
+                CharShapeEditor.ImportShape(ref shp, ref loadedNGN, listCharShapes.SelectedItem.ToString());
+            } else {
+                CharShapeEditor.Visible = false;
+            }
+
         }
 
         //private void numericMaterialID_ValueChanged(object sender, EventArgs e) {
@@ -304,6 +325,7 @@ namespace ToyTwoToolbox {
         private void butNewChar_Click(object sender, EventArgs e) {
             loadedNGN.characters.Add(new Character { name = "Untitled" });
             comboCharacters.Items.Add("Untitled");
+            comboCharacters.SelectedIndex = comboCharacters.Items.Count-1;
         }
         private void butRemoveChar_Click(object sender, EventArgs e) {
             DialogResult msg = MessageBox.Show("Are you sure you want to remove this character?", "Character remove", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
@@ -313,7 +335,12 @@ namespace ToyTwoToolbox {
             }
         }
         private void butImportChar_Click(object sender, EventArgs e) {
-
+            Importer i = new Importer();
+            if (i.ShowDialog() == DialogResult.OK) {
+                loadedNGN.characters.Add(i.ImportedCharacter);
+                comboCharacters.Items.Add(i.ImportedCharacter.name);
+                comboCharacters.SelectedIndex = comboCharacters.Items.Count - 1;
+            }
         }
         private void butNewShape_Click(object sender, EventArgs e) {
             loadedNGN.characters[comboCharacters.SelectedIndex].model.shapes.Add(new Shape());
@@ -336,23 +363,48 @@ namespace ToyTwoToolbox {
 
         }
 
+
+        private void numericAnimationID_ValueChanged(object sender, EventArgs e) {
+
+        }
+
+        private void numericNodeID_ValueChanged(object sender, EventArgs e) {
+            int framecount = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames.Count;
+            dgvAnimationData.Rows.Clear();
+            if (framecount > 0) {
+                dgvAnimationData.Rows.Add(framecount);
+                for (int i = 0;i < framecount;i++) {
+                    DataGridViewRow DGVRow = dgvAnimationData.Rows[i];
+                    AnimationFrame frame = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames[i];
+                    DGVRow.Cells[0].Value = frame.Position.X;
+                    DGVRow.Cells[1].Value = frame.Position.Y;
+                    DGVRow.Cells[2].Value = frame.Position.Z;
+                    DGVRow.Cells[3].Value = frame.Rotation.X;
+                    DGVRow.Cells[4].Value = frame.Rotation.Y;
+                }
+            }
+        }
+
         #endregion
 
         #region "Geometry"
         public void LoadGeometryData() {
-            //well, i guess we only gotta populate the character list, the rest is on select basis
+            //well, i guess we only gotta populate the geom list, the rest is on select basis
             comboGeometry.Items.Clear();
-            int i = 0;
-            foreach (Geometry geom in loadedNGN.Geometries) {
-                comboGeometry.Items.Add(geom.name == "" ? "Geom " + i.ToString().PadLeft(2, '0') : geom.name);
-                i++;
+            if (loadedNGN.Geometries.Count > 0) {
+                int i = 0;
+                foreach (Geometry geom in loadedNGN.Geometries) {
+                    comboGeometry.Items.Add(geom.name == "" ? "Geom " + i.ToString().PadLeft(2, '0') : geom.name);
+                    i++;
+                }
+                comboGeometry.SelectedIndex = 0;
             }
-            comboGeometry.SelectedIndex = 0;
         }
 
 
         public void LoadGeometry(int id) {
             listGeomShapes.Items.Clear();
+            GeomEditor.Visible = true;
             GeomShapeEditor.Clear(true);
             if (loadedNGN.Geometries.Count > 0) {
                 if (loadedNGN.Geometries[id].shapes.Count > 0) {
@@ -367,18 +419,29 @@ namespace ToyTwoToolbox {
         }
 
         private void comboGeometry_SelectedIndexChanged(object sender, EventArgs e) {
-            LoadGeometry(comboGeometry.SelectedIndex);
+            if (comboGeometry.SelectedIndex != -1) {
+                LoadGeometry(comboGeometry.SelectedIndex);
+            } else { 
+                GeomEditor.Visible = false; 
+            }
+            
         }
 
         private void listGeomShapes_SelectedIndexChanged(object sender, EventArgs e) {
-            //LoadGeomShape(comboGeometry.SelectedIndex, listGeomShapes.SelectedIndex);
-            Shape shp = loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes[listGeomShapes.SelectedIndex];
-            GeomShapeEditor.ImportShape(ref shp, ref loadedNGN);
+            if (listGeomShapes.SelectedIndex != -1) {
+                GeomShapeEditor.Visible = true;
+                Shape shp = loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes[listGeomShapes.SelectedIndex];
+                GeomShapeEditor.ImportShape(ref shp, ref loadedNGN);
+            } else {
+                GeomShapeEditor.Visible = false;
+            }
         }
 
         private void butNewGeomShape_Click(object sender, EventArgs e) {
             loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes.Add(new Shape());
-            LoadGeometry(comboGeometry.SelectedIndex);
+            listGeomShapes.Items.Add("<Shape " + (listGeomShapes.Items.Count + 1) + ">");
+            listGeomShapes.SelectedIndex = listGeomShapes.Items.Count;
+            //LoadGeometry(comboGeometry.SelectedIndex);
         }
 
         private void butImportGeomShape_Click(object sender, EventArgs e) {
@@ -432,10 +495,12 @@ namespace ToyTwoToolbox {
         #region "Area Portals"
         public void LoadAreaPortals() {
             listAreaPortals.Items.Clear();
-            for (int i = 0;i < loadedNGN.areaPortals.Count;i++) {
-                listAreaPortals.Items.Add("Area Portal " + i);
+            if (loadedNGN.areaPortals.Count > 0) {
+                for (int i = 0;i < loadedNGN.areaPortals.Count;i++) {
+                    listAreaPortals.Items.Add("Area Portal " + i);
+                }
+                listAreaPortals.SelectedIndex = 0;
             }
-            listAreaPortals.SelectedIndex = 0;
         }
 
 
@@ -460,36 +525,12 @@ namespace ToyTwoToolbox {
 
         }
 
-
-        #endregion
-
-        private void numericAnimationID_ValueChanged(object sender, EventArgs e) {
-
-        }
-
-        private void numericNodeID_ValueChanged(object sender, EventArgs e) {
-            int framecount = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames.Count;
-            dgvAnimationData.Rows.Clear();
-            if (framecount > 0) {
-                dgvAnimationData.Rows.Add(framecount);
-                for (int i = 0;i < framecount;i++) {
-                    DataGridViewRow DGVRow = (DataGridViewRow)dgvAnimationData.Rows[i];
-                    AnimationFrame frame = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames[i];
-                    DGVRow.Cells[0].Value = frame.Position.X;
-                    DGVRow.Cells[1].Value = frame.Position.Y;
-                    DGVRow.Cells[2].Value = frame.Position.Z;
-                    DGVRow.Cells[3].Value = frame.Rotation.X;
-                    DGVRow.Cells[4].Value = frame.Rotation.Y;
-                }
-            }
-        }
-
         private void listAreaPortals_SelectedIndexChanged(object sender, EventArgs e) {
             dvgAP.Rows.Clear();
             if (loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count > 0) {
                 dvgAP.Rows.Add(loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count);
                 for (int i = 0;i < loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count;i++) {
-                    DataGridViewRow DGVRow = (DataGridViewRow)dvgAP.Rows[i];
+                    DataGridViewRow DGVRow = dvgAP.Rows[i];
                     Vector3 v = loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices[i];
                     DGVRow.Cells[0].Value = v.X;
                     DGVRow.Cells[1].Value = v.Y;
@@ -497,6 +538,40 @@ namespace ToyTwoToolbox {
                 }
             }
         }
+        #endregion
 
+        #region "Shape Links"
+
+        public void LoadShapeLinks() {
+            ShapeLinkEditor.Rows.Clear();
+            if (loadedNGN.ObjectLinks.Count > 0) {
+                ShapeLinkEditor.Rows.Add(loadedNGN.ObjectLinks.Count);
+                for (int i = 0;i < loadedNGN.ObjectLinks.Count;i++) {
+                    DataGridViewRow DGVRow = ShapeLinkEditor.Rows[i];
+                    Linker l = loadedNGN.ObjectLinks[i];
+                    DGVRow.Cells[0].Value = l.ShapeID;
+                    DGVRow.Cells[1].Value = l.LinkID;
+                }
+            }
+        }
+
+        private void butNewShapeLink_Click(object sender, EventArgs e) {
+
+        }
+
+        private void butRemoveShapeLink_Click(object sender, EventArgs e) {
+
+        }
+
+        private void butShapeLinkMoveUp_Click(object sender, EventArgs e) {
+
+        }
+
+        private void butShapeLinkMoveDown_Click(object sender, EventArgs e) {
+            Importer mp = new Importer();
+            mp.Show();
+        }
+
+        #endregion
     }
 }

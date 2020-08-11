@@ -1,25 +1,32 @@
-﻿using ObjLoader.Loader.Loaders;
-using ObjLoader.Loader.TypeParsers.Interfaces;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.TypeParsers
-{
-    public class MaterialLibraryParser : TypeParserBase, IMaterialLibraryParser
-    {
-        private readonly IMaterialLibraryLoaderFacade _libraryLoaderFacade;
+using ToyTwoToolbox.ObjLoader.Loader.Loaders;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers.Interfaces;
 
-        public MaterialLibraryParser(IMaterialLibraryLoaderFacade libraryLoaderFacade)
-        {
-            _libraryLoaderFacade = libraryLoaderFacade;
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.TypeParsers {
+		public class MaterialLibraryParser : TypeParserBase, IMaterialLibraryParser {
+			private readonly IMaterialLibraryLoaderFacade _libraryLoaderFacade;
 
-        protected override string Keyword
-        {
-            get { return "mtllib"; }
-        }
+			public MaterialLibraryParser(IMaterialLibraryLoaderFacade libraryLoaderFacade) {
+				_libraryLoaderFacade = libraryLoaderFacade;
+			}
 
-        public override void Parse(string line)
-        {
-            _libraryLoaderFacade.Load(line);
-        }
-    }
+			protected override string Keyword {
+				get {
+					return "mtllib";
+				}
+			}
+
+			public override void Parse(string line) {
+				_libraryLoaderFacade.Load(line);
+			}
+		}
+	}
 }

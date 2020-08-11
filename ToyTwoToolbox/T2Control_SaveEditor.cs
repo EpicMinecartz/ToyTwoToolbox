@@ -209,7 +209,7 @@ namespace ToyTwoToolbox {
         }
 
         private void fieldBuzzHealth_ValueChanged(object sender, EventArgs e) {
-            this.toggleBuzzGod.Checked = false;
+            if (fieldBuzzHealth.Value < 32767) { this.toggleBuzzGod.Checked = false; }
             this.t2Control_HealthMeter1.CalculateHealth((int)fieldBuzzHealth.Value);
         }
 
@@ -266,7 +266,12 @@ namespace ToyTwoToolbox {
         }
 
         private void toggleInvisibleTokens_CheckedChanged(object sender, EventArgs e) {
-
+            bool bt = !toggleInvisibleTokens.Checked;
+            checkTokHamm.ShowToken = bt;
+            checkTokCollect.ShowToken = bt;
+            checkTokRC.ShowToken = bt;
+            checkTokMyst.ShowToken = bt;
+            checkTokBoss.ShowToken = bt;
         }
 
         private void labelInvisTokens_Click(object sender, EventArgs e) {

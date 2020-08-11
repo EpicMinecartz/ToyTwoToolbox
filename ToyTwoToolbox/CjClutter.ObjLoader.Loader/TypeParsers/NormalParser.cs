@@ -1,35 +1,41 @@
-using ObjLoader.Loader.Common;
-using ObjLoader.Loader.Data;
-using ObjLoader.Loader.Data.DataStore;
-using ObjLoader.Loader.Data.VertexData;
-using ObjLoader.Loader.TypeParsers.Interfaces;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.TypeParsers
-{
-    public class NormalParser : TypeParserBase, INormalParser
-    {
-        private readonly INormalDataStore _normalDataStore;
+using ToyTwoToolbox.ObjLoader.Loader.Common;
+using ToyTwoToolbox.ObjLoader.Loader.Data.DataStore;
+using ToyTwoToolbox.ObjLoader.Loader.Data.VertexData;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers.Interfaces;
 
-        public NormalParser(INormalDataStore normalDataStore)
-        {
-            _normalDataStore = normalDataStore;
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.TypeParsers {
+		public class NormalParser : TypeParserBase, INormalParser {
+			private readonly INormalDataStore _normalDataStore;
 
-        protected override string Keyword
-        {
-            get { return "vn"; }
-        }
+			public NormalParser(INormalDataStore normalDataStore) {
+				_normalDataStore = normalDataStore;
+			}
 
-        public override void Parse(string line)
-        {
-            string[] parts = line.Split(' ');
+			protected override string Keyword {
+				get {
+					return "vn";
+				}
+			}
 
-            float x = parts[0].ParseInvariantFloat();
-            float y = parts[1].ParseInvariantFloat();
-            float z = parts[2].ParseInvariantFloat();
+			public override void Parse(string line) {
+				string[] parts = line.Split(' ');
 
-            var normal = new Normal(x, y, z);
-            _normalDataStore.AddNormal(normal);
-        }
-    }
+				float x = parts[0].ParseInvariantFloat();
+				float y = parts[1].ParseInvariantFloat();
+				float z = parts[2].ParseInvariantFloat();
+
+				var normal = new Normal(x, y, z);
+				_normalDataStore.AddNormal(normal);
+			}
+		}
+	}
 }

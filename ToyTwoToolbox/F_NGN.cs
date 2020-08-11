@@ -96,24 +96,24 @@ namespace ToyTwoToolbox {
             }
 
 
+            //Thread thread = new Thread(() => { File.textures = Extract_Textures(Func.FunctionOffset, Func.FunctionLength); });
+            //thread.Start();
 
 
             //foreach (NGNSchema.NGNFunctionDef Func in NSchema.NGNFunctions) {
             //    NewThread = null;
             //    switch (Func.FunctionType) {
             //        case NGNFunction.Textures:
-            //            NewThread = Task.Factory.StartNew(() => { File.textures = Extract_Textures(Func.FunctionOffset, Func.FunctionLength); });
-            //            //Thread thread = new Thread(() => { File.textures = Extract_Textures(Func.FunctionOffset, Func.FunctionLength); });
-            //            //thread.Start();
+            //            NewThread = Task.Factory.StartNew(() => { Extract_Textures(Func.FunctionOffset, Func.FunctionLength); });
             //            break;
             //        case NGNFunction.Creatures:
-            //            NewThread = Task.Factory.StartNew(() => { File.characters = Extract_Characters(Func.FunctionOffset); });
+            //            NewThread = Task.Factory.StartNew(() => { Extract_Characters(Func.FunctionOffset); });
             //            break;
             //        case NGNFunction.AreaPortalPosition:
             //            NewThread = Task.Factory.StartNew(() => { Extract_AreaPortal_Position(Func.FunctionOffset); });
             //            break;
             //        case NGNFunction.AreaPortalRotation:
-            //            //    NewThread = Task.Factory.StartNew(() => { Extract_AreaPortal_Rotation(Func.FunctionOffset); });
+            //            //NewThread = Task.Factory.StartNew(() => { Extract_AreaPortal_Rotation(Func.FunctionOffset); });
             //            FuncAreaPortalRotation = iteration;
             //            break;
             //        case NGNFunction.Geometry:
@@ -123,17 +123,17 @@ namespace ToyTwoToolbox {
             //            NewThread = Task.Factory.StartNew(() => { File.GScales.Add(Extract_DynamicScaler(Func.FunctionOffset)); });
             //            break;
             //        case NGNFunction.Linker:
-            //            NewThread = Task.Factory.StartNew(() => { File.Linker = Extract_ShapeLinks(Func.FunctionOffset); });
+            //            NewThread = Task.Factory.StartNew(() => { Extract_ShapeLinks(Func.FunctionOffset); });
             //            break;
             //    }
             //    iteration++;
             //    if (NewThread != null) { Threads.Add(NewThread); }
             //}
 
-            //    Task.WaitAll(Threads.ToArray());
-            //    if (FuncAreaPortalRotation != -1) {
-            //        Threads.Add(Task.Factory.StartNew(() => { Extract_AreaPortal_Rotation(NSchema.NGNFunctions[FuncAreaPortalRotation].FunctionOffset); }));
-            //    }
+            //Task.WaitAll(Threads.ToArray());
+            //if (FuncAreaPortalRotation != -1) {
+            //    Threads.Add(Task.Factory.StartNew(() => { Extract_AreaPortal_Rotation(NSchema.NGNFunctions[FuncAreaPortalRotation].FunctionOffset); }));
+            //}
             //Task.WaitAll(Threads.ToArray());
 
 
@@ -246,7 +246,7 @@ namespace ToyTwoToolbox {
                                 SessionManager.Report("The shape ID was invalid or null and was skipped <frs=" + seekPTR + "> [->F_NGN->ARSON->Extract_CharacterData]",SessionManager.RType.ERROR);
                             }
                         }
-                        SessionManager.Report("Context Owner:" + chr.name + " ShapeID:" + chr.model.shapes[chr.model.shapes.Count - 1].type + " ShapeID2:" + chr.model.shapes[chr.model.shapes.Count - 1].type2);
+                        //SessionManager.Report("Context Owner:" + chr.name + " ShapeID:" + chr.model.shapes[chr.model.shapes.Count - 1].type + " ShapeID2:" + chr.model.shapes[chr.model.shapes.Count - 1].type2);
                     }
 
                     continue;
@@ -446,7 +446,7 @@ namespace ToyTwoToolbox {
                         Contract_Internal_Length += 10;
                     }
                 } else {
-                    SessionManager.Report("animation node was skipped", SessionManager.RType.WARNING);
+                    //SessionManager.Report("animation node was skipped", SessionManager.RType.WARNING);
                 }
             }
             if (Contract_Internal_Length != Contract_Length || ptr != Contract_Length) { 

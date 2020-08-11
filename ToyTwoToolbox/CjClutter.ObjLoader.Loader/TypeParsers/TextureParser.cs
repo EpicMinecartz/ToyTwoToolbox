@@ -1,34 +1,40 @@
-﻿using ObjLoader.Loader.Common;
-using ObjLoader.Loader.Data;
-using ObjLoader.Loader.Data.DataStore;
-using ObjLoader.Loader.Data.VertexData;
-using ObjLoader.Loader.TypeParsers.Interfaces;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace ObjLoader.Loader.TypeParsers
-{
-    public class TextureParser : TypeParserBase, ITextureParser
-    {
-        private readonly ITextureDataStore _textureDataStore;
+using ToyTwoToolbox.ObjLoader.Loader.Common;
+using ToyTwoToolbox.ObjLoader.Loader.Data.DataStore;
+using ToyTwoToolbox.ObjLoader.Loader.Data.VertexData;
+using ToyTwoToolbox.ObjLoader.Loader.TypeParsers.Interfaces;
 
-        public TextureParser(ITextureDataStore textureDataStore)
-        {
-            _textureDataStore = textureDataStore;
-        }
+namespace ToyTwoToolbox {
+	namespace ObjLoader.Loader.TypeParsers {
+		public class TextureParser : TypeParserBase, ITextureParser {
+			private readonly ITextureDataStore _textureDataStore;
 
-        protected override string Keyword
-        {
-            get { return "vt"; }
-        }
+			public TextureParser(ITextureDataStore textureDataStore) {
+				_textureDataStore = textureDataStore;
+			}
 
-        public override void Parse(string line)
-        {
-            string[] parts = line.Split(' ');
+			protected override string Keyword {
+				get {
+					return "vt";
+				}
+			}
 
-            float x = parts[0].ParseInvariantFloat();
-            float y = parts[1].ParseInvariantFloat();
+			public override void Parse(string line) {
+				string[] parts = line.Split(' ');
 
-            var texture = new Texture(x, y);
-            _textureDataStore.AddTexture(texture);
-        }
-    }
+				float x = parts[0].ParseInvariantFloat();
+				float y = parts[1].ParseInvariantFloat();
+
+				var texture = new TextureCoord(x, y);
+				_textureDataStore.AddTexture(texture);
+			}
+		}
+	}
 }

@@ -18,7 +18,7 @@ namespace ToyTwoToolbox {
         /// </summary>
         /// <param name="path"></param>
         public static F_Base ProcessFile(string path) {
-            string ext = Path.GetExtension(path);
+            string ext = Path.GetExtension(path).ToLower();
             F_Base file;
             if (ext == ".ngn") {
                 F_NGN f = new F_NGN();
