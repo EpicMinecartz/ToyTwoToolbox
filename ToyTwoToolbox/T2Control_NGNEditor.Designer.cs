@@ -30,9 +30,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new ToyTwoToolbox.T2TTabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.butTextureSaveSelected = new System.Windows.Forms.Button();
+            this.butTextureSaveAll = new System.Windows.Forms.Button();
             this.butTextureMoveDown = new System.Windows.Forms.Button();
             this.butTextureMoveUp = new System.Windows.Forms.Button();
             this.butTextureRemove = new System.Windows.Forms.Button();
@@ -62,13 +70,15 @@
             this.labelTextureInfo = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.butPreviewCharShapeData = new System.Windows.Forms.Button();
             this.butPasteCharShapeData = new System.Windows.Forms.Button();
             this.butCopyCharShapeData = new System.Windows.Forms.Button();
+            this.butSaveChar = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.butNewChar = new System.Windows.Forms.Button();
-            this.ButRemoveChar = new System.Windows.Forms.Button();
-            this.ButImportChar = new System.Windows.Forms.Button();
+            this.butRemoveChar = new System.Windows.Forms.Button();
+            this.butImportChar = new System.Windows.Forms.Button();
             this.comboCharacters = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.CharEditor = new ToyTwoToolbox.T2TTabControl();
@@ -82,18 +92,24 @@
             this.listCharShapes = new System.Windows.Forms.ListBox();
             this.CharShapeEditor = new ToyTwoToolbox.T2Control_ShapeEditor();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.dgvAnimationData = new System.Windows.Forms.DataGridView();
-            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Z = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.R1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.R2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numericNodeID = new System.Windows.Forms.NumericUpDown();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.fieldChunk = new System.Windows.Forms.RichTextBox();
+            this.dgvAnimationData = new ToyTwoToolbox.T2Control_DGV();
+            this.AX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ARX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ARY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboNodeID = new System.Windows.Forms.ComboBox();
+            this.comboAnimID = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.numericAnimationID = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.butPreviewGeomShapeData = new System.Windows.Forms.Button();
+            this.butPasteGeomData = new System.Windows.Forms.Button();
+            this.butCopyGeomData = new System.Windows.Forms.Button();
+            this.butExportGeomData = new System.Windows.Forms.Button();
             this.butNewGeometry = new System.Windows.Forms.Button();
             this.butRemoveGeometry = new System.Windows.Forms.Button();
             this.butImportGeometry = new System.Windows.Forms.Button();
@@ -110,6 +126,22 @@
             this.listGeomShapes = new System.Windows.Forms.ListBox();
             this.GeomShapeEditor = new ToyTwoToolbox.T2Control_ShapeEditor();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.butDSMoveDown = new System.Windows.Forms.Button();
+            this.butDSMoveUp = new System.Windows.Forms.Button();
+            this.butDSRemove = new System.Windows.Forms.Button();
+            this.butDSAdd = new System.Windows.Forms.Button();
+            this.dgvDS = new ToyTwoToolbox.T2Control_DGV();
+            this.DSSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSTX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSTY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSTZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSRX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSRY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSRZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSSX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSSY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSSZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DSU = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this.listAreaPortals = new System.Windows.Forms.ListBox();
@@ -150,9 +182,8 @@
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
             this.tabPage9.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAnimationData)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericNodeID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAnimationID)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -164,6 +195,8 @@
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDS)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
             this.splitContainer6.Panel1.SuspendLayout();
@@ -211,6 +244,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.butTextureSaveSelected);
+            this.splitContainer1.Panel1.Controls.Add(this.butTextureSaveAll);
             this.splitContainer1.Panel1.Controls.Add(this.butTextureMoveDown);
             this.splitContainer1.Panel1.Controls.Add(this.butTextureMoveUp);
             this.splitContainer1.Panel1.Controls.Add(this.butTextureRemove);
@@ -224,6 +259,35 @@
             this.splitContainer1.Size = new System.Drawing.Size(1022, 425);
             this.splitContainer1.SplitterDistance = 238;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // butTextureSaveSelected
+            // 
+            this.butTextureSaveSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butTextureSaveSelected.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.SaveSel;
+            this.butTextureSaveSelected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butTextureSaveSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butTextureSaveSelected.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butTextureSaveSelected.Location = new System.Drawing.Point(151, 394);
+            this.butTextureSaveSelected.Name = "butTextureSaveSelected";
+            this.butTextureSaveSelected.Size = new System.Drawing.Size(23, 23);
+            this.butTextureSaveSelected.TabIndex = 19;
+            this.butTextureSaveSelected.UseVisualStyleBackColor = true;
+            this.butTextureSaveSelected.Visible = false;
+            this.butTextureSaveSelected.Click += new System.EventHandler(this.butTextureSaveSelected_Click);
+            // 
+            // butTextureSaveAll
+            // 
+            this.butTextureSaveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butTextureSaveAll.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Save;
+            this.butTextureSaveAll.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butTextureSaveAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butTextureSaveAll.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butTextureSaveAll.Location = new System.Drawing.Point(122, 394);
+            this.butTextureSaveAll.Name = "butTextureSaveAll";
+            this.butTextureSaveAll.Size = new System.Drawing.Size(23, 23);
+            this.butTextureSaveAll.TabIndex = 18;
+            this.butTextureSaveAll.UseVisualStyleBackColor = true;
+            this.butTextureSaveAll.Click += new System.EventHandler(this.butTextureSaveAll_Click);
             // 
             // butTextureMoveDown
             // 
@@ -528,13 +592,15 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.butPreviewCharShapeData);
             this.splitContainer2.Panel1.Controls.Add(this.butPasteCharShapeData);
             this.splitContainer2.Panel1.Controls.Add(this.butCopyCharShapeData);
+            this.splitContainer2.Panel1.Controls.Add(this.butSaveChar);
             this.splitContainer2.Panel1.Controls.Add(this.textBox1);
             this.splitContainer2.Panel1.Controls.Add(this.label10);
             this.splitContainer2.Panel1.Controls.Add(this.butNewChar);
-            this.splitContainer2.Panel1.Controls.Add(this.ButRemoveChar);
-            this.splitContainer2.Panel1.Controls.Add(this.ButImportChar);
+            this.splitContainer2.Panel1.Controls.Add(this.butRemoveChar);
+            this.splitContainer2.Panel1.Controls.Add(this.butImportChar);
             this.splitContainer2.Panel1.Controls.Add(this.comboCharacters);
             this.splitContainer2.Panel1.Controls.Add(this.label2);
             // 
@@ -545,34 +611,67 @@
             this.splitContainer2.SplitterDistance = 38;
             this.splitContainer2.TabIndex = 1;
             // 
+            // butPreviewCharShapeData
+            // 
+            this.butPreviewCharShapeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butPreviewCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveLives;
+            this.butPreviewCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butPreviewCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butPreviewCharShapeData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butPreviewCharShapeData.Location = new System.Drawing.Point(390, 8);
+            this.butPreviewCharShapeData.Name = "butPreviewCharShapeData";
+            this.butPreviewCharShapeData.Size = new System.Drawing.Size(23, 23);
+            this.butPreviewCharShapeData.TabIndex = 16;
+            this.butPreviewCharShapeData.UseVisualStyleBackColor = true;
+            this.butPreviewCharShapeData.Click += new System.EventHandler(this.button2_Click);
+            // 
             // butPasteCharShapeData
             // 
+            this.butPasteCharShapeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.butPasteCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Paste;
             this.butPasteCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butPasteCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPasteCharShapeData.Location = new System.Drawing.Point(593, 9);
+            this.butPasteCharShapeData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butPasteCharShapeData.Location = new System.Drawing.Point(361, 8);
             this.butPasteCharShapeData.Name = "butPasteCharShapeData";
-            this.butPasteCharShapeData.Size = new System.Drawing.Size(20, 20);
-            this.butPasteCharShapeData.TabIndex = 14;
+            this.butPasteCharShapeData.Size = new System.Drawing.Size(23, 23);
+            this.butPasteCharShapeData.TabIndex = 15;
             this.butPasteCharShapeData.UseVisualStyleBackColor = true;
+            this.butPasteCharShapeData.Click += new System.EventHandler(this.butPasteCharShapeData_Click);
             // 
             // butCopyCharShapeData
             // 
+            this.butCopyCharShapeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.butCopyCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.CopyHS;
             this.butCopyCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butCopyCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butCopyCharShapeData.Location = new System.Drawing.Point(572, 9);
+            this.butCopyCharShapeData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butCopyCharShapeData.Location = new System.Drawing.Point(332, 8);
             this.butCopyCharShapeData.Name = "butCopyCharShapeData";
-            this.butCopyCharShapeData.Size = new System.Drawing.Size(20, 20);
-            this.butCopyCharShapeData.TabIndex = 13;
+            this.butCopyCharShapeData.Size = new System.Drawing.Size(23, 23);
+            this.butCopyCharShapeData.TabIndex = 15;
             this.butCopyCharShapeData.UseVisualStyleBackColor = true;
+            // 
+            // butSaveChar
+            // 
+            this.butSaveChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butSaveChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.SaveAs;
+            this.butSaveChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butSaveChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butSaveChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butSaveChar.Location = new System.Drawing.Point(303, 8);
+            this.butSaveChar.Name = "butSaveChar";
+            this.butSaveChar.Size = new System.Drawing.Size(23, 23);
+            this.butSaveChar.TabIndex = 15;
+            this.butSaveChar.UseVisualStyleBackColor = true;
+            this.butSaveChar.Click += new System.EventHandler(this.butSaveChar_Click);
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.textBox1.Location = new System.Drawing.Point(403, 10);
+            this.textBox1.Location = new System.Drawing.Point(513, 10);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(161, 20);
             this.textBox1.TabIndex = 14;
@@ -580,7 +679,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(359, 13);
+            this.label10.Location = new System.Drawing.Point(469, 13);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(38, 13);
             this.label10.TabIndex = 13;
@@ -599,32 +698,32 @@
             this.butNewChar.UseVisualStyleBackColor = true;
             this.butNewChar.Click += new System.EventHandler(this.butNewChar_Click);
             // 
-            // ButRemoveChar
+            // butRemoveChar
             // 
-            this.ButRemoveChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButRemoveChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
-            this.ButRemoveChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ButRemoveChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButRemoveChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ButRemoveChar.Location = new System.Drawing.Point(274, 8);
-            this.ButRemoveChar.Name = "ButRemoveChar";
-            this.ButRemoveChar.Size = new System.Drawing.Size(23, 23);
-            this.ButRemoveChar.TabIndex = 11;
-            this.ButRemoveChar.UseVisualStyleBackColor = true;
-            this.ButRemoveChar.Click += new System.EventHandler(this.butRemoveChar_Click);
+            this.butRemoveChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butRemoveChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
+            this.butRemoveChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butRemoveChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butRemoveChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butRemoveChar.Location = new System.Drawing.Point(274, 8);
+            this.butRemoveChar.Name = "butRemoveChar";
+            this.butRemoveChar.Size = new System.Drawing.Size(23, 23);
+            this.butRemoveChar.TabIndex = 11;
+            this.butRemoveChar.UseVisualStyleBackColor = true;
+            this.butRemoveChar.Click += new System.EventHandler(this.butRemoveChar_Click);
             // 
-            // ButImportChar
+            // butImportChar
             // 
-            this.ButImportChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButImportChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.AddMark_10580_inverse;
-            this.ButImportChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ButImportChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButImportChar.Location = new System.Drawing.Point(245, 8);
-            this.ButImportChar.Name = "ButImportChar";
-            this.ButImportChar.Size = new System.Drawing.Size(23, 23);
-            this.ButImportChar.TabIndex = 10;
-            this.ButImportChar.UseVisualStyleBackColor = true;
-            this.ButImportChar.Click += new System.EventHandler(this.butImportChar_Click);
+            this.butImportChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butImportChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.AddMark_10580_inverse;
+            this.butImportChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.butImportChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butImportChar.Location = new System.Drawing.Point(245, 8);
+            this.butImportChar.Name = "butImportChar";
+            this.butImportChar.Size = new System.Drawing.Size(23, 23);
+            this.butImportChar.TabIndex = 10;
+            this.butImportChar.UseVisualStyleBackColor = true;
+            this.butImportChar.Click += new System.EventHandler(this.butImportChar_Click);
             // 
             // comboCharacters
             // 
@@ -763,7 +862,6 @@
             this.butImportCharShape.Size = new System.Drawing.Size(23, 23);
             this.butImportCharShape.TabIndex = 5;
             this.butImportCharShape.UseVisualStyleBackColor = true;
-            this.butImportCharShape.Click += new System.EventHandler(this.butImportShape_Click);
             // 
             // listCharShapes
             // 
@@ -796,10 +894,11 @@
             // tabPage9
             // 
             this.tabPage9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.tabPage9.Controls.Add(this.panel2);
             this.tabPage9.Controls.Add(this.dgvAnimationData);
-            this.tabPage9.Controls.Add(this.numericNodeID);
+            this.tabPage9.Controls.Add(this.comboNodeID);
+            this.tabPage9.Controls.Add(this.comboAnimID);
             this.tabPage9.Controls.Add(this.label19);
-            this.tabPage9.Controls.Add(this.numericAnimationID);
             this.tabPage9.Controls.Add(this.label18);
             this.tabPage9.Location = new System.Drawing.Point(4, 25);
             this.tabPage9.Name = "tabPage9";
@@ -808,81 +907,143 @@
             this.tabPage9.TabIndex = 5;
             this.tabPage9.Text = "Animations";
             // 
-            // dgvAnimationData
+            // panel2
             // 
-            this.dgvAnimationData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.fieldChunk);
+            this.panel2.Location = new System.Drawing.Point(3, 41);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(0, 0);
+            this.panel2.TabIndex = 9;
+            // 
+            // fieldChunk
+            // 
+            this.fieldChunk.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fieldChunk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.fieldChunk.ForeColor = System.Drawing.Color.White;
+            this.fieldChunk.Location = new System.Drawing.Point(7, 7);
+            this.fieldChunk.Name = "fieldChunk";
+            this.fieldChunk.Size = new System.Drawing.Size(0, 0);
+            this.fieldChunk.TabIndex = 4;
+            this.fieldChunk.Text = "";
+            // 
+            // dgvAnimationData
+            // 
+            this.dgvAnimationData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAnimationData.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.dgvAnimationData.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvAnimationData.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAnimationData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvAnimationData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAnimationData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.X,
-            this.Y,
-            this.Z,
-            this.R1,
-            this.R2});
-            this.dgvAnimationData.Location = new System.Drawing.Point(6, 87);
+            this.AX,
+            this.AY,
+            this.AZ,
+            this.ARX,
+            this.ARY});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAnimationData.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvAnimationData.EnableHeadersVisualStyles = false;
+            this.dgvAnimationData.GridColor = System.Drawing.Color.DimGray;
+            this.dgvAnimationData.Location = new System.Drawing.Point(6, 75);
             this.dgvAnimationData.Name = "dgvAnimationData";
-            this.dgvAnimationData.Size = new System.Drawing.Size(0, 0);
-            this.dgvAnimationData.TabIndex = 4;
+            this.dgvAnimationData.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAnimationData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvAnimationData.Size = new System.Drawing.Size(1000, 271);
+            this.dgvAnimationData.TabIndex = 8;
             // 
-            // X
+            // AX
             // 
-            this.X.HeaderText = "X";
-            this.X.Name = "X";
+            this.AX.HeaderText = "X";
+            this.AX.Name = "AX";
             // 
-            // Y
+            // AY
             // 
-            this.Y.HeaderText = "Y";
-            this.Y.Name = "Y";
+            this.AY.HeaderText = "Y";
+            this.AY.Name = "AY";
             // 
-            // Z
+            // AZ
             // 
-            this.Z.HeaderText = "Z";
-            this.Z.Name = "Z";
+            this.AZ.HeaderText = "Z";
+            this.AZ.Name = "AZ";
             // 
-            // R1
+            // ARX
             // 
-            this.R1.HeaderText = "R1";
-            this.R1.Name = "R1";
+            this.ARX.HeaderText = "RX";
+            this.ARX.Name = "ARX";
             // 
-            // R2
+            // ARY
             // 
-            this.R2.HeaderText = "R2";
-            this.R2.Name = "R2";
+            this.ARY.HeaderText = "RY";
+            this.ARY.Name = "ARY";
             // 
-            // numericNodeID
+            // comboNodeID
             // 
-            this.numericNodeID.Location = new System.Drawing.Point(72, 49);
-            this.numericNodeID.Name = "numericNodeID";
-            this.numericNodeID.Size = new System.Drawing.Size(62, 20);
-            this.numericNodeID.TabIndex = 3;
-            this.numericNodeID.ValueChanged += new System.EventHandler(this.numericNodeID_ValueChanged);
+            this.comboNodeID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.comboNodeID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboNodeID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboNodeID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.comboNodeID.FormattingEnabled = true;
+            this.comboNodeID.Location = new System.Drawing.Point(75, 48);
+            this.comboNodeID.Name = "comboNodeID";
+            this.comboNodeID.Size = new System.Drawing.Size(133, 21);
+            this.comboNodeID.TabIndex = 7;
+            this.comboNodeID.SelectedIndexChanged += new System.EventHandler(this.comboNodeID_SelectedIndexChanged);
+            // 
+            // comboAnimID
+            // 
+            this.comboAnimID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.comboAnimID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboAnimID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboAnimID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.comboAnimID.FormattingEnabled = true;
+            this.comboAnimID.Location = new System.Drawing.Point(75, 14);
+            this.comboAnimID.Name = "comboAnimID";
+            this.comboAnimID.Size = new System.Drawing.Size(133, 21);
+            this.comboAnimID.TabIndex = 6;
+            this.comboAnimID.SelectedIndexChanged += new System.EventHandler(this.comboAnimID_SelectedIndexChanged);
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(10, 51);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 13);
+            this.label19.Size = new System.Drawing.Size(36, 13);
             this.label19.TabIndex = 2;
-            this.label19.Text = "Node ID:";
-            // 
-            // numericAnimationID
-            // 
-            this.numericAnimationID.Location = new System.Drawing.Point(85, 15);
-            this.numericAnimationID.Name = "numericAnimationID";
-            this.numericAnimationID.Size = new System.Drawing.Size(62, 20);
-            this.numericAnimationID.TabIndex = 1;
-            this.numericAnimationID.ValueChanged += new System.EventHandler(this.numericAnimationID_ValueChanged);
+            this.label19.Text = "Node:";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(10, 17);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(73, 13);
+            this.label18.Size = new System.Drawing.Size(59, 13);
             this.label18.TabIndex = 0;
-            this.label18.Text = "Animation ID: ";
+            this.label18.Text = "Animation: ";
             // 
             // tabPage1
             // 
@@ -907,6 +1068,10 @@
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.butPreviewGeomShapeData);
+            this.splitContainer3.Panel1.Controls.Add(this.butPasteGeomData);
+            this.splitContainer3.Panel1.Controls.Add(this.butCopyGeomData);
+            this.splitContainer3.Panel1.Controls.Add(this.butExportGeomData);
             this.splitContainer3.Panel1.Controls.Add(this.butNewGeometry);
             this.splitContainer3.Panel1.Controls.Add(this.butRemoveGeometry);
             this.splitContainer3.Panel1.Controls.Add(this.butImportGeometry);
@@ -919,6 +1084,58 @@
             this.splitContainer3.Size = new System.Drawing.Size(1022, 425);
             this.splitContainer3.SplitterDistance = 38;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // butPreviewGeomShapeData
+            // 
+            this.butPreviewGeomShapeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butPreviewGeomShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveLives;
+            this.butPreviewGeomShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butPreviewGeomShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butPreviewGeomShapeData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butPreviewGeomShapeData.Location = new System.Drawing.Point(390, 8);
+            this.butPreviewGeomShapeData.Name = "butPreviewGeomShapeData";
+            this.butPreviewGeomShapeData.Size = new System.Drawing.Size(23, 23);
+            this.butPreviewGeomShapeData.TabIndex = 20;
+            this.butPreviewGeomShapeData.UseVisualStyleBackColor = true;
+            // 
+            // butPasteGeomData
+            // 
+            this.butPasteGeomData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butPasteGeomData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Paste;
+            this.butPasteGeomData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butPasteGeomData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butPasteGeomData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butPasteGeomData.Location = new System.Drawing.Point(361, 8);
+            this.butPasteGeomData.Name = "butPasteGeomData";
+            this.butPasteGeomData.Size = new System.Drawing.Size(23, 23);
+            this.butPasteGeomData.TabIndex = 17;
+            this.butPasteGeomData.UseVisualStyleBackColor = true;
+            // 
+            // butCopyGeomData
+            // 
+            this.butCopyGeomData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butCopyGeomData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.CopyHS;
+            this.butCopyGeomData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butCopyGeomData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butCopyGeomData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butCopyGeomData.Location = new System.Drawing.Point(332, 8);
+            this.butCopyGeomData.Name = "butCopyGeomData";
+            this.butCopyGeomData.Size = new System.Drawing.Size(23, 23);
+            this.butCopyGeomData.TabIndex = 18;
+            this.butCopyGeomData.UseVisualStyleBackColor = true;
+            // 
+            // butExportGeomData
+            // 
+            this.butExportGeomData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butExportGeomData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.SaveAs;
+            this.butExportGeomData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butExportGeomData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butExportGeomData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butExportGeomData.Location = new System.Drawing.Point(303, 8);
+            this.butExportGeomData.Name = "butExportGeomData";
+            this.butExportGeomData.Size = new System.Drawing.Size(23, 23);
+            this.butExportGeomData.TabIndex = 19;
+            this.butExportGeomData.UseVisualStyleBackColor = true;
             // 
             // butNewGeometry
             // 
@@ -1129,12 +1346,177 @@
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.tabPage6.Controls.Add(this.butDSMoveDown);
+            this.tabPage6.Controls.Add(this.butDSMoveUp);
+            this.tabPage6.Controls.Add(this.butDSRemove);
+            this.tabPage6.Controls.Add(this.butDSAdd);
+            this.tabPage6.Controls.Add(this.dgvDS);
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage6.Size = new System.Drawing.Size(1012, 352);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Dynamic Scaler";
+            // 
+            // butDSMoveDown
+            // 
+            this.butDSMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butDSMoveDown.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzsowns;
+            this.butDSMoveDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butDSMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDSMoveDown.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butDSMoveDown.Location = new System.Drawing.Point(89, 327);
+            this.butDSMoveDown.Name = "butDSMoveDown";
+            this.butDSMoveDown.Size = new System.Drawing.Size(23, 23);
+            this.butDSMoveDown.TabIndex = 12;
+            this.butDSMoveDown.UseVisualStyleBackColor = true;
+            // 
+            // butDSMoveUp
+            // 
+            this.butDSMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butDSMoveUp.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzUps;
+            this.butDSMoveUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butDSMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDSMoveUp.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butDSMoveUp.Location = new System.Drawing.Point(60, 327);
+            this.butDSMoveUp.Name = "butDSMoveUp";
+            this.butDSMoveUp.Size = new System.Drawing.Size(23, 23);
+            this.butDSMoveUp.TabIndex = 11;
+            this.butDSMoveUp.UseVisualStyleBackColor = true;
+            // 
+            // butDSRemove
+            // 
+            this.butDSRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butDSRemove.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
+            this.butDSRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butDSRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDSRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butDSRemove.Location = new System.Drawing.Point(31, 327);
+            this.butDSRemove.Name = "butDSRemove";
+            this.butDSRemove.Size = new System.Drawing.Size(23, 23);
+            this.butDSRemove.TabIndex = 10;
+            this.butDSRemove.UseVisualStyleBackColor = true;
+            // 
+            // butDSAdd
+            // 
+            this.butDSAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butDSAdd.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
+            this.butDSAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butDSAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDSAdd.Location = new System.Drawing.Point(2, 327);
+            this.butDSAdd.Name = "butDSAdd";
+            this.butDSAdd.Size = new System.Drawing.Size(23, 23);
+            this.butDSAdd.TabIndex = 9;
+            this.butDSAdd.UseVisualStyleBackColor = true;
+            // 
+            // dgvDS
+            // 
+            this.dgvDS.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDS.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDS.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.dgvDS.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvDS.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDS.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvDS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDS.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DSSID,
+            this.DSTX,
+            this.DSTY,
+            this.DSTZ,
+            this.DSRX,
+            this.DSRY,
+            this.DSRZ,
+            this.DSSX,
+            this.DSSY,
+            this.DSSZ,
+            this.DSU});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDS.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvDS.EnableHeadersVisualStyles = false;
+            this.dgvDS.GridColor = System.Drawing.Color.DimGray;
+            this.dgvDS.Location = new System.Drawing.Point(0, 0);
+            this.dgvDS.Name = "dgvDS";
+            this.dgvDS.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDS.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvDS.Size = new System.Drawing.Size(1012, 321);
+            this.dgvDS.TabIndex = 1;
+            // 
+            // DSSID
+            // 
+            this.DSSID.HeaderText = "Shape ID";
+            this.DSSID.Name = "DSSID";
+            // 
+            // DSTX
+            // 
+            this.DSTX.HeaderText = "Offset X";
+            this.DSTX.Name = "DSTX";
+            // 
+            // DSTY
+            // 
+            this.DSTY.HeaderText = "Offset Y";
+            this.DSTY.Name = "DSTY";
+            // 
+            // DSTZ
+            // 
+            this.DSTZ.HeaderText = "Offset Z";
+            this.DSTZ.Name = "DSTZ";
+            // 
+            // DSRX
+            // 
+            this.DSRX.HeaderText = "Rotation X";
+            this.DSRX.Name = "DSRX";
+            // 
+            // DSRY
+            // 
+            this.DSRY.HeaderText = "Rotation Y";
+            this.DSRY.Name = "DSRY";
+            // 
+            // DSRZ
+            // 
+            this.DSRZ.HeaderText = "Rotation Z";
+            this.DSRZ.Name = "DSRZ";
+            // 
+            // DSSX
+            // 
+            this.DSSX.HeaderText = "Scale X";
+            this.DSSX.Name = "DSSX";
+            // 
+            // DSSY
+            // 
+            this.DSSY.HeaderText = "Scale Y";
+            this.DSSY.Name = "DSSY";
+            // 
+            // DSSZ
+            // 
+            this.DSSZ.HeaderText = "Scale Z";
+            this.DSSZ.Name = "DSSZ";
+            // 
+            // DSU
+            // 
+            this.DSU.HeaderText = "Unknown";
+            this.DSU.Name = "DSU";
             // 
             // tabPage2
             // 
@@ -1246,41 +1628,41 @@
             this.dvgAP.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.dvgAP.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dvgAP.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvgAP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvgAP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dvgAP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dvgAP.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.APX,
             this.APY,
             this.APZ});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dvgAP.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dvgAP.DefaultCellStyle = dataGridViewCellStyle8;
             this.dvgAP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dvgAP.EnableHeadersVisualStyles = false;
             this.dvgAP.GridColor = System.Drawing.Color.DimGray;
             this.dvgAP.Location = new System.Drawing.Point(0, 0);
             this.dvgAP.Name = "dvgAP";
             this.dvgAP.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dvgAP.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvgAP.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dvgAP.Size = new System.Drawing.Size(778, 423);
             this.dvgAP.TabIndex = 0;
             // 
@@ -1378,39 +1760,39 @@
             this.ShapeLinkEditor.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ShapeLinkEditor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.ShapeLinkEditor.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ShapeLinkEditor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShapeLinkEditor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.ShapeLinkEditor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ShapeLinkEditor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.slsid,
             this.sllid});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ShapeLinkEditor.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ShapeLinkEditor.DefaultCellStyle = dataGridViewCellStyle11;
             this.ShapeLinkEditor.EnableHeadersVisualStyles = false;
             this.ShapeLinkEditor.GridColor = System.Drawing.Color.DimGray;
             this.ShapeLinkEditor.Location = new System.Drawing.Point(0, 0);
             this.ShapeLinkEditor.Name = "ShapeLinkEditor";
             this.ShapeLinkEditor.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ShapeLinkEditor.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ShapeLinkEditor.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.ShapeLinkEditor.Size = new System.Drawing.Size(1027, 396);
             this.ShapeLinkEditor.TabIndex = 0;
             // 
@@ -1456,9 +1838,8 @@
             this.splitContainer5.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAnimationData)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericNodeID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAnimationID)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel1.PerformLayout();
@@ -1471,6 +1852,8 @@
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDS)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.splitContainer6.Panel1.ResumeLayout(false);
             this.splitContainer6.Panel2.ResumeLayout(false);
@@ -1524,8 +1907,8 @@
         private System.Windows.Forms.Button butImportGeomShape;
         private System.Windows.Forms.ListBox listGeomShapes;
         private System.Windows.Forms.Button butNewChar;
-        private System.Windows.Forms.Button ButRemoveChar;
-        private System.Windows.Forms.Button ButImportChar;
+        private System.Windows.Forms.Button butRemoveChar;
+        private System.Windows.Forms.Button butImportChar;
         private System.Windows.Forms.Button butNewGeometry;
         private System.Windows.Forms.Button butRemoveGeometry;
         private System.Windows.Forms.Button butImportGeometry;
@@ -1556,21 +1939,11 @@
         internal System.Windows.Forms.ToolStripMenuItem MoveDownToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelTextureInfo;
-        private System.Windows.Forms.Button butPasteCharShapeData;
-        private System.Windows.Forms.Button butCopyCharShapeData;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox listAreaPortals;
-        private System.Windows.Forms.NumericUpDown numericAnimationID;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.DataGridView dgvAnimationData;
-        private System.Windows.Forms.NumericUpDown numericNodeID;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.DataGridViewTextBoxColumn X;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Y;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Z;
-        private System.Windows.Forms.DataGridViewTextBoxColumn R1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn R2;
         private T2Control_ShapeEditor GeomShapeEditor;
         private T2Control_ShapeEditor CharShapeEditor;
         private T2Control_DGV dvgAP;
@@ -1584,5 +1957,41 @@
         private T2Control_DGV ShapeLinkEditor;
         private System.Windows.Forms.DataGridViewTextBoxColumn slsid;
         private System.Windows.Forms.DataGridViewTextBoxColumn sllid;
+        private System.Windows.Forms.ComboBox comboNodeID;
+        private System.Windows.Forms.ComboBox comboAnimID;
+        private T2Control_DGV dgvAnimationData;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AX;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AY;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AZ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ARX;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ARY;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RichTextBox fieldChunk;
+        private System.Windows.Forms.Button butPasteCharShapeData;
+        private System.Windows.Forms.Button butCopyCharShapeData;
+        private System.Windows.Forms.Button butSaveChar;
+        private System.Windows.Forms.Button butPreviewCharShapeData;
+        private System.Windows.Forms.Button butPreviewGeomShapeData;
+        private System.Windows.Forms.Button butPasteGeomData;
+        private System.Windows.Forms.Button butCopyGeomData;
+        private System.Windows.Forms.Button butExportGeomData;
+        private System.Windows.Forms.Button butTextureSaveSelected;
+        private System.Windows.Forms.Button butTextureSaveAll;
+        private System.Windows.Forms.Button butDSMoveDown;
+        private System.Windows.Forms.Button butDSMoveUp;
+        private System.Windows.Forms.Button butDSRemove;
+        private System.Windows.Forms.Button butDSAdd;
+        private T2Control_DGV dgvDS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSSID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSTX;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSTY;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSTZ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSRX;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSRY;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSRZ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSSX;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSSY;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSSZ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DSU;
     }
 }

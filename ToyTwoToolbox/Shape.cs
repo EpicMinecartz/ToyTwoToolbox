@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 
 namespace ToyTwoToolbox {
     public class Shape {
+        /// <summary>DO NOT MANUALLY MODIFY THIS</summary>
         public int _SPType = 0; //this is an internal reference, we set this just to confirm the shape was prim/patch when decompressed 0=prim 1=patch
         public string name;
         public int type;
@@ -41,5 +41,21 @@ namespace ToyTwoToolbox {
             return new Patch();
         }
 
+        public void ConvertPrimitives(Type conversionType) {
+            if (conversionType == typeof(Patch)) {
+                for (int i = 0;i < rawPrimitives.Count;i++) {
+                    rawPrimitives[i] = ((Prim)rawPrimitives[i]).ConvertToPatch();
+                }
+                _SPType = 1;
+            } else if (conversionType == typeof(Prim)) {
+                System.Windows.Forms.DialogResult msg = System.Windows.Forms.MessageBox.Show("Converting this shape format to a prim will cause some patch data to be lost.\n\nAre you sure you want to continue?", "Warning", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Warning);
+                if (msg == System.Windows.Forms.DialogResult.Yes) {
+                    for (int i = 0;i < rawPrimitives.Count;i++) {
+                        rawPrimitives[i] = ((Patch)rawPrimitives[i]).ConvertToPrim();
+                    }
+                    _SPType = 0;
+                }
+            }
+        }
     }
 }

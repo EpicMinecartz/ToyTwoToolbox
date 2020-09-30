@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace ToyTwoToolbox {
 
@@ -13,7 +8,7 @@ namespace ToyTwoToolbox {
         /// <summary>
         /// This tag specifies that the function requires extra support to prevent damage
         /// </summary>
-        public class Unsafe : Attribute {}
+        public class Unsafe : Attribute { }
         public bool PrintMessages = false;
         public int LSID;
         public string wlid;
@@ -32,9 +27,12 @@ namespace ToyTwoToolbox {
             tabControl1.TabRequestDestroy += new TabRequestDestroyEventHandler(TabControl.TabRequestDestroy);
             this.firstOpenPanel1.OpenFile += new EventHandler(FOPM);
             this.firstOpenPanel1.CreateFile += new EventHandler(FOPM);
-            
+
             XF.CenterObject(firstOpenPanel1);
             MessageFader = new MessageFade(this);
+            if (SessionManager.Debug == true) {
+                debugToolStripMenuItem.Visible = true;
+            }
         }
 
 
@@ -42,16 +40,12 @@ namespace ToyTwoToolbox {
         void Form1_DragEnter(object sender, DragEventArgs e) {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
                 e.Effect = DragDropEffects.Copy;
-                //if (((string[])e.Data.GetData(DataFormats.FileDrop)).Length > 1) {
-
-                //}
                 MessageFader.FadeIn();
             }
         }
 
         void Form1_DragDrop(object sender, DragEventArgs e) {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (string file in files) {
+            foreach (string file in (string[])e.Data.GetData(DataFormats.FileDrop)) {
                 OpenFile(file);
             }
             MessageFader.FadeOut();
@@ -65,7 +59,7 @@ namespace ToyTwoToolbox {
         public void Destroy() {
             SMSC = true;
             this.Close();
-            
+
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -78,6 +72,9 @@ namespace ToyTwoToolbox {
             //        i.Renderer = new DarkThemeMenuRender();
             //    }
             //}
+
+            //create the preview window now, and allow for it to be referenced later
+
         }
 
         public void Init(string Param = "") {
@@ -213,6 +210,52 @@ namespace ToyTwoToolbox {
 
         private void saveToolStripMenuItem2_Click(object sender, EventArgs e) {
             saveToolStripMenuItem1.PerformClick();
+        }
+
+        private void ToolTip1_Popup(object sender, PopupEventArgs e) {
+            e.Cancel = true;
+            StatusHelp(ToolTip1.GetToolTip(e.AssociatedControl));
+        }
+
+        public void StatusHelp(string text) {
+            labelHelp.Text = text;
+        }
+
+        private void validateSaveToolStripMenuItem_Click(object sender, EventArgs e) {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == DialogResult.OK) {
+                SessionManager.Report("Writing to save...", SessionManager.RType.DEBUG);
+                SaveFile(TabControl.Tabs[tabControl1.SelectedIndex].File.FilePath);
+            }
+            F_NGN loadedNGN = (F_NGN)TabControl.Tabs[tabControl1.SelectedIndex].File;
+            F_NGN validater = (F_NGN)FileProcessor.ProcessFile(TabControl.Tabs[tabControl1.SelectedIndex].File.FilePath);
+            SessionManager.Report("Validating save file...", SessionManager.RType.DEBUG);
+            for (int i = 0;i < loadedNGN.Schema.NGNFunctions.Count;i++) {
+                if (loadedNGN.Schema.NGNFunctions[i].FunctionOffset == validater.Schema.NGNFunctions[i].FunctionOffset) {
+                    SessionManager.Report(Enum.GetName(typeof(F_NGN.NGNFunction), loadedNGN.Schema.NGNFunctions[i].FunctionType) + " successfully validated", SessionManager.RType.DEBUG, Color.DarkGreen);
+                } else {
+                    SessionManager.Report(Enum.GetName(typeof(F_NGN.NGNFunction), loadedNGN.Schema.NGNFunctions[i].FunctionType) + " did not validate succesfully", SessionManager.RType.WARN);
+                }
+            }
+        }
+
+        private void showPreviewWindowToolStripMenuItem_Click(object sender, EventArgs e) {
+            //var window = new Render(800, 600, "LearnOpenTK - Lighting maps");
+            //window.Run(60.0);
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) {
+            SaveFile();
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e) {
+            reloadFileToolStripMenuItem.PerformClick();
+        }
+
+        private void reloadFileToolStripMenuItem_Click(object sender, EventArgs e) {
+            F_Base file = FileProcessor.ProcessFile(TabControl.Tabs[tabControl1.SelectedIndex].File.FilePath);
+            TabControl.ReloadTab(file);
+            SessionManager.GCC();
         }
     }
 }

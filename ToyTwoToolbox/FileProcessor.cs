@@ -6,7 +6,6 @@ using System.Text;
 
 namespace ToyTwoToolbox {
     public class FileProcessor {
-        F_Base File;
         public enum FileTypes {
             NULL = -1,
             NGN,
@@ -26,7 +25,7 @@ namespace ToyTwoToolbox {
             } else if (ext == ".sav") {
                 file = F_Save.ImportSave(path);
             } else {
-                throw new TypeInitializationException("None", null);
+                //throw new TypeInitializationException("None", null);
                 file = null;
             }
             return file;

@@ -2,7 +2,7 @@
 
 namespace ToyTwoToolbox {
     public class Linker {
-        public string LinkID;
+        public int LinkID;
         public int ShapeID;
     }
 }

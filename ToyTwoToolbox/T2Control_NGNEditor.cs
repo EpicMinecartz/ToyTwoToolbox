@@ -1,8 +1,10 @@
-﻿using System;
+﻿using FolderDialog;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
@@ -14,9 +16,6 @@ namespace ToyTwoToolbox {
             contextTexture.Renderer = new DarkThemeMenuRender();
             listviewTextures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listviewTextures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            dgvAnimationData.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            dgvAnimationData.ColumnHeadersDefaultCellStyle = SessionManager.DarkThemeCellDGV;
-            dgvAnimationData.RowsDefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dvgAP.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dvgAP.ColumnHeadersDefaultCellStyle = SessionManager.DarkThemeCellDGV;
             dvgAP.RowsDefaultCellStyle = SessionManager.DarkThemeCellDGV;
@@ -67,20 +66,26 @@ namespace ToyTwoToolbox {
 
         public void LoadTextureData() {
             //first generate the image list for the texture viewer list and populate the imagelist with textures
-            ImageList TIL = new ImageList {
-                ImageSize = new Size(64, 64),
-                ColorDepth = ColorDepth.Depth32Bit
-            };
-            for (int i = 0;i < loadedNGN.textures.Count;i++) {
-                TIL.Images.Add(loadedNGN.textures[i].image);
-                listviewTextures.Items.Add(new ListViewItem {
-                    ImageIndex = i,
-                    Text = loadedNGN.textures[i].name
-                });
+            if (loadedNGN.textures.Count > 0) {
+                ImageList TIL = new ImageList {
+                    ImageSize = new Size(64, 64),
+                    ColorDepth = ColorDepth.Depth32Bit
+                };
+                for (int i = 0;i < loadedNGN.textures.Count;i++) {
+                    TIL.Images.Add(loadedNGN.textures[i].image);
+                    listviewTextures.Items.Add(new ListViewItem {
+                        ImageIndex = i,
+                        Text = loadedNGN.textures[i].name
+                    });
+                }
+                listviewTextures.SmallImageList = TIL;
+                listviewTextures.LargeImageList = TIL;
+                listviewTextures.Columns[0].Width = -2;
+                listviewTextures.Items[0].Selected = true;
+            } else {
+
             }
-            listviewTextures.SmallImageList = TIL;
-            listviewTextures.LargeImageList = TIL;
-            listviewTextures.Columns[0].Width = -2;
+
         }
 
         private void listviewTextures_SelectedIndexChanged(object sender, EventArgs e) {
@@ -127,7 +132,7 @@ namespace ToyTwoToolbox {
         private void butTextureRemove_Click(object sender, EventArgs e) {
             loadedNGN.textures.RemoveAt(listviewTextures.SelectedIndices[0]);
             listviewTextures.Items.RemoveAt(listviewTextures.SelectedIndices[0]);
-            if (loadedNGN.textures.Count > 0) { listviewTextures.Items[listviewTextures.Items.Count - 1].Selected = true; } else { pictureTexture.Image = null; }
+            if (loadedNGN.textures.Count > 0) { listviewTextures.Items[listviewTextures.Items.Count - 1].Selected = true; } else { pictureTexture.Image = null; labelTextureInfo.Text = "Texture: <none> Resolution: 0x0 Index: 0"; }
         }
 
         private void butTextureMoveUp_Click(object sender, EventArgs e) {
@@ -146,7 +151,7 @@ namespace ToyTwoToolbox {
                 AddExtension = true,
                 FileName = loadedNGN.textures[listviewTextures.SelectedIndices[0]].name,
                 DefaultExt = ".bmp",
-                Filter = "Bitmap Files (*.bmp)|*.bmp|Portable Network Graphic Files (*.png)|*.png|Joint Photographic Experts Group Files (*.jpg)|*.jpg|Graphics Interchange Format Files (*.gif)|*.gif|All Files (*.*)|*.*",
+                Filter = SessionManager.str_ImageFormatsStandard,
                 Title = "Save texture"
             };
             if (SFD.ShowDialog() == DialogResult.OK) {
@@ -179,7 +184,7 @@ namespace ToyTwoToolbox {
                 AddExtension = true,
                 FileName = loadedNGN.textures[listviewTextures.SelectedIndices[0]].name + "_a",
                 DefaultExt = ".bmp",
-                Filter = "Bitmap Files (*.bmp)|*.bmp|Portable Network Graphic Files (*.png)|*.png|Joint Photographic Experts Group Files (*.jpg)|*.jpg|Graphics Interchange Format Files (*.gif)|*.gif|All Files (*.*)|*.*",
+                Filter = SessionManager.str_ImageFormatsStandard,
                 Title = "Save texture"
             };
 
@@ -245,21 +250,44 @@ namespace ToyTwoToolbox {
             }
         }
         private void listviewTextures_AfterLabelEdit(object sender, LabelEditEventArgs e) {
-            loadedNGN.textures[listviewTextures.SelectedIndices[0]].name = e.Label;
+            if (e.Label != null) {
+                loadedNGN.textures[e.Item].name = e.Label;
+            }
         }
 
         private void listviewTextures_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e) {
-            if (e.IsSelected) {
-                e.Item.BackColor = Color.FromArgb(45, 45, 45);
-            } else {
-                e.Item.BackColor = e.Item.ListView.BackColor;
+            if (e.Item.ListView != null) {
+                if (e.IsSelected) {
+                    e.Item.BackColor = Color.FromArgb(45, 45, 45);
+                } else {
+                    e.Item.BackColor = e.Item.ListView.BackColor;
+                }
             }
+
         }
 
         public void ReselectListviewItem(ListView list) {
             int cslvi = list.SelectedIndices[0];
             list.SelectedItems.Clear();
             list.Items[cslvi].Selected = true;
+        }
+
+        private void butTextureSaveAll_Click(object sender, EventArgs e) {
+            SaveTextures();
+        }
+
+        private void butTextureSaveSelected_Click(object sender, EventArgs e) {
+            SaveTextures(listviewTextures.SelectedIndices.Cast<int>().ToArray());
+        }
+
+        public void SaveTextures(int[] textureIDs = null) {
+            if (textureIDs == null || textureIDs.Length == 0) { textureIDs = Enumerable.Range(0, loadedNGN.textures.Count).ToArray(); }
+            FolderSelectDialog fsd = new FolderSelectDialog();
+            if (fsd.ShowDialog() == true) {
+                for (int i = 0;i < textureIDs.Length;i++) {
+                    XF.ExportImage(fsd.FileName + "\\" +  loadedNGN.textures[i].name + ".bmp", loadedNGN.textures[i].image, ImageFormat.Bmp);
+                }
+            }
         }
 
 
@@ -281,6 +309,15 @@ namespace ToyTwoToolbox {
         public void LoadCharacter(int id) {
             listCharShapes.Items.Clear();
             CharEditor.Visible = true;
+            comboAnimID.Items.Clear();
+            if (loadedNGN.characters[comboCharacters.SelectedIndex].Anims.Count > 0) {
+                for (int i = 0;i < loadedNGN.characters[comboCharacters.SelectedIndex].Anims.Count;i++) {
+                    comboAnimID.Items.Add("Animation " + i);
+                }
+                comboAnimID.SelectedIndex = 0;
+            }
+
+
             if (loadedNGN.characters[id].model.shapes.Count > 0) {
                 for (int i = 0;i < loadedNGN.characters[id].model.shapes.Count;i++) {
                     listCharShapes.Items.Add((loadedNGN.characters[id].model.shapes[i].name == "") ? "<Shape " + i.ToString().PadLeft(2, '0') + ">" : loadedNGN.characters[id].model.shapes[i].name);
@@ -325,7 +362,7 @@ namespace ToyTwoToolbox {
         private void butNewChar_Click(object sender, EventArgs e) {
             loadedNGN.characters.Add(new Character { name = "Untitled" });
             comboCharacters.Items.Add("Untitled");
-            comboCharacters.SelectedIndex = comboCharacters.Items.Count-1;
+            comboCharacters.SelectedIndex = comboCharacters.Items.Count - 1;
         }
         private void butRemoveChar_Click(object sender, EventArgs e) {
             DialogResult msg = MessageBox.Show("Are you sure you want to remove this character?", "Character remove", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
@@ -359,28 +396,33 @@ namespace ToyTwoToolbox {
                 listCharShapes.Items.RemoveAt(listCharShapes.SelectedIndex);
             }
         }
-        private void butImportShape_Click(object sender, EventArgs e) {
 
+        private void comboAnimID_SelectedIndexChanged(object sender, EventArgs e) {
+            //comboNodeID.Items.Clear();
+            //if (comboCharacters.SelectedIndex != -1) {
+            //    for (int i = 0;i < loadedNGN.characters[comboCharacters.SelectedIndex].Anims[comboAnimID.SelectedIndex].Nodes.Count;i++) {
+            //        comboNodeID.Items.Add("Node " + i);
+            //    }
+            //    comboNodeID.SelectedIndex = 0;
+            //}
+            fieldChunk.Text = XF.BytesToHex(loadedNGN.characters[comboCharacters.SelectedIndex].Anims[comboAnimID.SelectedIndex].foverride);
         }
 
-
-        private void numericAnimationID_ValueChanged(object sender, EventArgs e) {
-
-        }
-
-        private void numericNodeID_ValueChanged(object sender, EventArgs e) {
-            int framecount = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames.Count;
-            dgvAnimationData.Rows.Clear();
-            if (framecount > 0) {
-                dgvAnimationData.Rows.Add(framecount);
-                for (int i = 0;i < framecount;i++) {
-                    DataGridViewRow DGVRow = dgvAnimationData.Rows[i];
-                    AnimationFrame frame = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[(int)numericAnimationID.Value].Nodes[(int)numericNodeID.Value].frames[i];
-                    DGVRow.Cells[0].Value = frame.Position.X;
-                    DGVRow.Cells[1].Value = frame.Position.Y;
-                    DGVRow.Cells[2].Value = frame.Position.Z;
-                    DGVRow.Cells[3].Value = frame.Rotation.X;
-                    DGVRow.Cells[4].Value = frame.Rotation.Y;
+        private void comboNodeID_SelectedIndexChanged(object sender, EventArgs e) {
+            if (comboNodeID.SelectedIndex != -1) {
+                int framecount = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[comboCharacters.SelectedIndex].Nodes[comboNodeID.SelectedIndex].frames.Count;
+                dgvAnimationData.Rows.Clear();
+                if (framecount > 0) {
+                    dgvAnimationData.Rows.Add(framecount);
+                    for (int i = 0;i < framecount;i++) {
+                        DataGridViewRow DGVRow = dgvAnimationData.Rows[i];
+                        AnimationFrame frame = loadedNGN.characters[comboCharacters.SelectedIndex].Anims[comboCharacters.SelectedIndex].Nodes[comboNodeID.SelectedIndex].frames[i];
+                        DGVRow.Cells[0].Value = frame.Position.X;
+                        DGVRow.Cells[1].Value = frame.Position.Y;
+                        DGVRow.Cells[2].Value = frame.Position.Z;
+                        DGVRow.Cells[3].Value = frame.Rotation.X;
+                        DGVRow.Cells[4].Value = frame.Rotation.Y;
+                    }
                 }
             }
         }
@@ -414,17 +456,37 @@ namespace ToyTwoToolbox {
                     GeomShapeEditor.Visible = true;
                     listGeomShapes.SelectedIndex = 0;
                 }
+                if (loadedNGN.GScales.Count > 0) {
+                    DynamicScaler ds = loadedNGN.GScales[id];
+                    dgvDS.Rows.Clear();
+                    if (ds.Translation.Count > 0) {
+                        dgvDS.Rows.Add(ds.Translation.Count);
+                        for (int i = 0;i < ds.Translation.Count;i++) {
+                            DataGridViewRow DGVRow = dgvDS.Rows[i];
+                            DGVRow.Cells[0].Value = ds.ShapeID[i];
+                            DGVRow.Cells[1].Value = ds.Translation[i].X;
+                            DGVRow.Cells[2].Value = ds.Translation[i].Y;
+                            DGVRow.Cells[3].Value = ds.Translation[i].Z;
+                            DGVRow.Cells[4].Value = ds.Rotation[i].X;
+                            DGVRow.Cells[5].Value = ds.Rotation[i].Y;
+                            DGVRow.Cells[6].Value = ds.Rotation[i].Z;
+                            DGVRow.Cells[7].Value = ds.Scale[i].X;
+                            DGVRow.Cells[8].Value = ds.Scale[i].Y;
+                            DGVRow.Cells[9].Value = ds.Scale[i].Z;
+                            DGVRow.Cells[10].Value = ds.Unknown[i];
+                        }
+                    }
+                }
             }
-
         }
 
         private void comboGeometry_SelectedIndexChanged(object sender, EventArgs e) {
             if (comboGeometry.SelectedIndex != -1) {
                 LoadGeometry(comboGeometry.SelectedIndex);
-            } else { 
-                GeomEditor.Visible = false; 
+            } else {
+                GeomEditor.Visible = false;
             }
-            
+
         }
 
         private void listGeomShapes_SelectedIndexChanged(object sender, EventArgs e) {
@@ -518,7 +580,10 @@ namespace ToyTwoToolbox {
         }
 
         private void butMoveAreaPortalUp_Click(object sender, EventArgs e) {
-
+            int si = listAreaPortals.SelectedIndex;
+            XF.ListMoveItem(loadedNGN.areaPortals, listAreaPortals.SelectedIndices[0], -1);
+            XF.ListMoveItem(listAreaPortals.Items, listAreaPortals.SelectedIndices[0], -1);
+            if (listAreaPortals.SelectedIndex > 0) { listAreaPortals.SelectedIndex--; }
         }
 
         private void butMoveAreaPortalDown_Click(object sender, EventArgs e) {
@@ -527,7 +592,7 @@ namespace ToyTwoToolbox {
 
         private void listAreaPortals_SelectedIndexChanged(object sender, EventArgs e) {
             dvgAP.Rows.Clear();
-            if (loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count > 0) {
+            if (listAreaPortals.SelectedItems.Count > 0 && loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count > 0) {
                 dvgAP.Rows.Add(loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count);
                 for (int i = 0;i < loadedNGN.areaPortals[listAreaPortals.SelectedIndex].Vertices.Count;i++) {
                     DataGridViewRow DGVRow = dvgAP.Rows[i];
@@ -573,5 +638,24 @@ namespace ToyTwoToolbox {
         }
 
         #endregion
+
+        private void butPasteCharShapeData_Click(object sender, EventArgs e) {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            var window = new Render(800, 600, "Render Preview", loadedNGN.textures[10].image, XF.CompileVirtualOBJ(loadedNGN.characters[comboCharacters.SelectedIndex].model.shapes));
+            window.Run(60.0);
+        }
+
+        private void GeomShapeEditor_Load(object sender, EventArgs e) {
+
+        }
+
+        private void butSaveChar_Click(object sender, EventArgs e) {
+            loadedNGN.ExtractModel(loadedNGN.characters[comboCharacters.SelectedIndex], typeof(Character), true, true, true);
+        }
+
+
     }
 }

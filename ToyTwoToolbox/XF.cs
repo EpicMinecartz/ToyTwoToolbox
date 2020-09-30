@@ -200,9 +200,8 @@ namespace ToyTwoToolbox {
         }
 
         public static void ExportImage(string FilePath, Image Img, System.Drawing.Imaging.ImageFormat BaseFormat, string OverrideFormat = null) {
-            System.Drawing.Imaging.ImageFormat Imgformat = null;
             if (Img != null) {
-                Imgformat = BaseFormat;
+                System.Drawing.Imaging.ImageFormat Imgformat = BaseFormat;
                 if (!(string.IsNullOrEmpty(OverrideFormat))) {
                     if (OverrideFormat.ToLower().Contains("bmp")) {
                         Imgformat = System.Drawing.Imaging.ImageFormat.Bmp;
@@ -257,12 +256,12 @@ namespace ToyTwoToolbox {
         }
 
         public static Color NGNColToColor(List<double> ARGBL) {
-            if (ARGBL.Count < 4) { ARGBL.Insert(0, 1.0000000695); }
+            //if theres an instance of a ngn color having 4 values, ill fix it then
+            //if (ARGBL.Count < 4) { ARGBL.Insert(0, 1.0000000695); }
             return Color.FromArgb(
                     (int)(ARGBL[0] / 0.0039215689),
                     (int)(ARGBL[1] / 0.0039215689),
-                    (int)(ARGBL[2] / 0.0039215689),
-                    (int)(ARGBL[3] / 0.0039215689)
+                    (int)(ARGBL[2] / 0.0039215689)
                     );
         }
 
@@ -275,7 +274,22 @@ namespace ToyTwoToolbox {
             };
         }
 
-
+        public static float[] CompileVirtualOBJ(List<Shape> shapes) {
+            List<float> vobj = new List<float>();
+            foreach (Shape shape in shapes) {
+                for (int i = 0;i < shape.rawVertices.Count;i++) {
+                    vobj.Add(shape.rawVertices[i].X);
+                    vobj.Add(shape.rawVertices[i].Y);
+                    vobj.Add(shape.rawVertices[i].Z);
+                    vobj.Add(1.0f);
+                    vobj.Add(1.0f);
+                    vobj.Add(1.0f);
+                    vobj.Add(shape.rawVertexTextureCoords[i].X);
+                    vobj.Add(shape.rawVertexTextureCoords[i].Y);
+                }
+            }
+            return vobj.ToArray();
+        }
     }
 
     public static class Extentions {

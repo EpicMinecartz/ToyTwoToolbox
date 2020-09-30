@@ -6,6 +6,6 @@ using System.Text;
 namespace ToyTwoToolbox {
     public class SlotConfig {
         public int SlotID;
-        public string CharacterName;
+        public string Name;
     }
 }

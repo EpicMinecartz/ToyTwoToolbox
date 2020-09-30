@@ -14,11 +14,13 @@ namespace ToyTwoToolbox {
         public int UNK3;
         public int HPTR; //the start of the nodes, 4 bytes
         public List<Animation.Node> Nodes;
+        public int? firstGoodNode;
         public int UNK4;
         public int UNK5;
         public int UNK6;
         public int UNK7;
         public byte[] extradata;
+        public byte[] foverride;
         
         public Animation() {
             Nodes = new List<Node>();
@@ -34,6 +36,10 @@ namespace ToyTwoToolbox {
                 id = 0;
                 offset = 0;
                 frames = new List<AnimationFrame>();
+            }
+
+            public override string ToString() {
+                return "Frames: " + frames.Count + ", Offset: " + offset;
             }
         }
 

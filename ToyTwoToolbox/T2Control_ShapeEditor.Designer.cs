@@ -274,6 +274,7 @@
             this.comboPrimitive.Size = new System.Drawing.Size(133, 21);
             this.comboPrimitive.TabIndex = 4;
             this.comboPrimitive.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboPrimitive.ParentChanged += new System.EventHandler(this.comboPrimitive_ParentChanged);
             // 
             // dgvShapeData
             // 
@@ -593,6 +594,7 @@
             this.radioPatch.TabIndex = 7;
             this.radioPatch.Text = "Patch";
             this.radioPatch.UseVisualStyleBackColor = true;
+            this.radioPatch.Click += new System.EventHandler(this.radioPatch_Click);
             // 
             // radioPrim
             // 
@@ -606,7 +608,7 @@
             this.radioPrim.TabStop = true;
             this.radioPrim.Text = "Prim";
             this.radioPrim.UseVisualStyleBackColor = true;
-            this.radioPrim.CheckedChanged += new System.EventHandler(this.radioPrim_CheckedChanged);
+            this.radioPrim.Click += new System.EventHandler(this.radioPrim_Click);
             // 
             // label3
             // 

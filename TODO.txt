@@ -5,16 +5,26 @@ DONE Untitled
 DONE file ext sav
 hide token ui toggle
 DONE sfd default filename 
-slow sav saving?
+DONE?slow sav saving?
 DONE last level limit 15
 DONE toggle inv when over 32k
 set tok insane value
+DONE?add writevector to fw
 
 ngn:
+DONE patch data needs properly exporting
+DONE check if the GS is linked to just hires or hires+lod
+node name editing
 texture previews are normal size when replaced or pasted into the listviewTextures
-shape linkid is strange
-geom DS still needs displaying
-char animations are rip
-writing NGN files needs implementing
+DONE?shape linkid is strange
+DONE geom DS still needs displaying
+PART char animations are rip
+DONE writing NGN files needs implementing
 char/shape/geom importing needs finalizing and implementing
 move up/down on several lists needs implementing
+unimplement gscale function definition
+be able to export all textures
+fix inverted uv coordinate
+reimplement 4d matrix transform for geometry
+reimplement idswap fix for patches
+

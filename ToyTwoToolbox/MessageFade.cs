@@ -45,7 +45,7 @@ namespace ToyTwoToolbox {
 				MinimizeBox = false,
 				MaximizeBox = false,
 				Name = "ORender",
-				Opacity = 0,
+				Opacity = 100,
 				ShowIcon = false,
 				ShowInTaskbar = false,
 				Text = ""
@@ -83,9 +83,8 @@ namespace ToyTwoToolbox {
 
 		public void Render(object sender, EventArgs e) {
 			//assume the hook is valid
-			if (Client != null) {
+			if (Client != null && SessionManager.Debug == true) {
 				Client.Text = "FT:" + FadingIn + " CFO:" + Overlay.Opacity;
-
 			}
 			if (FadingIn == true) {
 				if (Overlay.Opacity <= CurrentStyle.OpacityMax) {
@@ -106,23 +105,16 @@ namespace ToyTwoToolbox {
 		}
 
 
-
-
 		public object ApplyStyle(FaderStyle Style) {
 			CurrentStyle = Style;
 			Overlay.BackColor = Style.BackColor;
-
 			OverlayLabel.Font = Style.Font;
 			OverlayLabel.ForeColor = Style.ForeColor;
-			//Dim OL As Label = CType(Overlay.Controls("OverlayLabel"), Label)
-			//OL.
 			return null;
 		}
 
 		public object FadeIn(Form ParentForReposition = null) {
-
 			if (Overlay.Visible == true) { Overlay.Show(ParentForReposition); }
-			//If ParentForReposition IsNot Nothing Then Reposition(ParentForReposition) : ParentForReposition.Focus() Else Reposition(Overlay.Owner) : Overlay.Owner.Focus()
 			if (ParentForReposition != null) {
 				Reposition(ParentForReposition);
 			} else {
@@ -130,7 +122,7 @@ namespace ToyTwoToolbox {
 			}
 			//Overlay.BringToFront()
 			if (Overlay.Opacity > 0) {
-				//MessageBox.Show("opr not ready for inst");
+				MessageBox.Show("opr not ready for inst");
 				// i broke it
 				//ill come back to this
 			}

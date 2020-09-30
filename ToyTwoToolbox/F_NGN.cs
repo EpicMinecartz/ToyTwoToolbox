@@ -1,17 +1,11 @@
-﻿using System;
+﻿using FolderDialog;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.IO.Pipes;
-using System.Linq;
-using System.Net.Sockets;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
     /// <summary>
@@ -41,6 +35,8 @@ namespace ToyTwoToolbox {
         //var refs for ngn
         public NGNSchema Schema;
         public List<Texture> textures = new List<Texture>();
+        public List<int> SlotValidity = new List<int>();
+        public List<SlotConfig> characterSlots = new List<SlotConfig>();
         public List<Character> characters = new List<Character>();
         public List<AreaPortal> areaPortals = new List<AreaPortal>();
         public List<Geometry> Geometries = new List<Geometry>();
@@ -56,7 +52,7 @@ namespace ToyTwoToolbox {
                 Schema = ARSONAnalysis(path);
                 ImportViaSchema(Schema, path, this);
             }
-            
+
             return this;
         }
 
@@ -64,9 +60,6 @@ namespace ToyTwoToolbox {
             File = (File == null) ? this : File;
             fr = new FileReader(path, true);
             List<Task> Threads = new List<Task>();
-            int iteration = 0;
-            Task NewThread;
-            int FuncAreaPortalRotation = -1;
 
             foreach (NGNSchema.NGNFunctionDef Func in NSchema.NGNFunctions) {
                 switch (Func.FunctionType) {
@@ -80,8 +73,7 @@ namespace ToyTwoToolbox {
                         Extract_AreaPortal_Position(Func.FunctionOffset);
                         break;
                     case NGNFunction.AreaPortalRotation:
-                        //    NewThread = Task.Factory.StartNew(() => { Extract_AreaPortal_Rotation(Func.FunctionOffset); });
-                        FuncAreaPortalRotation = iteration;
+                        Extract_AreaPortal_Rotation(Func.FunctionOffset);
                         break;
                     case NGNFunction.Geometry:
                         File.Geometries.Add(Extract_Geometry(Func.FunctionOffset));
@@ -157,8 +149,8 @@ namespace ToyTwoToolbox {
             for (int i = 0;i < textureCount;i++) {
                 Texture Tex = new Texture();
                 int TexLength = fr._readint(ref seekPTR, 4);
-                int TexNameLength = fr._readint(ref seekPTR, 4)-1;
-                string TexName = fr._readstring(ref seekPTR, TexNameLength+1);
+                int TexNameLength = fr._readint(ref seekPTR, 4) - 1;
+                string TexName = fr._readstring(ref seekPTR, TexNameLength + 1);
                 Tex.name = TexName;
                 byte[] TexData = fr._readbytes(ref seekPTR, TexLength);
                 Tex.image = new System.Drawing.Bitmap(new MemoryStream(TexData));
@@ -169,58 +161,65 @@ namespace ToyTwoToolbox {
         public void Extract_Characters(int PTR) {
             int seekPTR = PTR;
             List<SlotConfig> CharacterSlots = new List<SlotConfig>();
+            List<int> _SlotValidity = new List<int>();
             int CSCCount = fr._readint(ref seekPTR, 4);
+            int validslots = 0;
             for (int i = 0;i < CSCCount;i++) {
                 int CSCNameLength = fr._readint(ref seekPTR, 1);
                 if (CSCNameLength > 0) {
                     CharacterSlots.Add(new SlotConfig {
                         SlotID = i,
-                        CharacterName = string.Concat(fr._readstring(ref seekPTR, CSCNameLength).Split(Path.GetInvalidFileNameChars()))
+                        Name = string.Concat(fr._readstring(ref seekPTR, CSCNameLength).Split(Path.GetInvalidFileNameChars()))
                     });
+                    _SlotValidity.Add(validslots);
+                    validslots++;
+                } else {
+                    _SlotValidity.Add(-1);
                 }
             }
             if (CharacterSlots.Count > 0) { //at least one valid character
                 for (int i = 0;i < CharacterSlots.Count;i++) {
                     Character chr = new Character();
-                    chr.name = CharacterSlots[i].CharacterName;
+                    chr.name = CharacterSlots[i].Name;
                     Extract_CharacterData(chr, ref seekPTR);
                     this.characters.Add(chr);
                 }
             }
+            SlotValidity = _SlotValidity;
+            characterSlots = CharacterSlots;
         }
 
         public Character Extract_CharacterData(Character chr, ref int seekPTR) {
             Shape PatchShape = new Shape();
-            int PTR = seekPTR;
-            int FID = 0;
-            int FCL = 0; //function content length
+            int FID;
+            int FCL; //function content length
             for (;;){
                 FID = fr._readint(ref seekPTR, 4);
                 FCL = fr._readint(ref seekPTR, 4);
-                if (FID != 0 && FCL < 2) { SessionManager.Report("FCL was invalid for a NGN function state and was skipped [->F_NGN->ARSON->Extract_CharacterData]",SessionManager.RType.WARNING); }
+                if (FID != 0 && FCL < 2) { SessionManager.Report("FCL was invalid for a NGN function state and was skipped [->F_NGN->ARSON->Extract_CharacterData]", SessionManager.RType.WARN); }
                 if (FID <= 1) {
                     return chr;
                 }
                 if (FID == 512) { //collect node count
                     chr.nodeCount = fr._readint(ref seekPTR, 4);
-                    SessionManager.Report("got node id", SessionManager.RType.INFO);
                     continue;
                 } else if (FID == 514) {//collect node names
-                    List<string> NodeNames = new List<string>();
+                    List<SlotConfig> Nodes = new List<SlotConfig>();
                     int NodeOffset = 0;
                     int NodeCount = 0;
-                    for (;;){
+                    for (int i = 0;;i++) {
                         if (NodeOffset >= FCL) {
                             chr.nodeCount = NodeCount;
                             break;
                         }
                         int CurrentNodeNameLength = fr._readint(ref seekPTR, 1);
                         if (CurrentNodeNameLength > 0) {
-                            NodeNames.Add(fr._readstring(ref seekPTR, CurrentNodeNameLength));
+                            Nodes.Add(new SlotConfig { SlotID = i, Name = fr._readstring(ref seekPTR, CurrentNodeNameLength) });
                             NodeOffset += CurrentNodeNameLength + 1;
                             NodeCount++;
                         }
                     }
+                    chr.nodes = Nodes;
                     continue;
                 } else if (FID == 513) {//null data
                     if (chr.nodeCount > 0) {
@@ -232,7 +231,7 @@ namespace ToyTwoToolbox {
                     //SessionManager.Report("begun shape data routine", SessionManager.RType.INFO);
                     for (int i = 0;i < chr.nodeCount;i++) {
                         int ShapeID = fr._readint(ref seekPTR, 2);
-                        if((ShapeID & 1) == 1) {
+                        if ((ShapeID & 1) == 1) {
                             Shape shape = new Shape();
                             shape.type = ShapeID;
                             shape.type2 = fr._readint(ref seekPTR, 2);
@@ -241,9 +240,9 @@ namespace ToyTwoToolbox {
                         } else { //the shape has an invalid header, this means its likely a nullnode, id like to just skip it but im not sure if i should
                             int Type2ID = fr._readint(ref seekPTR, 2);
                             if (Type2ID == 65535) {//shape is indeed a nullnode, add it anyway
-                                chr.model.shapes.Add(new Shape { type2 = Type2ID });
+                                chr.model.shapes.Add(new Shape { type = ShapeID, type2 = Type2ID });
                             } else {
-                                SessionManager.Report("The shape ID was invalid or null and was skipped <frs=" + seekPTR + "> [->F_NGN->ARSON->Extract_CharacterData]",SessionManager.RType.ERROR);
+                                SessionManager.Report("The shape ID was invalid or null and was skipped <frs=" + seekPTR + "> [->F_NGN->ARSON->Extract_CharacterData]", SessionManager.RType.ERROR);
                             }
                         }
                         //SessionManager.Report("Context Owner:" + chr.name + " ShapeID:" + chr.model.shapes[chr.model.shapes.Count - 1].type + " ShapeID2:" + chr.model.shapes[chr.model.shapes.Count - 1].type2);
@@ -251,8 +250,6 @@ namespace ToyTwoToolbox {
 
                     continue;
                 } else if (FID == 516) { //extract animation data for this character
-                    //SessionManager.Report("hello sessionmanager, I'm about to read " + FCL + " bytes from " + seekPTR + "!", SessionManager.RType.ERROR);
-                    //SessionManager.Report("this animation data will be sent to " + chr.name + " as anim " + chr.Anims.Count, SessionManager.RType.ERROR);
                     Extract_Animations(chr, ref seekPTR, FCL);
                 } else if (FID == 517) { //Things to do if we identify that this shape is a Patch shape
                     PatchShape = new Shape {
@@ -260,7 +257,7 @@ namespace ToyTwoToolbox {
                     };
                     Extract_Shape_Textures(ref seekPTR, PatchShape);
                 } else if (FID == 518) { //patch materials
-                    Extract_Shape_Materials(ref seekPTR, PatchShape);
+                    Extract_Shape_Materials(ref seekPTR, PatchShape, FCL);
                 } else if (FID == 519) {
                     Extract_Shape_Vertices(ref seekPTR, PatchShape);
                 } else if (FID == 520) {
@@ -273,12 +270,10 @@ namespace ToyTwoToolbox {
         }
 
         public Shape Extract_ShapeData(Shape shape, ref int PTR) {
-            //SessionManager.Report("extracting shape data", SessionManager.RType.INFO);
-            int FID = 0;
-            int FCL = 0; //function content length
             for (;;){
-                FID = fr._readint(ref PTR, 4);
-                FCL = fr._readint(ref PTR, 4);
+                //SessionManager.Report("extracting shape data", SessionManager.RType.INFO);
+                int FID = fr._readint(ref PTR, 4);
+                int FCL = fr._readint(ref PTR, 4);
                 if (FID == 0) {
                     return shape;
                 } else if (FID == 64) { //Get Shape Name
@@ -286,7 +281,7 @@ namespace ToyTwoToolbox {
                 } else if (FID == 65) { //Get Shape Textures
                     Extract_Shape_Textures(ref PTR, shape);
                 } else if (FID == 66) { //Get Shape Materials
-                    Extract_Shape_Materials(ref PTR, shape);
+                    Extract_Shape_Materials(ref PTR, shape, FCL);
                 } else if (FID == 67) { //Get Shape Vertices
                     Extract_Shape_Vertices(ref PTR, shape);
                 } else if (FID == 68) { //Get Shape Primitives
@@ -316,7 +311,8 @@ namespace ToyTwoToolbox {
             }
         }
 
-        public void Extract_Shape_Materials(ref int ptr, Shape shape) {
+        public void Extract_Shape_Materials(ref int ptr, Shape shape, int ContractLength = -1) {
+            int InternalContractPTR = ptr;
             int material_Count = fr._readint(ref ptr, 4);
             if (material_Count < 1) { return; }
             for (int i = 0;i < material_Count;i++) {
@@ -327,7 +323,7 @@ namespace ToyTwoToolbox {
                 for (int j = 1;j < 33;) {
                     if ((material.id & j) == 1) {
                         for (int k = 0;k < 3;k++) {
-                            RGB.Add((double)fr._readint(ref ptr, 1) * 1.0 * 0.0039215689);
+                            RGB.Add(fr._readint(ref ptr, 1) * 1.0 * 0.0039215689);
                         }
                     }
                     j += j;
@@ -337,8 +333,13 @@ namespace ToyTwoToolbox {
                     material.textureIndex = fr._readint(ref ptr, 2);
                 }
                 material.RGB = RGB;
+                //Contract checks
+                if (materialLength > 5 && (material.id & 64) == 0) {
+                    SessionManager.Report("Invalid material properties for shape @" + (ptr - materialLength), SessionManager.RType.WARN);
+                }
                 shape.materials.Add(material);
             }
+            ptr += SessionManager.ValidateContract(ptr - InternalContractPTR, ContractLength);
         }
 
         public void Extract_Shape_Vertices(ref int ptr, Shape shape) {
@@ -355,7 +356,7 @@ namespace ToyTwoToolbox {
                 for (int i = 0;i < vertex_Count;i++) {
                     if ((V17 & 1) != 0) {
                         shape.rawVertices.Add(new Vector3(fr._readflt(ref ptr, 4) * 1.0F, fr._readflt(ref ptr, 4) * 1.0F, fr._readflt(ref ptr, 4) * 1.0F));
-                    } else {  }
+                    } else { }
                     shape.rawVertexData.Add(new Vector3(fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4)));
                     if ((V17 & 4) != 0) {
                         shape.rawVertexShading.Add(
@@ -369,7 +370,7 @@ namespace ToyTwoToolbox {
                     }
                     if ((V17 & 8) != 0) { fr._seek(4, ref ptr); } //oh no
                     if ((V17 & 240) != 0) {
-                        shape.rawVertexTextureCoords.Add(new Vector2(fr._readflt(ref ptr, 4), 1.0 - fr._readflt(ref ptr, 4)));
+                        shape.rawVertexTextureCoords.Add(new Vector2(fr._readflt(ref ptr, 4), 1.0f - fr._readflt(ref ptr, 4)));
                     }
                 }
                 shape.datalength = VertexDataLength;
@@ -401,62 +402,120 @@ namespace ToyTwoToolbox {
 
 
         public void Extract_Animations(Character chr, ref int ptr, int Contract_Length) {
-            int Contract_External_Length = ptr + Contract_Length;
-            int Contract_Internal_Length = ptr + 0; 
-            int startofanimdata = ptr;
-            Animation anim = new Animation {
-                id = fr._readint(ref ptr, 4),
-                FrameCount = fr._readint(ref ptr, 2),
-                UNK1 = fr._readint(ref ptr, 2),
-                UNK2 = fr._readint(ref ptr, 2),
-                NodeCount = fr._readint(ref ptr, 2),
-                UNK3 = fr._readint(ref ptr, 2),
-                HPTR = fr._readint(ref ptr, 2)
-            };
-            int validIncrementor = 0;
-            for (int i = 0;i < anim.NodeCount;i++) {
-                int NodeOffset = fr._readint(ref ptr, 2);
-                anim.Nodes.Add(new Animation.Node {
-                    id = (NodeOffset < 0 || NodeOffset > 65532) ? NodeOffset : validIncrementor,
-                    offset = NodeOffset
-                });
-                //Console.WriteLine((NodeOffset < 0 || NodeOffset > 65532) ? NodeOffset : validIncrementor);
-                if (NodeOffset > 0 && NodeOffset < 65532) { validIncrementor++; }
-            }
-            anim.UNK4 = fr._readint(ref ptr, 2);
-            anim.UNK5 = fr._readint(ref ptr, 2);
-            anim.UNK6 = fr._readint(ref ptr, 2);
-            anim.UNK7 = fr._readint(ref ptr, 2);
-            startofanimdata = ptr; //actual start of anim data
-            Contract_Internal_Length = ptr - Contract_Internal_Length;
-            for (int i = 0;i < anim.Nodes.Count;i++) {//for each node
-                if (anim.Nodes[i].id > -1 && anim.Nodes[i].id < 65533) {
-                    int nodeoffset = i * 10;
-                    for (int j = 0;j < anim.FrameCount;j++) {//for each frame of animation
-                        int internalFrameOffset = nodeoffset + ((j * validIncrementor) * 10);
-                        int frameoffset = startofanimdata + internalFrameOffset; //this is where we are reading from for each frame
-                        int frameoffsetstorage = frameoffset;
-                        anim.Nodes[i].frames.Add(
-                            new AnimationFrame(
-                                new Vector3(fr._readflt(ref frameoffset, 2), fr._readflt(ref frameoffset, 2), fr._readflt(ref frameoffset, 2)),
-                                new Vector2(fr._readflt(ref frameoffset, 2), fr._readflt(ref frameoffset, 2))
-                            )
-                        );
-                        frameoffsetstorage = frameoffset - frameoffsetstorage;
-                        Contract_Internal_Length += 10;
-                    }
-                } else {
-                    //SessionManager.Report("animation node was skipped", SessionManager.RType.WARNING);
-                }
-            }
-            if (Contract_Internal_Length != Contract_Length || ptr != Contract_Length) { 
-                SessionManager.Report("The FCL contract was not correctly fulfilled <" + Contract_Internal_Length + "/" + Contract_Length + ">[->F_NGN->ARSON->Extract_Animations]", SessionManager.RType.WARNING);
-                if (Contract_Internal_Length < Contract_Length) {
-                    anim.extradata = fr._readbytes(ref Contract_Internal_Length, Contract_Length - Contract_Internal_Length);
-                }
-                ptr += (Contract_External_Length - ptr) ; //dont ruin the rest of the NGN
-            }
+            Animation anim = new Animation();
+            anim.foverride = fr._readbytes(ref ptr, Contract_Length);
 
+
+            //int Contract_External_Length = ptr + Contract_Length;
+            //int Contract_Internal_Length = ptr + 0;
+            //int startofanimdata = ptr;
+
+            //fr.SetDebugSlot(0);
+
+            //Animation anim = new Animation {
+            //    id = fr._readint(ref ptr, 4),
+            //    FrameCount = fr._readint(ref ptr, 2),
+            //    UNK1 = fr._readint(ref ptr, 2),
+            //    UNK2 = fr._readint(ref ptr, 2),
+            //    NodeCount = fr._readint(ref ptr, 2),
+            //    UNK3 = fr._readint(ref ptr, 2),
+            //    HPTR = fr._readint(ref ptr, 2)
+            //};
+            //int validIncrementor = 0;
+            //for (int i = 0;i < anim.NodeCount;i++) {
+            //    int NodeOffset = fr._readint(ref ptr, 2);
+            //    anim.Nodes.Add(new Animation.Node {
+            //        id = (NodeOffset < 0 || NodeOffset > 65532) ? NodeOffset : validIncrementor,
+            //        offset = NodeOffset
+            //    });
+            //    if (NodeOffset > 0 && NodeOffset < 65532) { anim.firstGoodNode = anim.firstGoodNode ?? i-1; validIncrementor++; }
+            //}
+            //anim.firstGoodNode = anim.firstGoodNode ?? 0;
+
+            //anim.UNK4 = fr._readint(ref ptr, 2);
+            //anim.UNK5 = fr._readint(ref ptr, 2);
+            //anim.UNK6 = fr._readint(ref ptr, 2);
+            //anim.UNK7 = fr._readint(ref ptr, 2);
+            ////the old method to read the anim data was terrible
+            ////im not saying this one is god tier or anything, but its better
+            ////essentially we just collect based on the node offsets
+            ////was trying to do some fancy loop optimizations but its not worth it
+            ////so what we do is this
+            ////look at the offset provided by the node
+            ////now look at the node count
+            ////lets look at the second node, which has an offset of 5 (which means 5vertices*4bytes for each == 20 bytes total)
+            ////so if we do the current frame (0) * (5*2) we get 20
+            ////which if you look at the first node makes sense as the first node offset points to 0
+            ////and 0 + 5*2 == 20, the start of the second node
+
+            ////oh shit, i forgot to mention, we are in the context of the whole NGN here, so we need to offset the framepointer too
+            ////this is done by doing frameoffset * (nodecount*20)
+
+            ////tl;dr, do the framecount*(nodeoffset*4) to get the offset within the anim data
+            ////as i said, not perfect, but it will do as you shall see
+
+            ////to pull the extra data we do a neat little trick,
+            ////use the index position of the current node, lets say 4
+            ////multiply that by 5 to figure out our legitimate byte offset (4*5)=40
+            ////the compare it to our actual offset (anim[4].offset = 52)
+            ////this means we are over our XYZRR budget, so there are 12 more bytes of data to collect
+            ////12 / 2? so we collect 6 more items of data
+
+            //startofanimdata = ptr; //actual start of anim data
+            //Contract_Internal_Length = ptr - Contract_Internal_Length;
+            //int dataoffset = startofanimdata;
+            //dataoffset = startofanimdata; //+ (i * (anim.NodeCount * 10));// * (anim.Nodes[j].offset * 4);
+            //for (int i = 0;i < anim.FrameCount;i++) {
+            //    int fsPTR = dataoffset;
+            //    for (int j = 0;j < anim.Nodes.Count;j++) {
+            //        if (anim.Nodes[j].id > -1 && anim.Nodes[j].id < 65533) { //lmao
+            //            anim.Nodes[j].frames.Add(
+            //                new AnimationFrame(
+            //                    new Vector3(fr._readflt(ref dataoffset, 2), fr._readflt(ref dataoffset, 2), fr._readflt(ref dataoffset, 2)),
+            //                    new Vector2(fr._readflt(ref dataoffset, 2), fr._readflt(ref dataoffset, 2)),
+            //                    fr._readbytes(ref dataoffset, Math.Max((anim.Nodes[j].offset - (int)(((j - anim.firstGoodNode) * 5)))*2, 0))
+            //                //fr._readbytes(ref dataoffset, (anim.Nodes.Count < j + 1) ? Math.Max(anim.Nodes[j].offset - ((j * 5) * 2), 0) : ((anim.Nodes[j + 1].offset - anim.Nodes[j + 1].offset) - 10))
+            //                )
+            //            );
+            //            int dbl = 10 + Math.Max((anim.Nodes[j].offset - (int)(((j - anim.firstGoodNode) * 5))) * 2, 0);
+            //            Contract_Internal_Length += dbl;
+            //        }
+            //    }
+            //    Console.WriteLine("For frame " + i + " we collected " + (dataoffset - fsPTR) + " bytes of data");
+            //}
+
+            ////for (int i = 0;i < anim.Nodes.Count;i++) {//for each node
+            ////    if (anim.Nodes[i].id > -1 && anim.Nodes[i].id < 65533) {
+            ////        int nodeoffset = i * 10;
+            ////        for (int j = 0;j < anim.FrameCount;j++) {//for each frame of animation
+            ////            int internalFrameOffset = nodeoffset + ((j * validIncrementor) * 10);
+            ////            int frameoffset = startofanimdata + internalFrameOffset; //this is where we are reading from for each frame
+            ////            int frameoffsetstorage = frameoffset;
+            ////            anim.Nodes[i].frames.Add(
+            ////                new AnimationFrame(
+            ////                    new Vector3(fr._readflt(ref frameoffset, 2), fr._readflt(ref frameoffset, 2), fr._readflt(ref frameoffset, 2)),
+            ////                    new Vector2(fr._readflt(ref frameoffset, 2), fr._readflt(ref frameoffset, 2))
+            ////                )
+            ////            );
+            ////            frameoffsetstorage = frameoffset - frameoffsetstorage;
+            ////            Contract_Internal_Length += 10;
+            ////        }
+            ////    } else {
+            ////        //SessionManager.Report("animation node was skipped", SessionManager.RType.WARNING);
+            ////    }
+            ////}
+            //if (Contract_Internal_Length != Contract_Length || ptr != Contract_External_Length) {
+            //    SessionManager.Report(" [ARSON CP]The FCL contract was not correctly fulfilled <" + Contract_Internal_Length + "/" + Contract_Length + ">[->F_NGN->ARSON->Extract_Animations]", SessionManager.RType.WARNING);
+            //    if (Contract_Internal_Length < Contract_Length) {
+            //        anim.extradata = fr._readbytes(ref Contract_Internal_Length, Contract_Length - Contract_Internal_Length);
+            //    }
+            //    ptr += (Contract_External_Length - ptr); //dont ruin the rest of the NGN collection
+            //}
+
+            //fr.dbgPTR = -1;
+            //Console.WriteLine("Exporting debug bytes for animdata");
+            //Console.WriteLine(XF.BytesToHex(fr.dstr[0].ToArray()));
+            //fr.dstr[0].Clear();
 
             chr.Anims.Add(anim);
         }
@@ -501,7 +560,7 @@ namespace ToyTwoToolbox {
             int areaPortalCount = fr._readint(ref ptr, 4);
             if (areaPortalCount > 0) {
                 for (int i = 0;i < areaPortalCount;i++) {
-                    int areaPortalID = fr._readint( ref ptr,4); //skip
+                    int areaPortalID = fr._readint(ref ptr, 4); //skip
                     this.areaPortals[areaPortalID].Rotation = new Vector2(fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4));
                 }
             }
@@ -529,8 +588,8 @@ namespace ToyTwoToolbox {
                 DS.Translation.Add(new Vector3(fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4)));
                 DS.Rotation.Add(new Vector3(fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4)));
                 DS.Scale.Add(new Vector3(fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4)));
-                DS.shapeID.Add(fr._readint(ref ptr, 4));
-                if (unknown) { DS.Unknown.Add(fr._readint(ref ptr, 4)); }
+                DS.ShapeID.Add(fr._readint(ref ptr, 4));
+                if (!unknown) { DS.Unknown.Add(fr._readint(ref ptr, 4)); }
             }
             return DS;
         }
@@ -540,7 +599,7 @@ namespace ToyTwoToolbox {
             fr._seek(4, ref ptr);
             for (int i = 0;i < linkCount;i++) {
                 this.ObjectLinks.Add(new Linker {
-                    LinkID = fr._readstring(ref ptr, 2),
+                    LinkID = fr._readint(ref ptr, 2),
                     ShapeID = fr._readint(ref ptr, 2)
                 });
             }
@@ -564,10 +623,16 @@ namespace ToyTwoToolbox {
                 if (fr.foffset >= fr.fstream.Length) {
                     break;
                 }
-                
+
                 functionID = fr.readint(4);
                 functionLength = fr.readint(4);
-                NS.AddFunction((NGNFunction)functionID, fr.foffset, functionLength);
+                if (functionID == 0) {
+                    if (functionLength != 0) {
+                        SessionManager.Report("An invalid function was detected, and will be skipped", SessionManager.RType.WARN);
+                    }
+                } else {
+                    NS.AddFunction((NGNFunction)functionID, fr.foffset, functionLength);
+                }
                 fr.seek(functionLength);
             }
             return NS;
@@ -578,17 +643,432 @@ namespace ToyTwoToolbox {
         }
 
         public bool Export(string path) {
-            FileWriter fwngn = new FileWriter();
+            FileWriter fw = new FileWriter();
+            int EGC = 0; //this is a wide scope var that tracks the number of geometries written to the NGN
+                         //this is useful for both geom and gscale, due to the way we track the function usage
+            foreach (NGNSchema.NGNFunctionDef def in Schema.NGNFunctions) {
+                fw.AddInt32((int)def.FunctionType); //add func id
+                int initfunclength = fw.foffset;
+                //lets just get into it, not in a good mood today
+                // for every part of the ngn that is valid
+                int funclengthptr = fw.Nop(4);
+                switch (def.FunctionType) {
+                    case NGNFunction.Textures:
+                        fw.AddInt32(textures.Count);
+                        for (int i = 0;i < textures.Count;i++) {
+                            using (MemoryStream ms = new MemoryStream()) {
+                                textures[i].image.Save(ms, ImageFormat.Bmp);
+                                byte[] imgbytes = ms.ToArray();
+                                fw.AddInt32(imgbytes.Length);
+                                fw.AddInt32(textures[i].name.Length);
+                                fw.AddString(textures[i].name);
+                                fw.AddBytes(imgbytes);
+                            }
+                        }
+                        break;
+                    case NGNFunction.Creatures:
+                        //its probably a good idea to break this out into separate functions...
+                        fw.AddInt32(SlotValidity.Count);
+                        //fill the character slots
+                        if (characters.Count == -1) {
+                            fw.Nop(62);
+                        } else {
+                            for (int i = 0;i < SlotValidity.Count;i++) {
+                                if (SlotValidity[i] != -1) {
+                                    string name = characters[SlotValidity[i]].name;
+                                    fw.AddByte(name.Length + 1);
+                                    fw.AddString(name, 1);
+                                } else {
+                                    fw.Nop(1);
+                                }
+                                //characterSlots[i].SlotID;
 
-            //lets just get into it, not in a good mood today
-            //textures
-            if (textures.Count > 0) {
-                int ptr = fwngn.foffset; //get func header ptr
-                fwngn.Nop(8); //alloc 8 bytes for header data
+                            }
+                        }
 
+                        //write all character data,  remeber: local function ids are required in here
+                        for (int i = 0;i < characters.Count;i++) {
+                            Character chr = characters[i];
+                            //NODES & CHARACTERS
+                            fw.AddInt32(512); //characters Function ID
+                            fw.AddInt32(4); //?
+                            fw.AddInt32((chr.model.shapes.Count == 1) ? 1 : chr.model.shapes.Count - 1);
+
+                            //NODE STRUCT
+                            fw.AddInt32(514);
+                            int fNodeLengthPTR = fw.Nop(4);
+                            for (int j = 0;j < chr.nodes.Count;j++) {
+                                fw.AddByte(chr.nodes[j].Name.Length + 1);
+                                fw.AddString(chr.nodes[j].Name, 1);
+                            }
+                            fw.eof(fNodeLengthPTR);
+
+                            //NULL NODE BYTES (no func length forwarding)
+                            fw.AddInt32(513);
+                            fw.AddInt32(64 * chr.nodes.Count);
+                            fw.Nop(64 * chr.nodes.Count);
+
+                            //SHAPE DATA
+                            fw.AddInt32(515);
+                            int fShapeLength = fw.Nop(4);
+                            for (int k = 0;k < chr.model.shapes.Count;k++) {
+                                Shape shape = chr.model.shapes[k];
+                                if (shape._SPType == 0) { //prim
+                                    if (fShapeLength == 0) {
+                                        fShapeLength = fw.Nop(4);
+                                    }
+                                } else {
+                                    if (fShapeLength != 0) {
+                                        fw.eof(fShapeLength);
+                                        fShapeLength = 0;
+                                    }
+                                }
+                                WriteShapeData(ref fw, ref shape);
+                            }
+                            if (fShapeLength != 0) {
+                                fw.eof(fShapeLength);
+                            }
+
+                            //ANIMATION DATA
+                            for (int l = 0;l < chr.Anims.Count;l++) {
+                                Animation anim = chr.Anims[l];
+                                fw.AddInt32(516);
+                                int fAnimDataLength = fw.Nop(4);
+                                WriteAnimationData(ref fw, ref anim);
+                                fw.eof(fAnimDataLength);
+                            }
+                            fw.Nop(8);
+                        }
+                        break;
+                    case NGNFunction.AreaPortalPosition:
+                        fw.AddInt32(areaPortals.Count);
+                        for (int i = 0;i < areaPortals.Count;i++) {
+                            AreaPortal ap = areaPortals[i];
+                            fw.AddInt32(ap.Vertices.Count);
+                            for (int j = 0;j < ap.Vertices.Count;j++) {
+                                fw.AddFloat(ap.Vertices[j].X);
+                                fw.AddFloat(ap.Vertices[j].Y);
+                                fw.AddFloat(ap.Vertices[j].Z);
+                            }
+                        }
+                        break;
+                    case NGNFunction.AreaPortalRotation:
+                        fw.AddInt32(areaPortals.Count);
+                        for (int i = 0;i < areaPortals.Count;i++) {
+                            AreaPortal ap = areaPortals[i];
+                            fw.AddInt32(i);
+                            fw.AddFloat(ap.Rotation.X);
+                            fw.AddFloat(ap.Rotation.Y);
+                        }
+                        break;
+                    case NGNFunction.Geometry:
+                        Geometry geo = Geometries[EGC];
+                        fw.AddInt32(geo.shapes.Count);
+                        for (int i = 0;i < geo.shapes.Count;i++) {
+                            Shape shape = geo.shapes[i];
+                            WriteShapeData(ref fw, ref shape);
+                        }
+                        EGC++;
+                        break;
+                    case NGNFunction.Gscale: //257
+                        DynamicScaler ds = GScales[EGC - 1]; //we assume there cant be a gscale without a geometry object backer
+                        fw.AddInt32(Geometries[EGC - 1].shapes.Count);
+                        fw.AddInt32(44); //lmao - this is the length of the data
+
+                        for (int i = 0;i < Geometries[EGC - 1].shapes.Count;i++) {
+                            fw.AddFloat(ds.Translation[i].X);
+                            fw.AddFloat(ds.Translation[i].Y);
+                            fw.AddFloat(ds.Translation[i].Z);
+                            fw.AddFloat(ds.Rotation[i].X);
+                            fw.AddFloat(ds.Rotation[i].Y);
+                            fw.AddFloat(ds.Rotation[i].Z);
+                            fw.AddFloat(ds.Scale[i].X);
+                            fw.AddFloat(ds.Scale[i].Y);
+                            fw.AddFloat(ds.Scale[i].Z);
+                            fw.AddInt32(i);
+                            if (ds.Unknown.Count != 0 && ds.Unknown.Count >= i) { fw.AddInt32(ds.Unknown[i]); }
+                        }
+                        break;
+                    case NGNFunction.Linker:
+                        fw.AddInt32(ObjectLinks.Count);
+                        fw.AddInt32(ObjectLinks[ObjectLinks.Count - 1].LinkID);
+                        for (int i = 0;i < ObjectLinks.Count;i++) {
+                            fw.AddInt16(ObjectLinks[i].LinkID);
+                            fw.AddInt16(ObjectLinks[i].ShapeID);
+                        }
+                        break;
+                }
+                fw.eof(funclengthptr); //lptr implementation
             }
+            fw.Nop(8);
+            fw.Save(path);
+            filePath = path;
+            SessionManager.Report("Successfully saved NGN to: " + path + "[Main->F_NGN->Export]");
             return true;
         }
+
+        public void WriteShapeData(ref FileWriter fw, ref Shape shape) {
+            if (shape.type2 == 65535) {
+                fw.AddInt16(shape.type);
+                fw.AddInt16(shape.type2);
+            }
+            if (shape._SPType == 1 || (shape.type & 1) == 1) { //begin export
+                //SHAPE NAME
+                if (shape.name != "") {
+                    fw.AddInt32(64);
+                    string shapename = shape.name;
+                    fw.AddInt32(shapename.Length + 2);
+                    fw.AddByte(shapename.Length + 1);
+                    fw.AddString(shapename, 1);
+                }
+
+                //SHAPE TEXTURES
+                fw.AddInt32(shape._SPType == 1 ? 517 : 65); //tex header function id based on prim/patch
+                int fShapeDataLength = fw.Nop(4);
+                int texcount = shape.textures.Count;
+                fw.AddInt16(texcount);
+                fw.AddInt16(texcount);
+                fw.AddByte(texcount > 0 ? (shape.type2 == 65535 ? 6 : 5) : 0); //if shape is char shape and not patch (!65535) -> texture name, the if is for ngn fileformat accuracy, but is probably not required
+                fw.AddByte(26);
+                for (int i = 0;i < texcount;i++) {
+                    fw.AddByte(shape.textures[i].Length + (shape.type2 == 65535 ? 1 : 0));//assume we cleaned the string
+                    fw.AddString(shape.textures[i], (shape.type2 == 65535 ? 1 : 0));
+                }
+                for (int i = 0;i < texcount;i++) {
+                    fw.AddByte(i);
+                    fw.Nop(25);
+                }
+                fw.eof(fShapeDataLength);
+
+                //SHAPE MATERIALS
+                if (shape.materials.Count > 0) {
+                    fw.AddInt32(shape._SPType == 1 ? 518 : 66); //tex header function id based on prim/patch
+                    int fMaterialDataLength = fw.Nop(4);
+                    fw.AddInt32(shape.materials.Count);
+                    for (int i = 0;i < shape.materials.Count;i++) {
+                        Material mat = shape.materials[i];
+                        fw.AddInt32(mat.id);
+                        int fiMaterialDataLength = fw.Nop(4);
+                        for (int j = 0;j < mat.RGB.Count;j++) {
+                            fw.AddByte((int)(mat.RGB[j] / 0.0039215689));
+                        }
+                        if (mat.id == 193) { fw.AddInt32(mat.data); }
+                        fw.AddInt16(mat.textureIndex);
+                        fw.eof(fiMaterialDataLength);
+                    }
+                    fw.eof(fMaterialDataLength);
+                }
+
+                //VERTICES
+                fw.AddInt32(shape._SPType == 1 ? 519 : 67); //func header
+                fw.AddInt32(shape.datalength * shape.rawVertices.Count + 12);//pre calculated func length
+                fw.AddInt32(23); //?
+                fw.AddInt32(shape.datalength);
+                fw.AddInt32(shape.rawVertices.Count);
+
+                for (int i = 0;i < shape.rawVertices.Count;i++) {
+                    fw.AddFloat(shape.rawVertices[i].X);
+                    fw.AddFloat(shape.rawVertices[i].Y);
+                    fw.AddFloat(shape.rawVertices[i].Z);
+                    fw.AddFloat(shape.rawVertexData[i].X);
+                    fw.AddFloat(shape.rawVertexData[i].Y);
+                    fw.AddFloat(shape.rawVertexData[i].Z);
+                    fw.AddByte(shape.rawVertexShading[i].A);
+                    fw.AddByte(shape.rawVertexShading[i].R);
+                    fw.AddByte(shape.rawVertexShading[i].G);
+                    fw.AddByte(shape.rawVertexShading[i].B);
+                    fw.AddFloat(shape.rawVertexTextureCoords[i].X);
+                    fw.AddFloat(1.0f - shape.rawVertexTextureCoords[i].Y);
+                }
+
+                //PATCH HANDLER
+                if (shape._SPType == 0) {
+                    fw.AddInt32(68);
+                    int fPrimDataLength = fw.Nop(4);
+                    fw.AddInt32(shape.rawPrimitives.Count);
+                    for (int i = 0;i < shape.rawPrimitives.Count;i++) {
+                        Prim prim = (Prim)shape.rawPrimitives[i];
+                        fw.AddInt32(prim.type);
+                        fw.AddInt16(prim.materialID);
+                        fw.AddInt16(prim.vertices.Count);
+                        for (int j = 0;j < prim.vertices.Count;j++) {
+                            fw.AddInt16(prim.vertices[j]);
+                        }
+                    }
+                    fw.eof(fPrimDataLength);
+                    fw.Nop(8);
+                } else {
+                    fw.AddInt32(520);
+                    int fPatchDataLength = fw.Nop(4);
+                    fw.AddInt32(shape.rawPrimitives.Count);
+                    for (int i = 0;i < shape.rawPrimitives.Count;i++) {
+                        Patch patch = (Patch)shape.rawPrimitives[i];
+                        fw.AddInt16(patch.vertices.Count / 2);
+                        fw.AddInt16(patch.materialID);
+                        fw.AddInt32(patch.Unknown1);
+                        fw.AddInt32(patch.Unknown2);
+                        fw.AddInt32(patch.Unknown3);
+                        fw.AddInt32(patch.Unknown4);
+                    }
+                    fw.eof(fPatchDataLength);
+                }
+            }
+        }
+
+        public void WriteAnimationData(ref FileWriter fw, ref Animation anim) {
+            //we only use chunk data for now so we redirect flow via _.foverride
+            fw.AddBytes(anim.foverride);
+
+            //DO NOT REMOVE
+            //fw.AddInt32(anim.id);
+            //fw.AddInt16(anim.FrameCount);
+            //fw.AddInt16(anim.UNK1);
+            //fw.AddInt16(anim.UNK2);
+            //fw.AddInt16(anim.NodeCount);
+            //fw.AddInt16(anim.UNK3);
+            //fw.AddInt16(anim.HPTR);
+            //foreach (Animation.Node node in anim.Nodes) {
+            //    fw.AddInt16(node.offset);
+            //}
+            //fw.AddInt16(anim.UNK4);
+            //fw.AddInt16(anim.UNK5);
+            //fw.AddInt16(anim.UNK6);
+            //fw.AddInt16(anim.UNK7);
+            //// cant do it the old way i tried and its gonna be mad
+            ////for each node get the same frame 
+            ////okay i explained it badly, e.g. node1 frame1, node2 frame1...node1 frame2, node2 frame2 etc...
+            ////first get the highest frame count
+            //int UpperFrame = 0;
+            //foreach (Animation.Node node in anim.Nodes) {
+            //    if (node.frames.Count > UpperFrame) { UpperFrame = node.frames.Count; }
+            //}
+            ////now, for i = 0 to UpperFrame, write data at frame pos in node
+            //for (int i = 0;i < UpperFrame;i++) {
+            //    for (int j = 0;j < anim.Nodes.Count;j++) {
+            //        if (anim.Nodes[j].frames.Count - 1 != -1 && anim.Nodes[j].frames.Count >= i) {
+            //            AnimationFrame frame = anim.Nodes[j].frames[i];
+            //            fw.AddByte(124);
+            //            fw.AddByte(i);
+            //            fw.AddByte(j);
+            //            fw.AddByte(124);
+            //            fw.AddFloat(frame.Position.X, c: true);
+            //            fw.AddFloat(frame.Position.Y, c: true);
+            //            fw.AddFloat(frame.Position.Z, c: true);
+            //            fw.AddFloat(frame.Rotation.X, c: true);
+            //            fw.AddFloat(frame.Rotation.Y, c: true);
+            //        }
+            //    }
+            //}
+            ////oh also we need to append any extra data we forgot
+            //if (anim.extradata != null) { fw.AddBytes(anim.extradata); }
+            //fw.Nop(8);
+        }
+
+
+        /// <summary>
+        /// Old Patch Fixer, impl ref do not use
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="SplitIndexer"></param>
+        /// <returns></returns>
+        public static List<int> PatchFix(List<int> data, List<int> SplitIndexer) {
+            List<int> lnp = new List<int>();
+            List<int> unp = new List<int>();
+            for (var j = 0;j < SplitIndexer.Count;j++) {
+                int incinc = 0;
+                sbyte h = 0;
+                incinc += (j > 0) ? SplitIndexer[j - 1] : 0;
+                unp.Clear();
+                for (var i = 0;i < SplitIndexer[j];i++) {
+                    if (h == 0) {
+                        if (i % 2 == 0) { lnp.Add(i + ((j > 0) ? incinc : 0)); }
+                    } else {
+                        if (!((i % 2) == 0)) { unp.Add(i + ((j > 0) ? incinc : 0)); }
+                    }
+                    if (i == SplitIndexer[j] - 1 && h == 0) { i = 0; h = 1; }
+                }
+                lnp.AddRange(unp);
+            }
+            return lnp;
+        }
+
+        public void ExtractModel(object objdata, Type type, bool VertexColor, bool CopyMaps, bool GenerateApha) {
+            string name = (type == typeof(Character)) ? ((Character)objdata).name : ((Geometry)objdata).name;
+            List<Shape> shapes = (type == typeof(Character)) ? ((Character)objdata).model.shapes : ((Geometry)objdata).shapes;
+            List<MtlM> materials = new List<MtlM>();
+            FolderSelectDialog fsd = new FolderSelectDialog();
+            if (fsd.ShowDialog() == true) {
+                OBJWriter obj = new OBJWriter();
+                StringBuilder mtlsb = new StringBuilder();
+                obj.append("# OBJ Export - Toy Two Toolbox\n");
+                obj.append("# File created " + DateTime.Now + "\n");
+                obj.append("\nmtllib " + name + ".mtl\n");
+                int i = 0;
+                foreach (Shape shape in shapes) {
+                    int j = 0;
+                    foreach (IPrimitive prim in shape.rawPrimitives) {
+                        int primtype = (prim.type == 1) ? 3 : prim.type;
+                        string objname = $"{name}_{((shape.name == "") ? "shape" + i.ToString().PadLeft(2, '0') : shape.name)}_face{j.ToString().PadLeft(2, '0')}";
+                        obj.title("object " + objname);
+                        OBJP oPrim = new OBJP();
+                        foreach (int pvtx in prim.vertices) {
+                            oPrim.vd.Append("v  " + shape.rawVertices[pvtx].ToOBJ() + ((VertexColor) ? " " + ColorToVColor(shape.rawVertexShading[pvtx]) : "") + "\n");
+                            oPrim.vtd.Append("vt  " + shape.rawVertexTextureCoords[pvtx].ToOBJ() + "\n");
+                        }
+                        obj.append(oPrim.vd.ToString());
+                        obj.append("# " + prim.vertices.Count + " vertices\n\n");
+
+                        obj.append(oPrim.vtd.ToString());
+                        obj.append("# " + prim.vertices.Count + " texture coords\n\n");
+
+                        obj.append("g " + objname + "\n");
+                        string mn = "s" + i + "p" + j;
+                        string mt = textures[shape.materials[prim.materialID].textureIndex].name;
+                        bool mtla = true;
+                        foreach (MtlM mat in materials) {
+                            if (mat.name == mn && mat.texcname == mt + ".bmp" && mat.texaname == ((GenerateApha) ? mt + "_a" : "")) {
+                                mtla = false;
+                            }
+                        }
+                        if (mtla) {
+                            materials.Add(new MtlM {
+                                name = mn,
+                                mrgb = shape.materials[prim.materialID].RGB,
+                                texcname = mt + ".bmp",
+                                texaname = (GenerateApha) ? mt + "_a" : ""
+                            });
+                        }
+                        obj.append("usemtl " + mn);
+                        for (int k = prim.vertices.Count;k > 0;k -= primtype) {
+                            obj.append("\nf ");
+                            for (int l = 0;l < primtype;l++) {
+                                int f = (-Math.Abs(k - l));
+                                obj.append($"{f}/{f} ");
+                            }
+                        }
+                        obj.append("\n# " + prim.vertices.Count / primtype + " polygons\n\n\n");
+                        j++;
+                    }
+                    i++;
+                }
+                foreach (MtlM mtl in materials) {
+                    mtlsb.Append("newmtl " + mtl.name + "\nillum2\n");
+                    mtlsb.Append("Kd " + mtl.mrgb[0] + " " + mtl.mrgb[1] + " " + mtl.mrgb[2] + " \n");
+                    mtlsb.Append("map_Kd " + mtl.texcname + "\n");
+                }
+                File.WriteAllText(fsd.FileName + "\\" + name + ".obj", obj.fstream.ToString());
+                File.WriteAllText(fsd.FileName + "\\" + name + ".mtl", mtlsb.ToString());
+            }
+        }
+
+        public void ProcessMaterials(List<MtlM> mats) {
+
+        }
+
+        public string ColorToVColor(Color color) {
+            return (double)color.R / 255 + " " + (double)color.G / 255 + " " + (double)color.B / 255;
+        }
+
 
         /// <summary>
         /// Describes the layout of an associated NGN File
@@ -603,7 +1083,7 @@ namespace ToyTwoToolbox {
             }
 
             public void AddFunction(NGNFunction FunctionID, int NFPTR, int NFL) {
-                NGNFunctions.Add(new NGNFunctionDef(FunctionID,NFPTR,NFL));
+                NGNFunctions.Add(new NGNFunctionDef(FunctionID, NFPTR, NFL));
             }
 
             public class NGNFunctionDef {

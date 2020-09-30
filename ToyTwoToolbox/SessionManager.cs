@@ -49,20 +49,21 @@ namespace ToyTwoToolbox {
 		public enum RType {
 			DEBUG = 0,
 			INFO = 1,
-			WARNING = 2,
+			WARN = 2,
 			ERROR = 3
 		}
 
 		static List<Color> RTC = new List<Color> { 
 			Color.FromArgb(164, 164, 164), //RTC_DEBUG
-			Color.FromArgb(240, 240, 240), //RTC_INFO 
+			Color.FromArgb(0, 255, 255),   //RTC_INFO 
 			Color.FromArgb(240, 240, 0),   //RTC_WARN 
-			Color.FromArgb(240, 0, 0) 	   //RTC_ERROR
+			Color.FromArgb(240, 0, 0), 	   //RTC_ERROR
+			Color.FromArgb(240, 240, 240) //RTC_TEXT
 		};
 
-		public static void ReportException(object sender, ThreadExceptionEventArgs e) { ReportException(sender, e.Exception); }
+		//public static void ReportException(object sender, ThreadExceptionEventArgs e) { ReportException(sender, e.Exception); }
 		//public static void ReportException(object sender, UnhandledExceptionEventArgs e) { e.ExitAplication = false; ReportException(sender, e.); }
-		public static void ReportException(object sender, Exception e) {
+		public static void ReportException(object sender, ThreadExceptionEventArgs e) {
 			
 			//mission critical exception, show console to user for reporting
 			SessionManager.SMptr.Opacity = 100;
@@ -73,31 +74,32 @@ namespace ToyTwoToolbox {
 				EType = "Fatal"
 			};
 			EDict.Add(ecn);
-			ReportEx(Environment.NewLine, RType.ERROR,Color.Red,false,false,false);
-			ReportEx("APPLICATION CRITICAL EXCEPTION DIFFUSED", RType.ERROR, Color.Red, false, false, false);
-			Report("EX-> " + e.GetType().Name, RType.ERROR);
+			ReportEx("APPLICATION CRITICAL EXCEPTION DIFFUSED", RType.ERROR, Color.Red, false, false, false, true);
+			ReportEx("EX-> " + e.Exception.Message, RType.ERROR, RTC[3], false, false, false, true);
+			//ReportEx(":~" + "[..." + new StackFrame(3).GetMethod().Name + " > " + new StackFrame(2).GetMethod().Name + " > " + new StackFrame(1).GetMethod().Name + "]", RType.ERROR, RTC[2], false, false, false, true);
+			ReportEx(e.Exception.StackTrace, RType.ERROR, RTC[3], false, false, false, true);
 			SessionManager.SMptr.ErrorDisplay.Text = EDict.Count + " Errors";
 			//ReportEx();
 		}
 
-		public static void Report(string InboundText, RType ReportType = (RType)1) {
+		public static void Report(string InboundText, RType ReportType = (RType)1, Color color = new Color()) {
 			if (SessionManager.SMptr.InvokeRequired) {
 				SessionManager.SMptr.Invoke((MethodInvoker)delegate {
-					ReportEx(InboundText, ReportType);
+					ReportEx(InboundText, ReportType, color);
 				});
 				return;
 			}
 
 			if (Debug || ReportType == RType.ERROR) {
-				ReportEx(InboundText, ReportType);
-				//Console.WriteLine(InboundText);
+				ReportEx(InboundText, ReportType, color);
+				Console.WriteLine(InboundText);
 			}
 		}
 
-		public static void ReportEx(string InboundText, RType ReportType = (RType)1, Color BaseColor = new Color(), bool Time = true, bool Tag = true, bool Append = false) {
+		public static void ReportEx(string InboundText, RType ReportType = (RType)1, Color BaseColor = new Color(), bool Time = true, bool Tag = true, bool Append = false, bool IgnoreError = false) {
 			RichTextBox stdout = SessionManager.SMptr.Log;
 			DateTime reporttime = DateTime.Now;
-			if (ReportType == RType.ERROR) {
+			if (ReportType == RType.ERROR && IgnoreError == false) {
 				EC ecn = new EC {
 					EDesc = InboundText,
 					ETime = reporttime,
@@ -113,7 +115,7 @@ namespace ToyTwoToolbox {
 
 			//PRINT TIME
 			if (Time) { 
-				stdout.SelectionColor = RTC[1];
+				stdout.SelectionColor = RTC[4];
 				stdout.AppendText("[" + reporttime.ToString("H:mm:ss") + "] "); 
 			}
 
@@ -124,7 +126,7 @@ namespace ToyTwoToolbox {
             }
 
 
-			stdout.SelectionColor = RTC[1];
+			stdout.SelectionColor = (BaseColor.IsEmpty) ? RTC[4] : BaseColor;
 			stdout.AppendText(InboundText);
 			stdout.ScrollToCaret();
 			stdout.ResumeLayout();
@@ -165,6 +167,7 @@ namespace ToyTwoToolbox {
 		public static List<EC> EDict = new List<EC>();
 		//we have a list of variables that we create once, only if required to save on memory and performance overhead
 		public static ImageList MovieImageList; //SMptr.GetMovieList
+		public static string str_ImageFormatsStandard = "Bitmap Files (*.bmp)|*.bmp|Portable Network Graphic Files (*.png)|*.png|Joint Photographic Experts Group Files (*.jpg)|*.jpg|Graphics Interchange Format Files (*.gif)|*.gif|All Files (*.*)|*.*";
 		//public List<float> Sine = WARP3D.NU3D.GenerateSine();
 
 #if DEBUG
@@ -321,7 +324,7 @@ namespace ToyTwoToolbox {
 				NM.Init(StartupParam);
 				ClientActive = true;
 			} catch (Exception ex) {
-				
+				Report("Failed to create session:\n" + ex.ToString());
 			}
 			CheckExecution();
 			//  RefreshUI()
@@ -463,9 +466,13 @@ namespace ToyTwoToolbox {
 			SM("Garbage cleared up: " + Math.Round((OldMem - System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64) / Math.Pow(1024, 2), 2) + "MB", "");
 		}
 
+		/// <summary>
+		/// Forces a full garbace collection
+		/// </summary>
 		public static void GCC() {
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
+			GC.WaitForFullGCComplete();
 			GC.Collect();
 		}
 
@@ -530,6 +537,29 @@ namespace ToyTwoToolbox {
 
         private void UseDebug_CheckedChanged(object sender, EventArgs e) {
 			Debug = UseDebug.Checked;
+		}
+
+		//Protect the integrity of the rest of the NGN
+		/// <summary>Validates a function contract to ensure file integrity</summary>
+		/// <param name="validationSize">The function size to check against the reference provided by the contract</param>
+		/// <param name="ContractSize">The reference size from the contract</param>
+		/// <param name="Correct">Whether to correct any disparity</param>
+		/// <returns>An <seealso cref="int"/> of the amount corrected by</returns>
+		public static int ValidateContract(int validationSize, int ContractSize, bool Correct = true) {
+			if (validationSize != ContractSize) {
+				Report("Contract invalidated <" + validationSize + "\\" + ContractSize + 
+					"> @[..."+ new StackFrame(3).GetMethod().Name + " > " + new StackFrame(2).GetMethod().Name + " > " + 
+					new StackFrame(1).GetMethod().Name +"]" + ((Correct == true && ContractSize - validationSize > 0) ? " - Correcting by " + (ContractSize-validationSize) + "..." : ""),RType.DEBUG);
+				if (Correct == true && ContractSize - validationSize > 0) {
+					return ContractSize - validationSize;
+                } else {
+					return 0;
+                }
+			} else {
+				return 0;
+            }
         }
-    }
+		
+
+	}
 }

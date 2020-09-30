@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace ToyTwoToolbox {
     public class Patch : IPrimitive {
@@ -20,10 +17,9 @@ namespace ToyTwoToolbox {
         public Int32 Unknown3;
         public Int32 Unknown4;
 
-        //the unk vars and the conversion are still unknown
+        //the unk vars are still unknown lol 
 
-        /// <summary>Convert this patch to a <see cref="IPrimitive"/> type</summary>
-        /// <returns><see cref="IPrimitive"/></returns>
+
         public Patch() {
             type = 1;
             vertexCount = 0;
@@ -44,6 +40,12 @@ namespace ToyTwoToolbox {
             Unknown2 = 0;
             Unknown3 = 0;
             Unknown4 = 0;
+        }
+
+        /// <summary>Convert this patch to a <see cref="Prim"/> type</summary>
+        /// <returns><see cref="Prim"/> with converted data</returns>
+        public Prim ConvertToPrim() {
+            return new Prim(type, materialID, vertices, vertexCount);
         }
     }
 }

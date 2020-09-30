@@ -4,17 +4,17 @@ using System.Collections.Generic;
 namespace ToyTwoToolbox {
     public class Vector2 {
         // data members - X, Y and Z values
-        public double X;
-        public double Y;
+        public float X;
+        public float Y;
 
         /// <summary>Vector2 allows you to store the individual X, Y components that make a 2D point</summary>
         public Vector2() {
-            X = 0.0;
-            Y = 0.0;
+            X = 0.0f;
+            Y = 0.0f;
         }
 
         // parametrised constructor
-        public Vector2(double xx, double yy) {
+        public Vector2(float xx, float yy) {
             X = xx;
             Y = yy;
         }
@@ -26,23 +26,23 @@ namespace ToyTwoToolbox {
         }
 
         // dot product of this vector and the parameter vector
-        public double DotProduct(Vector2 Vec) {
+        public float DotProduct(Vector2 Vec) {
             return (X * Vec.X) + (Y * Vec.Y);
         }
 
         // length of this vector
-        public double Length() {
-            return Math.Sqrt(X * X + Y * Y);
+        public float Length() {
+            return (float)Math.Sqrt(X * X + Y * Y);
         }
 
         // find the angle between this vector and the parameter vector
-        public double AngleTo(Vector2 Vec) {
-            double AdotB = DotProduct(Vec);
-            double ALstarBL = Length() * Vec.Length();
+        public float AngleTo(Vector2 Vec) {
+            float AdotB = DotProduct(Vec);
+            float ALstarBL = Length() * Vec.Length();
             if (ALstarBL == 0) {
-                return 0.0;
+                return 0.0f;
             }
-            return Math.Acos(AdotB / ALstarBL);
+            return (float)Math.Acos(AdotB / ALstarBL);
         }
 
         // checks whether this vector is equal to the parameter vector
@@ -55,7 +55,7 @@ namespace ToyTwoToolbox {
 
         // checks whether this vector is perpendicular to the parameter vector
         public bool IsPerpendicularTo(Vector2 Vec) {
-            double Ang = AngleTo(Vec);
+            float Ang = AngleTo(Vec);
             if (Ang == (90 * Math.PI / 180.0)) {
                 return true;
             }
@@ -88,8 +88,8 @@ namespace ToyTwoToolbox {
 
         // negate this vector
         public void Negate() {
-            X = X * -1.0;
-            Y = Y * -1.0;
+            X = X * -1.0f;
+            Y = Y * -1.0f;
         }
 
         // add this vector with the parameter vector
@@ -110,20 +110,20 @@ namespace ToyTwoToolbox {
             return NewVec;
         }
 
-        public double Sum() {
+        public float Sum() {
             return X + Y;
         }
 
         // subtract this vector with the parameter vector
         // and return the result
-        public static Vector2 operator *(Vector2 Vec, double Amount) {
+        public static Vector2 operator *(Vector2 Vec, float Amount) {
             var NewVec = new Vector2();
             NewVec.X = Vec.X * Amount;
             NewVec.Y = Vec.Y * Amount;
             return NewVec;
         }
 
-        public object Scale(double Amount) {
+        public object Scale(float Amount) {
             var NewVec = new Vector2();
             NewVec.X = X + Amount;
             NewVec.Y = Y + Amount;
@@ -132,8 +132,8 @@ namespace ToyTwoToolbox {
 
 
         public Vector2 DistanceToVector(Vector2 Point) {
-            double xval = X - Point.X;
-            double yval = Y - Point.Y;
+            float xval = X - Point.X;
+            float yval = Y - Point.Y;
             return new Vector2(xval, yval);
         }
 
@@ -142,5 +142,8 @@ namespace ToyTwoToolbox {
             return "{" + X.ToString() + "," + Y.ToString() + "}";
         }
 
+        internal string ToOBJ() {
+            return X + " " + Y;
+        }
     }
 }

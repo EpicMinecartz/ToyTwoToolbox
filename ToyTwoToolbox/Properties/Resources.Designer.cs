@@ -22,7 +22,7 @@ namespace ToyTwoToolbox.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ToyTwoToolbox.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ToyTwoToolbox.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace ToyTwoToolbox.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _126_Edit_16x16_72 {
+        public static System.Drawing.Bitmap _126_Edit_16x16_72 {
             get {
                 object obj = ResourceManager.GetObject("126_Edit_16x16_72", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap aclui_126 {
+        public static System.Drawing.Bitmap aclui_126 {
             get {
                 object obj = ResourceManager.GetObject("aclui_126", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AddMark_10580_inverse {
+        public static System.Drawing.Bitmap AddMark_10580_inverse {
             get {
                 object obj = ResourceManager.GetObject("AddMark_10580_inverse", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +93,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap buzzFlipH {
+        public static System.Drawing.Bitmap buzzFlipH {
             get {
                 object obj = ResourceManager.GetObject("buzzFlipH", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap buzzFlipV {
+        public static System.Drawing.Bitmap buzzFlipV {
             get {
                 object obj = ResourceManager.GetObject("buzzFlipV", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +113,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BuzzFolder {
+        public static System.Drawing.Bitmap BuzzFolder {
             get {
                 object obj = ResourceManager.GetObject("BuzzFolder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +123,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap buzzRs {
+        public static System.Drawing.Bitmap buzzRs {
             get {
                 object obj = ResourceManager.GetObject("buzzRs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +133,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap buzzsowns {
+        public static System.Drawing.Bitmap buzzsowns {
             get {
                 object obj = ResourceManager.GetObject("buzzsowns", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +143,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap buzzUps {
+        public static System.Drawing.Bitmap buzzUps {
             get {
                 object obj = ResourceManager.GetObject("buzzUps", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +153,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Clearallrequests_8816 {
+        public static System.Drawing.Bitmap Clearallrequests_8816 {
             get {
                 object obj = ResourceManager.GetObject("Clearallrequests_8816", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +163,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CopyHS {
+        public static System.Drawing.Bitmap CopyHS {
             get {
                 object obj = ResourceManager.GetObject("CopyHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,7 +173,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Default {
+        public static System.Drawing.Bitmap Default {
             get {
                 object obj = ResourceManager.GetObject("Default", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -181,9 +181,27 @@ namespace ToyTwoToolbox.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to #version 330 core
+        ///// Now the diffuse and the specular values are controlled by textures, this is what we in graphics call mapping something.
+        ///// This means they are now based on textures instead of a color, and can be controlled much better per fragment.
+        ///// This also allows us the ability to texture our objects again.
+        ///
+        ///// Note: We dont have a value for the ambient, as that is mostly the same the diffuse in pretty much every single situation.
+        ///struct Material {
+        ///    sampler2D diffuse;
+        ///    sampler2D specular;
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string lighting_frag {
+            get {
+                return ResourceManager.GetString("lighting.frag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Paste {
+        public static System.Drawing.Bitmap Paste {
             get {
                 object obj = ResourceManager.GetObject("Paste", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -193,7 +211,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Refresh_32x {
+        public static System.Drawing.Bitmap Refresh_32x {
             get {
                 object obj = ResourceManager.GetObject("Refresh_32x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -203,7 +221,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Rename {
+        public static System.Drawing.Bitmap Rename {
             get {
                 object obj = ResourceManager.GetObject("Rename", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -213,7 +231,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Save {
+        public static System.Drawing.Bitmap Save {
             get {
                 object obj = ResourceManager.GetObject("Save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -223,7 +241,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SaveAs {
+        public static System.Drawing.Bitmap SaveAs {
             get {
                 object obj = ResourceManager.GetObject("SaveAs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -233,7 +251,60 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap t2font {
+        public static System.Drawing.Bitmap SaveSel {
+            get {
+                object obj = ResourceManager.GetObject("SaveSel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #version 330 core
+        ///out vec4 FragColor;
+        ///
+        ///void main()
+        ///{
+        ///    FragColor = vec4(1.0); // set all 4 vector values to 1.0
+        ///}.
+        /// </summary>
+        public static string shader_frag {
+            get {
+                return ResourceManager.GetString("shader.frag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to #version 330 core
+        ///layout (location = 0) in vec3 aPos;
+        ///layout (location = 1) in vec3 aNormal;
+        ///layout (location = 2) in vec2 aTexCoords;
+        ///
+        ///uniform mat4 model;
+        ///uniform mat4 view;
+        ///uniform mat4 projection;
+        ///
+        ///out vec3 Normal;
+        ///out vec3 FragPos;
+        ///out vec2 TexCoords;
+        ///
+        ///void main()
+        ///{
+        ///    gl_Position = vec4(aPos, 1.0) * model * view * projection;
+        ///    FragPos = vec3(vec4(aPos, 1.0) * model);
+        ///    Normal = aNormal * mat3(transpose(inverse(model)));
+        ///    TexCoords = aTexCoords;
+        ///}.
+        /// </summary>
+        public static string shader_vert {
+            get {
+                return ResourceManager.GetString("shader.vert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap t2font {
             get {
                 object obj = ResourceManager.GetObject("t2font", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -243,7 +314,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_MovieImages {
+        public static System.Drawing.Bitmap T2Image_MovieImages {
             get {
                 object obj = ResourceManager.GetObject("T2Image_MovieImages", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -253,7 +324,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveLife {
+        public static System.Drawing.Bitmap T2Image_SaveLife {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveLife", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -263,7 +334,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveLifeBar {
+        public static System.Drawing.Bitmap T2Image_SaveLifeBar {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveLifeBar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -273,7 +344,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveLives {
+        public static System.Drawing.Bitmap T2Image_SaveLives {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveLives", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -283,7 +354,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveTokenBoss {
+        public static System.Drawing.Bitmap T2Image_SaveTokenBoss {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveTokenBoss", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -293,7 +364,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveTokenCollectable {
+        public static System.Drawing.Bitmap T2Image_SaveTokenCollectable {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveTokenCollectable", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -303,7 +374,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_saveTokenHamm {
+        public static System.Drawing.Bitmap T2Image_saveTokenHamm {
             get {
                 object obj = ResourceManager.GetObject("T2Image_saveTokenHamm", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -313,7 +384,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveTokenRace {
+        public static System.Drawing.Bitmap T2Image_SaveTokenRace {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveTokenRace", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -323,7 +394,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveTokenSecret {
+        public static System.Drawing.Bitmap T2Image_SaveTokenSecret {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveTokenSecret", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -333,7 +404,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveUnlockDisc {
+        public static System.Drawing.Bitmap T2Image_SaveUnlockDisc {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveUnlockDisc", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -343,7 +414,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveUnlockGrapple {
+        public static System.Drawing.Bitmap T2Image_SaveUnlockGrapple {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveUnlockGrapple", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -353,7 +424,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveUnlockHover {
+        public static System.Drawing.Bitmap T2Image_SaveUnlockHover {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveUnlockHover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -363,7 +434,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveUnlockRocket {
+        public static System.Drawing.Bitmap T2Image_SaveUnlockRocket {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveUnlockRocket", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -373,7 +444,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_SaveUnlockShield {
+        public static System.Drawing.Bitmap T2Image_SaveUnlockShield {
             get {
                 object obj = ResourceManager.GetObject("T2Image_SaveUnlockShield", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -383,7 +454,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T2Image_TokenAnim {
+        public static System.Drawing.Bitmap T2Image_TokenAnim {
             get {
                 object obj = ResourceManager.GetObject("T2Image_TokenAnim", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -393,7 +464,7 @@ namespace ToyTwoToolbox.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap toy2alpham {
+        public static System.Drawing.Bitmap toy2alpham {
             get {
                 object obj = ResourceManager.GetObject("toy2alpham", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

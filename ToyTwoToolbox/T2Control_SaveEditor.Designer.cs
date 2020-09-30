@@ -56,16 +56,10 @@
             this.trackSound = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.toggleInvisibleTokens = new ToyTwoToolbox.Toggle();
             this.labelInvisTokens = new System.Windows.Forms.Label();
             this.checkEditAllLevels = new System.Windows.Forms.CheckBox();
             this.butTokLock = new System.Windows.Forms.Button();
             this.butTokUnlock = new System.Windows.Forms.Button();
-            this.checkTokBoss = new ToyTwoToolbox.T2Control_Checkbox();
-            this.checkTokMyst = new ToyTwoToolbox.T2Control_Checkbox();
-            this.checkTokRC = new ToyTwoToolbox.T2Control_Checkbox();
-            this.checkTokCollect = new ToyTwoToolbox.T2Control_Checkbox();
-            this.checkTokHamm = new ToyTwoToolbox.T2Control_Checkbox();
             this.label5 = new System.Windows.Forms.Label();
             this.fieldLevel = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -77,8 +71,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.t2Control_HealthMeter1 = new ToyTwoToolbox.T2Control_HealthMeter();
-            this.toggleBuzzGod = new ToyTwoToolbox.Toggle();
             this.label6 = new System.Windows.Forms.Label();
             this.linkBuzzHealthMax = new System.Windows.Forms.LinkLabel();
             this.linkBuzzHealthIGMax = new System.Windows.Forms.LinkLabel();
@@ -95,11 +87,19 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.butUnlockUnlock = new System.Windows.Forms.Button();
             this.butUnlockLock = new System.Windows.Forms.Button();
+            this.t2Control_HealthMeter1 = new ToyTwoToolbox.T2Control_HealthMeter();
+            this.toggleBuzzGod = new ToyTwoToolbox.Toggle();
             this.checkUnlockGrapple = new ToyTwoToolbox.T2Control_Checkbox();
             this.checkUnlockHover = new ToyTwoToolbox.T2Control_Checkbox();
             this.checkUnlockDisc = new ToyTwoToolbox.T2Control_Checkbox();
             this.checkUnlockRocket = new ToyTwoToolbox.T2Control_Checkbox();
             this.checkUnlockShield = new ToyTwoToolbox.T2Control_Checkbox();
+            this.toggleInvisibleTokens = new ToyTwoToolbox.Toggle();
+            this.checkTokBoss = new ToyTwoToolbox.T2Control_Checkbox();
+            this.checkTokMyst = new ToyTwoToolbox.T2Control_Checkbox();
+            this.checkTokRC = new ToyTwoToolbox.T2Control_Checkbox();
+            this.checkTokCollect = new ToyTwoToolbox.T2Control_Checkbox();
+            this.checkTokHamm = new ToyTwoToolbox.T2Control_Checkbox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fieldLastLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMusic)).BeginInit();
@@ -221,6 +221,7 @@
             // 
             // trackMusic
             // 
+            this.trackMusic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.trackMusic.Location = new System.Drawing.Point(9, 90);
             this.trackMusic.Margin = new System.Windows.Forms.Padding(2);
             this.trackMusic.Maximum = 255;
@@ -232,6 +233,7 @@
             // 
             // trackSound
             // 
+            this.trackSound.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.trackSound.Location = new System.Drawing.Point(157, 90);
             this.trackSound.Margin = new System.Windows.Forms.Padding(2);
             this.trackSound.Maximum = 255;
@@ -279,19 +281,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tokens";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
-            // 
-            // toggleInvisibleTokens
-            // 
-            this.toggleInvisibleTokens.Location = new System.Drawing.Point(578, 169);
-            this.toggleInvisibleTokens.Margin = new System.Windows.Forms.Padding(2);
-            this.toggleInvisibleTokens.Name = "toggleInvisibleTokens";
-            this.toggleInvisibleTokens.Padding = new System.Windows.Forms.Padding(4);
-            this.toggleInvisibleTokens.Size = new System.Drawing.Size(37, 21);
-            this.toggleInvisibleTokens.TabIndex = 9;
-            this.toggleInvisibleTokens.Tag = "5";
-            this.toggleInvisibleTokens.Text = "myCheckBox2";
-            this.toggleInvisibleTokens.UseVisualStyleBackColor = true;
-            this.toggleInvisibleTokens.CheckedChanged += new System.EventHandler(this.toggleInvisibleTokens_CheckedChanged);
             // 
             // labelInvisTokens
             // 
@@ -343,131 +332,6 @@
             this.butTokUnlock.Text = "Unlock All";
             this.butTokUnlock.UseVisualStyleBackColor = true;
             this.butTokUnlock.Click += new System.EventHandler(this.butTokUnlock_Click);
-            // 
-            // checkTokBoss
-            // 
-            this.checkTokBoss.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkTokBoss.AutoSize = true;
-            this.checkTokBoss.BackColor = System.Drawing.Color.Transparent;
-            this.checkTokBoss.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.checkTokBoss.FlatAppearance.BorderSize = 0;
-            this.checkTokBoss.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.checkTokBoss.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkTokBoss.ForeColor = System.Drawing.Color.White;
-            this.checkTokBoss.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenBoss;
-            this.checkTokBoss.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokBoss.Location = new System.Drawing.Point(400, 65);
-            this.checkTokBoss.Margin = new System.Windows.Forms.Padding(0);
-            this.checkTokBoss.MinimumSize = new System.Drawing.Size(99, 95);
-            this.checkTokBoss.Name = "checkTokBoss";
-            this.checkTokBoss.Size = new System.Drawing.Size(99, 95);
-            this.checkTokBoss.TabIndex = 13;
-            this.checkTokBoss.Tag = "3";
-            this.checkTokBoss.Text = "Mini Boss";
-            this.checkTokBoss.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkTokBoss.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.checkTokBoss.UseVisualStyleBackColor = false;
-            this.checkTokBoss.CheckedChanged += new System.EventHandler(this.checkTokBoss_CheckedChanged);
-            // 
-            // checkTokMyst
-            // 
-            this.checkTokMyst.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkTokMyst.AutoSize = true;
-            this.checkTokMyst.BackColor = System.Drawing.Color.Transparent;
-            this.checkTokMyst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.checkTokMyst.FlatAppearance.BorderSize = 0;
-            this.checkTokMyst.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.checkTokMyst.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkTokMyst.ForeColor = System.Drawing.Color.White;
-            this.checkTokMyst.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenSecret;
-            this.checkTokMyst.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokMyst.Location = new System.Drawing.Point(301, 65);
-            this.checkTokMyst.Margin = new System.Windows.Forms.Padding(2);
-            this.checkTokMyst.MinimumSize = new System.Drawing.Size(99, 95);
-            this.checkTokMyst.Name = "checkTokMyst";
-            this.checkTokMyst.Size = new System.Drawing.Size(99, 95);
-            this.checkTokMyst.TabIndex = 12;
-            this.checkTokMyst.Tag = "4";
-            this.checkTokMyst.Text = "Mystery";
-            this.checkTokMyst.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokMyst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.checkTokMyst.UseVisualStyleBackColor = false;
-            this.checkTokMyst.CheckedChanged += new System.EventHandler(this.checkTokMyst_CheckedChanged);
-            // 
-            // checkTokRC
-            // 
-            this.checkTokRC.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkTokRC.AutoSize = true;
-            this.checkTokRC.BackColor = System.Drawing.Color.Transparent;
-            this.checkTokRC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.checkTokRC.FlatAppearance.BorderSize = 0;
-            this.checkTokRC.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.checkTokRC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkTokRC.ForeColor = System.Drawing.Color.White;
-            this.checkTokRC.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenRace;
-            this.checkTokRC.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokRC.Location = new System.Drawing.Point(202, 65);
-            this.checkTokRC.Margin = new System.Windows.Forms.Padding(2);
-            this.checkTokRC.MinimumSize = new System.Drawing.Size(99, 95);
-            this.checkTokRC.Name = "checkTokRC";
-            this.checkTokRC.Size = new System.Drawing.Size(99, 95);
-            this.checkTokRC.TabIndex = 11;
-            this.checkTokRC.Tag = "2";
-            this.checkTokRC.Text = "RC Race";
-            this.checkTokRC.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokRC.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.checkTokRC.UseVisualStyleBackColor = false;
-            this.checkTokRC.CheckedChanged += new System.EventHandler(this.checkTokRC_CheckedChanged);
-            // 
-            // checkTokCollect
-            // 
-            this.checkTokCollect.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkTokCollect.AutoSize = true;
-            this.checkTokCollect.BackColor = System.Drawing.Color.Transparent;
-            this.checkTokCollect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.checkTokCollect.FlatAppearance.BorderSize = 0;
-            this.checkTokCollect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.checkTokCollect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkTokCollect.ForeColor = System.Drawing.Color.White;
-            this.checkTokCollect.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenCollectable;
-            this.checkTokCollect.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokCollect.Location = new System.Drawing.Point(103, 65);
-            this.checkTokCollect.Margin = new System.Windows.Forms.Padding(2);
-            this.checkTokCollect.MinimumSize = new System.Drawing.Size(99, 95);
-            this.checkTokCollect.Name = "checkTokCollect";
-            this.checkTokCollect.Size = new System.Drawing.Size(99, 95);
-            this.checkTokCollect.TabIndex = 10;
-            this.checkTokCollect.Tag = "1";
-            this.checkTokCollect.Text = "Collectables";
-            this.checkTokCollect.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokCollect.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.checkTokCollect.UseVisualStyleBackColor = false;
-            this.checkTokCollect.CheckedChanged += new System.EventHandler(this.checkTokCollect_CheckedChanged);
-            // 
-            // checkTokHamm
-            // 
-            this.checkTokHamm.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkTokHamm.AutoSize = true;
-            this.checkTokHamm.BackColor = System.Drawing.Color.Transparent;
-            this.checkTokHamm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.checkTokHamm.FlatAppearance.BorderSize = 0;
-            this.checkTokHamm.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.checkTokHamm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkTokHamm.ForeColor = System.Drawing.Color.White;
-            this.checkTokHamm.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_saveTokenHamm;
-            this.checkTokHamm.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokHamm.Location = new System.Drawing.Point(4, 65);
-            this.checkTokHamm.Margin = new System.Windows.Forms.Padding(2);
-            this.checkTokHamm.MinimumSize = new System.Drawing.Size(99, 95);
-            this.checkTokHamm.Name = "checkTokHamm";
-            this.checkTokHamm.Size = new System.Drawing.Size(99, 95);
-            this.checkTokHamm.TabIndex = 9;
-            this.checkTokHamm.Tag = "0";
-            this.checkTokHamm.Text = "50 Coins";
-            this.checkTokHamm.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.checkTokHamm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.checkTokHamm.UseVisualStyleBackColor = false;
-            this.checkTokHamm.CheckedChanged += new System.EventHandler(this.checkTokHamm_CheckedChanged);
             // 
             // label5
             // 
@@ -695,28 +559,6 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Health";
             this.groupBox7.Enter += new System.EventHandler(this.groupBox7_Enter);
-            // 
-            // t2Control_HealthMeter1
-            // 
-            this.t2Control_HealthMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("t2Control_HealthMeter1.BackgroundImage")));
-            this.t2Control_HealthMeter1.Location = new System.Drawing.Point(41, 32);
-            this.t2Control_HealthMeter1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.t2Control_HealthMeter1.Name = "t2Control_HealthMeter1";
-            this.t2Control_HealthMeter1.Size = new System.Drawing.Size(13, 65);
-            this.t2Control_HealthMeter1.TabIndex = 2;
-            this.t2Control_HealthMeter1.Load += new System.EventHandler(this.t2Control_HealthMeter1_Load);
-            // 
-            // toggleBuzzGod
-            // 
-            this.toggleBuzzGod.Location = new System.Drawing.Point(216, 78);
-            this.toggleBuzzGod.Margin = new System.Windows.Forms.Padding(2);
-            this.toggleBuzzGod.Name = "toggleBuzzGod";
-            this.toggleBuzzGod.Padding = new System.Windows.Forms.Padding(4);
-            this.toggleBuzzGod.Size = new System.Drawing.Size(37, 21);
-            this.toggleBuzzGod.TabIndex = 6;
-            this.toggleBuzzGod.Text = "myCheckBox1";
-            this.toggleBuzzGod.UseVisualStyleBackColor = true;
-            this.toggleBuzzGod.CheckedChanged += new System.EventHandler(this.toggleBuzzGod_CheckedChanged);
             // 
             // label6
             // 
@@ -954,6 +796,28 @@
             this.butUnlockLock.UseVisualStyleBackColor = true;
             this.butUnlockLock.Click += new System.EventHandler(this.butUnlockLock_Click);
             // 
+            // t2Control_HealthMeter1
+            // 
+            this.t2Control_HealthMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("t2Control_HealthMeter1.BackgroundImage")));
+            this.t2Control_HealthMeter1.Location = new System.Drawing.Point(41, 32);
+            this.t2Control_HealthMeter1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.t2Control_HealthMeter1.Name = "t2Control_HealthMeter1";
+            this.t2Control_HealthMeter1.Size = new System.Drawing.Size(13, 65);
+            this.t2Control_HealthMeter1.TabIndex = 2;
+            this.t2Control_HealthMeter1.Load += new System.EventHandler(this.t2Control_HealthMeter1_Load);
+            // 
+            // toggleBuzzGod
+            // 
+            this.toggleBuzzGod.Location = new System.Drawing.Point(216, 78);
+            this.toggleBuzzGod.Margin = new System.Windows.Forms.Padding(2);
+            this.toggleBuzzGod.Name = "toggleBuzzGod";
+            this.toggleBuzzGod.Padding = new System.Windows.Forms.Padding(4);
+            this.toggleBuzzGod.Size = new System.Drawing.Size(37, 21);
+            this.toggleBuzzGod.TabIndex = 6;
+            this.toggleBuzzGod.Text = "myCheckBox1";
+            this.toggleBuzzGod.UseVisualStyleBackColor = true;
+            this.toggleBuzzGod.CheckedChanged += new System.EventHandler(this.toggleBuzzGod_CheckedChanged);
+            // 
             // checkUnlockGrapple
             // 
             this.checkUnlockGrapple.Appearance = System.Windows.Forms.Appearance.Button;
@@ -1082,6 +946,144 @@
             this.checkUnlockShield.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkUnlockShield.UseVisualStyleBackColor = false;
             this.checkUnlockShield.CheckedChanged += new System.EventHandler(this.checkUnlockShield_CheckedChanged);
+            // 
+            // toggleInvisibleTokens
+            // 
+            this.toggleInvisibleTokens.Location = new System.Drawing.Point(578, 169);
+            this.toggleInvisibleTokens.Margin = new System.Windows.Forms.Padding(2);
+            this.toggleInvisibleTokens.Name = "toggleInvisibleTokens";
+            this.toggleInvisibleTokens.Padding = new System.Windows.Forms.Padding(4);
+            this.toggleInvisibleTokens.Size = new System.Drawing.Size(37, 21);
+            this.toggleInvisibleTokens.TabIndex = 9;
+            this.toggleInvisibleTokens.Tag = "5";
+            this.toggleInvisibleTokens.Text = "myCheckBox2";
+            this.toggleInvisibleTokens.UseVisualStyleBackColor = true;
+            this.toggleInvisibleTokens.CheckedChanged += new System.EventHandler(this.toggleInvisibleTokens_CheckedChanged);
+            // 
+            // checkTokBoss
+            // 
+            this.checkTokBoss.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkTokBoss.AutoSize = true;
+            this.checkTokBoss.BackColor = System.Drawing.Color.Transparent;
+            this.checkTokBoss.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.checkTokBoss.FlatAppearance.BorderSize = 0;
+            this.checkTokBoss.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.checkTokBoss.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkTokBoss.ForeColor = System.Drawing.Color.White;
+            this.checkTokBoss.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenBoss;
+            this.checkTokBoss.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokBoss.Location = new System.Drawing.Point(400, 65);
+            this.checkTokBoss.Margin = new System.Windows.Forms.Padding(0);
+            this.checkTokBoss.MinimumSize = new System.Drawing.Size(99, 95);
+            this.checkTokBoss.Name = "checkTokBoss";
+            this.checkTokBoss.Size = new System.Drawing.Size(99, 95);
+            this.checkTokBoss.TabIndex = 13;
+            this.checkTokBoss.Tag = "3";
+            this.checkTokBoss.Text = "Mini Boss";
+            this.checkTokBoss.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkTokBoss.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.checkTokBoss.UseVisualStyleBackColor = false;
+            this.checkTokBoss.CheckedChanged += new System.EventHandler(this.checkTokBoss_CheckedChanged);
+            // 
+            // checkTokMyst
+            // 
+            this.checkTokMyst.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkTokMyst.AutoSize = true;
+            this.checkTokMyst.BackColor = System.Drawing.Color.Transparent;
+            this.checkTokMyst.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.checkTokMyst.FlatAppearance.BorderSize = 0;
+            this.checkTokMyst.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.checkTokMyst.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkTokMyst.ForeColor = System.Drawing.Color.White;
+            this.checkTokMyst.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenSecret;
+            this.checkTokMyst.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokMyst.Location = new System.Drawing.Point(301, 65);
+            this.checkTokMyst.Margin = new System.Windows.Forms.Padding(2);
+            this.checkTokMyst.MinimumSize = new System.Drawing.Size(99, 95);
+            this.checkTokMyst.Name = "checkTokMyst";
+            this.checkTokMyst.Size = new System.Drawing.Size(99, 95);
+            this.checkTokMyst.TabIndex = 12;
+            this.checkTokMyst.Tag = "4";
+            this.checkTokMyst.Text = "Mystery";
+            this.checkTokMyst.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokMyst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.checkTokMyst.UseVisualStyleBackColor = false;
+            this.checkTokMyst.CheckedChanged += new System.EventHandler(this.checkTokMyst_CheckedChanged);
+            // 
+            // checkTokRC
+            // 
+            this.checkTokRC.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkTokRC.AutoSize = true;
+            this.checkTokRC.BackColor = System.Drawing.Color.Transparent;
+            this.checkTokRC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.checkTokRC.FlatAppearance.BorderSize = 0;
+            this.checkTokRC.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.checkTokRC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkTokRC.ForeColor = System.Drawing.Color.White;
+            this.checkTokRC.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenRace;
+            this.checkTokRC.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokRC.Location = new System.Drawing.Point(202, 65);
+            this.checkTokRC.Margin = new System.Windows.Forms.Padding(2);
+            this.checkTokRC.MinimumSize = new System.Drawing.Size(99, 95);
+            this.checkTokRC.Name = "checkTokRC";
+            this.checkTokRC.Size = new System.Drawing.Size(99, 95);
+            this.checkTokRC.TabIndex = 11;
+            this.checkTokRC.Tag = "2";
+            this.checkTokRC.Text = "RC Race";
+            this.checkTokRC.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokRC.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.checkTokRC.UseVisualStyleBackColor = false;
+            this.checkTokRC.CheckedChanged += new System.EventHandler(this.checkTokRC_CheckedChanged);
+            // 
+            // checkTokCollect
+            // 
+            this.checkTokCollect.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkTokCollect.AutoSize = true;
+            this.checkTokCollect.BackColor = System.Drawing.Color.Transparent;
+            this.checkTokCollect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.checkTokCollect.FlatAppearance.BorderSize = 0;
+            this.checkTokCollect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.checkTokCollect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkTokCollect.ForeColor = System.Drawing.Color.White;
+            this.checkTokCollect.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenCollectable;
+            this.checkTokCollect.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokCollect.Location = new System.Drawing.Point(103, 65);
+            this.checkTokCollect.Margin = new System.Windows.Forms.Padding(2);
+            this.checkTokCollect.MinimumSize = new System.Drawing.Size(99, 95);
+            this.checkTokCollect.Name = "checkTokCollect";
+            this.checkTokCollect.Size = new System.Drawing.Size(99, 95);
+            this.checkTokCollect.TabIndex = 10;
+            this.checkTokCollect.Tag = "1";
+            this.checkTokCollect.Text = "Collectables";
+            this.checkTokCollect.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokCollect.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.checkTokCollect.UseVisualStyleBackColor = false;
+            this.checkTokCollect.CheckedChanged += new System.EventHandler(this.checkTokCollect_CheckedChanged);
+            // 
+            // checkTokHamm
+            // 
+            this.checkTokHamm.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkTokHamm.AutoSize = true;
+            this.checkTokHamm.BackColor = System.Drawing.Color.Transparent;
+            this.checkTokHamm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.checkTokHamm.FlatAppearance.BorderSize = 0;
+            this.checkTokHamm.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.checkTokHamm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkTokHamm.ForeColor = System.Drawing.Color.White;
+            this.checkTokHamm.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_saveTokenHamm;
+            this.checkTokHamm.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokHamm.Location = new System.Drawing.Point(4, 65);
+            this.checkTokHamm.Margin = new System.Windows.Forms.Padding(2);
+            this.checkTokHamm.MinimumSize = new System.Drawing.Size(99, 95);
+            this.checkTokHamm.Name = "checkTokHamm";
+            this.checkTokHamm.Size = new System.Drawing.Size(99, 95);
+            this.checkTokHamm.TabIndex = 9;
+            this.checkTokHamm.Tag = "0";
+            this.checkTokHamm.Text = "50 Coins";
+            this.checkTokHamm.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.checkTokHamm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.checkTokHamm.UseVisualStyleBackColor = false;
+            this.checkTokHamm.CheckedChanged += new System.EventHandler(this.checkTokHamm_CheckedChanged);
             // 
             // T2Control_SaveEditor
             // 

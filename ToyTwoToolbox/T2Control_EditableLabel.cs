@@ -22,7 +22,6 @@ namespace ToyTwoToolbox {
         public string Text { get => textBox.Text; set => linkLabel.Text = value; }
 
         public bool isEditing = false;
-        private Size defaultSize;
         private bool maxdisabled = false;
         private bool build = false;
 

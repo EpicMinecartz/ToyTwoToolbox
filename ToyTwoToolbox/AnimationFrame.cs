@@ -8,11 +8,12 @@ namespace ToyTwoToolbox {
         //this needs testing again
         public Vector3 Position;
         public Vector2 Rotation;
-        public Vector3 Unknown;
+        public Byte[] Unknown;
 
-        public AnimationFrame(Vector3 position, Vector2 rotation) {
+        public AnimationFrame(Vector3 position, Vector2 rotation, Byte[] unknown = null) {
             Position = position;
             Rotation = rotation;
+            Unknown = unknown;
         }
     }
 }

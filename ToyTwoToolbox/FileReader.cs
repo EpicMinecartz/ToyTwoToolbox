@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ToyTwoToolbox {
@@ -9,7 +10,16 @@ namespace ToyTwoToolbox {
     public class FileReader {
         public byte[] fstream;
         public int foffset;
+        public List<List<byte>> dstr = new List<List<byte>>();
+        public int dbgPTR = -1;
         //public bool disableDefaultSeek;
+
+        public void SetDebugSlot(int slotID) {
+            dbgPTR = slotID;
+            do {
+                dstr.Add(new List<byte>());
+            } while (dstr.Count-1 < slotID);
+        }
 
         public FileReader(string path, bool disableSeek = false) {
             //disableDefaultSeek = disableSeek;
@@ -23,6 +33,7 @@ namespace ToyTwoToolbox {
         public void read(byte[] array, ref int seekPTR, int count = 1, int offset = -1) {
             //Buffer.BlockCopy(fstream, (offset == -1) ? foffset : offset, array, 0, count);
             Buffer.BlockCopy(fstream, (offset != -1) ? offset : seekPTR, array, 0, count);
+            if (dbgPTR != -1) { dstr[dbgPTR].AddRange(array); }
             seekPTR += count;
         }
 
