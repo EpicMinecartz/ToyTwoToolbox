@@ -30,9 +30,7 @@ namespace ToyTwoToolbox {
 
             XF.CenterObject(firstOpenPanel1);
             MessageFader = new MessageFade(this);
-            if (SessionManager.Debug == true) {
-                debugToolStripMenuItem.Visible = true;
-            }
+            debugToolStripMenuItem.Visible = SessionManager.Debug;
         }
 
 
@@ -59,27 +57,16 @@ namespace ToyTwoToolbox {
         public void Destroy() {
             SMSC = true;
             this.Close();
-
         }
 
         private void Form1_Load(object sender, EventArgs e) {
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             if (LSID > 0) { this.Text += " : " + LSID; wlid = "[" + LSID + "] "; }
             vlab.Text = "T2T-" + SessionManager.ver;
-
-            //foreach (ContextMenuStrip i in this.components.Components) {
-            //    if (i is ContextMenuStrip) {
-            //        i.Renderer = new DarkThemeMenuRender();
-            //    }
-            //}
-
-            //create the preview window now, and allow for it to be referenced later
-
         }
 
         public void Init(string Param = "") {
             this.Show();
-            //if (Param != "") { }
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e) {
@@ -97,10 +84,6 @@ namespace ToyTwoToolbox {
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
             this.Close();
-        }
-
-        public string wl(string TX, string Pre = "", Color color = new Color(), bool NOTD = true, bool nl = true, bool NoInstName = false) {
-            return SessionManager.SMptr.SM(TX, ((NoInstName == false) ? "SM >" : "") + (string.IsNullOrEmpty(Pre) ? Pre : " " + Pre), color, NOTD, nl);
         }
 
         private void form1_Closing(object sender, FormClosingEventArgs e) {
@@ -159,7 +142,6 @@ namespace ToyTwoToolbox {
             if (F._FileType != FileProcessor.FileTypes.NULL) {
                 CreateFile(F._FileType);
             }
-
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {

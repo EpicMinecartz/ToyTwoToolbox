@@ -31,13 +31,18 @@ namespace ToyTwoToolbox {
             return ctrls;
         }
 
+        /// <summary>Center a control in a container</summary>
+        /// <param name="Obj">The control to modify</param>
+        /// <param name="bypasscontainer">Whether to relate to the parent control or the parent form</param>
+        /// <param name="CenterX">Whether to center along the X axis</param>
+        /// <param name="CenterY">Whether to center along the Y axis</param>
+        /// <param name="IsLoaded">Whether to manually specifiy if the form is loaded</param>
+        /// <param name="PrintNewCoords">Whether to print the new coords of the control</param>
+        /// <returns>The new <seealso cref="Point"/> of the control</returns>
         public static Point CenterObject(Control Obj, bool bypasscontainer = false, bool CenterX = true, bool CenterY = true, bool IsLoaded = true, bool PrintNewCoords = false) {
             Form Owner = Obj.FindForm();
             if (IsLoaded == true || IsFormLoaded(Owner)) { //protect from early open
-                int ConWidth;
-                int ConHeight;
-                int ConX;
-                int ConY;
+                int ConWidth, ConHeight, ConX, ConY;
                 if (bypasscontainer == false) {
                     ConWidth = Obj.Parent.Width / 2;
                     ConHeight = Obj.Parent.Height / 2;
@@ -194,7 +199,8 @@ namespace ToyTwoToolbox {
                         return newBmp.Clone(new Rectangle(0, 0, newBmp.Width, newBmp.Height), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
                     }
                 }
-            } catch (Exception) {
+            } catch (Exception ex) {
+                SessionManager.Report(ex.ToString(),SessionManager.RType.ERROR);
                 return null;
             }
         }
@@ -281,6 +287,7 @@ namespace ToyTwoToolbox {
                     vobj.Add(shape.rawVertices[i].X);
                     vobj.Add(shape.rawVertices[i].Y);
                     vobj.Add(shape.rawVertices[i].Z);
+                    if (shape.type != 4) { vobj.Add(shape.rawVertices[i].Z); }
                     vobj.Add(1.0f);
                     vobj.Add(1.0f);
                     vobj.Add(1.0f);

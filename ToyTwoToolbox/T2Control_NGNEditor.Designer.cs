@@ -1136,6 +1136,7 @@
             this.butExportGeomData.Size = new System.Drawing.Size(23, 23);
             this.butExportGeomData.TabIndex = 19;
             this.butExportGeomData.UseVisualStyleBackColor = true;
+            this.butExportGeomData.Click += new System.EventHandler(this.butExportGeomData_Click);
             // 
             // butNewGeometry
             // 
@@ -1365,7 +1366,7 @@
             this.butDSMoveDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butDSMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butDSMoveDown.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butDSMoveDown.Location = new System.Drawing.Point(89, 327);
+            this.butDSMoveDown.Location = new System.Drawing.Point(89, 46);
             this.butDSMoveDown.Name = "butDSMoveDown";
             this.butDSMoveDown.Size = new System.Drawing.Size(23, 23);
             this.butDSMoveDown.TabIndex = 12;
@@ -1378,7 +1379,7 @@
             this.butDSMoveUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butDSMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butDSMoveUp.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butDSMoveUp.Location = new System.Drawing.Point(60, 327);
+            this.butDSMoveUp.Location = new System.Drawing.Point(60, 46);
             this.butDSMoveUp.Name = "butDSMoveUp";
             this.butDSMoveUp.Size = new System.Drawing.Size(23, 23);
             this.butDSMoveUp.TabIndex = 11;
@@ -1391,7 +1392,7 @@
             this.butDSRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butDSRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butDSRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butDSRemove.Location = new System.Drawing.Point(31, 327);
+            this.butDSRemove.Location = new System.Drawing.Point(31, 46);
             this.butDSRemove.Name = "butDSRemove";
             this.butDSRemove.Size = new System.Drawing.Size(23, 23);
             this.butDSRemove.TabIndex = 10;
@@ -1403,7 +1404,7 @@
             this.butDSAdd.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
             this.butDSAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butDSAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDSAdd.Location = new System.Drawing.Point(2, 327);
+            this.butDSAdd.Location = new System.Drawing.Point(2, 46);
             this.butDSAdd.Name = "butDSAdd";
             this.butDSAdd.Size = new System.Drawing.Size(23, 23);
             this.butDSAdd.TabIndex = 9;
@@ -1460,7 +1461,7 @@
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvDS.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvDS.Size = new System.Drawing.Size(1012, 321);
+            this.dgvDS.Size = new System.Drawing.Size(192, 40);
             this.dgvDS.TabIndex = 1;
             // 
             // DSSID

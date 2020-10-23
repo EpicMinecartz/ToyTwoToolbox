@@ -45,10 +45,12 @@ namespace ToyTwoToolbox {
                 };
                 if (SFD.ShowDialog() == DialogResult.OK) {
                     path = SFD.FileName;
-                    if (JustMemory == false) {
-                        return loadedNGN.Export((path == null) ? loadedNGN.FilePath : path);
-                    }
+                    goto lmao;
                 }
+            }
+        lmao: //bug 23/10/2020 - using goto for now to allow for both save and saveas to work cuz im a dumbo, fix soon
+            if (JustMemory == false) {
+                return loadedNGN.Export((path == null) ? loadedNGN.FilePath : path);
             }
             return false;
         }
@@ -285,7 +287,7 @@ namespace ToyTwoToolbox {
             FolderSelectDialog fsd = new FolderSelectDialog();
             if (fsd.ShowDialog() == true) {
                 for (int i = 0;i < textureIDs.Length;i++) {
-                    XF.ExportImage(fsd.FileName + "\\" +  loadedNGN.textures[i].name + ".bmp", loadedNGN.textures[i].image, ImageFormat.Bmp);
+                    XF.ExportImage(fsd.FileName + "\\" + loadedNGN.textures[i].name + ".bmp", loadedNGN.textures[i].image, ImageFormat.Bmp);
                 }
             }
         }
@@ -656,6 +658,8 @@ namespace ToyTwoToolbox {
             loadedNGN.ExtractModel(loadedNGN.characters[comboCharacters.SelectedIndex], typeof(Character), true, true, true);
         }
 
+        private void butExportGeomData_Click(object sender, EventArgs e) {
 
+        }
     }
 }

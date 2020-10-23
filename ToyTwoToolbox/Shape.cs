@@ -16,7 +16,7 @@ namespace ToyTwoToolbox {
         public List<Vector3> rawVertices;
         public List<Vector3> rawVertexData;
         public List<Color> rawVertexShading;
-        public List<Vector2> rawVertexTextureCoords;
+        public List<Vector3> rawVertexTextureCoords;
         public List<IPrimitive> rawPrimitives;
 
         public Shape() {
@@ -29,7 +29,7 @@ namespace ToyTwoToolbox {
             rawVertices = new List<Vector3>();
             rawVertexData = new List<Vector3>();
             rawVertexShading = new List<Color>();
-            rawVertexTextureCoords = new List<Vector2>();
+            rawVertexTextureCoords = new List<Vector3>();
             rawPrimitives = new List<IPrimitive>(); //sep is done down the pipeline
         }
 

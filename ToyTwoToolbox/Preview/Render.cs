@@ -170,7 +170,7 @@ namespace ToyTwoToolbox {
             _lightingShader.SetVector3("light.diffuse", new OpenTK.Vector3(0.5f));
             _lightingShader.SetVector3("light.specular", new OpenTK.Vector3(1.0f));
 
-            GL.DrawArrays(PrimitiveType.Quads, 0, 36);
+            GL.DrawArrays(PrimitiveType.Quads, 0, 36); //draw diffuse data
 
             GL.BindVertexArray(_vaoModel);
 
@@ -184,7 +184,7 @@ namespace ToyTwoToolbox {
             _lampShader.SetMatrix4("view", _camera.GetViewMatrix());
             _lampShader.SetMatrix4("projection", _camera.GetProjectionMatrix());
 
-            GL.DrawArrays(PrimitiveType.Quads, 0, 36);
+            //GL.DrawArrays(PrimitiveType.Quads, 0, 36); //Draw lighting data
 
             SwapBuffers();
 

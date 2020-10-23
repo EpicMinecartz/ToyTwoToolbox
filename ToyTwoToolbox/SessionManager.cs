@@ -20,6 +20,7 @@ namespace ToyTwoToolbox {
 			SetWindowTheme(this.Handle, "", "");
 			base.OnHandleCreated(e);
 		}
+
 		public SessionManager() {
 			ProcessArgs();
 			InitializeComponent();
@@ -38,33 +39,31 @@ namespace ToyTwoToolbox {
 			DarkThemeRowDGV.BackColor = Color.FromArgb(10, 10, 10);
 			DarkThemeRowDGV.ForeColor = Color.FromArgb(240, 240, 240);
 			DarkThemeRowDGV.SelectionBackColor = Color.FromArgb(50, 50, 50);
-			
 		}
 
 		public static DataGridViewCellStyle DarkThemeCellDGV = new DataGridViewCellStyle();
 		public static DataGridViewCellStyle DarkThemeColumnDGV = new DataGridViewCellStyle();
 		public static DataGridViewCellStyle DarkThemeRowDGV = new DataGridViewCellStyle();
 
-
 		public enum RType {
+			SM = -1,
 			DEBUG = 0,
-			INFO = 1,
-			WARN = 2,
-			ERROR = 3
+			TEXT = 1,
+			INFO = 2,
+			WARN = 3,
+			ERROR = 4
 		}
 
 		static List<Color> RTC = new List<Color> { 
-			Color.FromArgb(164, 164, 164), //RTC_DEBUG
-			Color.FromArgb(0, 255, 255),   //RTC_INFO 
-			Color.FromArgb(240, 240, 0),   //RTC_WARN 
-			Color.FromArgb(240, 0, 0), 	   //RTC_ERROR
-			Color.FromArgb(240, 240, 240) //RTC_TEXT
+			Color.FromArgb(164, 164, 164), //RTC_DEBUG 0
+			Color.FromArgb(240, 240, 240), //RTC_TEXT  1
+			Color.FromArgb(0, 255, 255),   //RTC_INFO  2
+			Color.FromArgb(240, 240, 0),   //RTC_WARN  3
+			Color.FromArgb(240, 0, 0), 	   //RTC_ERROR 4
 		};
 
-		//public static void ReportException(object sender, ThreadExceptionEventArgs e) { ReportException(sender, e.Exception); }
-		//public static void ReportException(object sender, UnhandledExceptionEventArgs e) { e.ExitAplication = false; ReportException(sender, e.); }
+		///TODO: Change the invoke params to support normal Exception
 		public static void ReportException(object sender, ThreadExceptionEventArgs e) {
-			
 			//mission critical exception, show console to user for reporting
 			SessionManager.SMptr.Opacity = 100;
 			SessionManager.SMptr.Show();
@@ -76,29 +75,33 @@ namespace ToyTwoToolbox {
 			EDict.Add(ecn);
 			ReportEx("APPLICATION CRITICAL EXCEPTION DIFFUSED", RType.ERROR, Color.Red, false, false, false, true);
 			ReportEx("EX-> " + e.Exception.Message, RType.ERROR, RTC[3], false, false, false, true);
-			//ReportEx(":~" + "[..." + new StackFrame(3).GetMethod().Name + " > " + new StackFrame(2).GetMethod().Name + " > " + new StackFrame(1).GetMethod().Name + "]", RType.ERROR, RTC[2], false, false, false, true);
 			ReportEx(e.Exception.StackTrace, RType.ERROR, RTC[3], false, false, false, true);
 			SessionManager.SMptr.ErrorDisplay.Text = EDict.Count + " Errors";
-			//ReportEx();
 		}
 
-		public static void Report(string InboundText, RType ReportType = (RType)1, Color color = new Color()) {
-			if (SessionManager.SMptr.InvokeRequired) {
-				SessionManager.SMptr.Invoke((MethodInvoker)delegate {
-					ReportEx(InboundText, ReportType, color);
-				});
-				return;
-			}
+		/// <summary>Write text to the <seealso cref="SessionManager"/> console</summary>
+		/// <param name="InboundText">The text to be written</param>
+		/// <param name="ReportType">How to mark the text displayed using <seealso cref="RType"/></param>
+		/// <param name="color">The color of the text to be displayed</param>
+		/// <param name="imp">Display regardless of report type or debug status</param>
+		public static void Report(string InboundText, RType ReportType = (RType)2, Color color = new Color(), bool imp = false) {
+			//if (SessionManager.SMptr.InvokeRequired) {
+			//	SessionManager.SMptr.Invoke((MethodInvoker)delegate {
+			//		ReportEx(InboundText, ReportType, color);
+			//	});
+			//	return;
+			//}
 
 			if (Debug || ReportType == RType.ERROR) {
 				ReportEx(InboundText, ReportType, color);
-				Console.WriteLine(InboundText);
 			}
 		}
 
-		public static void ReportEx(string InboundText, RType ReportType = (RType)1, Color BaseColor = new Color(), bool Time = true, bool Tag = true, bool Append = false, bool IgnoreError = false) {
+		public static void ReportEx(string InboundText, RType ReportType = (RType)2, Color BaseColor = new Color(), bool Time = true, bool Tag = true, bool Append = false, bool IgnoreError = false) {
+			//initialize
 			RichTextBox stdout = SessionManager.SMptr.Log;
 			DateTime reporttime = DateTime.Now;
+
 			if (ReportType == RType.ERROR && IgnoreError == false) {
 				EC ecn = new EC {
 					EDesc = InboundText,
@@ -115,40 +118,24 @@ namespace ToyTwoToolbox {
 
 			//PRINT TIME
 			if (Time) { 
-				stdout.SelectionColor = RTC[4];
+				stdout.SelectionColor = RTC[1];
 				stdout.AppendText("[" + reporttime.ToString("H:mm:ss") + "] "); 
 			}
 
             //PRINT REPORT TYPE
 			if (Tag) {
-				stdout.SelectionColor = RTC[(int)ReportType];
+				stdout.SelectionColor = RTC[Math.Abs((int)ReportType)];
 				stdout.AppendText("[" + ReportType.ToString() + "] ");
             }
 
-
-			stdout.SelectionColor = (BaseColor.IsEmpty) ? RTC[4] : BaseColor;
+			stdout.SelectionColor = (BaseColor.IsEmpty) ? RTC[1] : BaseColor;
 			stdout.AppendText(InboundText);
 			stdout.ScrollToCaret();
 			stdout.ResumeLayout();
-        }
-
-		public void AppendText(string text, Color color, bool addNewLine = false) {
-
+			Console.WriteLine(InboundText);
 		}
 
 		//Any Variables here are accessable via other forms
-
-		//<Runtime.InteropServices.DllImport("kernel32.dll")>
-		//Shared Function AllocConsole() As <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.Bool)> Boolean
-		//End Function
-
-		//Shared Function CheckRemoteDebuggerPresent(hProcess As Runtime.InteropServices.SafeHandle, <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.Bool)> ByRef isDebuggerPresent As Boolean) As <Runtime.InteropServices.MarshalAs(Runtime.InteropServices.UnmanagedType.Bool)> Boolean
-		//<Runtime.InteropServices.DllImport("Kernel32.dll", SetLastError:=True, ExactSpelling:=True)>
-		//Shared Function CheckRemoteDebuggerPresent(ByVal hProcess As Long, ByVal isDebuggerPresent As Boolean) As Boolean
-		//End Function
-
-
-
 		public List<string> BT = new List<string>() { "a", "b", "rc" };
 		public Version ver2 = typeof(SessionManager).Assembly.GetName().Version;
 		public bool RequestingShutdown = false;
@@ -165,7 +152,7 @@ namespace ToyTwoToolbox {
 		public static bool Debug = false;
 		public static bool PrintMessages = false;
 		public static List<EC> EDict = new List<EC>();
-		//we have a list of variables that we create once, only if required to save on memory and performance overhead
+		//we have a list of variables that we create once, only if required, to save on memory and performance overhead
 		public static ImageList MovieImageList; //SMptr.GetMovieList
 		public static string str_ImageFormatsStandard = "Bitmap Files (*.bmp)|*.bmp|Portable Network Graphic Files (*.png)|*.png|Joint Photographic Experts Group Files (*.jpg)|*.jpg|Graphics Interchange Format Files (*.gif)|*.gif|All Files (*.*)|*.*";
 		//public List<float> Sine = WARP3D.NU3D.GenerateSine();
@@ -180,16 +167,14 @@ namespace ToyTwoToolbox {
 			//AllocConsole()
 			this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
-
 			ProcessArgs();
 			UseDebug.Checked = Debug;
 			ver = ver2.ToString().Remove(ver2.ToString().Length - 2, 2) + BT[ver2.Revision];
 
 			PrintMessages = Debug; //Debug
-			if (ver2.Revision != 0) { this.Close(); }
-			SM("Log started at " + DateTime.Now.ToString("H:mm:ss"));
-			SM("Debug message printing " + PrintMessages.ToString().ToLower());
-			SM("WARNING! CPU overhead will be increased by debug printing");
+			ReportEx("Log started at " + DateTime.Now.ToString("H:mm:ss"), RType.SM);
+			ReportEx("Debug message printing " + PrintMessages.ToString().ToLower(), RType.SM);
+			ReportEx("WARNING! CPU overhead will be increased by debug printing", RType.SM);
 
 			CreateNewSession(MainArg);
 			MainSession = SessionPool[0];
@@ -198,72 +183,20 @@ namespace ToyTwoToolbox {
 
 		private void ProcessArgs() {
 			string[] ApplicationArgs = Environment.GetCommandLineArgs();
-			if (Environment.GetCommandLineArgs().Length > 1) {
-				if (Environment.GetCommandLineArgs()[1] == "-debug") {
+			if (ApplicationArgs.Length > 1) {
+				if (ApplicationArgs[1] == "-debug") {
 					Debug = true;
-					if (Environment.GetCommandLineArgs().Length > 2) {
-						MainArg = Environment.GetCommandLineArgs()[2];
+					if (ApplicationArgs.Length > 2) {
+						MainArg = ApplicationArgs[2];
 					}
 				} else {
-					MainArg = Environment.GetCommandLineArgs()[1];
+					MainArg = ApplicationArgs[1];
 				}
 			}
 			if (Debugger.IsAttached == true || DebugA == true) {
 				Debug = true;
 			}
 		}
-
-		public string WL(string TX, string Pre = "", Color color = new Color(), bool NOTD = false, bool nl = true, short Override = 0) {
-			if (((new System.Diagnostics.StackFrame(1)).GetMethod().Name == "SM") || Override != 0 || color == Color.Red || (Debug == true && PrintMessages == true)) {
-				if (color == new Color()) {
-					color = Color.FromArgb(255, 255, 255, 255);
-				}
-				TX = string.IsNullOrEmpty(Pre) ? TX : Pre + " " + TX;
-				if (color == Color.Red) {
-					//ecn.ETime = TimeOfDay.ToString("H:mm:ss")
-					EC ecn = new EC {
-						EDesc = TX,
-						ETime = DateTime.Now,
-						EType = "Fatal"
-					};
-					EDict.Add(ecn);
-					ErrorDisplay.Text = EDict.Count + " Errors";
-				}
-				if (NOTD == false) {
-					TX = "[" + DateTime.Now.ToString("H:mm:ss") + "] " + TX;
-				}
-
-				if (nl) {
-					Log.AppendText(Environment.NewLine + TX);
-					Console.WriteLine(TX);
-				} else {
-					Log.AppendText(TX);
-					Console.Write(TX); //Trace.Write
-									   //Trace.Write(TX)
-				}
-				//Log.Select(Log.TextLength, Log.TextLength - Log.TextLength)
-				Log.Select(Log.TextLength - TX.Length, TX.Length);
-				Log.SelectionColor = color;
-				Log.SelectionLength = 0;
-				return TX;
-			} else {
-				return null;
-			}
-		}
-
-		public string SM(string TX, string Pre = "", Color color = new Color(), bool NOTD = true, bool nl = true, bool NoInstName = false) {
-			return WL(TX, ((NoInstName == false) ? "SM >" : "") + (string.IsNullOrEmpty(Pre) ? Pre : " " + Pre), color, NOTD, nl);
-		}
-
-
-
-		//Private Sub Form1_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
-		//    T2Bar1.IsFormActive = True
-		//End Sub
-
-		//Private Sub Form1_Deactivate(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Deactivate
-		//    T2Bar1.IsFormActive = False
-		//End Sub
 
 		private void SessionManager_Closing(object sender, FormClosingEventArgs e) {
 			Process.GetCurrentProcess().Kill();
@@ -292,10 +225,10 @@ namespace ToyTwoToolbox {
 		private void CheckExecution() {
 			//checking to see if sessionstore is corrupted
 			if (MainSession.IsDisposed == true || MainSession == null) {
-				SM("SM:POOL > Main Session not found!", "[WARN]", Color.FromArgb(255, 165, 0));
+				ReportEx("SM:POOL > Main Session not found!", RType.ERROR, IgnoreError:true);
 				if (SessionPool.Count < 1) {
-					SM("SM:POOL > Session pool is empty!", "[FATAL]", Color.FromArgb(255, 0, 0));
-					SM("SM:POOL > Unable to migrate session host!", "[FATAL]", Color.FromArgb(255, 0, 0));
+					ReportEx("SM:POOL > Session pool is empty!", RType.ERROR, IgnoreError: true);
+					ReportEx("SM:POOL > Unable to migrate session host!", RType.ERROR);
 				} else {
 					Main CMain = (Main)SessionPool[SessionPool.Count - 1];
 					if (!(CMain.LSID == SessionPool.Count - 1)) {
@@ -344,7 +277,7 @@ namespace ToyTwoToolbox {
 		}
 
 		public bool ReRegisterSessions() {
-			SM("SM:POOL > Reconfiguring session state...", "");
+			ReportEx("SM:POOL > Reconfiguring session state...", RType.SM);
 			for (var i = 0;i < SessionPool.Count;i++) {
 				Main Session = (Main)SessionPool[i];
 				Session.wlid = GenerateWLID(i);
@@ -355,9 +288,9 @@ namespace ToyTwoToolbox {
 		}
 
 		private bool MigrateHost() {
-			SM("SM:POOL > Migrating session host...", "");
+			ReportEx("SM:POOL > Migrating session host...",RType.SM);
 			MainSession = SessionPool[0];
-			SM("SM:POOL > Session retarget complete!", "");
+			ReportEx("SM:POOL > Session retarget complete!", RType.SM);
 			return true;
 		}
 
@@ -463,12 +396,10 @@ namespace ToyTwoToolbox {
 			GCC();
 			//Dim MemDif As Int64 = OldMem - System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64
 			//SM(System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64, "")
-			SM("Garbage cleared up: " + Math.Round((OldMem - System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64) / Math.Pow(1024, 2), 2) + "MB", "");
+			ReportEx("Garbage cleared up: " + Math.Round((OldMem - System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64) / Math.Pow(1024, 2), 2) + "MB", RType.SM);
 		}
 
-		/// <summary>
-		/// Forces a full garbace collection
-		/// </summary>
+		/// <summary>Forces a full garbace collection</summary>
 		public static void GCC() {
 			GC.Collect();
 			GC.WaitForPendingFinalizers();
@@ -552,12 +483,9 @@ namespace ToyTwoToolbox {
 					new StackFrame(1).GetMethod().Name +"]" + ((Correct == true && ContractSize - validationSize > 0) ? " - Correcting by " + (ContractSize-validationSize) + "..." : ""),RType.DEBUG);
 				if (Correct == true && ContractSize - validationSize > 0) {
 					return ContractSize - validationSize;
-                } else {
-					return 0;
                 }
-			} else {
-				return 0;
-            }
+			}
+			return 0; //bad
         }
 		
 

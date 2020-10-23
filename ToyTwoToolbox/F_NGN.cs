@@ -370,7 +370,7 @@ namespace ToyTwoToolbox {
                     }
                     if ((V17 & 8) != 0) { fr._seek(4, ref ptr); } //oh no
                     if ((V17 & 240) != 0) {
-                        shape.rawVertexTextureCoords.Add(new Vector2(fr._readflt(ref ptr, 4), 1.0f - fr._readflt(ref ptr, 4)));
+                        shape.rawVertexTextureCoords.Add(new Vector3(fr._readflt(ref ptr, 4), 1.0f - fr._readflt(ref ptr, 4),0.0f));
                     }
                 }
                 shape.datalength = VertexDataLength;
@@ -993,19 +993,24 @@ namespace ToyTwoToolbox {
         }
 
         public void ExtractModel(object objdata, Type type, bool VertexColor, bool CopyMaps, bool GenerateApha) {
+            SessionManager.Report("Begining object extraction");
             string name = (type == typeof(Character)) ? ((Character)objdata).name : ((Geometry)objdata).name;
-            List<Shape> shapes = (type == typeof(Character)) ? ((Character)objdata).model.shapes : ((Geometry)objdata).shapes;
+            SessionManager.Report("Target: " + name);
+            List <Shape> shapes = (type == typeof(Character)) ? ((Character)objdata).model.shapes : ((Geometry)objdata).shapes;
             List<MtlM> materials = new List<MtlM>();
             FolderSelectDialog fsd = new FolderSelectDialog();
             if (fsd.ShowDialog() == true) {
+                SessionManager.Report("Export location: " + fsd.FileName);
                 OBJWriter obj = new OBJWriter();
                 StringBuilder mtlsb = new StringBuilder();
                 obj.append("# OBJ Export - Toy Two Toolbox\n");
                 obj.append("# File created " + DateTime.Now + "\n");
                 obj.append("\nmtllib " + name + ".mtl\n");
                 int i = 0;
+                SessionManager.Report("Detected " + shapes.Count + " shapes");
                 foreach (Shape shape in shapes) {
                     int j = 0;
+                    SessionManager.Report("Shape " + j + " - Detected " + shape.rawPrimitives.Count + " primitives");
                     foreach (IPrimitive prim in shape.rawPrimitives) {
                         int primtype = (prim.type == 1) ? 3 : prim.type;
                         string objname = $"{name}_{((shape.name == "") ? "shape" + i.ToString().PadLeft(2, '0') : shape.name)}_face{j.ToString().PadLeft(2, '0')}";
@@ -1031,6 +1036,7 @@ namespace ToyTwoToolbox {
                             }
                         }
                         if (mtla) {
+                            SessionManager.Report("Adding material...");
                             materials.Add(new MtlM {
                                 name = mn,
                                 mrgb = shape.materials[prim.materialID].RGB,
@@ -1051,6 +1057,7 @@ namespace ToyTwoToolbox {
                     }
                     i++;
                 }
+                SessionManager.Report("Compiling Material Component...");
                 foreach (MtlM mtl in materials) {
                     mtlsb.Append("newmtl " + mtl.name + "\nillum2\n");
                     mtlsb.Append("Kd " + mtl.mrgb[0] + " " + mtl.mrgb[1] + " " + mtl.mrgb[2] + " \n");
@@ -1058,6 +1065,7 @@ namespace ToyTwoToolbox {
                 }
                 File.WriteAllText(fsd.FileName + "\\" + name + ".obj", obj.fstream.ToString());
                 File.WriteAllText(fsd.FileName + "\\" + name + ".mtl", mtlsb.ToString());
+                SessionManager.Report("Successfully written OBJ and MTL files!", SessionManager.RType.TEXT, Color.Green);
             }
         }
 
