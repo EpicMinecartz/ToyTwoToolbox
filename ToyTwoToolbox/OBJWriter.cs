@@ -19,5 +19,9 @@ namespace ToyTwoToolbox {
         public void title(string str) {
             fstream.Append("#\n# " + str + "\n#\n\n");
         }
+
+        public void face(int faceID) {
+            fstream.Append(faceID + "/" + faceID + " ");
+        }
     }
 }

@@ -14,7 +14,7 @@ DONE?add writevector to fw
 ngn:
 DONE patch data needs properly exporting
 DONE check if the GS is linked to just hires or hires+lod
-node name editing
+DONE node name editing
 texture previews are normal size when replaced or pasted into the listviewTextures
 DONE?shape linkid is strange
 DONE geom DS still needs displaying
@@ -23,8 +23,7 @@ DONE writing NGN files needs implementing
 char/shape/geom importing needs finalizing and implementing
 move up/down on several lists needs implementing
 unimplement gscale function definition
-be able to export all textures
-fix inverted uv coordinate
-reimplement 4d matrix transform for geometry
-reimplement idswap fix for patches
-
+DONE?be able to export all textures
+DONE fix inverted uv coordinate
+DONE reimplement 4d matrix transform for geometry
+DONE reimplement idswap fix for patches

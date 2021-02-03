@@ -7,6 +7,7 @@ namespace ToyTwoToolbox {
     public class MtlM {
         public string name = "";
         public List<double> mrgb = new List<double>();
+        public decimal opacity = 1;
         public string texcname = "";
         public string texaname = "";
 

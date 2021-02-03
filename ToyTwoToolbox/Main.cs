@@ -1,20 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
 
     public partial class Main : Form {
-        /// <summary>
-        /// This tag specifies that the function requires extra support to prevent damage
-        /// </summary>
+        /// <summary>This tag specifies that the function requires extra support to prevent damage/incorrect usage</summary>
         public class Unsafe : Attribute { }
         public bool PrintMessages = false;
         public int LSID;
         public string wlid;
         public bool UnsavedWork;
         public bool SMSC = false;
-        public TabController TabControl;
+        public TabController TabControl; //all the fun stuff in here
         public MessageFade MessageFader;
 
         public Main() {
@@ -27,6 +26,7 @@ namespace ToyTwoToolbox {
             tabControl1.TabRequestDestroy += new TabRequestDestroyEventHandler(TabControl.TabRequestDestroy);
             this.firstOpenPanel1.OpenFile += new EventHandler(FOPM);
             this.firstOpenPanel1.CreateFile += new EventHandler(FOPM);
+            this.toolStripComboBoxMatSel.SelectedIndex = 0;
 
             XF.CenterObject(firstOpenPanel1);
             MessageFader = new MessageFade(this);
@@ -128,8 +128,7 @@ namespace ToyTwoToolbox {
             if (path != "") {
                 firstOpenPanel1.Visible = false;
                 tabControl1.Visible = true;
-                F_Base file = FileProcessor.ProcessFile(path);
-                TabControl.CreateTab(file);
+                TabControl.CreateTab(FileProcessor.ProcessFile(path));
             }
 
         }
@@ -149,7 +148,8 @@ namespace ToyTwoToolbox {
         }
 
         private void NewtoolStripSplitButton_ButtonClick(object sender, EventArgs e) {
-            CreateNewFile c = new CreateNewFile();
+            CreateNewFile c = new CreateNewFile(this);
+            c.StartPosition = FormStartPosition.CenterScreen;
             c.ShowDialog();
         }
 
@@ -213,11 +213,8 @@ namespace ToyTwoToolbox {
             F_NGN validater = (F_NGN)FileProcessor.ProcessFile(TabControl.Tabs[tabControl1.SelectedIndex].File.FilePath);
             SessionManager.Report("Validating save file...", SessionManager.RType.DEBUG);
             for (int i = 0;i < loadedNGN.Schema.NGNFunctions.Count;i++) {
-                if (loadedNGN.Schema.NGNFunctions[i].FunctionOffset == validater.Schema.NGNFunctions[i].FunctionOffset) {
-                    SessionManager.Report(Enum.GetName(typeof(F_NGN.NGNFunction), loadedNGN.Schema.NGNFunctions[i].FunctionType) + " successfully validated", SessionManager.RType.DEBUG, Color.DarkGreen);
-                } else {
-                    SessionManager.Report(Enum.GetName(typeof(F_NGN.NGNFunction), loadedNGN.Schema.NGNFunctions[i].FunctionType) + " did not validate succesfully", SessionManager.RType.WARN);
-                }
+                bool val = loadedNGN.Schema.NGNFunctions[i].FunctionOffset == validater.Schema.NGNFunctions[i].FunctionOffset;
+                SessionManager.Report(Enum.GetName(typeof(F_NGN.NGNFunction), loadedNGN.Schema.NGNFunctions[i].FunctionType) + ((val) ? " successfully validated" : " did not validate succesfully"), ((val) ? SessionManager.RType.DEBUG : SessionManager.RType.WARN));//, Color.DarkGreen);
             }
         }
 
@@ -238,6 +235,72 @@ namespace ToyTwoToolbox {
             F_Base file = FileProcessor.ProcessFile(TabControl.Tabs[tabControl1.SelectedIndex].File.FilePath);
             TabControl.ReloadTab(file);
             SessionManager.GCC();
+        }
+
+
+
+        private void openToolStripMenuItem1_Click(object sender, EventArgs e) {
+            if (Globals.MultiMaterialTab != null) {
+                //in this case we assume the tab for this editor is already open, so we can try to duplicate it
+                Globals.MultiMaterialTab.Clone();
+            }
+            Globals.MultiMaterialTab = TabControl.CreateTab(overriedEditor: FileProcessor.EditorTypes.MultiMatEditor);
+        }
+
+        private void allOpenedLevelsToolStripMenuItem_Click(object sender, EventArgs e) {
+            Globals.gMMaterials.AddRange(F_NGN.GetMaterialsFromLevels(TabControl.GetAllLevels(), toolStripComboBoxMatSel.SelectedIndex));
+        }
+
+        private void tabControl1_SelectedIndexChanged_1(object sender, EventArgs e) {
+
+        }
+
+        private void multiMaterialEditorToolStripMenuItem_Click(object sender, EventArgs e) {
+
+        }
+
+        private void allShapesInSelectedLevelToolStripMenuItem_Click(object sender, EventArgs e) {
+            List<F_NGN> lev = new List<F_NGN>();
+            lev.Add(TabControl.GetLevel(tabControl1.SelectedIndex));
+            Globals.gMMaterials.AddRange(F_NGN.GetMaterialsFromLevels(lev, toolStripComboBoxMatSel.SelectedIndex));
+        }
+
+        private void fromSelectedShapeInSelectedLevelToolStripMenuItem_Click(object sender, EventArgs e) {
+            //agh this is gonna be rough, we need a handle to the editor in the selected tab, to access to both the char and geom selectors
+            //unlike in the other func, we cannot use GetMaterialsFromLevels, as this is too specific :(
+            //get ready...
+            T2Control_NGNEditor editor = ((T2Control_NGNEditor)TabControl.Tabs[tabControl1.SelectedIndex].editor.main);
+            F_NGN file = (F_NGN)TabControl.Tabs[tabControl1.SelectedIndex].File;
+            if (toolStripComboBoxMatSel.SelectedIndex == 0 || toolStripComboBoxMatSel.SelectedIndex == 1) {
+                for (int i = 0;i < editor.listCharShapes.SelectedItems.Count;i++) {
+                    Globals.gMMaterials.AddRange(file.characters[editor.comboCharacters.SelectedIndex].shapes[editor.listCharShapes.SelectedIndices[i]].materials);
+                }
+            }
+            if (toolStripComboBoxMatSel.SelectedIndex == 0 || toolStripComboBoxMatSel.SelectedIndex == 2) {
+                for (int i = 0;i < editor.listGeomShapes.SelectedItems.Count;i++) {
+                    Globals.gMMaterials.AddRange(file.Geometries[editor.comboGeometry.SelectedIndex].shapes[editor.listGeomShapes.SelectedIndices[i]].materials);
+                }
+            }
+        }
+
+        private void openNewToolboxWindowToolStripMenuItem_Click(object sender, EventArgs e) {
+            SessionManager.SMptr.RequestNewSession();
+        } 
+
+        public void RegisterMultiMaterial(Material mat) {
+            Globals.gMMaterials.Add(mat);
+        }
+        
+        /// <summary>This class holds any file data that needs to persist across tabs</summary>
+        public sealed class Globals {
+            /// <summary>Used for the Multi-Material Editor</summary>
+            public static List<Material> gMMaterials = new List<Material>();
+            public static TabController.TCTab MultiMaterialTab = null;
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show("ToyTwoToolbox " + SessionManager.ver, "Hello :)", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

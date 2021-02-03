@@ -31,7 +31,7 @@ namespace ToyTwoToolbox {
 
 			protected override void ParseLine(string keyword, string data) {
 				foreach (var typeParser in _typeParsers) {
-					if (typeParser.CanParse(keyword)) {
+					if (typeParser.CanParse(keyword) && keyword != "mtllib") { //remove the  && keyword != "mtllib" at a later date, somethings rip and i cant be arsed rn
 						typeParser.Parse(data);
 						return;
 					}

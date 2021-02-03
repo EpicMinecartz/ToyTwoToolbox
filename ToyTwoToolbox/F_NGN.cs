@@ -1,11 +1,11 @@
-﻿using FolderDialog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
     /// <summary>
@@ -57,7 +57,8 @@ namespace ToyTwoToolbox {
         }
 
         public F_NGN ImportViaSchema(NGNSchema NSchema, string path, F_NGN File = null) {
-            File = (File == null) ? this : File;
+            SessionManager.Report("Importing NGN Data via ARSON Schema...");
+            File = File ?? this;
             fr = new FileReader(path, true);
             List<Task> Threads = new List<Task>();
 
@@ -129,7 +130,7 @@ namespace ToyTwoToolbox {
             //Task.WaitAll(Threads.ToArray());
 
 
-            Console.WriteLine(File.FileType);
+            //Console.WriteLine(File.FileType);
 
 
 
@@ -139,11 +140,12 @@ namespace ToyTwoToolbox {
             //Task.WaitAll(task1, task2, task3);
             //Console.WriteLine("All threads complete");
 
-
+            SessionManager.Report("Completed NGN Import!");
             return File;
         }
 
         public void Extract_Textures(int PTR, int offset) {
+            SessionManager.Report("Extracting NGN Textures...");
             int seekPTR = PTR;
             int textureCount = fr._readint(ref seekPTR, 4);
             for (int i = 0;i < textureCount;i++) {
@@ -159,6 +161,7 @@ namespace ToyTwoToolbox {
         }
 
         public void Extract_Characters(int PTR) {
+            SessionManager.Report("Extracting NGN Characters...");
             int seekPTR = PTR;
             List<SlotConfig> CharacterSlots = new List<SlotConfig>();
             List<int> _SlotValidity = new List<int>();
@@ -179,8 +182,11 @@ namespace ToyTwoToolbox {
             }
             if (CharacterSlots.Count > 0) { //at least one valid character
                 for (int i = 0;i < CharacterSlots.Count;i++) {
-                    Character chr = new Character();
-                    chr.name = CharacterSlots[i].Name;
+                    Character chr = new Character {
+                        owner = this,
+                        name = CharacterSlots[i].Name
+                    };
+                    SessionManager.Report("Character found: " + chr.name + " - extracting data...");
                     Extract_CharacterData(chr, ref seekPTR);
                     this.characters.Add(chr);
                 }
@@ -228,7 +234,7 @@ namespace ToyTwoToolbox {
                     //SessionManager.Report("bypassed empty data", SessionManager.RType.INFO);
                     continue;
                 } else if (FID == 515) {//shape data
-                    //SessionManager.Report("begun shape data routine", SessionManager.RType.INFO);
+                    SessionManager.Report("Decompressing shape data...");
                     for (int i = 0;i < chr.nodeCount;i++) {
                         int ShapeID = fr._readint(ref seekPTR, 2);
                         if ((ShapeID & 1) == 1) {
@@ -236,11 +242,11 @@ namespace ToyTwoToolbox {
                             shape.type = ShapeID;
                             shape.type2 = fr._readint(ref seekPTR, 2);
                             Extract_ShapeData(shape, ref seekPTR);
-                            chr.model.shapes.Add(shape);
+                            chr.RegisterShape(shape);
                         } else { //the shape has an invalid header, this means its likely a nullnode, id like to just skip it but im not sure if i should
                             int Type2ID = fr._readint(ref seekPTR, 2);
                             if (Type2ID == 65535) {//shape is indeed a nullnode, add it anyway
-                                chr.model.shapes.Add(new Shape { type = ShapeID, type2 = Type2ID });
+                                chr.RegisterShape(new Shape { type = ShapeID, type2 = Type2ID });
                             } else {
                                 SessionManager.Report("The shape ID was invalid or null and was skipped <frs=" + seekPTR + "> [->F_NGN->ARSON->Extract_CharacterData]", SessionManager.RType.ERROR);
                             }
@@ -262,7 +268,7 @@ namespace ToyTwoToolbox {
                     Extract_Shape_Vertices(ref seekPTR, PatchShape);
                 } else if (FID == 520) {
                     Extract_Shape_Patch(ref seekPTR, PatchShape);
-                    chr.model.shapes.Add(PatchShape);
+                    chr.RegisterShape(PatchShape);
                 }
             }
 
@@ -298,13 +304,16 @@ namespace ToyTwoToolbox {
         }
 
         public void Extract_Shape_Textures(ref int ptr, Shape shape) {
+            SessionManager.Report("Extracting shape textures...", SessionManager.RType.DEBUG);
             int texture_NametableCount = fr._readint(ref ptr, 2);
             int texture_Count = fr._readint(ref ptr, 2);
             int texture_Unknown = fr._readint(ref ptr, 1);
             int texture_NametableLength = fr._readint(ref ptr, 1);
             for (int i = 0;i < texture_Count;i++) {
                 int texture_DataLength = fr._readint(ref ptr, 1);
-                shape.textures.Add(string.Concat(fr._readstring(ref ptr, texture_DataLength).Split(Path.GetInvalidFileNameChars())));
+                string texturename = string.Concat(fr._readstring(ref ptr, texture_DataLength).Split(Path.GetInvalidFileNameChars()));
+                shape.textures.Add(texturename);
+                shape.texturesGlobal.Add(TexNameToGlobalID(texturename));
             }
             for (int i = 0;i < texture_NametableCount;i++) {//ignore data
                 fr._seek(26, ref ptr);
@@ -312,6 +321,7 @@ namespace ToyTwoToolbox {
         }
 
         public void Extract_Shape_Materials(ref int ptr, Shape shape, int ContractLength = -1) {
+            SessionManager.Report("Extracting shape materials...", SessionManager.RType.DEBUG);
             int InternalContractPTR = ptr;
             int material_Count = fr._readint(ref ptr, 4);
             if (material_Count < 1) { return; }
@@ -328,24 +338,25 @@ namespace ToyTwoToolbox {
                     }
                     j += j;
                 }
-                if ((material.id & 64) != 0) { material.data = fr._readint(ref ptr, 4); }
+                if ((material.id & 64) != 0) { material.metadata = fr._readint(ref ptr, 4); }
                 if (((material.id >> 7) & 15) > 0) {
                     material.textureIndex = fr._readint(ref ptr, 2);
+                    material.textureIndexRelative = (material.textureIndex == 65535) ? 65535 : shape.texturesGlobal[material.textureIndex];
                 }
                 material.RGB = RGB;
                 //Contract checks
                 if (materialLength > 5 && (material.id & 64) == 0) {
                     SessionManager.Report("Invalid material properties for shape @" + (ptr - materialLength), SessionManager.RType.WARN);
                 }
-                shape.materials.Add(material);
+                shape.AddMaterial(material);
             }
             ptr += SessionManager.ValidateContract(ptr - InternalContractPTR, ContractLength);
         }
 
         public void Extract_Shape_Vertices(ref int ptr, Shape shape) {
-            //SessionManager.Report("collecting vertices", SessionManager.RType.INFO);
+            SessionManager.Report("Extracting shape AV3D...", SessionManager.RType.DEBUG);
             int V17 = fr._readint(ref ptr, 4);
-            int VertexDataLength = fr._readint(ref ptr, 4);
+            int VertexDataLength = fr._readint(ref ptr, 4); //36?
             int vertex_Count = fr._readint(ref ptr, 4);
             int VertexSize = 0;
             if ((V17 & 1) == 1) { VertexSize = VertexDataLength - 12; }
@@ -370,7 +381,7 @@ namespace ToyTwoToolbox {
                     }
                     if ((V17 & 8) != 0) { fr._seek(4, ref ptr); } //oh no
                     if ((V17 & 240) != 0) {
-                        shape.rawVertexTextureCoords.Add(new Vector3(fr._readflt(ref ptr, 4), 1.0f - fr._readflt(ref ptr, 4),0.0f));
+                        shape.rawVertexTextureCoords.Add(new Vector3(fr._readflt(ref ptr, 4), 1.0f - fr._readflt(ref ptr, 4), 0.0f));
                     }
                 }
                 shape.datalength = VertexDataLength;
@@ -386,6 +397,7 @@ namespace ToyTwoToolbox {
         /// <param name="ptr"></param>
         /// <param name="shape"></param>
         public void Extract_Shape_Primitives(ref int ptr, Shape shape) {
+            SessionManager.Report("Extracting shape primitives...", SessionManager.RType.DEBUG);
             int PrimitiveCount = fr._readint(ref ptr, 4); //the number of prims for this shape
             for (int i = 0;i < PrimitiveCount;i++) {
                 Prim prim = new Prim {
@@ -402,6 +414,7 @@ namespace ToyTwoToolbox {
 
 
         public void Extract_Animations(Character chr, ref int ptr, int Contract_Length) {
+            SessionManager.Report("Extracting character animations...");
             Animation anim = new Animation();
             anim.foverride = fr._readbytes(ref ptr, Contract_Length);
 
@@ -521,6 +534,7 @@ namespace ToyTwoToolbox {
         }
 
         public void Extract_Shape_Patch(ref int ptr, Shape shape) {
+            SessionManager.Report("Extracting shape patch...");
             int patchCount = fr._readint(ref ptr, 4);
             //begin patch loop
             int shapeVertexOffset = 0;
@@ -568,18 +582,21 @@ namespace ToyTwoToolbox {
 
         public Geometry Extract_Geometry(int ptr) {
             int shapeCount = fr._readint(ref ptr, 4);
-            Geometry geom = new Geometry();
+            Geometry geom = new Geometry {
+                owner = this
+            };
             for (int i = 0;i < shapeCount;i++) {
                 Shape shape = new Shape {
                     type = 257
                 };
                 Extract_ShapeData(shape, ref ptr);
-                geom.shapes.Add(shape);
+                geom.RegisterShape(shape);
             }
             return geom;
         }
 
         public DynamicScaler Extract_DynamicScaler(int ptr) {
+            SessionManager.Report("Extracting dynamic scaler...");
             int shapeCount = fr._readint(ref ptr, 4);
             int shapeDataLength = fr._readint(ref ptr, 4);
             bool unknown = shapeDataLength == 40;
@@ -587,6 +604,8 @@ namespace ToyTwoToolbox {
             for (int i = 0;i < shapeCount;i++) {
                 DS.Translation.Add(new Vector3(fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4)));
                 DS.Rotation.Add(new Vector3(fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4)));
+                ptr -= 12;
+                DS.RotationMatrix.Add(new Vector3(fr._readint(ref ptr, 4), fr._readint(ref ptr, 4), fr._readint(ref ptr, 4)));
                 DS.Scale.Add(new Vector3(fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4), fr._readflt(ref ptr, 4)));
                 DS.ShapeID.Add(fr._readint(ref ptr, 4));
                 if (!unknown) { DS.Unknown.Add(fr._readint(ref ptr, 4)); }
@@ -611,9 +630,9 @@ namespace ToyTwoToolbox {
         }
 
         private NGNSchema ARSONAnalysis(string path, F_NGN File = null) {
+            SessionManager.Report("Beginning ARSON Analysis...");
             File = (File == null) ? this : File;
             //so here we go through the file and see if 1. it's valid, and 2 how many threads we can create for each func
-            //a nice game of leapfrog
             //threads not used atm cant be arsed to sort it out again yet
             NGNSchema NS = new NGNSchema(File);
             FileReader fr = new FileReader(path);
@@ -635,6 +654,7 @@ namespace ToyTwoToolbox {
                 }
                 fr.seek(functionLength);
             }
+            SessionManager.Report("Completed ARSON Analysis");
             return NS;
         }
 
@@ -682,7 +702,6 @@ namespace ToyTwoToolbox {
                                     fw.Nop(1);
                                 }
                                 //characterSlots[i].SlotID;
-
                             }
                         }
 
@@ -692,7 +711,7 @@ namespace ToyTwoToolbox {
                             //NODES & CHARACTERS
                             fw.AddInt32(512); //characters Function ID
                             fw.AddInt32(4); //?
-                            fw.AddInt32((chr.model.shapes.Count == 1) ? 1 : chr.model.shapes.Count - 1);
+                            fw.AddInt32((chr.shapes.Count == 1) ? 1 : chr.shapes.Count - 1);
 
                             //NODE STRUCT
                             fw.AddInt32(514);
@@ -711,8 +730,8 @@ namespace ToyTwoToolbox {
                             //SHAPE DATA
                             fw.AddInt32(515);
                             int fShapeLength = fw.Nop(4);
-                            for (int k = 0;k < chr.model.shapes.Count;k++) {
-                                Shape shape = chr.model.shapes[k];
+                            for (int k = 0;k < chr.shapes.Count;k++) {
+                                Shape shape = chr.shapes[k];
                                 if (shape._SPType == 0) { //prim
                                     if (fShapeLength == 0) {
                                         fShapeLength = fw.Nop(4);
@@ -852,7 +871,7 @@ namespace ToyTwoToolbox {
                         for (int j = 0;j < mat.RGB.Count;j++) {
                             fw.AddByte((int)(mat.RGB[j] / 0.0039215689));
                         }
-                        if (mat.id == 193) { fw.AddInt32(mat.data); }
+                        if (mat.id == 193) { fw.AddInt32(mat.metadata); }
                         fw.AddInt16(mat.textureIndex);
                         fw.eof(fiMaterialDataLength);
                     }
@@ -861,9 +880,14 @@ namespace ToyTwoToolbox {
 
                 //VERTICES
                 fw.AddInt32(shape._SPType == 1 ? 519 : 67); //func header
-                fw.AddInt32(shape.datalength * shape.rawVertices.Count + 12);//pre calculated func length
-                fw.AddInt32(23); //?
-                fw.AddInt32(shape.datalength);
+                /*  BUG 017 - 29/01/2021
+                        dataLength is usually polled from the file but in this instance it is unknown
+                        we could calculate it based on the contents of the vertices, but it is also unknown how the game will respond to a changing length
+                        for now we assume 36
+                */
+                fw.AddInt32(36 /* shape.dataLength */ * shape.rawVertices.Count + 12);//pre calculated func length
+                fw.AddInt32(23 /* shape.VertexLineLength */);
+                fw.AddInt32(36 /* shape.dataLength */);
                 fw.AddInt32(shape.rawVertices.Count);
 
                 for (int i = 0;i < shape.rawVertices.Count;i++) {
@@ -992,95 +1016,420 @@ namespace ToyTwoToolbox {
             return lnp;
         }
 
-        public void ExtractModel(object objdata, Type type, bool VertexColor, bool CopyMaps, bool GenerateApha) {
-            SessionManager.Report("Begining object extraction");
-            string name = (type == typeof(Character)) ? ((Character)objdata).name : ((Geometry)objdata).name;
-            SessionManager.Report("Target: " + name);
-            List <Shape> shapes = (type == typeof(Character)) ? ((Character)objdata).model.shapes : ((Geometry)objdata).shapes;
-            List<MtlM> materials = new List<MtlM>();
-            FolderSelectDialog fsd = new FolderSelectDialog();
-            if (fsd.ShowDialog() == true) {
-                SessionManager.Report("Export location: " + fsd.FileName);
-                OBJWriter obj = new OBJWriter();
-                StringBuilder mtlsb = new StringBuilder();
-                obj.append("# OBJ Export - Toy Two Toolbox\n");
-                obj.append("# File created " + DateTime.Now + "\n");
-                obj.append("\nmtllib " + name + ".mtl\n");
-                int i = 0;
-                SessionManager.Report("Detected " + shapes.Count + " shapes");
-                foreach (Shape shape in shapes) {
-                    int j = 0;
-                    SessionManager.Report("Shape " + j + " - Detected " + shape.rawPrimitives.Count + " primitives");
-                    foreach (IPrimitive prim in shape.rawPrimitives) {
-                        int primtype = (prim.type == 1) ? 3 : prim.type;
-                        string objname = $"{name}_{((shape.name == "") ? "shape" + i.ToString().PadLeft(2, '0') : shape.name)}_face{j.ToString().PadLeft(2, '0')}";
-                        obj.title("object " + objname);
-                        OBJP oPrim = new OBJP();
-                        foreach (int pvtx in prim.vertices) {
-                            oPrim.vd.Append("v  " + shape.rawVertices[pvtx].ToOBJ() + ((VertexColor) ? " " + ColorToVColor(shape.rawVertexShading[pvtx]) : "") + "\n");
-                            oPrim.vtd.Append("vt  " + shape.rawVertexTextureCoords[pvtx].ToOBJ() + "\n");
-                        }
-                        obj.append(oPrim.vd.ToString());
-                        obj.append("# " + prim.vertices.Count + " vertices\n\n");
+        public void Extract(IWorldObject worldObject) {
+            Exporter ex = new Exporter();
+            if (ex.Prompt(worldObject) == DialogResult.OK) {
+                ExtractModel(worldObject, ex.ex_path, Format3D.obj, ex.ex_tex, ex.ex_mat, true, ex.ex_alpha, ex.ex_vcol, ex.ex_rot);
+            }
+        }
 
-                        obj.append(oPrim.vtd.ToString());
-                        obj.append("# " + prim.vertices.Count + " texture coords\n\n");
+        /// <summary>
+        /// Global model extraction for NGN data
+        /// </summary>
+        /// <param name="objdata">The <seealso cref="Character"/> or <seealso cref="Geometry"/> data to extract</param>
+        /// <param name="VertexColorOBJ">Whether to append the vertex data into the OBJ spec</param>
+        /// <param name="CopyMaps">Whether to copy the used textures into the output directory</param>
+        /// <param name="GenerateApha">Whether to generate and copy alpha maps for materials and store them in the output directory</param>
+        /// <param name="SimVColor">Whether to average out the vertex color data and use that rather than global material color</param>
+        /// <param name="GeomTrans">What axis to apply translation to</param>
+        public void ExtractModel(IWorldObject objdata, string path, Format3D format, bool CopyMaps, bool CreateMats, bool VertexColorOBJ, bool GenerateApha, bool SimVColor, Vector3 GeomTrans) {
+            SessionManager.Report("Begining object extraction");
+            string name = objdata.name ?? "test";
+            SessionManager.Report("Target: " + name);
+            List<Shape> shapes = objdata.shapes;
+            List<MtlM> materials = new List<MtlM>();
+            List<bool> texselection = (List<bool>)XF.GenerateListData(1, textures.Count, false);
+            List<bool> alphaselection = (List<bool>)XF.GenerateListData(1, textures.Count, false);
+            SessionManager.Report("Export location: " + path);
+            OBJWriter obj = new OBJWriter();
+            StringBuilder mtlsb = new StringBuilder();
+            obj.append("# OBJ Export - Toy Two Toolbox\n");
+            obj.append("# File created " + DateTime.Now + "\n");
+            obj.append("\nmtllib " + name + ".mtl\n");
+            int i = 0;
+            SessionManager.Report("Detected " + shapes.Count + " shapes", SessionManager.RType.DEBUG);
+            int vOffset = 1;
+            int vAccumulator = 0;
+            foreach (Shape shape in shapes) {
+                int j = 0;
+                if (shape.rawPrimitives.Count > 0) {
+                    SessionManager.Report("Shape " + j + " - Detected " + shape.rawPrimitives.Count + " primitives", SessionManager.RType.DEBUG);
+                    List<Vector3> transformv3d = shape.rawVertices;
+
+                    List<IPrimitive> modifiedPrimities = shape.rawPrimitives.Copy();
+                    if (objdata.objectType == typeof(Geometry)) {
+                        Matrix4D GTMF = new Matrix4D();
+                        GeomTrans.SetMatrix4DNegative(GTMF, GeomTrans);
+                        transformv3d = shape.rawVertices.Copy();
+                        modifiedPrimities.Clear();
+                        foreach (IPrimitive rawprim in shape.rawPrimitives) {
+                            IPrimitive prim = rawprim.Copy();
+
+                            if (prim.type == 5 || prim.type == 6) {//correct for issues with the poles and such, quads with 5/6 verts
+                                                                   //shape lookat fix
+                                List<Vector3> las = new List<Vector3>();
+                                for (int h = prim.vertices.Count - 4;h < prim.vertices.Count;h++) {
+                                    las.Add(transformv3d[prim.vertices[h]]);
+                                }
+                                Matrix4D GTMLA = new Matrix4D();
+                                Matrix4D_Transform(GTMLA, shape.rawVertices[prim.vertices[0]]);
+                                Vector3.TransformPoints(GTMLA, ref las);
+                                prim.vertices.Swap(3, 4);
+                                //prim.vertices.RemoveAt(0);
+                                prim.vertexCount--;
+                            }
+                            if (prim.type == 5 || prim.type == 6) { prim.vertices.RemoveAt(0); prim.type = 4; }
+                            modifiedPrimities.Add(prim);
+                        }
+
+                        if (j == 0) {
+                            if (GScales != null) {
+                                Matrix4D GTM = new Matrix4D();
+                                Matrix4D_Scale(GTM, new Vector3(GScales[0].Scale[i].X - 0.0f, GScales[0].Scale[i].Y - 0.0f, GScales[0].Scale[i].Z - 0.0f));
+                                Matrix4D_Translate3D(GTM, GScales[0].RotationMatrix[i]);
+                                Matrix4D_Transform(GTM, GScales[0].Translation[i]);
+                                Vector3.TransformPoints(GTM, ref transformv3d);
+                                Vector3.TransformPoints(GTMF, ref transformv3d);
+                            }
+                        }
+
+                    } else {//chr
+                        transformv3d = shape.rawVertices.Copy();
+                        Matrix4D GTMF = new Matrix4D();
+                        GeomTrans.SetMatrix4DNegative(GTMF, GeomTrans);
+                        Vector3.TransformPoints(GTMF, ref transformv3d);
+                    }
+
+                    obj.append("o " + name + ((shape.name == "") ? "shape" + i.ToString().PadLeft(2, '0') : shape.name) + "\n");
+
+
+                    for (int k = 0;k < shape.rawVertices.Count;k++) {
+                        obj.append("v  " + transformv3d[k].ToOBJ() + ((VertexColorOBJ) ? " " + ColorToVColor(shape.rawVertexShading[k]) : "") + "\n");
+                    }
+                    obj.append("# " + shape.rawVertices.Count + " vertices\n\n");
+
+                    for (int k = 0;k < shape.rawVertexTextureCoords.Count;k++) {
+                        obj.append("vt  " + shape.rawVertexTextureCoords[k].ToOBJ() + "\n");
+                    }
+
+                    obj.append("# " + shape.rawVertexTextureCoords.Count + " texture coords\n\n");
+
+                    foreach (IPrimitive prim in modifiedPrimities) {//shape.rawPrimitives) {IPrimitive prim = rawprim.Copy();
+                        if (shape._SPType == 1) {
+                            List<int> pvtxf = new List<int>();
+                            prim.type = 4;
+                            for (int k = 0;k < prim.vertices.Count;k += 4) {
+                                pvtxf.Add(prim.vertices[k + 1]);
+                                pvtxf.Add(prim.vertices[k]);
+                                pvtxf.Add(prim.vertices[k + 2]);
+                                pvtxf.Add(prim.vertices[k + 3]);
+                            }
+                            prim.vertices = pvtxf;
+                        }
+
+                        string objname = $"{name}_{((shape.name == "") ? "shape" + i.ToString().PadLeft(2, '0') : shape.name)}_face{j.ToString().PadLeft(2, '0')}";
+                        //obj.title("object " + objname);
+                        OBJP oPrim = new OBJP();
+
+
+                        int primtype = (prim.type == 1) ? 3 : prim.type;
 
                         obj.append("g " + objname + "\n");
                         string mn = "s" + i + "p" + j;
-                        string mt = textures[shape.materials[prim.materialID].textureIndex].name;
-                        bool mtla = true;
-                        foreach (MtlM mat in materials) {
-                            if (mat.name == mn && mat.texcname == mt + ".bmp" && mat.texaname == ((GenerateApha) ? mt + "_a" : "")) {
-                                mtla = false;
+                        if (CreateMats) {
+                            string mt = "";
+                            Material selmat = shape.materials[prim.materialID];
+                            if (selmat.textureIndex != 65535) {
+                                mt = textures[selmat.textureIndexRelative].name;
+                                texselection[selmat.textureIndexRelative] = true;
                             }
+                            if (selmat.metadata == 2 || selmat.metadata == 11) {
+                                alphaselection[selmat.textureIndexRelative] = true;
+                            }
+                            bool mtla = true;
+                            foreach (MtlM mat in materials) {
+                                if (mat.name == mn && mat.texcname == mt + ".bmp" && mat.texaname == ((GenerateApha) ? mt + "_a" : "")) {
+                                    mtla = false;
+                                }
+                            }
+                            if (mtla) {
+                                SessionManager.Report("Adding material...", SessionManager.RType.DEBUG);
+                                materials.Add(new MtlM {
+                                    name = mn,
+                                    mrgb = (SimVColor) ? AverageVC(shape.rawVertexShading, prim.vertices) : shape.materials[prim.materialID].RGB,
+                                    opacity = AverageAlpha(shape.rawVertexShading, prim.vertices), //this needs properly implementing, along with the import
+                                    texcname = mt + ".bmp",
+                                    texaname = (GenerateApha) ? mt + "_a" : ""
+                                });
+                            }
+                            obj.append("usemtl " + mn);
                         }
-                        if (mtla) {
-                            SessionManager.Report("Adding material...");
-                            materials.Add(new MtlM {
-                                name = mn,
-                                mrgb = shape.materials[prim.materialID].RGB,
-                                texcname = mt + ".bmp",
-                                texaname = (GenerateApha) ? mt + "_a" : ""
-                            });
-                        }
-                        obj.append("usemtl " + mn);
-                        for (int k = prim.vertices.Count;k > 0;k -= primtype) {
+                        for (int k = 0;k < prim.vertices.Count;k += primtype) {
                             obj.append("\nf ");
                             for (int l = 0;l < primtype;l++) {
-                                int f = (-Math.Abs(k - l));
-                                obj.append($"{f}/{f} ");
+                                obj.face(prim.vertices[k + l] + vOffset);
                             }
                         }
+                        vAccumulator += primtype * (prim.vertices.Count / primtype);
                         obj.append("\n# " + prim.vertices.Count / primtype + " polygons\n\n\n");
                         j++;
                     }
-                    i++;
+                    vOffset += vAccumulator;
+                    vAccumulator = 0;
                 }
-                SessionManager.Report("Compiling Material Component...");
+                i++;
+            }
+            if (CreateMats) {
+                SessionManager.Report("Compiling Material Component...", SessionManager.RType.DEBUG);
                 foreach (MtlM mtl in materials) {
                     mtlsb.Append("newmtl " + mtl.name + "\nillum2\n");
+                    mtlsb.Append("d " + mtl.opacity + " \n");
                     mtlsb.Append("Kd " + mtl.mrgb[0] + " " + mtl.mrgb[1] + " " + mtl.mrgb[2] + " \n");
-                    mtlsb.Append("map_Kd " + mtl.texcname + "\n");
+                    mtlsb.Append("Ka " + 0 + " " + 0 + " " + 0 + " \n");
+                    if (mtl.texcname != ".bmp") { mtlsb.Append("map_Kd " + mtl.texcname + "\n"); }
+                    if (mtl.texaname != ".bmp") { mtlsb.Append("map_Ka " + mtl.texaname + "\n"); }
                 }
-                File.WriteAllText(fsd.FileName + "\\" + name + ".obj", obj.fstream.ToString());
-                File.WriteAllText(fsd.FileName + "\\" + name + ".mtl", mtlsb.ToString());
-                SessionManager.Report("Successfully written OBJ and MTL files!", SessionManager.RType.TEXT, Color.Green);
+                for (int j = 0;j < texselection.Count;j++) {
+                    if (texselection[j] == true) {
+                        XF.ExportImage(path + "\\" + textures[j].name + ".bmp", textures[j].image, ImageFormat.Bmp);
+                        if (alphaselection[j] == true) {
+                            Bitmap CLIPIMG = (Bitmap)textures[j].image.Clone();
+                            XF.GenerateAlphaMap(CLIPIMG);
+                            XF.ExportImage(path + "\\" + textures[j].name + "_a.bmp", CLIPIMG, ImageFormat.Bmp);
+                            CLIPIMG.Dispose();
+                        }
+                    }
+                }
+                File.WriteAllText(path + "\\" + name + ".mtl", mtlsb.ToString());
             }
+            File.WriteAllText(path + "\\" + name + ".obj", obj.fstream.ToString());
+            SessionManager.Report("Successfully written OBJ and MTL files!", SessionManager.RType.TEXT, Color.Green);
+        }
+
+        public List<double> AverageVC(List<Color> vc, List<int> selection = null) {
+            int r = 0;
+            int g = 0;
+            int b = 0;
+            int vcs = vc.Count;
+            if (selection != null) {
+                vcs = selection.Count;
+                foreach (int vtx in selection) {
+                    r += vc[vtx].R;
+                    g += vc[vtx].G;
+                    b += vc[vtx].B;
+                }
+            } else {
+                foreach (Color col in vc) {
+                    r += col.R;
+                    g += col.G;
+                    b += col.B;
+                }
+            }
+            r /= vcs;
+            g /= vcs;
+            b /= vcs;
+            List<double> vca = XF.ColorToNGNColor(Color.FromArgb(r, g, b));
+            vca.RemoveAt(0);
+            return vca;
+        }
+
+        public decimal AverageAlpha(List<Color> cols, List<int> selection = null) {
+            decimal a = 0;
+            if (selection != null) {
+                foreach (int vtx in selection) {
+                    a += cols[vtx].A;
+                }
+            } else {
+                foreach (Color col in cols) {
+                    a += col.A;
+                }
+            }
+            return (a / (selection != null ? selection.Count : cols.Count)) / 255;
         }
 
         public void ProcessMaterials(List<MtlM> mats) {
 
         }
 
-        public string ColorToVColor(Color color) {
+        public static string ColorToVColor(Color color) {
             return (double)color.R / 255 + " " + (double)color.G / 255 + " " + (double)color.B / 255;
         }
 
+        public static Color VColorToColor(float[] color) {
+            return Color.FromArgb(Convert.ToInt32(color[0] * 255), Convert.ToInt32(color[1] * 255), Convert.ToInt32(color[2] * 255));
+        }
 
-        /// <summary>
-        /// Describes the layout of an associated NGN File
-        /// </summary>
+        public void GTransformation(Matrix4D gtm, float sine, float cosine) {
+
+        }
+
+        public static Matrix4D Matrix4D_RotateZ(Matrix4D GTM, float Sine, float Cosine) {
+            double GTM0 = GTM._matrix[0, 0];
+            double GTM4 = GTM._matrix[1, 0];
+            double GTM8 = GTM._matrix[2, 0];
+            double GTM12 = GTM._matrix[3, 0];
+            GTM._matrix[0, 0] = GTM0 * Sine - Cosine * GTM._matrix[0, 1]; // [00]
+            GTM._matrix[0, 1] = GTM0 * Cosine + Sine * GTM._matrix[0, 1]; // [01]
+            GTM._matrix[1, 0] = GTM4 * Sine - Cosine * GTM._matrix[1, 1]; // [04]
+            GTM._matrix[1, 1] = Sine * GTM._matrix[1, 1] + GTM4 * Cosine; // [05]
+            GTM._matrix[2, 0] = GTM8 * Sine - Cosine * GTM._matrix[2, 1]; // [08]
+            GTM._matrix[2, 1] = Sine * GTM._matrix[2, 1] + GTM8 * Cosine; // [09]
+            GTM._matrix[3, 0] = GTM12 * Sine - Cosine * GTM._matrix[3, 1]; // [12]
+            GTM._matrix[3, 1] = Sine * GTM._matrix[3, 1] + GTM12 * Cosine; // [13]
+            return GTM;
+        }
+
+        public static Matrix4D Matrix4D_RotateY(Matrix4D GTM, float Sine, float Cosine) {
+            double GTM0 = GTM._matrix[0, 0];
+            double GTM4 = GTM._matrix[1, 0];
+            double GTM8 = GTM._matrix[2, 0];
+            double GTM12 = GTM._matrix[3, 0];
+            GTM._matrix[0, 0] = Cosine * GTM._matrix[0, 2] + GTM0 * Sine; // [00]
+            GTM._matrix[0, 2] = Sine * GTM._matrix[0, 2] - GTM0 * Cosine; // [02]
+            GTM._matrix[1, 0] = Cosine * GTM._matrix[1, 2] + GTM4 * Sine; // [04]
+            GTM._matrix[1, 2] = Sine * GTM._matrix[1, 2] - GTM4 * Cosine; // [06]
+            GTM._matrix[2, 0] = GTM8 * Sine + Cosine * GTM._matrix[2, 2]; // [08]
+            GTM._matrix[2, 2] = Sine * GTM._matrix[2, 2] - GTM8 * Cosine; // [10]
+            GTM._matrix[3, 0] = Cosine * GTM._matrix[3, 2] + GTM12 * Sine; // [12]
+            GTM._matrix[3, 2] = Sine * GTM._matrix[3, 2] - GTM12 * Cosine; // [14]
+            return GTM;
+        }
+
+
+        public static Matrix4D Matrix4D_RotateX(Matrix4D GTM, float Sine, float Cosine) {
+            double GTM1 = GTM._matrix[0, 1];
+            double GTM5 = GTM._matrix[1, 1];
+            double GTM9 = GTM._matrix[2, 1];
+            double GTM13 = GTM._matrix[3, 1];
+            GTM._matrix[0, 1] = GTM1 * Sine - Cosine * GTM._matrix[0, 2]; // [01]
+            GTM._matrix[0, 2] = Sine * GTM._matrix[0, 2] + GTM1 * Cosine; // [02]
+            GTM._matrix[1, 1] = GTM5 * Sine - Cosine * GTM._matrix[1, 2]; // [05]
+            GTM._matrix[1, 2] = Sine * GTM._matrix[1, 2] + GTM5 * Cosine; // [06]
+            GTM._matrix[2, 1] = GTM9 * Sine - Cosine * GTM._matrix[2, 2]; // [09]
+            GTM._matrix[2, 2] = Sine * GTM._matrix[2, 2] + GTM9 * Cosine; // [10]
+            GTM._matrix[3, 1] = GTM13 * Sine - Cosine * GTM._matrix[3, 2]; // [13]
+            GTM._matrix[3, 2] = GTM13 * Cosine + Sine * GTM._matrix[3, 2]; // [14]
+            return GTM;
+        }
+
+        public static object Matrix4D_Scale(Matrix4D GTM, Vector3 ScaleVertex) {
+            GTM._matrix[0, 0] = GTM._matrix[0, 0] * ScaleVertex.X;
+            GTM._matrix[0, 1] = GTM._matrix[0, 1] * ScaleVertex.Y;
+            GTM._matrix[0, 2] = GTM._matrix[0, 2] * ScaleVertex.Z;
+
+            GTM._matrix[1, 0] = GTM._matrix[1, 0] * ScaleVertex.X;
+            GTM._matrix[1, 1] = GTM._matrix[1, 1] * ScaleVertex.Y;
+            GTM._matrix[1, 2] = GTM._matrix[1, 2] * ScaleVertex.Z;
+
+            GTM._matrix[2, 0] = GTM._matrix[2, 0] * ScaleVertex.X;
+            GTM._matrix[2, 1] = GTM._matrix[2, 1] * ScaleVertex.Y;
+            GTM._matrix[2, 2] = GTM._matrix[2, 2] * ScaleVertex.Z;
+
+            GTM._matrix[3, 0] = GTM._matrix[3, 0] * ScaleVertex.X;
+            GTM._matrix[3, 1] = GTM._matrix[3, 1] * ScaleVertex.Y;
+            GTM._matrix[3, 2] = GTM._matrix[3, 2] * ScaleVertex.Z;
+            return true;
+        }
+
+        public static object Matrix4D_Transform(Matrix4D GTM, Vector3 TranslationVertex) {
+            GTM._matrix[0, 3] = GTM._matrix[0, 3] + TranslationVertex.X; //GTM._matrix[3, 0] = GTM._matrix[3, 0] + TranslationVertex.X
+            GTM._matrix[1, 3] = GTM._matrix[1, 3] + TranslationVertex.Y; //GTM._matrix[3, 1] = GTM._matrix[3, 1] + TranslationVertex.Y
+            GTM._matrix[2, 3] = GTM._matrix[2, 3] + TranslationVertex.Z; //GTM._matrix[3, 2] = GTM._matrix[3, 2] + TranslationVertex.Z
+            return true;
+        }
+
+        public void Matrix4D_Translate3D(Matrix4D GTM, Vector3 RotationMatrix) {
+            //Vector3 sine = new Vector3(SessionManager.GenerateV3DSine(RotationMatrix,false));
+            //Vector3 cosine = new Vector3(SessionManager.GenerateV3DSine(RotationMatrix,true));
+            float sz = SessionManager.GenerateSine((int)(RotationMatrix.Z) + 16384 & 0xFFFF);
+            float cz = SessionManager.GenerateSine((int)(RotationMatrix.Z) & 0xFFFF);
+            double GTM0 = GTM._matrix[0, 0];
+            double GTM4 = GTM._matrix[1, 0];
+            double GTM8 = GTM._matrix[2, 0];
+            double GTM12 = GTM._matrix[3, 0];
+            GTM._matrix[0, 0] = GTM0 * sz - cz * GTM._matrix[0, 1]; // [00]
+            GTM._matrix[0, 1] = GTM0 * cz + sz * GTM._matrix[0, 1]; // [01]
+            GTM._matrix[1, 0] = GTM4 * sz - cz * GTM._matrix[1, 1]; // [04]
+            GTM._matrix[1, 1] = sz * GTM._matrix[1, 1] + GTM4 * cz; // [05]
+            GTM._matrix[2, 0] = GTM8 * sz - cz * GTM._matrix[2, 1]; // [08]
+            GTM._matrix[2, 1] = sz * GTM._matrix[2, 1] + GTM8 * cz; // [09]
+            GTM._matrix[3, 0] = GTM12 * sz - cz * GTM._matrix[3, 1]; // [12]
+            GTM._matrix[3, 1] = sz * GTM._matrix[3, 1] + GTM12 * cz; // [13]
+
+
+            float sy = SessionManager.GenerateSine((int)(RotationMatrix.Y) + 16384 & 0xFFFF);
+            float cy = SessionManager.GenerateSine((int)(RotationMatrix.Y) & 0xFFFF);
+            GTM0 = GTM._matrix[0, 0];
+            GTM4 = GTM._matrix[1, 0];
+            GTM8 = GTM._matrix[2, 0];
+            GTM12 = GTM._matrix[3, 0];
+            GTM._matrix[0, 0] = cy * GTM._matrix[0, 2] + GTM0 * sy; // [00]
+            GTM._matrix[0, 2] = sy * GTM._matrix[0, 2] - GTM0 * cy; // [02]
+            GTM._matrix[1, 0] = cy * GTM._matrix[1, 2] + GTM4 * sy; // [04]
+            GTM._matrix[1, 2] = sy * GTM._matrix[1, 2] - GTM4 * cy; // [06]
+            GTM._matrix[2, 0] = GTM8 * sy + cy * GTM._matrix[2, 2]; // [08]
+            GTM._matrix[2, 2] = sy * GTM._matrix[2, 2] - GTM8 * cy; // [10]
+            GTM._matrix[3, 0] = cy * GTM._matrix[3, 2] + GTM12 * sy; // [12]
+            GTM._matrix[3, 2] = sy * GTM._matrix[3, 2] - GTM12 * cy; // [14]
+
+            float sx = SessionManager.GenerateSine((int)(RotationMatrix.X) + 16384 & 0xFFFF);
+            float cx = SessionManager.GenerateSine((int)(RotationMatrix.X) & 0xFFFF);
+            double GTM1 = GTM._matrix[0, 1];
+            double GTM5 = GTM._matrix[1, 1];
+            double GTM9 = GTM._matrix[2, 1];
+            double GTM13 = GTM._matrix[3, 1];
+            GTM._matrix[0, 1] = GTM1 * sx - cx * GTM._matrix[0, 2]; // [01]
+            GTM._matrix[0, 2] = sx * GTM._matrix[0, 2] + GTM1 * cx; // [02]
+            GTM._matrix[1, 1] = GTM5 * sx - cx * GTM._matrix[1, 2]; // [05]
+            GTM._matrix[1, 2] = sx * GTM._matrix[1, 2] + GTM5 * cx; // [06]
+            GTM._matrix[2, 1] = GTM9 * sx - cx * GTM._matrix[2, 2]; // [09]
+            GTM._matrix[2, 2] = sx * GTM._matrix[2, 2] + GTM9 * cx; // [10]
+            GTM._matrix[3, 1] = GTM13 * sx - cx * GTM._matrix[3, 2]; // [13]
+            GTM._matrix[3, 2] = GTM13 * cx + sx * GTM._matrix[3, 2]; // [14]
+        }
+
+        [Obsolete("Not required as of yet", false)]
+        public static object Matrix4D_Compute(Vector3 Out, Matrix4D Unknown, Matrix4D GTM) {
+            return new NotImplementedException();
+        }
+
+        public enum Format3D {
+            obj = 0
+        }
+
+        public int TexNameToGlobalID(string texname) {
+            for (int i = 0;i < textures.Count;i++) {
+                if (textures[i].name == texname) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+
+        /// <summary>Retrieves a <seealso cref="List{"/> of <seealso cref="Material"/> from a <seealso cref="List{"/> of <seealso cref="F_NGN"/></summary>
+        /// <param name="levels">The levels to pull materials from</param>
+        /// <param name="filter">0 = Every Material<para/>1 = Character Materials only<para/>2 = Level Materials only</param>
+        /// <returns></returns>
+        public static List<Material> GetMaterialsFromLevels(List<F_NGN> levels, int filter = 0) {
+            List<Material> mats = new List<Material>();
+
+            foreach (F_NGN lev in levels) {
+                if (filter == -1 || filter == 0) {//Everything or just Chars
+                    foreach (Character chr in lev.characters) {
+                        mats.AddRange(chr.GetMaterials());
+                    }
+                }
+                if (filter == -1 || filter == 1) {//Everything or just Chars
+                    foreach (Geometry geom in lev.Geometries) {
+                        mats.AddRange(geom.GetMaterials());
+                    }
+                }
+            }
+            return mats;
+        }
+
+        /// <summary>Describes the layout of an associated NGN File</summary>
         public class NGNSchema {
             public F_NGN LinkedNGN;
             public List<NGNFunctionDef> NGNFunctions;

@@ -7,6 +7,12 @@ using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
     class T2Control_DGV : DataGridView {
+        /// <summary>
+        /// This value will be enabled by default. Why? Because you often populate more than you edit.
+        /// <para/> Just toggle it FALSE when you want to actually track changes
+        /// </summary>
+        public bool ignoreCellValueChanged = true;
+
         public T2Control_DGV() {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -56,7 +62,7 @@ namespace ToyTwoToolbox {
             this.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.T2Control_DGV_RowPostPaint);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
-
+            this.ContextMenuStrip = SessionManager.ctrl_DGVContext;
         }
 
         private void T2Control_DGV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e) {

@@ -181,6 +181,46 @@ namespace ToyTwoToolbox.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap eicn_dgm_grandom {
+            get {
+                object obj = ResourceManager.GetObject("eicn_dgm_grandom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap eicn_dgv_selall {
+            get {
+                object obj = ResourceManager.GetObject("eicn_dgv_selall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap eicn_dgv_selcol {
+            get {
+                object obj = ResourceManager.GetObject("eicn_dgv_selcol", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap eicn_dgv_selinv {
+            get {
+                object obj = ResourceManager.GetObject("eicn_dgv_selinv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to #version 330 core
         ///// Now the diffuse and the specular values are controlled by textures, this is what we in graphics call mapping something.
         ///// This means they are now based on textures instead of a color, and can be controlled much better per fragment.
@@ -317,6 +357,16 @@ namespace ToyTwoToolbox.Properties {
         public static System.Drawing.Bitmap T2Image_MovieImages {
             get {
                 object obj = ResourceManager.GetObject("T2Image_MovieImages", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap T2Image_Replace {
+            get {
+                object obj = ResourceManager.GetObject("T2Image_Replace", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -82,6 +82,12 @@
     <Compile Include="ErrorDisplayer.Designer.cs">
       <DependentUpon>ErrorDisplayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exporter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exporter.Designer.cs">
+      <DependentUpon>Exporter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extension_List.cs" />
     <Compile Include="FileReader.cs" />
     <Compile Include="FileWriter.cs" />
@@ -141,19 +147,39 @@
     <Compile Include="CjClutter.ObjLoader.Loader\TypeParsers\VertexParser.cs" />
     <Compile Include="F_Save.cs" />
     <Compile Include="Geometry.cs" />
+    <Compile Include="IEditor.cs" />
     <Compile Include="Importer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Importer.Designer.cs">
       <DependentUpon>Importer.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputDialog.Designer.cs">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="IPrimitive.cs" />
+    <Compile Include="ISL.cs" />
+    <Compile Include="IWorldObject.cs" />
     <Compile Include="Linker.cs" />
     <Compile Include="Material.cs" />
+    <Compile Include="Matrix4D.cs" />
+    <Compile Include="MemberwiseClone.cs" />
     <Compile Include="MessageFade.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="MtlM.cs" />
     <Compile Include="OBJP.cs" />
+    <Compile Include="ObjParser\Extent.cs" />
+    <Compile Include="ObjParser\Mtl.cs" />
+    <Compile Include="ObjParser\Obj.cs" />
+    <Compile Include="ObjParser\Types\Color.cs" />
+    <Compile Include="ObjParser\Types\Face.cs" />
+    <Compile Include="ObjParser\Types\IType.cs" />
+    <Compile Include="ObjParser\Types\Material.cs" />
+    <Compile Include="ObjParser\Types\TextureVertex.cs" />
+    <Compile Include="ObjParser\Types\Vertex.cs" />
     <Compile Include="OBJWriter.cs" />
     <Compile Include="Preview\Camera.cs" />
     <Compile Include="Preview\Shader.cs" />
@@ -177,11 +203,38 @@
     <Compile Include="T2Control_EditableLabel.Designer.cs">
       <DependentUpon>T2Control_EditableLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="T2Control_MaterialEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_MaterialEditor.Designer.cs">
+      <DependentUpon>T2Control_MaterialEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="T2Control_MaterialProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_MaterialProperties.Designer.cs">
+      <DependentUpon>T2Control_MaterialProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="T2Control_ShapeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="T2Control_ShapeEditor.Designer.cs">
       <DependentUpon>T2Control_ShapeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="T2Control_TextureSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_TextureSelector.Designer.cs">
+      <DependentUpon>T2Control_TextureSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="T2Control_TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TexturePreview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TexturePreview.Designer.cs">
+      <DependentUpon>TexturePreview.cs</DependentUpon>
     </Compile>
     <Compile Include="Toggle.cs">
       <SubType>Component</SubType>
@@ -247,11 +300,17 @@
     <EmbeddedResource Include="ErrorDisplayer.resx">
       <DependentUpon>ErrorDisplayer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Exporter.resx">
+      <DependentUpon>Exporter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FirstOpenPanel.resx">
       <DependentUpon>FirstOpenPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Importer.resx">
       <DependentUpon>Importer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputDialog.resx">
+      <DependentUpon>InputDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="T2Control_Checkbox.resx">
       <DependentUpon>T2Control_Checkbox.cs</DependentUpon>
@@ -262,11 +321,23 @@
     <EmbeddedResource Include="T2Control_EditableLabel.resx">
       <DependentUpon>T2Control_EditableLabel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_MaterialEditor.resx">
+      <DependentUpon>T2Control_MaterialEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_MaterialProperties.resx">
+      <DependentUpon>T2Control_MaterialProperties.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="T2Control_ShapeEditor.resx">
       <DependentUpon>T2Control_ShapeEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_TextureSelector.resx">
+      <DependentUpon>T2Control_TextureSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="T2TTabControl.resx">
       <DependentUpon>T2TTabControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TexturePreview.resx">
+      <DependentUpon>TexturePreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Toggle.resx">
       <DependentUpon>Toggle.cs</DependentUpon>
@@ -295,6 +366,7 @@
       <DependentUpon>T2Control_TextBox.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="CjClutter.ObjLoader.Loader\CjClutter.ObjLoader.Loader.csproj" />
+    <None Include="ObjParser\ObjParser.csproj" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -362,9 +434,16 @@
     <None Include="Resources\SaveAs.png" />
     <Content Include="OpenTK.dll" />
     <None Include="Resources\SaveSel.png" />
+    <None Include="Resources\eicn_dgv_selinv.png" />
+    <None Include="Resources\eicn_dgv_selall.png" />
+    <None Include="Resources\eicn_dgv_selcol.png" />
+    <None Include="Resources\eicn_dgm_grandom.png" />
+    <None Include="Resources\T2Image_Replace.png" />
     <Content Include="t2tbicon_XSz_icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ObjParser\Properties\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.0.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

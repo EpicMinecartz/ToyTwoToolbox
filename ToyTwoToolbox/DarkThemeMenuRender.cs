@@ -28,7 +28,7 @@ namespace ToyTwoToolbox {
         }
 
 		protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e) {
-			if (e.Item is ToolStripMenuItem) { //AndAlso (e.Item.Selected OrElse e.Item.Pressed) Then
+			if (e.Item is ToolStripMenuItem) {
 				e.TextColor = DarkTheme_UI_Text;
 			}
 			base.OnRenderItemText(e);
@@ -190,9 +190,7 @@ namespace ToyTwoToolbox {
                     }
                 }
             } finally {
-                //If disposeForeColorPen AndAlso foreColorPen IsNot Nothing Then foreColorPen.Dispose()
 
-                //If disposeHighlightColorColorPen AndAlso highlightColorPen IsNot Nothing Then highlightColorPen.Dispose()
             }
         }
 

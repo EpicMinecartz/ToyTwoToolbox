@@ -13,9 +13,6 @@ namespace ToyTwoToolbox {
 			private StreamReader _lineStreamReader;
 
 			protected void StartLoad(Stream lineStream) {
-
-				//			Option Infer On
-
 				var fileStream = lineStream as FileStream;
 
 				_lineStreamReader = new StreamReader(lineStream);
@@ -34,7 +31,7 @@ namespace ToyTwoToolbox {
 
 				var fields = currentLine.Trim().Split(null,2);
 				var keyword = fields[0].Trim();
-				var data = fields[1].Trim();
+				var data = fields[0].Trim();
 
 				if (keyword == "mtllib") {
 					if (!data.Contains("\\")) {

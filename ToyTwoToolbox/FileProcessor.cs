@@ -1,27 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace ToyTwoToolbox {
     public class FileProcessor {
         public enum FileTypes {
             NULL = -1,
             NGN,
-            Save
+            Save,
+            DAT,
+            BIN
         }
 
-        /// <summary>
-        /// Process and Return a file based on a file path. Returns <seealso cref="F_Base"/>, you MUST cast it yourself using the correct cast.
-        /// </summary>
+        public enum EditorTypes {
+            NULL = -1,
+            NGNEditor,
+            SAVEditor,
+            DATEditor,
+            BINEditor,
+            MultiMatEditor
+        }
+
+        /// <summary>Returns an object of type <seealso cref="IEditor"/> based on the <seealso cref="EditorTypes"/> enum index</summary>
+        /// <param name="editortype">The <seealso cref="EditorTypes"/> ID</param>
+        /// <returns></returns>
+        public static IEditor returnEditorFromType(EditorTypes editortype) {
+            //As a dev, you will need to add your editor into this section, this should be the only place you will need to ""initialize"" it
+            //You will however need to, you know, handle all the processing of files and whatnot on the actual UserControl itself, so, yeah...
+            if (editortype == EditorTypes.NGNEditor) {
+                return new T2Control_NGNEditor();
+            } else if( editortype == EditorTypes.SAVEditor) {
+                return new T2Control_SaveEditor();
+            } else if(editortype == EditorTypes.DATEditor) {
+                return null;
+            } else if (editortype == EditorTypes.BINEditor) {
+                return null;
+            } else if (editortype == EditorTypes.MultiMatEditor) {
+                return new T2Control_MaterialEditor();
+            } else {
+                return null;
+            }
+        }
+
+
+        /// <summary>Process and Return a file based on a file path. Returns <seealso cref="F_Base"/>, you MUST cast it yourself using the correct cast.</summary>
         /// <param name="path"></param>
         public static F_Base ProcessFile(string path) {
             string ext = Path.GetExtension(path).ToLower();
             F_Base file;
             if (ext == ".ngn") {
-                F_NGN f = new F_NGN();
-                file = f.Import(path);
+                file = new F_NGN().Import(path);
             } else if (ext == ".sav") {
                 file = F_Save.ImportSave(path);
             } else {
@@ -35,23 +62,24 @@ namespace ToyTwoToolbox {
             return new F_NGN();
         }
 
+
         public static F_Base CreateFile(FileTypes fileType, TabController tabController, string fileName = "") {
             F_Base file;
             if (fileType == FileTypes.NGN) {
                 file = new F_NGN();
-            } else if(fileType == FileTypes.Save) {
+            } else if (fileType == FileTypes.Save) {
                 file = new F_Save(true);
             } else {
+                file = null;
                 throw new TypeInitializationException("None", null);
-                file = null; 
             }
-            if (fileName == "" ) { 
-                file.TempName = TabController.CalculateUntitledTabName(fileType, tabController); 
+            if (fileName == "") {
+                file.TempName = TabController.CalculateUntitledTabName(fileType, tabController);
             }
             return file;
         }
 
-       
+
 
         public static F_NGN ImportNGN(string path) {
             return new F_NGN();

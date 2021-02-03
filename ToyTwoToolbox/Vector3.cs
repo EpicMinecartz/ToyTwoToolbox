@@ -97,12 +97,6 @@ namespace ToyTwoToolbox {
 			return false;
 		}
 
-		// negate this vector
-		public void Negate() {
-			X = X * -1.0f;
-			Y = Y * -1.0f;
-			Z = Z * -1.0f;
-		}
 
 		// add this vector with the parameter vector
 		// and return the result
@@ -167,6 +161,57 @@ namespace ToyTwoToolbox {
 				X = X + Vec.X;
 				Y = Y + Vec.Y;
 				Z = Z + Vec.Z;
+			}
+		}
+
+
+		// negate this vector
+		public void Negate() {
+			X = -Math.Abs(X);
+			Y = -Math.Abs(Y);
+			Z = -Math.Abs(Z);
+		}
+
+		// negate this vector
+		public void FullNegate() {
+			X = X * -1.0f;
+			Y = Y * -1.0f;
+			Z = Z * -1.0f;
+		}
+
+		public void SetMatrix4DNegative(Matrix4D matrix, Vector3 NegateVector) {
+			if (NegateVector.X != 0) { matrix._matrix[2, 2] = -Math.Abs(X); }
+			if (NegateVector.Y != 0) { matrix._matrix[1, 1] = -Math.Abs(Y); }
+			if (NegateVector.Z != 0) { matrix._matrix[0, 0] = -Math.Abs(Z); }
+			matrix._matrix[3, 3] = -1;
+		}
+
+		public void TransformBy(Matrix4D Mat) {
+			float xx = 0;
+			float yy = 0;
+			float zz = 0;
+
+			xx = (X * Convert.ToSingle(Mat._matrix.GetValue(0, 0))) +
+				(Y * Convert.ToSingle(Mat._matrix.GetValue(1, 0))) + 
+				(Z * Convert.ToSingle(Mat._matrix.GetValue(2, 0))) + 
+				(Convert.ToSingle(Mat._matrix.GetValue(0, 3)));
+			yy = (X * Convert.ToSingle(Mat._matrix.GetValue(0, 1))) + 
+				(Y * Convert.ToSingle(Mat._matrix.GetValue(1, 1))) + 
+				(Z * Convert.ToSingle(Mat._matrix.GetValue(2, 1))) + 
+				(Convert.ToSingle(Mat._matrix.GetValue(1, 3)));
+			zz = (X * Convert.ToSingle(Mat._matrix.GetValue(0, 2))) + 
+				(Y * Convert.ToSingle(Mat._matrix.GetValue(1, 2))) + 
+				(Z * Convert.ToSingle(Mat._matrix.GetValue(2, 2))) + 
+				(Convert.ToSingle(Mat._matrix.GetValue(2, 3)));
+
+			X = xx;
+			Y = yy;
+			Z = zz;
+		}
+
+		public static void TransformPoints(Matrix4D Mat, ref List<Vector3> Points) {
+			foreach (Vector3 Pt in Points) {
+				Pt.TransformBy(Mat);
 			}
 		}
 

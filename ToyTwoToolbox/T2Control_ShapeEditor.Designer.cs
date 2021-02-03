@@ -52,17 +52,20 @@
             this.U = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.V = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.butSendToMultiMat = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.comboMaterial = new System.Windows.Forms.ComboBox();
-            this.butRemoveShapeMaterial = new System.Windows.Forms.Button();
             this.butNewShapeMaterial = new System.Windows.Forms.Button();
+            this.butRemoveShapeMaterial = new System.Windows.Forms.Button();
             this.groupMaterialProperties = new System.Windows.Forms.GroupBox();
-            this.fieldMaterialUnknown = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboMaterialTexture = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.t2Control_TextureSelector1 = new ToyTwoToolbox.T2Control_TextureSelector();
+            this.labelMaterialMetadataDesc = new System.Windows.Forms.Label();
+            this.numericMaterialMetadata = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
             this.butAmbColorPicker = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.numericCharShapeID2 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -83,7 +86,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericPatchMaterialID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShapeData)).BeginInit();
             this.tabPage13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.groupMaterialProperties.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaterialMetadata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID)).BeginInit();
             this.SuspendLayout();
@@ -196,7 +204,7 @@
             this.butRemovePrim.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butRemovePrim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butRemovePrim.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butRemovePrim.Location = new System.Drawing.Point(231, 9);
+            this.butRemovePrim.Location = new System.Drawing.Point(247, 8);
             this.butRemovePrim.Name = "butRemovePrim";
             this.butRemovePrim.Size = new System.Drawing.Size(23, 23);
             this.butRemovePrim.TabIndex = 16;
@@ -208,7 +216,7 @@
             this.butAddPrim.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
             this.butAddPrim.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butAddPrim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butAddPrim.Location = new System.Drawing.Point(204, 9);
+            this.butAddPrim.Location = new System.Drawing.Point(218, 8);
             this.butAddPrim.Name = "butAddPrim";
             this.butAddPrim.Size = new System.Drawing.Size(23, 23);
             this.butAddPrim.TabIndex = 15;
@@ -219,7 +227,7 @@
             // 
             this.numericPatchType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.numericPatchType.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericPatchType.Location = new System.Drawing.Point(458, 11);
+            this.numericPatchType.Location = new System.Drawing.Point(471, 11);
             this.numericPatchType.Name = "numericPatchType";
             this.numericPatchType.Size = new System.Drawing.Size(52, 20);
             this.numericPatchType.TabIndex = 10;
@@ -228,7 +236,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(395, 13);
+            this.label1.Location = new System.Drawing.Point(408, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 9;
@@ -238,7 +246,7 @@
             // 
             this.numericPatchMaterialID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.numericPatchMaterialID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.numericPatchMaterialID.Location = new System.Drawing.Point(325, 11);
+            this.numericPatchMaterialID.Location = new System.Drawing.Point(338, 11);
             this.numericPatchMaterialID.Name = "numericPatchMaterialID";
             this.numericPatchMaterialID.Size = new System.Drawing.Size(52, 20);
             this.numericPatchMaterialID.TabIndex = 8;
@@ -247,7 +255,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(262, 13);
+            this.label21.Location = new System.Drawing.Point(275, 13);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(61, 13);
             this.label21.TabIndex = 5;
@@ -256,7 +264,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(10, 13);
+            this.label20.Location = new System.Drawing.Point(23, 13);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(49, 13);
             this.label20.TabIndex = 3;
@@ -269,7 +277,7 @@
             this.comboPrimitive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboPrimitive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.comboPrimitive.FormattingEnabled = true;
-            this.comboPrimitive.Location = new System.Drawing.Point(66, 10);
+            this.comboPrimitive.Location = new System.Drawing.Point(79, 10);
             this.comboPrimitive.Name = "comboPrimitive";
             this.comboPrimitive.Size = new System.Drawing.Size(133, 21);
             this.comboPrimitive.TabIndex = 4;
@@ -324,47 +332,58 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvShapeData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvShapeData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvShapeData.Size = new System.Drawing.Size(740, 193);
             this.dgvShapeData.TabIndex = 0;
+            this.dgvShapeData.Visible = false;
             this.dgvShapeData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellContentClick);
             this.dgvShapeData.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellEndEdit);
+            this.dgvShapeData.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellValueChanged);
             this.dgvShapeData.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvShapeData_RowsAdded);
             this.dgvShapeData.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvShapeData_RowsRemoved);
+            this.dgvShapeData.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvShapeData_MouseUp);
             // 
             // X
             // 
             this.X.HeaderText = "X";
             this.X.Name = "X";
+            this.X.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Y
             // 
             this.Y.HeaderText = "Y";
             this.Y.Name = "Y";
+            this.Y.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Z
             // 
             this.Z.HeaderText = "Z";
             this.Z.Name = "Z";
+            this.Z.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // UX
             // 
             this.UX.HeaderText = "UX";
             this.UX.Name = "UX";
+            this.UX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // UY
             // 
             this.UY.HeaderText = "UY";
             this.UY.Name = "UY";
+            this.UY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // UZ
             // 
             this.UZ.HeaderText = "UZ";
             this.UZ.Name = "UZ";
+            this.UZ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Alpha
             // 
             this.Alpha.HeaderText = "Alpha";
             this.Alpha.Name = "Alpha";
+            this.Alpha.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // VColor
             // 
@@ -372,32 +391,76 @@
             this.VColor.HeaderText = "Color";
             this.VColor.Name = "VColor";
             this.VColor.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.VColor.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // U
             // 
             this.U.HeaderText = "U";
             this.U.Name = "U";
+            this.U.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // V
             // 
             this.V.HeaderText = "V";
             this.V.Name = "V";
+            this.V.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // tabPage13
             // 
             this.tabPage13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage13.Controls.Add(this.comboMaterial);
-            this.tabPage13.Controls.Add(this.butRemoveShapeMaterial);
-            this.tabPage13.Controls.Add(this.butNewShapeMaterial);
-            this.tabPage13.Controls.Add(this.groupMaterialProperties);
-            this.tabPage13.Controls.Add(this.label6);
+            this.tabPage13.Controls.Add(this.splitContainer1);
             this.tabPage13.Location = new System.Drawing.Point(4, 25);
             this.tabPage13.Name = "tabPage13";
             this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage13.Size = new System.Drawing.Size(748, 248);
             this.tabPage13.TabIndex = 4;
             this.tabPage13.Text = "Materials";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.butSendToMultiMat);
+            this.splitContainer1.Panel1.Controls.Add(this.label6);
+            this.splitContainer1.Panel1.Controls.Add(this.comboMaterial);
+            this.splitContainer1.Panel1.Controls.Add(this.butNewShapeMaterial);
+            this.splitContainer1.Panel1.Controls.Add(this.butRemoveShapeMaterial);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupMaterialProperties);
+            this.splitContainer1.Size = new System.Drawing.Size(742, 242);
+            this.splitContainer1.SplitterDistance = 43;
+            this.splitContainer1.TabIndex = 12;
+            // 
+            // butSendToMultiMat
+            // 
+            this.butSendToMultiMat.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzUps;
+            this.butSendToMultiMat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butSendToMultiMat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butSendToMultiMat.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butSendToMultiMat.Location = new System.Drawing.Point(276, 8);
+            this.butSendToMultiMat.Name = "butSendToMultiMat";
+            this.butSendToMultiMat.Size = new System.Drawing.Size(23, 23);
+            this.butSendToMultiMat.TabIndex = 16;
+            this.butSendToMultiMat.UseVisualStyleBackColor = true;
+            this.butSendToMultiMat.Click += new System.EventHandler(this.butSendToMultiMat_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(5, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Material Slot:";
             // 
             // comboMaterial
             // 
@@ -406,11 +469,23 @@
             this.comboMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboMaterial.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.comboMaterial.FormattingEnabled = true;
-            this.comboMaterial.Location = new System.Drawing.Point(89, 14);
+            this.comboMaterial.Location = new System.Drawing.Point(79, 10);
             this.comboMaterial.Name = "comboMaterial";
-            this.comboMaterial.Size = new System.Drawing.Size(148, 21);
+            this.comboMaterial.Size = new System.Drawing.Size(133, 21);
             this.comboMaterial.TabIndex = 15;
             this.comboMaterial.SelectedIndexChanged += new System.EventHandler(this.comboMaterial_SelectedIndexChanged);
+            // 
+            // butNewShapeMaterial
+            // 
+            this.butNewShapeMaterial.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
+            this.butNewShapeMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butNewShapeMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butNewShapeMaterial.Location = new System.Drawing.Point(218, 8);
+            this.butNewShapeMaterial.Name = "butNewShapeMaterial";
+            this.butNewShapeMaterial.Size = new System.Drawing.Size(23, 23);
+            this.butNewShapeMaterial.TabIndex = 13;
+            this.butNewShapeMaterial.UseVisualStyleBackColor = true;
+            this.butNewShapeMaterial.Click += new System.EventHandler(this.butNewShapeMaterial_Click);
             // 
             // butRemoveShapeMaterial
             // 
@@ -418,87 +493,106 @@
             this.butRemoveShapeMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butRemoveShapeMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butRemoveShapeMaterial.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butRemoveShapeMaterial.Location = new System.Drawing.Point(272, 13);
+            this.butRemoveShapeMaterial.Location = new System.Drawing.Point(247, 8);
             this.butRemoveShapeMaterial.Name = "butRemoveShapeMaterial";
             this.butRemoveShapeMaterial.Size = new System.Drawing.Size(23, 23);
             this.butRemoveShapeMaterial.TabIndex = 14;
             this.butRemoveShapeMaterial.UseVisualStyleBackColor = true;
-            // 
-            // butNewShapeMaterial
-            // 
-            this.butNewShapeMaterial.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
-            this.butNewShapeMaterial.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butNewShapeMaterial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butNewShapeMaterial.Location = new System.Drawing.Point(243, 13);
-            this.butNewShapeMaterial.Name = "butNewShapeMaterial";
-            this.butNewShapeMaterial.Size = new System.Drawing.Size(23, 23);
-            this.butNewShapeMaterial.TabIndex = 13;
-            this.butNewShapeMaterial.UseVisualStyleBackColor = true;
-            this.butNewShapeMaterial.Click += new System.EventHandler(this.butNewShapeMaterial_Click);
             // 
             // groupMaterialProperties
             // 
             this.groupMaterialProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupMaterialProperties.Controls.Add(this.fieldMaterialUnknown);
-            this.groupMaterialProperties.Controls.Add(this.label9);
-            this.groupMaterialProperties.Controls.Add(this.comboMaterialTexture);
             this.groupMaterialProperties.Controls.Add(this.label8);
+            this.groupMaterialProperties.Controls.Add(this.t2Control_TextureSelector1);
+            this.groupMaterialProperties.Controls.Add(this.labelMaterialMetadataDesc);
+            this.groupMaterialProperties.Controls.Add(this.numericMaterialMetadata);
+            this.groupMaterialProperties.Controls.Add(this.label9);
             this.groupMaterialProperties.Controls.Add(this.butAmbColorPicker);
             this.groupMaterialProperties.Controls.Add(this.label7);
             this.groupMaterialProperties.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.groupMaterialProperties.Location = new System.Drawing.Point(6, 41);
+            this.groupMaterialProperties.Location = new System.Drawing.Point(8, 3);
             this.groupMaterialProperties.Name = "groupMaterialProperties";
-            this.groupMaterialProperties.Size = new System.Drawing.Size(736, 201);
+            this.groupMaterialProperties.Size = new System.Drawing.Size(729, 187);
             this.groupMaterialProperties.TabIndex = 6;
             this.groupMaterialProperties.TabStop = false;
             this.groupMaterialProperties.Text = "Material properties";
-            this.groupMaterialProperties.Visible = false;
-            // 
-            // fieldMaterialUnknown
-            // 
-            this.fieldMaterialUnknown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.fieldMaterialUnknown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fieldMaterialUnknown.Location = new System.Drawing.Point(70, 133);
-            this.fieldMaterialUnknown.Name = "fieldMaterialUnknown";
-            this.fieldMaterialUnknown.Size = new System.Drawing.Size(161, 20);
-            this.fieldMaterialUnknown.TabIndex = 8;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 135);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 13);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "Unknown:";
-            // 
-            // comboMaterialTexture
-            // 
-            this.comboMaterialTexture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.comboMaterialTexture.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMaterialTexture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboMaterialTexture.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.comboMaterialTexture.FormattingEnabled = true;
-            this.comboMaterialTexture.Location = new System.Drawing.Point(61, 79);
-            this.comboMaterialTexture.Name = "comboMaterialTexture";
-            this.comboMaterialTexture.Size = new System.Drawing.Size(128, 21);
-            this.comboMaterialTexture.TabIndex = 6;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 82);
+            this.label8.Location = new System.Drawing.Point(9, 16);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(46, 13);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Texture:";
+            this.label8.Size = new System.Drawing.Size(86, 13);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Material Texture:";
+            // 
+            // t2Control_TextureSelector1
+            // 
+            this.t2Control_TextureSelector1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.t2Control_TextureSelector1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.t2Control_TextureSelector1.ForeColor = System.Drawing.Color.White;
+            this.t2Control_TextureSelector1.Location = new System.Drawing.Point(6, 32);
+            this.t2Control_TextureSelector1.Name = "t2Control_TextureSelector1";
+            this.t2Control_TextureSelector1.SelectedIndex = -1;
+            this.t2Control_TextureSelector1.Size = new System.Drawing.Size(215, 149);
+            this.t2Control_TextureSelector1.TabIndex = 10;
+            this.t2Control_TextureSelector1.SelectedIndexChanged += new ToyTwoToolbox.T2Control_TextureSelector.SelectedIndexChangedEventHandler(this.t2Control_TextureSelector1_SelectedIndexChanged);
+            // 
+            // labelMaterialMetadataDesc
+            // 
+            this.labelMaterialMetadataDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMaterialMetadataDesc.AutoSize = true;
+            this.labelMaterialMetadataDesc.Location = new System.Drawing.Point(440, 51);
+            this.labelMaterialMetadataDesc.Name = "labelMaterialMetadataDesc";
+            this.labelMaterialMetadataDesc.Size = new System.Drawing.Size(124, 13);
+            this.labelMaterialMetadataDesc.TabIndex = 9;
+            this.labelMaterialMetadataDesc.Text = " - Unknown Metadata ID";
+            // 
+            // numericMaterialMetadata
+            // 
+            this.numericMaterialMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericMaterialMetadata.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.numericMaterialMetadata.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.numericMaterialMetadata.Location = new System.Drawing.Point(349, 48);
+            this.numericMaterialMetadata.Maximum = new decimal(new int[] {
+            -1,
+            0,
+            0,
+            0});
+            this.numericMaterialMetadata.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericMaterialMetadata.Name = "numericMaterialMetadata";
+            this.numericMaterialMetadata.Size = new System.Drawing.Size(85, 20);
+            this.numericMaterialMetadata.TabIndex = 8;
+            this.numericMaterialMetadata.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericMaterialMetadata.ValueChanged += new System.EventHandler(this.numericMaterialMetadata_ValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(237, 50);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(95, 13);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Material Metadata:";
             // 
             // butAmbColorPicker
             // 
+            this.butAmbColorPicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butAmbColorPicker.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butAmbColorPicker.Location = new System.Drawing.Point(61, 28);
+            this.butAmbColorPicker.Location = new System.Drawing.Point(349, 19);
             this.butAmbColorPicker.Name = "butAmbColorPicker";
             this.butAmbColorPicker.Size = new System.Drawing.Size(44, 23);
             this.butAmbColorPicker.TabIndex = 4;
@@ -506,21 +600,13 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 33);
+            this.label7.Location = new System.Drawing.Point(232, 24);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(34, 13);
+            this.label7.Size = new System.Drawing.Size(100, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Color:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 17);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Material Slot:";
+            this.label7.Text = "Material AMB Color:";
             // 
             // numericCharShapeID2
             // 
@@ -594,6 +680,7 @@
             this.radioPatch.TabIndex = 7;
             this.radioPatch.Text = "Patch";
             this.radioPatch.UseVisualStyleBackColor = true;
+            this.radioPatch.CheckedChanged += new System.EventHandler(this.radioPatch_CheckedChanged);
             this.radioPatch.Click += new System.EventHandler(this.radioPatch_Click);
             // 
             // radioPrim
@@ -642,9 +729,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericPatchMaterialID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShapeData)).EndInit();
             this.tabPage13.ResumeLayout(false);
-            this.tabPage13.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.groupMaterialProperties.ResumeLayout(false);
             this.groupMaterialProperties.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericMaterialMetadata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCharShapeID)).EndInit();
             this.ResumeLayout(false);
@@ -668,10 +760,7 @@
         private System.Windows.Forms.Button butRemoveShapeMaterial;
         private System.Windows.Forms.Button butNewShapeMaterial;
         private System.Windows.Forms.GroupBox groupMaterialProperties;
-        private System.Windows.Forms.TextBox fieldMaterialUnknown;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboMaterialTexture;
-        private System.Windows.Forms.Label label8;
         internal System.Windows.Forms.Button butAmbColorPicker;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -684,6 +773,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericPatchType;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button butRemovePrim;
+        private System.Windows.Forms.Button butAddPrim;
+        private T2Control_EditableLabel fieldShapeName;
+        private System.Windows.Forms.ComboBox comboMaterial;
+        private System.Windows.Forms.Label labelMaterialMetadataDesc;
+        private System.Windows.Forms.NumericUpDown numericMaterialMetadata;
         private System.Windows.Forms.DataGridViewTextBoxColumn X;
         private System.Windows.Forms.DataGridViewTextBoxColumn Y;
         private System.Windows.Forms.DataGridViewTextBoxColumn Z;
@@ -694,9 +789,9 @@
         private System.Windows.Forms.DataGridViewButtonColumn VColor;
         private System.Windows.Forms.DataGridViewTextBoxColumn U;
         private System.Windows.Forms.DataGridViewTextBoxColumn V;
-        private System.Windows.Forms.Button butRemovePrim;
-        private System.Windows.Forms.Button butAddPrim;
-        private T2Control_EditableLabel fieldShapeName;
-        private System.Windows.Forms.ComboBox comboMaterial;
+        private System.Windows.Forms.Button butSendToMultiMat;
+        private T2Control_TextureSelector t2Control_TextureSelector1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

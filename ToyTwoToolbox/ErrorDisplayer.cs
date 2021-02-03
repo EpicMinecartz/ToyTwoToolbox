@@ -26,7 +26,7 @@ namespace ToyTwoToolbox {
             for (var i = 0;i < Errors.Count;i++) {
                 ErrorView.Rows.Add(1);
                 ((DataGridViewRow)ErrorView.Rows[i]).Cells["Time"].Value = Errors[i].ETime;
-                ((DataGridViewRow)ErrorView.Rows[i]).Cells["Errors"].Value = Errors[i].EDesc;
+                ((DataGridViewRow)ErrorView.Rows[i]).Cells["Error"].Value = Errors[i].EDesc;
             }
         }
 

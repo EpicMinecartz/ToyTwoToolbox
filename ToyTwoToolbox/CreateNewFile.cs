@@ -9,8 +9,26 @@ using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
     public partial class CreateNewFile : Form {
-        public CreateNewFile() {
+        Main owner = null;
+        public CreateNewFile(Main Parent) {
             InitializeComponent();
+            owner = Parent;
+        }
+
+        private void label1_Click(object sender, EventArgs e) {
+
+        }
+
+        private void LLNewNGN_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            owner.CreateFile(FileProcessor.FileTypes.NGN);
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            owner.CreateFile(FileProcessor.FileTypes.Save);
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            this.Close();
         }
     }
 }

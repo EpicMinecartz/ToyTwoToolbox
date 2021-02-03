@@ -39,6 +39,8 @@
             this.tabControl1 = new ToyTwoToolbox.T2TTabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.t2Control_TextureSelector1 = new ToyTwoToolbox.T2Control_TextureSelector();
             this.butTextureSaveSelected = new System.Windows.Forms.Button();
             this.butTextureSaveAll = new System.Windows.Forms.Button();
             this.butTextureMoveDown = new System.Windows.Forms.Button();
@@ -70,12 +72,12 @@
             this.labelTextureInfo = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.butPreviewCharShapeData = new System.Windows.Forms.Button();
-            this.butPasteCharShapeData = new System.Windows.Forms.Button();
-            this.butCopyCharShapeData = new System.Windows.Forms.Button();
+            this.butRenameChar = new System.Windows.Forms.Button();
+            this.butReplaceChar = new System.Windows.Forms.Button();
+            this.butPreviewChar = new System.Windows.Forms.Button();
+            this.butPasteChar = new System.Windows.Forms.Button();
+            this.butCopyChar = new System.Windows.Forms.Button();
             this.butSaveChar = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.butNewChar = new System.Windows.Forms.Button();
             this.butRemoveChar = new System.Windows.Forms.Button();
             this.butImportChar = new System.Windows.Forms.Button();
@@ -90,9 +92,22 @@
             this.butRemoveCharShape = new System.Windows.Forms.Button();
             this.butImportCharShape = new System.Windows.Forms.Button();
             this.listCharShapes = new System.Windows.Forms.ListBox();
+            this.contextCharShapes = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.replaceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.belowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
             this.CharShapeEditor = new ToyTwoToolbox.T2Control_ShapeEditor();
             this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.fieldChunk = new System.Windows.Forms.RichTextBox();
             this.dgvAnimationData = new ToyTwoToolbox.T2Control_DGV();
             this.AX = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -100,10 +115,11 @@
             this.AZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ARX = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ARY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.comboNodeID = new System.Windows.Forms.ComboBox();
             this.comboAnimID = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.butPreviewGeomShapeData = new System.Windows.Forms.Button();
@@ -126,10 +142,7 @@
             this.listGeomShapes = new System.Windows.Forms.ListBox();
             this.GeomShapeEditor = new ToyTwoToolbox.T2Control_ShapeEditor();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.butDSMoveDown = new System.Windows.Forms.Button();
-            this.butDSMoveUp = new System.Windows.Forms.Button();
-            this.butDSRemove = new System.Windows.Forms.Button();
-            this.butDSAdd = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.dgvDS = new ToyTwoToolbox.T2Control_DGV();
             this.DSSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DSTX = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -142,6 +155,10 @@
             this.DSSY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DSSZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DSU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.butDSRemove = new System.Windows.Forms.Button();
+            this.butDSMoveUp = new System.Windows.Forms.Button();
+            this.butDSMoveDown = new System.Windows.Forms.Button();
+            this.butDSAdd = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this.listAreaPortals = new System.Windows.Forms.ListBox();
@@ -181,8 +198,9 @@
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
+            this.contextCharShapes.SuspendLayout();
             this.tabPage9.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAnimationData)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -196,6 +214,7 @@
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDS)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
@@ -223,6 +242,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1036, 460);
             this.tabControl1.TabIndex = 2;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage4
             // 
@@ -244,6 +264,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.checkBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.t2Control_TextureSelector1);
             this.splitContainer1.Panel1.Controls.Add(this.butTextureSaveSelected);
             this.splitContainer1.Panel1.Controls.Add(this.butTextureSaveAll);
             this.splitContainer1.Panel1.Controls.Add(this.butTextureMoveDown);
@@ -259,6 +281,32 @@
             this.splitContainer1.Size = new System.Drawing.Size(1022, 425);
             this.splitContainer1.SplitterDistance = 238;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(153, 398);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(78, 17);
+            this.checkBox1.TabIndex = 21;
+            this.checkBox1.Text = "New Menu";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // t2Control_TextureSelector1
+            // 
+            this.t2Control_TextureSelector1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.t2Control_TextureSelector1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.t2Control_TextureSelector1.ForeColor = System.Drawing.Color.White;
+            this.t2Control_TextureSelector1.Location = new System.Drawing.Point(-1, 0);
+            this.t2Control_TextureSelector1.Name = "t2Control_TextureSelector1";
+            this.t2Control_TextureSelector1.SelectedIndex = -1;
+            this.t2Control_TextureSelector1.Size = new System.Drawing.Size(237, 387);
+            this.t2Control_TextureSelector1.TabIndex = 20;
+            this.t2Control_TextureSelector1.Visible = false;
             // 
             // butTextureSaveSelected
             // 
@@ -592,12 +640,12 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.butPreviewCharShapeData);
-            this.splitContainer2.Panel1.Controls.Add(this.butPasteCharShapeData);
-            this.splitContainer2.Panel1.Controls.Add(this.butCopyCharShapeData);
+            this.splitContainer2.Panel1.Controls.Add(this.butRenameChar);
+            this.splitContainer2.Panel1.Controls.Add(this.butReplaceChar);
+            this.splitContainer2.Panel1.Controls.Add(this.butPreviewChar);
+            this.splitContainer2.Panel1.Controls.Add(this.butPasteChar);
+            this.splitContainer2.Panel1.Controls.Add(this.butCopyChar);
             this.splitContainer2.Panel1.Controls.Add(this.butSaveChar);
-            this.splitContainer2.Panel1.Controls.Add(this.textBox1);
-            this.splitContainer2.Panel1.Controls.Add(this.label10);
             this.splitContainer2.Panel1.Controls.Add(this.butNewChar);
             this.splitContainer2.Panel1.Controls.Add(this.butRemoveChar);
             this.splitContainer2.Panel1.Controls.Add(this.butImportChar);
@@ -611,46 +659,74 @@
             this.splitContainer2.SplitterDistance = 38;
             this.splitContainer2.TabIndex = 1;
             // 
-            // butPreviewCharShapeData
+            // butRenameChar
             // 
-            this.butPreviewCharShapeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butPreviewCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveLives;
-            this.butPreviewCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butPreviewCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPreviewCharShapeData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butPreviewCharShapeData.Location = new System.Drawing.Point(390, 8);
-            this.butPreviewCharShapeData.Name = "butPreviewCharShapeData";
-            this.butPreviewCharShapeData.Size = new System.Drawing.Size(23, 23);
-            this.butPreviewCharShapeData.TabIndex = 16;
-            this.butPreviewCharShapeData.UseVisualStyleBackColor = true;
-            this.butPreviewCharShapeData.Click += new System.EventHandler(this.button2_Click);
+            this.butRenameChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butRenameChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Rename;
+            this.butRenameChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butRenameChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butRenameChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butRenameChar.Location = new System.Drawing.Point(419, 8);
+            this.butRenameChar.Name = "butRenameChar";
+            this.butRenameChar.Size = new System.Drawing.Size(23, 23);
+            this.butRenameChar.TabIndex = 18;
+            this.butRenameChar.UseVisualStyleBackColor = true;
+            this.butRenameChar.Click += new System.EventHandler(this.butRenameChar_Click);
             // 
-            // butPasteCharShapeData
+            // butReplaceChar
             // 
-            this.butPasteCharShapeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butPasteCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Paste;
-            this.butPasteCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butPasteCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butPasteCharShapeData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butPasteCharShapeData.Location = new System.Drawing.Point(361, 8);
-            this.butPasteCharShapeData.Name = "butPasteCharShapeData";
-            this.butPasteCharShapeData.Size = new System.Drawing.Size(23, 23);
-            this.butPasteCharShapeData.TabIndex = 15;
-            this.butPasteCharShapeData.UseVisualStyleBackColor = true;
-            this.butPasteCharShapeData.Click += new System.EventHandler(this.butPasteCharShapeData_Click);
+            this.butReplaceChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butReplaceChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.T2Image_Replace;
+            this.butReplaceChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butReplaceChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butReplaceChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butReplaceChar.Location = new System.Drawing.Point(274, 8);
+            this.butReplaceChar.Name = "butReplaceChar";
+            this.butReplaceChar.Size = new System.Drawing.Size(23, 23);
+            this.butReplaceChar.TabIndex = 17;
+            this.butReplaceChar.UseVisualStyleBackColor = true;
+            this.butReplaceChar.Click += new System.EventHandler(this.button2_Click_1);
             // 
-            // butCopyCharShapeData
+            // butPreviewChar
             // 
-            this.butCopyCharShapeData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butCopyCharShapeData.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.CopyHS;
-            this.butCopyCharShapeData.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butCopyCharShapeData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butCopyCharShapeData.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butCopyCharShapeData.Location = new System.Drawing.Point(332, 8);
-            this.butCopyCharShapeData.Name = "butCopyCharShapeData";
-            this.butCopyCharShapeData.Size = new System.Drawing.Size(23, 23);
-            this.butCopyCharShapeData.TabIndex = 15;
-            this.butCopyCharShapeData.UseVisualStyleBackColor = true;
+            this.butPreviewChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butPreviewChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveLives;
+            this.butPreviewChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butPreviewChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butPreviewChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butPreviewChar.Location = new System.Drawing.Point(448, 8);
+            this.butPreviewChar.Name = "butPreviewChar";
+            this.butPreviewChar.Size = new System.Drawing.Size(23, 23);
+            this.butPreviewChar.TabIndex = 16;
+            this.butPreviewChar.UseVisualStyleBackColor = true;
+            this.butPreviewChar.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // butPasteChar
+            // 
+            this.butPasteChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butPasteChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Paste;
+            this.butPasteChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butPasteChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butPasteChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butPasteChar.Location = new System.Drawing.Point(390, 8);
+            this.butPasteChar.Name = "butPasteChar";
+            this.butPasteChar.Size = new System.Drawing.Size(23, 23);
+            this.butPasteChar.TabIndex = 15;
+            this.butPasteChar.UseVisualStyleBackColor = true;
+            this.butPasteChar.Click += new System.EventHandler(this.butPasteCharShapeData_Click);
+            // 
+            // butCopyChar
+            // 
+            this.butCopyChar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butCopyChar.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.CopyHS;
+            this.butCopyChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butCopyChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butCopyChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butCopyChar.Location = new System.Drawing.Point(361, 8);
+            this.butCopyChar.Name = "butCopyChar";
+            this.butCopyChar.Size = new System.Drawing.Size(23, 23);
+            this.butCopyChar.TabIndex = 15;
+            this.butCopyChar.UseVisualStyleBackColor = true;
             // 
             // butSaveChar
             // 
@@ -659,31 +735,12 @@
             this.butSaveChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butSaveChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butSaveChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butSaveChar.Location = new System.Drawing.Point(303, 8);
+            this.butSaveChar.Location = new System.Drawing.Point(332, 8);
             this.butSaveChar.Name = "butSaveChar";
             this.butSaveChar.Size = new System.Drawing.Size(23, 23);
             this.butSaveChar.TabIndex = 15;
             this.butSaveChar.UseVisualStyleBackColor = true;
             this.butSaveChar.Click += new System.EventHandler(this.butSaveChar_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.textBox1.Location = new System.Drawing.Point(513, 10);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(161, 20);
-            this.textBox1.TabIndex = 14;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(469, 13);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 13);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "Name:";
             // 
             // butNewChar
             // 
@@ -705,7 +762,7 @@
             this.butRemoveChar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.butRemoveChar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butRemoveChar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butRemoveChar.Location = new System.Drawing.Point(274, 8);
+            this.butRemoveChar.Location = new System.Drawing.Point(303, 8);
             this.butRemoveChar.Name = "butRemoveChar";
             this.butRemoveChar.Size = new System.Drawing.Size(23, 23);
             this.butRemoveChar.TabIndex = 11;
@@ -865,19 +922,140 @@
             // 
             // listCharShapes
             // 
+            this.listCharShapes.AllowDrop = true;
             this.listCharShapes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listCharShapes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.listCharShapes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.listCharShapes.ContextMenuStrip = this.contextCharShapes;
+            this.listCharShapes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listCharShapes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.listCharShapes.FormattingEnabled = true;
             this.listCharShapes.IntegralHeight = false;
             this.listCharShapes.Location = new System.Drawing.Point(-1, -1);
             this.listCharShapes.Name = "listCharShapes";
-            this.listCharShapes.Size = new System.Drawing.Size(237, 309);
+            this.listCharShapes.Size = new System.Drawing.Size(236, 309);
             this.listCharShapes.TabIndex = 0;
+            this.listCharShapes.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listCharShapes_DrawItem);
             this.listCharShapes.SelectedIndexChanged += new System.EventHandler(this.listShapes_SelectedIndexChanged);
+            this.listCharShapes.DragDrop += new System.Windows.Forms.DragEventHandler(this.listCharShapes_DragDrop);
+            this.listCharShapes.DragOver += new System.Windows.Forms.DragEventHandler(this.listCharShapes_DragOver);
+            this.listCharShapes.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listCharShapes_MouseDoubleClick);
+            this.listCharShapes.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listCharShapes_MouseDown);
+            this.listCharShapes.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listCharShapes_MouseUp);
+            // 
+            // contextCharShapes
+            // 
+            this.contextCharShapes.BackColor = System.Drawing.SystemColors.Control;
+            this.contextCharShapes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem18,
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem15,
+            this.toolStripSeparator1,
+            this.toolStripMenuItem16,
+            this.toolStripMenuItem17});
+            this.contextCharShapes.Name = "TextureRootContext";
+            this.contextCharShapes.Size = new System.Drawing.Size(192, 186);
+            this.contextCharShapes.Opening += new System.ComponentModel.CancelEventHandler(this.contextCharShapes_Opening);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboveToolStripMenuItem,
+            this.replaceToolStripMenuItem1,
+            this.belowToolStripMenuItem});
+            this.toolStripMenuItem2.Image = global::ToyTwoToolbox.Properties.Resources.Default;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuItem2.Text = "&New...";
+            // 
+            // aboveToolStripMenuItem
+            // 
+            this.aboveToolStripMenuItem.Name = "aboveToolStripMenuItem";
+            this.aboveToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.aboveToolStripMenuItem.Text = "&Above";
+            this.aboveToolStripMenuItem.Click += new System.EventHandler(this.aboveToolStripMenuItem_Click);
+            // 
+            // replaceToolStripMenuItem1
+            // 
+            this.replaceToolStripMenuItem1.Name = "replaceToolStripMenuItem1";
+            this.replaceToolStripMenuItem1.Size = new System.Drawing.Size(115, 22);
+            this.replaceToolStripMenuItem1.Text = "&Replace";
+            this.replaceToolStripMenuItem1.Click += new System.EventHandler(this.replaceToolStripMenuItem1_Click);
+            // 
+            // belowToolStripMenuItem
+            // 
+            this.belowToolStripMenuItem.Name = "belowToolStripMenuItem";
+            this.belowToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.belowToolStripMenuItem.Text = "&Below";
+            this.belowToolStripMenuItem.Click += new System.EventHandler(this.belowToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuItem3.Text = "&Import Replacement...";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Image = global::ToyTwoToolbox.Properties.Resources.Clearallrequests_8816;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuItem4.Text = "&Delete...";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // toolStripMenuItem18
+            // 
+            this.toolStripMenuItem18.Enabled = false;
+            this.toolStripMenuItem18.Image = global::ToyTwoToolbox.Properties.Resources.CopyHS;
+            this.toolStripMenuItem18.Name = "toolStripMenuItem18";
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuItem18.Text = "&Copy";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Enabled = false;
+            this.toolStripMenuItem5.Image = global::ToyTwoToolbox.Properties.Resources.Paste;
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuItem5.Text = "&Paste...";
+            // 
+            // toolStripMenuItem15
+            // 
+            this.toolStripMenuItem15.Image = global::ToyTwoToolbox.Properties.Resources.Rename;
+            this.toolStripMenuItem15.Name = "toolStripMenuItem15";
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuItem15.Text = "Re&name...";
+            this.toolStripMenuItem15.Click += new System.EventHandler(this.toolStripMenuItem15_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.BackColor = System.Drawing.Color.Black;
+            this.toolStripSeparator1.ForeColor = System.Drawing.Color.Black;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            // 
+            // toolStripMenuItem16
+            // 
+            this.toolStripMenuItem16.Image = global::ToyTwoToolbox.Properties.Resources.buzzUps;
+            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuItem16.Text = "Move Up";
+            this.toolStripMenuItem16.Click += new System.EventHandler(this.toolStripMenuItem16_Click);
+            // 
+            // toolStripMenuItem17
+            // 
+            this.toolStripMenuItem17.Image = global::ToyTwoToolbox.Properties.Resources.buzzsowns;
+            this.toolStripMenuItem17.Name = "toolStripMenuItem17";
+            this.toolStripMenuItem17.Size = new System.Drawing.Size(191, 22);
+            this.toolStripMenuItem17.Text = "Move Down";
+            this.toolStripMenuItem17.Click += new System.EventHandler(this.toolStripMenuItem17_Click);
             // 
             // CharShapeEditor
             // 
@@ -890,16 +1068,13 @@
             this.CharShapeEditor.TabIndex = 0;
             this.CharShapeEditor.Visible = false;
             this.CharShapeEditor.ReportShapeNameUpdate += new ToyTwoToolbox.T2Control_ShapeEditor.ShapeNameUpdatedEventHandler(this.CharShapeEditor_ReportShapeNameUpdate);
+            this.CharShapeEditor.Load += new System.EventHandler(this.CharShapeEditor_Load);
             // 
             // tabPage9
             // 
             this.tabPage9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.tabPage9.Controls.Add(this.panel4);
             this.tabPage9.Controls.Add(this.panel2);
-            this.tabPage9.Controls.Add(this.dgvAnimationData);
-            this.tabPage9.Controls.Add(this.comboNodeID);
-            this.tabPage9.Controls.Add(this.comboAnimID);
-            this.tabPage9.Controls.Add(this.label19);
-            this.tabPage9.Controls.Add(this.label18);
             this.tabPage9.Location = new System.Drawing.Point(4, 25);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
@@ -907,16 +1082,19 @@
             this.tabPage9.TabIndex = 5;
             this.tabPage9.Text = "Animations";
             // 
-            // panel2
+            // panel4
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.fieldChunk);
-            this.panel2.Location = new System.Drawing.Point(3, 41);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(0, 0);
-            this.panel2.TabIndex = 9;
+            this.panel4.Controls.Add(this.fieldChunk);
+            this.panel4.Controls.Add(this.dgvAnimationData);
+            this.panel4.Controls.Add(this.label18);
+            this.panel4.Controls.Add(this.label19);
+            this.panel4.Controls.Add(this.comboNodeID);
+            this.panel4.Controls.Add(this.comboAnimID);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1006, 346);
+            this.panel4.TabIndex = 10;
             // 
             // fieldChunk
             // 
@@ -925,9 +1103,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fieldChunk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.fieldChunk.ForeColor = System.Drawing.Color.White;
-            this.fieldChunk.Location = new System.Drawing.Point(7, 7);
+            this.fieldChunk.Location = new System.Drawing.Point(10, 41);
             this.fieldChunk.Name = "fieldChunk";
-            this.fieldChunk.Size = new System.Drawing.Size(0, 0);
+            this.fieldChunk.Size = new System.Drawing.Size(989, 297);
             this.fieldChunk.TabIndex = 4;
             this.fieldChunk.Text = "";
             // 
@@ -962,7 +1140,7 @@
             this.dgvAnimationData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvAnimationData.EnableHeadersVisualStyles = false;
             this.dgvAnimationData.GridColor = System.Drawing.Color.DimGray;
-            this.dgvAnimationData.Location = new System.Drawing.Point(6, 75);
+            this.dgvAnimationData.Location = new System.Drawing.Point(10, 75);
             this.dgvAnimationData.Name = "dgvAnimationData";
             this.dgvAnimationData.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -973,7 +1151,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvAnimationData.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvAnimationData.Size = new System.Drawing.Size(1000, 271);
+            this.dgvAnimationData.Size = new System.Drawing.Size(984, 263);
             this.dgvAnimationData.TabIndex = 8;
             // 
             // AX
@@ -1001,6 +1179,24 @@
             this.ARY.HeaderText = "RY";
             this.ARY.Name = "ARY";
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(10, 18);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(59, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "Animation: ";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(10, 51);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(36, 13);
+            this.label19.TabIndex = 2;
+            this.label19.Text = "Node:";
+            // 
             // comboNodeID
             // 
             this.comboNodeID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -1027,23 +1223,15 @@
             this.comboAnimID.TabIndex = 6;
             this.comboAnimID.SelectedIndexChanged += new System.EventHandler(this.comboAnimID_SelectedIndexChanged);
             // 
-            // label19
+            // panel2
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(10, 51);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(36, 13);
-            this.label19.TabIndex = 2;
-            this.label19.Text = "Node:";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(10, 17);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(59, 13);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "Animation: ";
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Location = new System.Drawing.Point(3, 41);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(0, 0);
+            this.panel2.TabIndex = 9;
             // 
             // tabPage1
             // 
@@ -1097,6 +1285,7 @@
             this.butPreviewGeomShapeData.Size = new System.Drawing.Size(23, 23);
             this.butPreviewGeomShapeData.TabIndex = 20;
             this.butPreviewGeomShapeData.UseVisualStyleBackColor = true;
+            this.butPreviewGeomShapeData.Click += new System.EventHandler(this.butPreviewGeomShapeData_Click);
             // 
             // butPasteGeomData
             // 
@@ -1110,6 +1299,7 @@
             this.butPasteGeomData.Size = new System.Drawing.Size(23, 23);
             this.butPasteGeomData.TabIndex = 17;
             this.butPasteGeomData.UseVisualStyleBackColor = true;
+            this.butPasteGeomData.Click += new System.EventHandler(this.butPasteGeomData_Click);
             // 
             // butCopyGeomData
             // 
@@ -1123,6 +1313,7 @@
             this.butCopyGeomData.Size = new System.Drawing.Size(23, 23);
             this.butCopyGeomData.TabIndex = 18;
             this.butCopyGeomData.UseVisualStyleBackColor = true;
+            this.butCopyGeomData.Click += new System.EventHandler(this.butCopyGeomData_Click);
             // 
             // butExportGeomData
             // 
@@ -1329,6 +1520,7 @@
             this.listGeomShapes.IntegralHeight = false;
             this.listGeomShapes.Location = new System.Drawing.Point(-1, -1);
             this.listGeomShapes.Name = "listGeomShapes";
+            this.listGeomShapes.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listGeomShapes.Size = new System.Drawing.Size(237, 309);
             this.listGeomShapes.TabIndex = 0;
             this.listGeomShapes.SelectedIndexChanged += new System.EventHandler(this.listGeomShapes_SelectedIndexChanged);
@@ -1347,11 +1539,7 @@
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.tabPage6.Controls.Add(this.butDSMoveDown);
-            this.tabPage6.Controls.Add(this.butDSMoveUp);
-            this.tabPage6.Controls.Add(this.butDSRemove);
-            this.tabPage6.Controls.Add(this.butDSAdd);
-            this.tabPage6.Controls.Add(this.dgvDS);
+            this.tabPage6.Controls.Add(this.panel3);
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
@@ -1359,56 +1547,18 @@
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Dynamic Scaler";
             // 
-            // butDSMoveDown
+            // panel3
             // 
-            this.butDSMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butDSMoveDown.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzsowns;
-            this.butDSMoveDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butDSMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDSMoveDown.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butDSMoveDown.Location = new System.Drawing.Point(89, 46);
-            this.butDSMoveDown.Name = "butDSMoveDown";
-            this.butDSMoveDown.Size = new System.Drawing.Size(23, 23);
-            this.butDSMoveDown.TabIndex = 12;
-            this.butDSMoveDown.UseVisualStyleBackColor = true;
-            // 
-            // butDSMoveUp
-            // 
-            this.butDSMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butDSMoveUp.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzUps;
-            this.butDSMoveUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butDSMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDSMoveUp.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butDSMoveUp.Location = new System.Drawing.Point(60, 46);
-            this.butDSMoveUp.Name = "butDSMoveUp";
-            this.butDSMoveUp.Size = new System.Drawing.Size(23, 23);
-            this.butDSMoveUp.TabIndex = 11;
-            this.butDSMoveUp.UseVisualStyleBackColor = true;
-            // 
-            // butDSRemove
-            // 
-            this.butDSRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butDSRemove.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
-            this.butDSRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butDSRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDSRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.butDSRemove.Location = new System.Drawing.Point(31, 46);
-            this.butDSRemove.Name = "butDSRemove";
-            this.butDSRemove.Size = new System.Drawing.Size(23, 23);
-            this.butDSRemove.TabIndex = 10;
-            this.butDSRemove.UseVisualStyleBackColor = true;
-            // 
-            // butDSAdd
-            // 
-            this.butDSAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butDSAdd.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
-            this.butDSAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.butDSAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butDSAdd.Location = new System.Drawing.Point(2, 46);
-            this.butDSAdd.Name = "butDSAdd";
-            this.butDSAdd.Size = new System.Drawing.Size(23, 23);
-            this.butDSAdd.TabIndex = 9;
-            this.butDSAdd.UseVisualStyleBackColor = true;
+            this.panel3.Controls.Add(this.dgvDS);
+            this.panel3.Controls.Add(this.butDSRemove);
+            this.panel3.Controls.Add(this.butDSMoveUp);
+            this.panel3.Controls.Add(this.butDSMoveDown);
+            this.panel3.Controls.Add(this.butDSAdd);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1006, 346);
+            this.panel3.TabIndex = 13;
             // 
             // dgvDS
             // 
@@ -1450,7 +1600,7 @@
             this.dgvDS.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvDS.EnableHeadersVisualStyles = false;
             this.dgvDS.GridColor = System.Drawing.Color.DimGray;
-            this.dgvDS.Location = new System.Drawing.Point(0, 0);
+            this.dgvDS.Location = new System.Drawing.Point(3, 0);
             this.dgvDS.Name = "dgvDS";
             this.dgvDS.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -1461,7 +1611,7 @@
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvDS.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvDS.Size = new System.Drawing.Size(192, 40);
+            this.dgvDS.Size = new System.Drawing.Size(1003, 310);
             this.dgvDS.TabIndex = 1;
             // 
             // DSSID
@@ -1518,6 +1668,61 @@
             // 
             this.DSU.HeaderText = "Unknown";
             this.DSU.Name = "DSU";
+            // 
+            // butDSRemove
+            // 
+            this.butDSRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butDSRemove.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.aclui_126;
+            this.butDSRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butDSRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDSRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butDSRemove.Location = new System.Drawing.Point(90, 316);
+            this.butDSRemove.Name = "butDSRemove";
+            this.butDSRemove.Size = new System.Drawing.Size(23, 23);
+            this.butDSRemove.TabIndex = 10;
+            this.butDSRemove.UseVisualStyleBackColor = true;
+            this.butDSRemove.Click += new System.EventHandler(this.butDSRemove_Click);
+            // 
+            // butDSMoveUp
+            // 
+            this.butDSMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butDSMoveUp.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzUps;
+            this.butDSMoveUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butDSMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDSMoveUp.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butDSMoveUp.Location = new System.Drawing.Point(61, 316);
+            this.butDSMoveUp.Name = "butDSMoveUp";
+            this.butDSMoveUp.Size = new System.Drawing.Size(23, 23);
+            this.butDSMoveUp.TabIndex = 11;
+            this.butDSMoveUp.UseVisualStyleBackColor = true;
+            this.butDSMoveUp.Click += new System.EventHandler(this.butDSMoveUp_Click);
+            // 
+            // butDSMoveDown
+            // 
+            this.butDSMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butDSMoveDown.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.buzzsowns;
+            this.butDSMoveDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butDSMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDSMoveDown.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butDSMoveDown.Location = new System.Drawing.Point(32, 316);
+            this.butDSMoveDown.Name = "butDSMoveDown";
+            this.butDSMoveDown.Size = new System.Drawing.Size(23, 23);
+            this.butDSMoveDown.TabIndex = 12;
+            this.butDSMoveDown.UseVisualStyleBackColor = true;
+            this.butDSMoveDown.Click += new System.EventHandler(this.butDSMoveDown_Click);
+            // 
+            // butDSAdd
+            // 
+            this.butDSAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butDSAdd.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Default;
+            this.butDSAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butDSAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butDSAdd.Location = new System.Drawing.Point(3, 316);
+            this.butDSAdd.Name = "butDSAdd";
+            this.butDSAdd.Size = new System.Drawing.Size(23, 23);
+            this.butDSAdd.TabIndex = 9;
+            this.butDSAdd.UseVisualStyleBackColor = true;
+            this.butDSAdd.Click += new System.EventHandler(this.butDSAdd_Click);
             // 
             // tabPage2
             // 
@@ -1815,9 +2020,11 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "T2Control_NGNEditor";
             this.Size = new System.Drawing.Size(1036, 460);
+            this.Resize += new System.EventHandler(this.T2Control_NGNEditor_Resize);
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -1837,9 +2044,10 @@
             this.splitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
+            this.contextCharShapes.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
-            this.tabPage9.PerformLayout();
-            this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAnimationData)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
@@ -1854,6 +2062,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDS)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.splitContainer6.Panel1.ResumeLayout(false);
@@ -1885,10 +2094,8 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private T2TTabControl GeomEditor;
         private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.ComboBox comboGeometry;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ComboBox comboCharacters;
         private System.Windows.Forms.Label label2;
         private T2TTabControl CharEditor;
         private System.Windows.Forms.TabPage tabPage10;
@@ -1898,7 +2105,6 @@
         private System.Windows.Forms.Button butMoveCharShapeUp;
         private System.Windows.Forms.Button butRemoveCharShape;
         private System.Windows.Forms.Button butImportCharShape;
-        private System.Windows.Forms.ListBox listCharShapes;
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.Button butNewGeomShape;
@@ -1906,7 +2112,6 @@
         private System.Windows.Forms.Button butMoveGeomShapeUp;
         private System.Windows.Forms.Button butRemoveGeomShape;
         private System.Windows.Forms.Button butImportGeomShape;
-        private System.Windows.Forms.ListBox listGeomShapes;
         private System.Windows.Forms.Button butNewChar;
         private System.Windows.Forms.Button butRemoveChar;
         private System.Windows.Forms.Button butImportChar;
@@ -1940,8 +2145,6 @@
         internal System.Windows.Forms.ToolStripMenuItem MoveDownToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelTextureInfo;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ListBox listAreaPortals;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
@@ -1968,10 +2171,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ARY;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.RichTextBox fieldChunk;
-        private System.Windows.Forms.Button butPasteCharShapeData;
-        private System.Windows.Forms.Button butCopyCharShapeData;
+        private System.Windows.Forms.Button butPasteChar;
+        private System.Windows.Forms.Button butCopyChar;
         private System.Windows.Forms.Button butSaveChar;
-        private System.Windows.Forms.Button butPreviewCharShapeData;
+        private System.Windows.Forms.Button butPreviewChar;
         private System.Windows.Forms.Button butPreviewGeomShapeData;
         private System.Windows.Forms.Button butPasteGeomData;
         private System.Windows.Forms.Button butCopyGeomData;
@@ -1994,5 +2197,28 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DSSY;
         private System.Windows.Forms.DataGridViewTextBoxColumn DSSZ;
         private System.Windows.Forms.DataGridViewTextBoxColumn DSU;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        internal System.Windows.Forms.ListBox listCharShapes;
+        internal System.Windows.Forms.ComboBox comboGeometry;
+        internal System.Windows.Forms.ComboBox comboCharacters;
+        internal System.Windows.Forms.ListBox listGeomShapes;
+        internal System.Windows.Forms.ContextMenuStrip contextCharShapes;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem aboveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem replaceToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem belowToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItem18;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
+        internal System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
+        internal System.Windows.Forms.ToolStripMenuItem toolStripMenuItem17;
+        private System.Windows.Forms.Button butReplaceChar;
+        private System.Windows.Forms.Button butRenameChar;
+        private T2Control_TextureSelector t2Control_TextureSelector1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

@@ -14,5 +14,9 @@ namespace ToyTwoToolbox {
             image = new Bitmap(1, 1);
 
         }
+
+        public override string ToString() {
+            return name +" "+ image.Size.ToString();
+        }
     }
 }

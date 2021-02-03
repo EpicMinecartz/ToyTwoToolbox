@@ -139,7 +139,6 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // fieldLastLevel
             // 
@@ -178,7 +177,6 @@
             this.labelMusicVolume.Size = new System.Drawing.Size(118, 21);
             this.labelMusicVolume.TabIndex = 6;
             this.labelMusicVolume.Text = "Music Volume: 0";
-            this.labelMusicVolume.Click += new System.EventHandler(this.labelMusicVolume_Click);
             // 
             // labelSoundVolume
             // 
@@ -191,7 +189,6 @@
             this.labelSoundVolume.Size = new System.Drawing.Size(124, 21);
             this.labelSoundVolume.TabIndex = 7;
             this.labelSoundVolume.Text = "Sound Volume: 0";
-            this.labelSoundVolume.Click += new System.EventHandler(this.labelSoundVolume_Click);
             // 
             // radioCameraActive
             // 
@@ -204,7 +201,6 @@
             this.radioCameraActive.TabStop = true;
             this.radioCameraActive.Text = "Active";
             this.radioCameraActive.UseVisualStyleBackColor = true;
-            this.radioCameraActive.CheckedChanged += new System.EventHandler(this.radioCameraActive_CheckedChanged);
             // 
             // radioCameraPassive
             // 
@@ -217,7 +213,6 @@
             this.radioCameraPassive.TabStop = true;
             this.radioCameraPassive.Text = "Passive";
             this.radioCameraPassive.UseVisualStyleBackColor = true;
-            this.radioCameraPassive.CheckedChanged += new System.EventHandler(this.radioCameraPassive_CheckedChanged);
             // 
             // trackMusic
             // 
@@ -254,7 +249,6 @@
             this.label2.Size = new System.Drawing.Size(101, 21);
             this.label2.TabIndex = 3;
             this.label2.Text = "Camera Type:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // groupBox2
             // 
@@ -280,7 +274,6 @@
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tokens";
-            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // labelInvisTokens
             // 
@@ -291,7 +284,6 @@
             this.labelInvisTokens.TabIndex = 17;
             this.labelInvisTokens.Text = "Unlock level without tokens:";
             this.labelInvisTokens.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelInvisTokens.Click += new System.EventHandler(this.labelInvisTokens_Click);
             // 
             // checkEditAllLevels
             // 
@@ -303,7 +295,6 @@
             this.checkEditAllLevels.TabIndex = 16;
             this.checkEditAllLevels.Text = "Edit All";
             this.checkEditAllLevels.UseVisualStyleBackColor = true;
-            this.checkEditAllLevels.CheckedChanged += new System.EventHandler(this.checkEditAllLevels_CheckedChanged);
             // 
             // butTokLock
             // 
@@ -344,7 +335,6 @@
             this.label5.Size = new System.Drawing.Size(49, 21);
             this.label5.TabIndex = 8;
             this.label5.Text = "Level:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // fieldLevel
             // 
@@ -395,7 +385,6 @@
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Movies";
-            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
             // butMoviesUnlockSel
             // 
@@ -558,7 +547,6 @@
             this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Health";
-            this.groupBox7.Enter += new System.EventHandler(this.groupBox7_Enter);
             // 
             // label6
             // 
@@ -569,7 +557,6 @@
             this.label6.Size = new System.Drawing.Size(96, 21);
             this.label6.TabIndex = 8;
             this.label6.Text = "Invulnerable:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // linkBuzzHealthMax
             // 
@@ -628,7 +615,6 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // groupBox6
             // 
@@ -645,7 +631,6 @@
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Lives";
-            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
             // 
             // linkBuzzLivesMax
             // 
@@ -679,7 +664,6 @@
             0,
             0,
             0});
-            this.fieldBuzzLives.ValueChanged += new System.EventHandler(this.fieldBuzzLives_ValueChanged);
             // 
             // pictureBox1
             // 
@@ -691,7 +675,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // linkBuzzLivesIGMax
             // 
@@ -721,7 +704,6 @@
             this.groupBox8.TabIndex = 11;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Save Name";
-            this.groupBox8.Enter += new System.EventHandler(this.groupBox8_Enter);
             // 
             // butSetSaveNameTL
             // 
@@ -747,7 +729,6 @@
             this.fieldSaveName.Name = "fieldSaveName";
             this.fieldSaveName.Size = new System.Drawing.Size(324, 29);
             this.fieldSaveName.TabIndex = 0;
-            this.fieldSaveName.TextChanged += new System.EventHandler(this.fieldSaveName_TextChanged);
             // 
             // groupBox3
             // 
@@ -768,7 +749,6 @@
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Unlocks";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // butUnlockUnlock
             // 
@@ -781,7 +761,6 @@
             this.butUnlockUnlock.TabIndex = 17;
             this.butUnlockUnlock.Text = "Unlock All";
             this.butUnlockUnlock.UseVisualStyleBackColor = true;
-            this.butUnlockUnlock.Click += new System.EventHandler(this.butUnlockUnlock_Click);
             // 
             // butUnlockLock
             // 
@@ -794,7 +773,6 @@
             this.butUnlockLock.TabIndex = 16;
             this.butUnlockLock.Text = "Lock All";
             this.butUnlockLock.UseVisualStyleBackColor = true;
-            this.butUnlockLock.Click += new System.EventHandler(this.butUnlockLock_Click);
             // 
             // t2Control_HealthMeter1
             // 
@@ -804,7 +782,6 @@
             this.t2Control_HealthMeter1.Name = "t2Control_HealthMeter1";
             this.t2Control_HealthMeter1.Size = new System.Drawing.Size(13, 65);
             this.t2Control_HealthMeter1.TabIndex = 2;
-            this.t2Control_HealthMeter1.Load += new System.EventHandler(this.t2Control_HealthMeter1_Load);
             // 
             // toggleBuzzGod
             // 
@@ -842,7 +819,6 @@
             this.checkUnlockGrapple.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkUnlockGrapple.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkUnlockGrapple.UseVisualStyleBackColor = false;
-            this.checkUnlockGrapple.CheckedChanged += new System.EventHandler(this.checkUnlockGrapple_CheckedChanged);
             // 
             // checkUnlockHover
             // 
@@ -868,7 +844,6 @@
             this.checkUnlockHover.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkUnlockHover.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkUnlockHover.UseVisualStyleBackColor = false;
-            this.checkUnlockHover.CheckedChanged += new System.EventHandler(this.checkUnlockHover_CheckedChanged);
             // 
             // checkUnlockDisc
             // 
@@ -894,7 +869,6 @@
             this.checkUnlockDisc.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkUnlockDisc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkUnlockDisc.UseVisualStyleBackColor = false;
-            this.checkUnlockDisc.CheckedChanged += new System.EventHandler(this.checkUnlockDisc_CheckedChanged);
             // 
             // checkUnlockRocket
             // 
@@ -920,7 +894,6 @@
             this.checkUnlockRocket.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkUnlockRocket.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkUnlockRocket.UseVisualStyleBackColor = false;
-            this.checkUnlockRocket.CheckedChanged += new System.EventHandler(this.checkUnlockRocket_CheckedChanged);
             // 
             // checkUnlockShield
             // 
@@ -945,7 +918,6 @@
             this.checkUnlockShield.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkUnlockShield.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkUnlockShield.UseVisualStyleBackColor = false;
-            this.checkUnlockShield.CheckedChanged += new System.EventHandler(this.checkUnlockShield_CheckedChanged);
             // 
             // toggleInvisibleTokens
             // 
@@ -983,7 +955,6 @@
             this.checkTokBoss.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkTokBoss.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkTokBoss.UseVisualStyleBackColor = false;
-            this.checkTokBoss.CheckedChanged += new System.EventHandler(this.checkTokBoss_CheckedChanged);
             // 
             // checkTokMyst
             // 
@@ -1008,7 +979,6 @@
             this.checkTokMyst.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkTokMyst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkTokMyst.UseVisualStyleBackColor = false;
-            this.checkTokMyst.CheckedChanged += new System.EventHandler(this.checkTokMyst_CheckedChanged);
             // 
             // checkTokRC
             // 
@@ -1033,7 +1003,6 @@
             this.checkTokRC.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkTokRC.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkTokRC.UseVisualStyleBackColor = false;
-            this.checkTokRC.CheckedChanged += new System.EventHandler(this.checkTokRC_CheckedChanged);
             // 
             // checkTokCollect
             // 
@@ -1058,7 +1027,6 @@
             this.checkTokCollect.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkTokCollect.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkTokCollect.UseVisualStyleBackColor = false;
-            this.checkTokCollect.CheckedChanged += new System.EventHandler(this.checkTokCollect_CheckedChanged);
             // 
             // checkTokHamm
             // 
@@ -1083,7 +1051,6 @@
             this.checkTokHamm.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkTokHamm.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkTokHamm.UseVisualStyleBackColor = false;
-            this.checkTokHamm.CheckedChanged += new System.EventHandler(this.checkTokHamm_CheckedChanged);
             // 
             // T2Control_SaveEditor
             // 

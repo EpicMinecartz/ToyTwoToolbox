@@ -5,6 +5,7 @@ namespace ToyTwoToolbox {
         public List<int> ShapeID;
         public List<Vector3> Translation;
         public List<Vector3> Rotation;
+        public List<Vector3> RotationMatrix;
         public List<Vector3> Scale;
         public List<int> Unknown;
 
@@ -12,6 +13,7 @@ namespace ToyTwoToolbox {
             ShapeID = new List<int>();
             Translation = new List<Vector3>();
             Rotation = new List<Vector3>();
+            RotationMatrix = new List<Vector3>();
             Scale = new List<Vector3>();
             Unknown = new List<int>();
         }

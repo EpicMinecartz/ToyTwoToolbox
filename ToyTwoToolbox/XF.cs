@@ -15,11 +15,9 @@ namespace ToyTwoToolbox {
                 ctrls.Add(parent);
             }
             foreach (System.Windows.Forms.Control ctrl in parent.Controls) {
-                // If TypeOf ctrl Is Control Then
                 if (!ctrls.Contains(ctrl)) {
                     ctrls.Add(ctrl);
                 }
-                // End If
                 if (searchContainers && ctrl.Controls.Count > 0) {
                     foreach (System.Windows.Forms.Control ctl in GetControls(ctrl, searchContainers)) {
                         if (!ctrls.Contains(ctl)) {
@@ -186,10 +184,7 @@ namespace ToyTwoToolbox {
             return new string(c);
         }
 
-        /// <summary>
-        /// This function takes any <seealso cref="Image"/> and outputs a standard
-        /// 24-bit bitmap from it
-        /// </summary>
+        /// <summary>This function takes any <seealso cref="Image"/> and outputs a standard 24-bit bitmap from it</summary>
         /// <param name="IMG">Input Image</param>
         /// <returns>Converted <seealso cref="Image"/></returns>
         public static Image ProParseImage(Image IMG) {
@@ -200,7 +195,7 @@ namespace ToyTwoToolbox {
                     }
                 }
             } catch (Exception ex) {
-                SessionManager.Report(ex.ToString(),SessionManager.RType.ERROR);
+                SessionManager.Report(ex.ToString(), SessionManager.RType.ERROR);
                 return null;
             }
         }
@@ -243,32 +238,52 @@ namespace ToyTwoToolbox {
             bml.ReleaseLock(); // Unlock the bitmap data.
         }
 
-        /// <summary>
-        /// Move an item in a list based on it's current position in the list
-        /// </summary>
+        /// <summary>Move an item in a list based on it's current position in the list</summary>
         /// <param name="list">The list to enumerate</param>
         /// <param name="item">The index of the affected item</param>
         /// <param name="offset">How much to move the affected item by</param>
         /// <param name="pushToLimit">Whether to move as far as possible in that direction, or just do nothing</param>
-        public static void ListMoveItem(System.Collections.IList list, int index, int offset, bool pushToLimit = true) {
-            var item = list[index];
-            list.RemoveAt(index);
-            if (Math.Sign(offset) == 1) {
-                if (index + offset > list.Count) { if (pushToLimit) { offset = list.Count - index; } else { return; } }
-            } else {
-                if (index + offset < 0) { if (pushToLimit) { offset = -(index + (index - offset)); } else { return; } }
+        public static int ListMoveItem(System.Collections.IList list, int index, int offset, bool pushToLimit = true) {
+            if (index != -1) {
+                var item = list[index];
+                list.RemoveAt(index);
+                if (Math.Sign(offset) == 1) {
+                    if (index + offset > list.Count) { if (pushToLimit) { offset = list.Count - index; } else { return 0; } }
+                } else {
+                    if (index + offset < 0) { if (pushToLimit) { offset =0; } else { return 0; } }
+                }
+                list.Insert(index + offset, item);
+                return index + offset;
             }
-            list.Insert(index + offset, item);
+            return 0;
         }
+        //public static int ListMoveItem(System.Collections.IList list, int index, int offset, bool pushToLimit = true) {
+        //    if (index != -1) {
+        //        var item = list[index];
+        //        list.RemoveAt(index);
+        //        if (Math.Sign(offset) == 1) {
+        //            if (index + offset > list.Count) { if (pushToLimit) { offset = list.Count - index; } else { return 0; } }
+        //        } else {
+        //            if (index + offset < 0) { if (pushToLimit) { offset = -(index + (index - offset)); } else { return 0; } }
+        //        }
+        //        list.Insert(index + offset, item);
+        //        return index + offset;
+        //    }
+        //    return 0;
+        //}
 
         public static Color NGNColToColor(List<double> ARGBL) {
             //if theres an instance of a ngn color having 4 values, ill fix it then
             //if (ARGBL.Count < 4) { ARGBL.Insert(0, 1.0000000695); }
-            return Color.FromArgb(
-                    (int)(ARGBL[0] / 0.0039215689),
-                    (int)(ARGBL[1] / 0.0039215689),
-                    (int)(ARGBL[2] / 0.0039215689)
-                    );
+            if (ARGBL.Count > 2) {
+                return Color.FromArgb(
+                        (int)(ARGBL[0] / 0.0039215689),
+                        (int)(ARGBL[1] / 0.0039215689),
+                        (int)(ARGBL[2] / 0.0039215689)
+                        );
+            } else {
+                return Color.Black;
+            }
         }
 
         public static List<double> ColorToNGNColor(Color color) {
@@ -297,6 +312,28 @@ namespace ToyTwoToolbox {
             }
             return vobj.ToArray();
         }
+
+        private static readonly Random r = new Random();
+        /// <summary>Generate a random integer within the specified range. (Or 0 - 2,147,483,647 if no parameters are supplied)</summary>
+        /// <param name="min">The lowest value that can be produced</param>
+        /// <param name="max">The highest value that can be produced</param>
+        /// <returns></returns>
+        public static int Random(int min = 0, int max = 2147483647) {
+            return r.Next(min, max);
+        }
+
+        /// <summary>Returns an array of items based on the selection of items in a listbox.</summary>
+        /// <param name="selectedIndexs">The <see cref="ListBox.SelectedIndexCollection"/> to use for collection</param>
+        /// <param name="items">The array to collect items from</param>
+        /// <returns>Generic auto cast <see cref="T"/>[] of selected items</returns>
+        public static T[] ItemsFromListBox<T>(ListBox.SelectedIndexCollection selectedIndexs, T[] items) {
+            T[] selecteditems = new T[selectedIndexs.Count];
+            for (int i = 0;i < selectedIndexs.Count;i++) {
+                selecteditems[i] = items[i];
+            }
+            return selecteditems;
+        }
+
     }
 
     public static class Extentions {
@@ -304,17 +341,24 @@ namespace ToyTwoToolbox {
         /// <typeparam name="T"></typeparam>
         /// <param name="Obj"></param>
         /// <returns></returns>
-        public static T DeepCopy<T>(this T Obj) {
-            if (Obj.GetType().IsSerializable == false) {
-                return default(T);
-            }
+        //public static T DeepCopy<T>(this T Obj) {
+        //    if (Obj.GetType().IsSerializable == false) {
+        //        return default(T);
+        //    }
 
-            using (System.IO.MemoryStream MStream = new System.IO.MemoryStream()) {
-                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter Formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                Formatter.Serialize(MStream, Obj);
-                MStream.Position = 0;
-                return (T)Formatter.Deserialize(MStream);
-            }
+        //    using (System.IO.MemoryStream MStream = new System.IO.MemoryStream()) {
+        //        System.Runtime.Serialization.Formatters.Binary.BinaryFormatter Formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+        //        Formatter.Serialize(MStream, Obj);
+        //        MStream.Position = 0;
+        //        return (T)Formatter.Deserialize(MStream);
+        //    }
+        //}
+
+
+        public static void Swap<T>(this List<T> list, int indexA, int indexB) {
+            T tmp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = tmp;
         }
 
         /// <summary>
