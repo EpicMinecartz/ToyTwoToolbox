@@ -24,6 +24,7 @@ namespace ToyTwoToolbox {
             toolStrip1.Renderer = new DarkThemeMenuRender();
             tabControl1.DrawItem += new DrawItemEventHandler(DarkThemeTabControlRender.tabControl_DrawItem);
             tabControl1.TabRequestDestroy += new TabRequestDestroyEventHandler(TabControl.TabRequestDestroy);
+            tabControl1.SelectedIndexChanging += new SelectedTabPageChangeEventHandler(ProcessBaseTabControlState);
             this.firstOpenPanel1.OpenFile += new EventHandler(FOPM);
             this.firstOpenPanel1.CreateFile += new EventHandler(FOPM);
             this.toolStripComboBoxMatSel.SelectedIndex = 0;
@@ -33,7 +34,10 @@ namespace ToyTwoToolbox {
             debugToolStripMenuItem.Visible = SessionManager.Debug;
         }
 
-
+        private void ProcessBaseTabControlState(Object sender, TabPageChangeEventArgs e) {
+            
+                //i messed up, this invoke needs to go to TabController.CS and NOT T2TabControl.CS
+        }
 
         void Form1_DragEnter(object sender, DragEventArgs e) {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) {
@@ -302,5 +306,11 @@ namespace ToyTwoToolbox {
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
             MessageBox.Show("ToyTwoToolbox " + SessionManager.ver, "Hello :)", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void firstOpenPanel1_Paint(object sender, PaintEventArgs e) {
+            
+        }
+
+
     }
 }

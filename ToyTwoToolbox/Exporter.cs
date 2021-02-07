@@ -14,6 +14,7 @@ namespace ToyTwoToolbox {
         public bool ex_gx;
         public bool ex_gy;
         public bool ex_gz;
+        public string ex_name;
         public IWorldObject obj;
 
         public Exporter() {
@@ -22,6 +23,7 @@ namespace ToyTwoToolbox {
 
         private void Exporter_Load(object sender, EventArgs e) {
             label3.Text = "Exporting:\n" + obj.name + "(" + obj.objectType + ")\n" + obj.shapes.Count + " Shapes\nIn:" + System.IO.Path.GetFileName(obj.owner.FilePath);
+            EditableLabelOutputName.Text = "Export";
         }
 
         public DialogResult Prompt(IWorldObject worldObject) {
@@ -46,6 +48,7 @@ namespace ToyTwoToolbox {
             ex_gy = checkRot.Checked && checkGY.Checked;
             ex_gz = checkRot.Checked && checkGZ.Checked;
             ex_rot = new Vector3((ex_gx) ? 1 : 0, (ex_gy) ? 1 : 0, (ex_gz) ? 1 : 0);
+            ex_name = EditableLabelOutputName.Text;
         }
 
         private void checkRot_CheckedChanged(object sender, EventArgs e) {

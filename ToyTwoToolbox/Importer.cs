@@ -208,5 +208,9 @@ namespace ToyTwoToolbox {
         private void button2_Click(object sender, EventArgs e) {
             ProcessOBJ(textBox1.Text, checkTextures.Checked, checkMaterials.Checked, checkName.Checked, new Vector3((checkGX.Checked) ? 1 : 0, (checkGY.Checked) ? 1 : 0, (checkGZ.Checked) ? 1 : 0));
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e) {
+            button2.Enabled = System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(textBox1.Text));
+        }
     }
 }

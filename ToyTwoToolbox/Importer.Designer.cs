@@ -26,6 +26,7 @@
             this.t2TTabControl1 = new ToyTwoToolbox.T2TTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkName = new System.Windows.Forms.CheckBox();
             this.checkMaterials = new System.Windows.Forms.CheckBox();
             this.checkRot = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -38,7 +39,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.checkName = new System.Windows.Forms.CheckBox();
             this.t2TTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -89,6 +89,16 @@
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Import Settings";
+            // 
+            // checkName
+            // 
+            this.checkName.AutoSize = true;
+            this.checkName.Location = new System.Drawing.Point(6, 59);
+            this.checkName.Name = "checkName";
+            this.checkName.Size = new System.Drawing.Size(91, 17);
+            this.checkName.TabIndex = 5;
+            this.checkName.Text = "Import Names";
+            this.checkName.UseVisualStyleBackColor = true;
             // 
             // checkMaterials
             // 
@@ -182,6 +192,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button2.Enabled = false;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button2.Location = new System.Drawing.Point(11, 177);
@@ -203,6 +214,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(232, 20);
             this.textBox1.TabIndex = 18;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
             // 
@@ -233,19 +245,9 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(388, 197);
+            this.tabPage2.Size = new System.Drawing.Size(388, 214);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Raw Shape data import";
-            // 
-            // checkName
-            // 
-            this.checkName.AutoSize = true;
-            this.checkName.Location = new System.Drawing.Point(6, 59);
-            this.checkName.Name = "checkName";
-            this.checkName.Size = new System.Drawing.Size(91, 17);
-            this.checkName.TabIndex = 5;
-            this.checkName.Text = "Import Names";
-            this.checkName.UseVisualStyleBackColor = true;
             // 
             // Importer
             // 
@@ -255,6 +257,7 @@
             this.ClientSize = new System.Drawing.Size(396, 243);
             this.Controls.Add(this.t2TTabControl1);
             this.ForeColor = System.Drawing.Color.White;
+            this.MinimumSize = new System.Drawing.Size(265, 282);
             this.Name = "Importer";
             this.Text = "Importer";
             this.Load += new System.EventHandler(this.Importer_Load);

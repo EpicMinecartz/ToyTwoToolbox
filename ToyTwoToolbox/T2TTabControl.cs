@@ -8,29 +8,18 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 namespace ToyTwoToolbox {
-    /// <summary>
-    /// Summary description for TabControl.
-    /// </summary>
+    /// <summary>Custom DarkTheme Tabcontroller.</summary>
     public class T2TTabControl : System.Windows.Forms.TabControl {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.Container components = null;
         private bool debug = false;
 
         public T2TTabControl() {
-            // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
-
-            // TODO: Add any initialization after the InitializeComponent call
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.UserPaint, true);
-
         }
 
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
+        /// <summary> Clean up any resources being used.</summary>
         protected override void Dispose(bool disposing) {
             if (disposing) {
                 if (components != null) {
@@ -42,10 +31,7 @@ namespace ToyTwoToolbox {
 
 
         #region Component Designer generated code
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
+        /// <summary>Required method for Designer support - do not modify the contents of this method with the code editor.</summary>
         private void InitializeComponent() {
             this.SuspendLayout();
             // 

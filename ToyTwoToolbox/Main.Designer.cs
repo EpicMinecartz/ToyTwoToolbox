@@ -83,6 +83,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firstOpenPanel1 = new ToyTwoToolbox.FirstOpenPanel();
+            this.fillShapeGapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -295,6 +296,8 @@
             // 
             // shapesToolStripMenuItem
             // 
+            this.shapesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fillShapeGapsToolStripMenuItem});
             this.shapesToolStripMenuItem.Enabled = false;
             this.shapesToolStripMenuItem.Name = "shapesToolStripMenuItem";
             this.shapesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -420,7 +423,7 @@
             // 
             this.aboutToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveTokenSecret;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -640,6 +643,13 @@
             this.firstOpenPanel1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.firstOpenPanel1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.firstOpenPanel1.DragLeave += new System.EventHandler(this.Form1_DragLeave);
+            this.firstOpenPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.firstOpenPanel1_Paint);
+            // 
+            // fillShapeGapsToolStripMenuItem
+            // 
+            this.fillShapeGapsToolStripMenuItem.Name = "fillShapeGapsToolStripMenuItem";
+            this.fillShapeGapsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.fillShapeGapsToolStripMenuItem.Text = "Fill character shape gaps";
             // 
             // Main
             // 
@@ -734,6 +744,7 @@
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxMatSel;
         private System.Windows.Forms.ToolStripMenuItem fromSelectedShapeInSelectedLevelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openNewToolboxWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fillShapeGapsToolStripMenuItem;
     }
 }
 

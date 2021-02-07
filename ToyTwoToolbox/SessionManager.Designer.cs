@@ -25,7 +25,6 @@ namespace ToyTwoToolbox {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             this.Log = new System.Windows.Forms.RichTextBox();
             this.MenuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,22 +51,12 @@ namespace ToyTwoToolbox {
             this.SessionList = new System.Windows.Forms.ComboBox();
             this.NewSession = new System.Windows.Forms.Button();
             this.Label1 = new System.Windows.Forms.Label();
-            this.contextDGV = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.replaceSelectedValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fillSelectedWithRandomNumbersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.selectInvertedSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllCellsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllCellsInColumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip1.SuspendLayout();
             this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).BeginInit();
             this.SplitContainer1.Panel1.SuspendLayout();
             this.SplitContainer1.Panel2.SuspendLayout();
             this.SplitContainer1.SuspendLayout();
-            this.contextDGV.SuspendLayout();
             this.SuspendLayout();
             // 
             // Log
@@ -342,82 +331,6 @@ namespace ToyTwoToolbox {
             this.Label1.TabIndex = 0;
             this.Label1.Text = "Session:";
             // 
-            // contextDGV
-            // 
-            this.contextDGV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.replaceSelectedValuesToolStripMenuItem,
-            this.fillSelectedWithRandomNumbersToolStripMenuItem,
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.selectInvertedSelectionToolStripMenuItem,
-            this.selectAllCellsToolStripMenuItem,
-            this.selectAllCellsInColumToolStripMenuItem});
-            this.contextDGV.Name = "contextDGV";
-            this.contextDGV.Size = new System.Drawing.Size(257, 164);
-            this.contextDGV.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.contextDGV_Closing);
-            this.contextDGV.Opening += new System.ComponentModel.CancelEventHandler(this.contextDGV_Opening);
-            // 
-            // replaceSelectedValuesToolStripMenuItem
-            // 
-            this.replaceSelectedValuesToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
-            this.replaceSelectedValuesToolStripMenuItem.Name = "replaceSelectedValuesToolStripMenuItem";
-            this.replaceSelectedValuesToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.replaceSelectedValuesToolStripMenuItem.Text = "&Replace selected values...";
-            this.replaceSelectedValuesToolStripMenuItem.Click += new System.EventHandler(this.replaceSelectedValuesToolStripMenuItem_Click);
-            // 
-            // fillSelectedWithRandomNumbersToolStripMenuItem
-            // 
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgm_grandom;
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Name = "fillSelectedWithRandomNumbersToolStripMenuItem";
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Text = "&Fill selected with random numbers";
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.CopyHS;
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.copyToolStripMenuItem.Text = "&Copy";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.Paste;
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.pasteToolStripMenuItem.Text = "&Paste";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(253, 6);
-            // 
-            // selectInvertedSelectionToolStripMenuItem
-            // 
-            this.selectInvertedSelectionToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selinv;
-            this.selectInvertedSelectionToolStripMenuItem.Name = "selectInvertedSelectionToolStripMenuItem";
-            this.selectInvertedSelectionToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.selectInvertedSelectionToolStripMenuItem.Text = "Select inverted selection";
-            this.selectInvertedSelectionToolStripMenuItem.Click += new System.EventHandler(this.selectInvertedSelectionToolStripMenuItem_Click);
-            // 
-            // selectAllCellsToolStripMenuItem
-            // 
-            this.selectAllCellsToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selall;
-            this.selectAllCellsToolStripMenuItem.Name = "selectAllCellsToolStripMenuItem";
-            this.selectAllCellsToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.selectAllCellsToolStripMenuItem.Text = "Select all cells";
-            this.selectAllCellsToolStripMenuItem.Click += new System.EventHandler(this.selectAllCellsToolStripMenuItem_Click);
-            // 
-            // selectAllCellsInColumToolStripMenuItem
-            // 
-            this.selectAllCellsInColumToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selcol;
-            this.selectAllCellsInColumToolStripMenuItem.Name = "selectAllCellsInColumToolStripMenuItem";
-            this.selectAllCellsInColumToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.selectAllCellsInColumToolStripMenuItem.Text = "Select all cells in colum";
-            this.selectAllCellsInColumToolStripMenuItem.Click += new System.EventHandler(this.selectAllCellsInColumToolStripMenuItem_Click);
-            // 
             // SessionManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -444,7 +357,6 @@ namespace ToyTwoToolbox {
             this.SplitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer1)).EndInit();
             this.SplitContainer1.ResumeLayout(false);
-            this.contextDGV.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
@@ -474,16 +386,6 @@ namespace ToyTwoToolbox {
 		internal ToolStripMenuItem ForceExitToolStripMenuItem;
 
         #endregion
-
-        private ContextMenuStrip contextDGV;
-        private ToolStripMenuItem replaceSelectedValuesToolStripMenuItem;
-        private ToolStripMenuItem fillSelectedWithRandomNumbersToolStripMenuItem;
-        private ToolStripMenuItem copyToolStripMenuItem;
-        private ToolStripMenuItem pasteToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripMenuItem selectInvertedSelectionToolStripMenuItem;
-        private ToolStripMenuItem selectAllCellsToolStripMenuItem;
-        private ToolStripMenuItem selectAllCellsInColumToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem ADVDStripMenuItem;
     }

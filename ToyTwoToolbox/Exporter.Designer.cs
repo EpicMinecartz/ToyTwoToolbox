@@ -29,18 +29,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkMaterials = new System.Windows.Forms.CheckBox();
+            this.checkRot = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkGZ = new System.Windows.Forms.CheckBox();
             this.checkGY = new System.Windows.Forms.CheckBox();
             this.checkGX = new System.Windows.Forms.CheckBox();
-            this.checkRot = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkAlpha = new System.Windows.Forms.CheckBox();
-            this.checkMaterials = new System.Windows.Forms.CheckBox();
             this.checkVCOL = new System.Windows.Forms.CheckBox();
             this.checkTextures = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.butexport = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.EditableLabelOutputName = new ToyTwoToolbox.T2Control_EditableLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -83,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 58);
+            this.label2.Location = new System.Drawing.Point(6, 168);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 3;
@@ -93,7 +95,7 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(15, 74);
+            this.radioButton1.Location = new System.Drawing.Point(6, 184);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(98, 17);
             this.radioButton1.TabIndex = 4;
@@ -109,15 +111,43 @@
             this.groupBox1.Controls.Add(this.checkMaterials);
             this.groupBox1.Controls.Add(this.checkRot);
             this.groupBox1.Controls.Add(this.groupBox4);
+            this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.checkTextures);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(15, 107);
+            this.groupBox1.Location = new System.Drawing.Point(15, 88);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(365, 171);
+            this.groupBox1.Size = new System.Drawing.Size(365, 206);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output Settings";
+            // 
+            // checkMaterials
+            // 
+            this.checkMaterials.AutoSize = true;
+            this.checkMaterials.Checked = true;
+            this.checkMaterials.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkMaterials.Location = new System.Drawing.Point(6, 40);
+            this.checkMaterials.Name = "checkMaterials";
+            this.checkMaterials.Size = new System.Drawing.Size(101, 17);
+            this.checkMaterials.TabIndex = 1;
+            this.checkMaterials.Text = "Export Materials";
+            this.checkMaterials.UseVisualStyleBackColor = true;
+            this.checkMaterials.CheckedChanged += new System.EventHandler(this.checkMaterials_CheckedChanged);
+            // 
+            // checkRot
+            // 
+            this.checkRot.AutoSize = true;
+            this.checkRot.Checked = true;
+            this.checkRot.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkRot.Location = new System.Drawing.Point(6, 114);
+            this.checkRot.Name = "checkRot";
+            this.checkRot.Size = new System.Drawing.Size(58, 17);
+            this.checkRot.TabIndex = 0;
+            this.checkRot.Text = "Rotate";
+            this.checkRot.UseVisualStyleBackColor = true;
+            this.checkRot.CheckedChanged += new System.EventHandler(this.checkRot_CheckedChanged);
             // 
             // groupBox4
             // 
@@ -169,19 +199,6 @@
             this.checkGX.Text = "X";
             this.checkGX.UseVisualStyleBackColor = true;
             // 
-            // checkRot
-            // 
-            this.checkRot.AutoSize = true;
-            this.checkRot.Checked = true;
-            this.checkRot.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkRot.Location = new System.Drawing.Point(6, 114);
-            this.checkRot.Name = "checkRot";
-            this.checkRot.Size = new System.Drawing.Size(58, 17);
-            this.checkRot.TabIndex = 0;
-            this.checkRot.Text = "Rotate";
-            this.checkRot.UseVisualStyleBackColor = true;
-            this.checkRot.CheckedChanged += new System.EventHandler(this.checkRot_CheckedChanged);
-            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -206,19 +223,6 @@
             this.checkAlpha.TabIndex = 2;
             this.checkAlpha.Text = "Generate alpha maps";
             this.checkAlpha.UseVisualStyleBackColor = true;
-            // 
-            // checkMaterials
-            // 
-            this.checkMaterials.AutoSize = true;
-            this.checkMaterials.Checked = true;
-            this.checkMaterials.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkMaterials.Location = new System.Drawing.Point(6, 40);
-            this.checkMaterials.Name = "checkMaterials";
-            this.checkMaterials.Size = new System.Drawing.Size(101, 17);
-            this.checkMaterials.TabIndex = 1;
-            this.checkMaterials.Text = "Export Materials";
-            this.checkMaterials.UseVisualStyleBackColor = true;
-            this.checkMaterials.CheckedChanged += new System.EventHandler(this.checkMaterials_CheckedChanged);
             // 
             // checkVCOL
             // 
@@ -248,7 +252,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 281);
+            this.label3.Location = new System.Drawing.Point(12, 297);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(143, 52);
             this.label3.TabIndex = 7;
@@ -261,7 +265,7 @@
             this.butexport.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.butexport.Enabled = false;
             this.butexport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butexport.Location = new System.Drawing.Point(14, 339);
+            this.butexport.Location = new System.Drawing.Point(14, 355);
             this.butexport.Name = "butexport";
             this.butexport.Size = new System.Drawing.Size(366, 23);
             this.butexport.TabIndex = 8;
@@ -269,17 +273,37 @@
             this.butexport.UseVisualStyleBackColor = true;
             this.butexport.Click += new System.EventHandler(this.butexport_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Output Name:";
+            // 
+            // EditableLabelOutputName
+            // 
+            this.EditableLabelOutputName.BackColor = System.Drawing.Color.Transparent;
+            this.EditableLabelOutputName.labelColor = System.Drawing.Color.Empty;
+            this.EditableLabelOutputName.Location = new System.Drawing.Point(15, 64);
+            this.EditableLabelOutputName.MaxWidth = 0;
+            this.EditableLabelOutputName.Name = "EditableLabelOutputName";
+            this.EditableLabelOutputName.Overflow = false;
+            this.EditableLabelOutputName.Size = new System.Drawing.Size(365, 20);
+            this.EditableLabelOutputName.TabIndex = 10;
+            // 
             // Exporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ClientSize = new System.Drawing.Size(396, 374);
+            this.ClientSize = new System.Drawing.Size(396, 390);
+            this.Controls.Add(this.EditableLabelOutputName);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.butexport);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.radioButton1);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.butbrowse);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
@@ -319,5 +343,7 @@
         private System.Windows.Forms.CheckBox checkTextures;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button butexport;
+        private System.Windows.Forms.Label label4;
+        private T2Control_EditableLabel EditableLabelOutputName;
     }
 }

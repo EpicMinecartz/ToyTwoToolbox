@@ -405,6 +405,9 @@ namespace ToyTwoToolbox {
                     materialID = fr._readint(ref ptr, 2), //the id of the material to use for this primitive
                     vertexCount = fr._readint(ref ptr, 2) //how many vertices make up this primitive
                 };
+                if (prim.type == 5 || prim.type == 6) {
+                    prim.flags |= Shape.PrimFlags.LookAt;
+                }
                 for (int j = 0;j < prim.vertexCount;j++) {
                     prim.vertices.Add(fr._readint(ref ptr, 2)); //collect each Vector based on the prim stucture
                 }
@@ -1019,7 +1022,7 @@ namespace ToyTwoToolbox {
         public void Extract(IWorldObject worldObject) {
             Exporter ex = new Exporter();
             if (ex.Prompt(worldObject) == DialogResult.OK) {
-                ExtractModel(worldObject, ex.ex_path, Format3D.obj, ex.ex_tex, ex.ex_mat, true, ex.ex_alpha, ex.ex_vcol, ex.ex_rot);
+                ExtractModel(worldObject, ex.ex_path, Format3D.obj, ex.ex_name, ex.ex_tex, ex.ex_mat, true, ex.ex_alpha, ex.ex_vcol, ex.ex_rot);
             }
         }
 
@@ -1032,7 +1035,7 @@ namespace ToyTwoToolbox {
         /// <param name="GenerateApha">Whether to generate and copy alpha maps for materials and store them in the output directory</param>
         /// <param name="SimVColor">Whether to average out the vertex color data and use that rather than global material color</param>
         /// <param name="GeomTrans">What axis to apply translation to</param>
-        public void ExtractModel(IWorldObject objdata, string path, Format3D format, bool CopyMaps, bool CreateMats, bool VertexColorOBJ, bool GenerateApha, bool SimVColor, Vector3 GeomTrans) {
+        public void ExtractModel(IWorldObject objdata, string path, Format3D format, string OutputName, bool CopyMaps, bool CreateMats, bool VertexColorOBJ, bool GenerateApha, bool SimVColor, Vector3 GeomTrans) {
             SessionManager.Report("Begining object extraction");
             string name = objdata.name ?? "test";
             SessionManager.Report("Target: " + name);
@@ -1170,7 +1173,12 @@ namespace ToyTwoToolbox {
                                 obj.face(prim.vertices[k + l] + vOffset);
                             }
                         }
-                        vAccumulator += primtype * (prim.vertices.Count / primtype);
+                        if ((prim.flags & Shape.PrimFlags.LookAt) == Shape.PrimFlags.LookAt) {
+                            //vAccumulator += shape.rawPrimitives[j].type * (shape.rawPrimitives[j].vertices.Count / shape.rawPrimitives[j].type);
+                            vAccumulator += (primtype * (prim.vertices.Count / primtype)) + (shape.rawPrimitives[j].vertices.Count - prim.vertices.Count);
+                        } else {
+                            vAccumulator += primtype * (prim.vertices.Count / primtype);
+                        }
                         obj.append("\n# " + prim.vertices.Count / primtype + " polygons\n\n\n");
                         j++;
                     }
@@ -1200,9 +1208,9 @@ namespace ToyTwoToolbox {
                         }
                     }
                 }
-                File.WriteAllText(path + "\\" + name + ".mtl", mtlsb.ToString());
+                File.WriteAllText(path + "\\" + OutputName + ".mtl", mtlsb.ToString());
             }
-            File.WriteAllText(path + "\\" + name + ".obj", obj.fstream.ToString());
+            File.WriteAllText(path + "\\" + OutputName + ".obj", obj.fstream.ToString());
             SessionManager.Report("Successfully written OBJ and MTL files!", SessionManager.RType.TEXT, Color.Green);
         }
 

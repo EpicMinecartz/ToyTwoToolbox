@@ -13,7 +13,7 @@ namespace ToyTwoToolbox {
 		// data members - X, Y and Z values
 		public float X;
 		public float Y;
-		public float Z;
+		public float Z { get; set; }
 
 		/// <summary>Vector3 allows you to store the individual X, Y and Z components that make a 3D point</summary>
 		public Vector3() {
@@ -36,8 +36,8 @@ namespace ToyTwoToolbox {
 			Z = Vec.Z;
 		}
 
-		// dot product of this vector and the parameter vector
-		public float DotProduct(Vector3 Vec) {
+        // dot product of this vector and the parameter vector
+        public float DotProduct(Vector3 Vec) {
 			return (X * Vec.X) + (Y * Vec.Y) + (Z * Vec.Z);
 		}
 

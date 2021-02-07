@@ -322,6 +322,10 @@ namespace ToyTwoToolbox {
             return r.Next(min, max);
         }
 
+        public static double Randomf() {
+            return r.NextDouble();
+        }
+
         /// <summary>Returns an array of items based on the selection of items in a listbox.</summary>
         /// <param name="selectedIndexs">The <see cref="ListBox.SelectedIndexCollection"/> to use for collection</param>
         /// <param name="items">The array to collect items from</param>

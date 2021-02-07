@@ -27,20 +27,22 @@ namespace ToyTwoToolbox {
         public int vertexCount { get => _vertexCount; set => _vertexCount = value; }
         private List<int> _vertices;
         public List<int> vertices { get => _vertices; set => _vertices = value; }
-        
+        public Shape.PrimFlags flags { get; set; }
 
         public Prim() {
             type = 0;
             materialID = 0;
             vertexCount = 0;
             vertices = new List<int>();
+            flags = 0;
         }
 
-        public Prim(int Type, int MaterialID, List<int> VertexIDs, int VertexCount = -1) {
+        public Prim(int Type, int MaterialID, List<int> VertexIDs, int VertexCount = -1, Shape.PrimFlags Flags = 0) {
             type = Type;
             materialID = MaterialID;
             vertexCount = (VertexCount == -1) ? VertexIDs.Count : VertexCount;
             vertices = VertexIDs;
+            flags = Flags;
         }
 
         public Patch ConvertToPatch() {

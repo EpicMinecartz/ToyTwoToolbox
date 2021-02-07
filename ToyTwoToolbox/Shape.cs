@@ -75,5 +75,13 @@ namespace ToyTwoToolbox {
                 }
             }
         }
+
+
+        /// <summary>Show information about a primitive. <para/> None == Normal </summary>
+        [Flags]
+        public enum PrimFlags {
+            LookAt = 1,
+        }
+
     }
 }

@@ -12,6 +12,8 @@ namespace ToyTwoToolbox {
         public int vertexCount { get => _vertexCount; set => _vertexCount = value; }
         private List<int> _vertices;
         public List<int> vertices { get => _vertices; set => _vertices = value; }
+        public Shape.PrimFlags flags { get; set; }
+
         public Int32 Unknown1;
         public Int32 Unknown2;
         public Int32 Unknown3;
@@ -29,9 +31,10 @@ namespace ToyTwoToolbox {
             Unknown2 = 0;
             Unknown3 = 0;
             Unknown4 = 0;
+            flags = 0;
         }
 
-        public Patch(int MaterialID, List<int> VertexIDs, int VertexCount = -1) {
+        public Patch(int MaterialID, List<int> VertexIDs, int VertexCount = -1, Shape.PrimFlags Flags = 0) {
             type = 1;
             vertexCount = (VertexCount == -1) ? VertexIDs.Count : VertexCount;
             vertices = VertexIDs;
@@ -40,6 +43,7 @@ namespace ToyTwoToolbox {
             Unknown2 = 0;
             Unknown3 = 0;
             Unknown4 = 0;
+            flags = Flags;
         }
 
         /// <summary>Convert this patch to a <see cref="Prim"/> type</summary>

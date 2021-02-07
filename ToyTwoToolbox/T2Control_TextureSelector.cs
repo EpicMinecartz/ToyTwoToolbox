@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace ToyTwoToolbox {
     public partial class T2Control_TextureSelector : UserControl {
         public event TPChangedEventHandler TPChanged;
-        public delegate void TPChangedEventHandler(T2TP TP);
+        public delegate void TPChangedEventHandler(T2TP TP, bool Invoke);
         public event SelectedIndexChangedEventHandler SelectedIndexChanged;
         public delegate void SelectedIndexChangedEventHandler(int Index);
         private int CurrentWidth = 0;
@@ -22,8 +22,8 @@ namespace ToyTwoToolbox {
                 }
             }
             set {
-                if (value != -1 && value < TexturePanels.Count) {
-                    TPChange(TexturePanels[value]);
+                if (value < TexturePanels.Count) {
+                    TPChange((value==-1) ? null : TexturePanels[value], false);
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace ToyTwoToolbox {
             BasePanel.ResumeLayout();
         }
 
-        public void TPChange(T2TP TP) {
+        public void TPChange(T2TP TP, bool InvokeSelectionChanged = true) {
             if (SelectedPanel != null && SelectedPanel != TP && SelectedPanel.selected == true) {
                 SelectedPanel.ChangeSelection();
             } else if (SelectedPanel != null && SelectedPanel == TP && SelectedPanel.selected == true) {
@@ -65,9 +65,11 @@ namespace ToyTwoToolbox {
                 SelectedPanel = null;
                 return;
             }
+            if(TP!=null) {
             SelectedPanel = TP;
-            SelectedIndexChanged.Invoke((SelectedPanel == null) ? -1 : TexturePanels.IndexOf(SelectedPanel));
+            if (InvokeSelectionChanged) { SelectedIndexChanged.Invoke((SelectedPanel == null) ? -1 : TexturePanels.IndexOf(SelectedPanel)); }
             TP.ChangeSelection();
+            }
         }
 
         private void T2Control_TextureSelector_Load(object sender, EventArgs e) {
@@ -177,7 +179,7 @@ namespace ToyTwoToolbox {
             }
 
             private void T2TP_MouseUp(object sender, MouseEventArgs e) {
-                owner.TPChanged.Invoke(this);
+                owner.TPChanged.Invoke(this, true);
             }
 
             public void ChangeSelection(bool? Selected = null) {

@@ -10,5 +10,6 @@ namespace ToyTwoToolbox {
         int materialID { get; set; }
         int vertexCount { get; set; }
         List<int> vertices { get; set; }
+        Shape.PrimFlags flags { get; set; }
     }
 }

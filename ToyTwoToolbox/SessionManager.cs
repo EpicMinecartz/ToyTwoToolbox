@@ -42,7 +42,6 @@ namespace ToyTwoToolbox {
             DarkThemeRowDGV.BackColor = Color.FromArgb(10, 10, 10);
             DarkThemeRowDGV.ForeColor = Color.FromArgb(240, 240, 240);
             DarkThemeRowDGV.SelectionBackColor = Color.FromArgb(50, 50, 50);
-            contextDGV.Renderer = new DarkThemeMenuRender();
         }
 
         public static DataGridViewCellStyle DarkThemeCellDGV = new DataGridViewCellStyle();
@@ -168,7 +167,6 @@ namespace ToyTwoToolbox {
         //we have a list of variables that we create once, only if required, to save on memory and performance overhead
         public static ImageList MovieImageList; //SMptr.GetMovieList
         public static string str_ImageFormatsStandard = "Bitmap Files (*.bmp)|*.bmp|Portable Network Graphic Files (*.png)|*.png|Joint Photographic Experts Group Files (*.jpg)|*.jpg|Graphics Interchange Format Files (*.gif)|*.gif|All Files (*.*)|*.*";
-        public static ContextMenuStrip ctrl_DGVContext;
         public static List<float> Sine = new List<float>();
         //public List<float> Sine = WARP3D.NU3D.GenerateSine();
 
@@ -194,8 +192,6 @@ namespace ToyTwoToolbox {
             CreateNewSession(MainArg);
             MainSession = SessionPool[0];
             SessionList.SelectedIndex = 0;
-            ctrl_DGVContext = contextDGV;
-
         }
 
         private void ProcessArgs() {

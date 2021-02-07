@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -51,6 +52,15 @@
             this.VColor = new System.Windows.Forms.DataGridViewButtonColumn();
             this.U = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.V = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextDGV = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.replaceSelectedValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fillSelectedWithRandomNumbersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.selectInvertedSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllCellsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllCellsInColumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage13 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.butSendToMultiMat = new System.Windows.Forms.Button();
@@ -85,6 +95,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericPatchType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPatchMaterialID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShapeData)).BeginInit();
+            this.contextDGV.SuspendLayout();
             this.tabPage13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -310,17 +321,19 @@
             this.VColor,
             this.U,
             this.V});
+            this.dgvShapeData.ContextMenuStrip = this.contextDGV;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvShapeData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvShapeData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvShapeData.EnableHeadersVisualStyles = false;
             this.dgvShapeData.GridColor = System.Drawing.Color.DimGray;
+            this.dgvShapeData.ignoreCellValueChanged = true;
             this.dgvShapeData.Location = new System.Drawing.Point(0, 0);
             this.dgvShapeData.Name = "dgvShapeData";
             this.dgvShapeData.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -336,8 +349,9 @@
             this.dgvShapeData.Size = new System.Drawing.Size(740, 193);
             this.dgvShapeData.TabIndex = 0;
             this.dgvShapeData.Visible = false;
-            this.dgvShapeData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellContentClick);
-            this.dgvShapeData.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellEndEdit);
+            this.dgvShapeData.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvShapeData_CellBeginEdit);
+            this.dgvShapeData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellValueChanged);
+            this.dgvShapeData.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellValueChanged);
             this.dgvShapeData.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShapeData_CellValueChanged);
             this.dgvShapeData.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvShapeData_RowsAdded);
             this.dgvShapeData.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvShapeData_RowsRemoved);
@@ -403,6 +417,80 @@
             this.V.HeaderText = "V";
             this.V.Name = "V";
             this.V.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // contextDGV
+            // 
+            this.contextDGV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.replaceSelectedValuesToolStripMenuItem,
+            this.fillSelectedWithRandomNumbersToolStripMenuItem,
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.selectInvertedSelectionToolStripMenuItem,
+            this.selectAllCellsToolStripMenuItem,
+            this.selectAllCellsInColumToolStripMenuItem});
+            this.contextDGV.Name = "contextDGV";
+            this.contextDGV.Size = new System.Drawing.Size(257, 164);
+            this.contextDGV.Opening += new System.ComponentModel.CancelEventHandler(this.contextDGV_Opening);
+            // 
+            // replaceSelectedValuesToolStripMenuItem
+            // 
+            this.replaceSelectedValuesToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
+            this.replaceSelectedValuesToolStripMenuItem.Name = "replaceSelectedValuesToolStripMenuItem";
+            this.replaceSelectedValuesToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.replaceSelectedValuesToolStripMenuItem.Text = "&Replace selected values...";
+            this.replaceSelectedValuesToolStripMenuItem.Click += new System.EventHandler(this.replaceSelectedValuesToolStripMenuItem_Click);
+            // 
+            // fillSelectedWithRandomNumbersToolStripMenuItem
+            // 
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgm_grandom;
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Name = "fillSelectedWithRandomNumbersToolStripMenuItem";
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Text = "&Fill selected with random numbers";
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Click += new System.EventHandler(this.fillSelectedWithRandomNumbersToolStripMenuItem_Click);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.CopyHS;
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.copyToolStripMenuItem.Text = "&Copy";
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.Paste;
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.pasteToolStripMenuItem.Text = "&Paste";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(253, 6);
+            // 
+            // selectInvertedSelectionToolStripMenuItem
+            // 
+            this.selectInvertedSelectionToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selinv;
+            this.selectInvertedSelectionToolStripMenuItem.Name = "selectInvertedSelectionToolStripMenuItem";
+            this.selectInvertedSelectionToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.selectInvertedSelectionToolStripMenuItem.Text = "Select inverted selection";
+            this.selectInvertedSelectionToolStripMenuItem.Click += new System.EventHandler(this.selectInvertedSelectionToolStripMenuItem_Click);
+            // 
+            // selectAllCellsToolStripMenuItem
+            // 
+            this.selectAllCellsToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selall;
+            this.selectAllCellsToolStripMenuItem.Name = "selectAllCellsToolStripMenuItem";
+            this.selectAllCellsToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.selectAllCellsToolStripMenuItem.Text = "Select all cells";
+            this.selectAllCellsToolStripMenuItem.Click += new System.EventHandler(this.selectAllCellsToolStripMenuItem_Click);
+            // 
+            // selectAllCellsInColumToolStripMenuItem
+            // 
+            this.selectAllCellsInColumToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selcol;
+            this.selectAllCellsInColumToolStripMenuItem.Name = "selectAllCellsInColumToolStripMenuItem";
+            this.selectAllCellsInColumToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.selectAllCellsInColumToolStripMenuItem.Text = "Select all cells in colum";
+            this.selectAllCellsInColumToolStripMenuItem.Click += new System.EventHandler(this.selectAllCellsInColumToolStripMenuItem_Click);
             // 
             // tabPage13
             // 
@@ -680,7 +768,6 @@
             this.radioPatch.TabIndex = 7;
             this.radioPatch.Text = "Patch";
             this.radioPatch.UseVisualStyleBackColor = true;
-            this.radioPatch.CheckedChanged += new System.EventHandler(this.radioPatch_CheckedChanged);
             this.radioPatch.Click += new System.EventHandler(this.radioPatch_Click);
             // 
             // radioPrim
@@ -728,6 +815,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericPatchType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericPatchMaterialID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShapeData)).EndInit();
+            this.contextDGV.ResumeLayout(false);
             this.tabPage13.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -793,5 +881,14 @@
         private T2Control_TextureSelector t2Control_TextureSelector1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ContextMenuStrip contextDGV;
+        private System.Windows.Forms.ToolStripMenuItem replaceSelectedValuesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fillSelectedWithRandomNumbersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem selectInvertedSelectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllCellsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllCellsInColumToolStripMenuItem;
     }
 }

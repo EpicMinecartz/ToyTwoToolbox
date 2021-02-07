@@ -38,7 +38,7 @@
             this.butAddPrim.Location = new System.Drawing.Point(231, 128);
             this.butAddPrim.Name = "butAddPrim";
             this.butAddPrim.Size = new System.Drawing.Size(75, 23);
-            this.butAddPrim.TabIndex = 16;
+            this.butAddPrim.TabIndex = 1;
             this.butAddPrim.Text = "&OK";
             this.butAddPrim.UseVisualStyleBackColor = true;
             this.butAddPrim.Click += new System.EventHandler(this.butAddPrim_Click);
@@ -53,7 +53,7 @@
             this.button1.Location = new System.Drawing.Point(150, 128);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 17;
+            this.button1.TabIndex = 2;
             this.button1.Text = "&Cancel";
             this.button1.UseVisualStyleBackColor = true;
             // 
@@ -67,7 +67,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(12, 12);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(294, 104);
-            this.richTextBox1.TabIndex = 18;
+            this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
             // InputDialog

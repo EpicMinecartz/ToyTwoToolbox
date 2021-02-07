@@ -1005,5 +1005,89 @@ namespace ToyTwoToolbox {
         private void butPasteGeomData_Click(object sender, EventArgs e) {
             SessionManager.Report(SessionManager.Errors.NotImplemented);
         }
+
+
+
+
+        private void listGeomShapes_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                if (listGeomShapes.SelectedItems.Count > 1) {//im sure optimization can be done here if required, for now no
+                    //ui_selectedGeomShapes = loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes.ToArray();
+                    //CharShapeEditor.ToggleMultiMatEdit(true, XF.ItemsFromListBox(listCharShapes.SelectedIndices, ui_selectedCharShapes));
+                } else {
+                    //CharShapeEditor.ToggleMultiMatEdit(false);
+                    //ui_selectedGeomShapes = null;
+                    //Normal 
+                    if (listGeomShapes.SelectedIndex != -1 && listGeomShapes.SelectedItems.Count < 2) {
+                        GeomShapeEditor.Visible = true;
+                        Shape shp = loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes[listGeomShapes.SelectedIndex];
+                        GeomShapeEditor.ImportShape(ref shp, ref loadedNGN, listGeomShapes.Items[listGeomShapes.SelectedIndex].ToString(), false);
+                    } else {
+                        GeomShapeEditor.Visible = false;
+                    }
+                }
+                if (this.listGeomShapes.SelectedItem != null) {
+                    base.OnMouseDown(e);
+                    this.listGeomShapes.DoDragDrop(this.listGeomShapes.SelectedItem, DragDropEffects.Move);
+                }
+            } else {
+                //    listCharShapes.SelectedItems.Clear();
+                //    listCharShapes.SelectedIndex = this.listCharShapes.IndexFromPoint(e.Location);
+            }
+            base.OnMouseDown(e);
+            listGeomShapes.Invalidate();
+        }
+
+        private void listGeomShapes_DrawItem(object sender, DrawItemEventArgs e) {
+            Color backcolor = e.BackColor;
+                e.DrawBackground();
+            if (e.Index != -1) {
+                if (listGeomShapes_dragging) {
+                    if (e.Index == this.listGeomShapes.IndexFromPoint(listGeomShapes.PointToClient(MousePosition))) {
+                        backcolor = Color.DarkRed;
+                    } else if (e.Index == this.listGeomShapes.SelectedIndex) {
+                        backcolor = Color.DarkGreen;
+                    }
+                }
+                using (SolidBrush backColorBrush = new SolidBrush(backcolor))
+                using (SolidBrush foreColorBrush = new SolidBrush(Color.White)) {
+                    e.Graphics.FillRectangle(backColorBrush, e.Bounds);
+                    e.Graphics.DrawString(e.Index + " : " + listGeomShapes.Items[e.Index].ToString(), listGeomShapes.Font, foreColorBrush, e.Bounds, StringFormat.GenericTypographic);
+                }
+            }
+
+        }
+
+        private void listGeomShapes_DragOver(object sender, DragEventArgs e) {
+            e.Effect = DragDropEffects.Move;
+            listGeomShapes_dragging = true;
+            int LastIndex = listGeomShapes.IndexFromPoint(listGeomShapes.PointToClient(MousePosition));
+            if (listGeomShapes_dragging && LGSLastIndex != LastIndex) {
+                LGSLastIndex = LastIndex;
+                listGeomShapes.Invalidate();
+            }
+        }
+
+        private void listGeomShapes_DragDrop(object sender, DragEventArgs e) {
+            int index = this.listGeomShapes.IndexFromPoint(listGeomShapes.PointToClient(new Point(e.X, e.Y)));
+            if (index < 0) index = this.listGeomShapes.Items.Count - 1;
+            Shape shape = loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes[this.listGeomShapes.SelectedIndex];
+            loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes.RemoveAt(this.listGeomShapes.SelectedIndex);
+            loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes.Insert(index, shape);
+            object data = listGeomShapes.SelectedItem;
+            this.listGeomShapes.Items.Remove(data);
+            this.listGeomShapes.Items.Insert(index, data);
+            this.listGeomShapes.SelectedIndex = index;
+            listGeomShapes_dragging = false;
+            //listCharShapes.Invalidate();
+        }
+
+        bool listGeomShapes_dragging = false;
+        int LGSLastIndex;
+
+        private void listGeomShapes_MouseUp(object sender, MouseEventArgs e) {
+            listGeomShapes_dragging = false;
+            listGeomShapes.Invalidate();//Such a cheap fix jesus
+        }
     }
 }

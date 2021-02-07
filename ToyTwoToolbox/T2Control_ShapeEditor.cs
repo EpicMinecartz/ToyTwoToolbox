@@ -31,6 +31,7 @@ namespace ToyTwoToolbox {
         public T2Control_ShapeEditor() {
             InitializeComponent();
             this.DoubleBuffered = true;
+            contextDGV.Renderer = new DarkThemeMenuRender();
         }
 
         /// <summary>Internally toggle the state of the multi-material editor</summary>
@@ -54,6 +55,7 @@ namespace ToyTwoToolbox {
         }
 
         public void ImportShape(ref Shape shape, ref F_NGN NGN, string altname = "", bool isMultiMat = false) {
+            dgvShapeData.ignoreCellValueChanged = true; //we arent gonna be saving any changes while loading, and this is a good idea, i think
             groupMaterialProperties.SuspendLayout();
             t2Control_TextureSelector1.SuspendLayout();
             if (!isMultiMat) {
@@ -113,7 +115,7 @@ namespace ToyTwoToolbox {
                 groupMaterialProperties.Visible = true;
                 Material mat = loadedShape.materials[comboMaterial.SelectedIndex];
                 butAmbColorPicker.BackColor = XF.NGNColToColor(mat.RGB);
-                t2Control_TextureSelector1.SelectedIndex = (mat.textureIndex != 65535 && mat.textureIndexRelative <= loadedNGN.textures.Count) ? mat.textureIndexRelative : 0;
+                t2Control_TextureSelector1.SelectedIndex = (mat.textureIndex != 65535 && mat.textureIndexRelative <= loadedNGN.textures.Count) ? mat.textureIndexRelative : -1;
                 if (mat.textureIndex > loadedShape.textures.Count) { SessionManager.Report("Material " + comboMaterial.SelectedIndex + " in shape has an invalid textureindex (" + mat.textureIndex + ")", SessionManager.RType.WARN); }
                 numericMaterialMetadata.Value = (mat.id == 129 ? -1 : mat.metadata);
             } else {
@@ -225,7 +227,15 @@ namespace ToyTwoToolbox {
         private void dgvShapeData_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e) {
             //selectedPrim = loadedShape.rawPrimitives[comboPrimitive.SelectedIndex];
             //we MUST ensure we keep track of the vertices we add
+            //loadedShape.AddVertex();
+        }
 
+        public Shape ParseDGVRow(DataGridViewRow row) {
+            Shape shape = new Shape();
+            shape.rawVertices.Add(new Vector3((float)row.Cells[0].Value, (float)row.Cells[1].Value, (float)row.Cells[2].Value));
+            shape.rawVertexData.Add(new Vector3((float)row.Cells[3].Value, (float)row.Cells[4].Value, (float)row.Cells[5].Value));
+
+            return shape;
         }
 
         private void dgvShapeData_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e) {
@@ -262,9 +272,6 @@ namespace ToyTwoToolbox {
 
         }
 
-        private void radioPatch_CheckedChanged(object sender, EventArgs e) {
-
-        }
 
         private void numericMaterialMetadata_ValueChanged(object sender, EventArgs e) {
             loadedShape.materials[comboMaterial.SelectedIndex].id = (numericMaterialMetadata.Value == -1 ? 129 : 193);
@@ -276,44 +283,50 @@ namespace ToyTwoToolbox {
         private void dgvShapeData_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
             //cell contents updated
             if (dgvShapeData.ignoreCellValueChanged == false) {
-                DataGridView dgv = (DataGridView)sender;
-                if (e.RowIndex > -1 && e.RowIndex < dgvShapeData.RowCount) {
-                    int selectedVertex = selectedPrim.vertices[e.RowIndex];
-                    ///use column as the [index]
-                    DataGridViewCellCollection selectedCells = dgvShapeData.Rows[e.RowIndex].Cells;
-                    if (dgv.Columns[e.ColumnIndex] is DataGridViewButtonColumn) {
-                        ColorDialog cd = new ColorDialog {
-                            Color = dgvShapeData.Rows[e.RowIndex].Cells["VColor"].Style.BackColor,
-                            FullOpen = true
-                        };
-                        if (cd.ShowDialog() == DialogResult.OK) {
-                            selectedCells["VColor"].Style.BackColor = cd.Color;
-                            loadedShape.rawVertexShading[selectedVertex] = cd.Color;
-                        }
-                    }
-                    if (e.ColumnIndex == 0) {
-                        loadedShape.rawVertices[selectedVertex].X = Convert.ToSingle(selectedCells[0].Value);
-                    } else if (e.ColumnIndex == 1) {
-                        loadedShape.rawVertices[selectedVertex].Y = Convert.ToSingle(selectedCells[1].Value);
-                    } else if (e.ColumnIndex == 2) {
-                        loadedShape.rawVertices[selectedVertex].Z = Convert.ToSingle(selectedCells[2].Value);
-                    } else if (e.ColumnIndex == 3) {
-                        loadedShape.rawVertexData[selectedVertex].Z = Convert.ToSingle(selectedCells[3].Value);
-                    } else if (e.ColumnIndex == 4) {
-                        loadedShape.rawVertexData[selectedVertex].Y = Convert.ToSingle(selectedCells[4].Value);
-                    } else if (e.ColumnIndex == 5) {
-                        loadedShape.rawVertexData[selectedVertex].Z = Convert.ToSingle(selectedCells[5].Value);
-                    } else if (e.ColumnIndex == 6) {
-                        loadedShape.rawVertexShading[selectedVertex] = System.Drawing.Color.FromArgb((int)selectedCells[6].Value, loadedShape.rawVertexShading[selectedVertex]);
-                    } else if (e.ColumnIndex == 7) {
-                        //handled above
-                    } else if (e.ColumnIndex == 8) {
-                        loadedShape.rawVertexTextureCoords[selectedVertex].X = Convert.ToSingle(selectedCells[8].Value);
-                    } else if (e.ColumnIndex == 9) {
-                        loadedShape.rawVertexTextureCoords[selectedVertex].Y = Convert.ToSingle(selectedCells[9].Value);
+                if (e.ColumnIndex == 7) {
+                    ColorDialog cd = new ColorDialog {
+                        Color = dgvShapeData.Rows[e.RowIndex].Cells["VColor"].Style.BackColor,
+                        FullOpen = true
+                    };
+                    if (cd.ShowDialog() == DialogResult.OK) {
+                        dgvShapeData.Rows[e.RowIndex].Cells["VColor"].Style.BackColor = cd.Color;
                     }
                 }
+                UpdateFromDGV(e.ColumnIndex, e.RowIndex, dgvShapeData.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
             }
+        }
+
+        public void UpdateFromDGV(int ColumnID = -1, int RowID = -1, object Value = null) {
+            _UpdateFromDGV(ColumnID, RowID, Value);
+        }
+
+        /// <summary>This method updates the appropriate data inside the shape based on the parameters supplied (from a DGV)</summary>
+        public void _UpdateFromDGV(int ColumnID = -1, int RowID = -1, object Value = null) {
+            if (RowID > -1 && RowID < dgvShapeData.RowCount) {
+                int selectedVertex = selectedPrim.vertices[loadedShape.rawPrimitives[comboPrimitive.SelectedIndex].vertices[RowID]];
+                if (ColumnID == 0) {                ///use column as the [index]
+                    loadedShape.rawVertices[selectedVertex].X = Convert.ToSingle(Value);
+                } else if (ColumnID == 1) {
+                    loadedShape.rawVertices[selectedVertex].Y = Convert.ToSingle(Value);
+                } else if (ColumnID == 2) {
+                    loadedShape.rawVertices[selectedVertex].Z = Convert.ToSingle(Value);
+                } else if (ColumnID == 3) {
+                    loadedShape.rawVertexData[selectedVertex].X = Convert.ToSingle(Value);
+                } else if (ColumnID == 4) {
+                    loadedShape.rawVertexData[selectedVertex].Y = Convert.ToSingle(Value);
+                } else if (ColumnID == 5) {
+                    loadedShape.rawVertexData[selectedVertex].Z = Convert.ToSingle(Value);
+                } else if (ColumnID == 6) {
+                    loadedShape.rawVertexShading[selectedVertex] = System.Drawing.Color.FromArgb(Convert.ToInt32(Value), loadedShape.rawVertexShading[selectedVertex]);
+                } else if (ColumnID == 7) {
+                    loadedShape.rawVertexShading[selectedVertex] = System.Drawing.Color.FromArgb(loadedShape.rawVertexShading[selectedVertex].A, dgvShapeData.Rows[RowID].Cells[ColumnID].Style.BackColor);
+                } else if (ColumnID == 8) {
+                    loadedShape.rawVertexTextureCoords[selectedVertex].X = Convert.ToSingle(Value);
+                } else if (ColumnID == 9) {
+                    loadedShape.rawVertexTextureCoords[selectedVertex].Y = Convert.ToSingle(Value);
+                }
+            }
+            if (ColumnID != 7) { dgvShapeData.Rows[RowID].Cells[ColumnID].Value = Value; }
         }
 
         private void dgvShapeData_MouseUp(object sender, MouseEventArgs e) {
@@ -351,6 +364,123 @@ namespace ToyTwoToolbox {
             } else {
                 mat.textureIndex = texOffset;
             }
+        }
+
+        private void contextDGV_Opening(object sender, CancelEventArgs e) {
+            string rts = "Replace selected ";
+            if (dgvShapeData.SelectedCells[0].ColumnIndex == 7) {
+                rts += "colors";
+                contextDGV.Tag = "color";
+            } else {
+                rts += "values";
+                contextDGV.Tag = "";
+            }
+            replaceSelectedValuesToolStripMenuItem.Text = rts;
+
+        }
+
+        private void replaceSelectedValuesToolStripMenuItem_Click(object sender, EventArgs e) {
+            //NOTE when we use dgvShapeData.SelectedCells[0] we are assuming that the column contamination protection has done its job correctly
+            //if (contextDGV.Tag == "color") {
+            //    if (dgvShapeData.Columns[dgvShapeData.SelectedCells[0].ColumnIndex] is DataGridViewButtonColumn) {
+            //        ColorDialog cd = new ColorDialog {
+            //            Color = dgvShapeData.SelectedCells[0].Style.BackColor,
+            //            FullOpen = true
+            //        };
+            //        if (cd.ShowDialog() == DialogResult.OK) {
+            //            foreach (DataGridViewCell cell in dgvShapeData.SelectedCells) {
+            //                cell.Style.BackColor = cd.Color;
+            //                loadedShape.rawVertexShading[loadedShape.rawPrimitives[comboPrimitive.SelectedIndex].vertices[cell.RowIndex]] = cd.Color;
+            //            }
+            //        }
+            //    } else {
+            //        using (InputDialog input = new InputDialog()) {
+            //            if (input.ShowDialog() == DialogResult.OK) {
+            //                foreach (DataGridViewCell cell in dgvShapeData.SelectedCells) {
+            //                    cell.Value = input.input;
+            //                    SessionManager.ReportEx("INPUT NOT IMPL!", SessionManager.RType.ERROR);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            System.Drawing.Color CDC;
+            string CID = null;
+            if (dgvShapeData.SelectedCells[0].ColumnIndex == 7) {
+                ColorDialog cd = new ColorDialog {
+                    Color = dgvShapeData.SelectedCells[0].Style.BackColor,
+                    FullOpen = true
+                };
+                if (cd.ShowDialog() == DialogResult.OK) {
+                    foreach (DataGridViewCell cell in dgvShapeData.SelectedCells) {
+                        cell.Style.BackColor = cd.Color;
+                        //loadedShape.rawVertexShading[loadedShape.rawPrimitives[comboPrimitive.SelectedIndex].vertices[cell.RowIndex]] = cd.Color;
+                    }
+                } else {
+                    //id say we just assume nothing else is gonna happen and we bust outta here...
+                    return;
+                }
+            } else {
+                using (InputDialog input = new InputDialog()) {
+                    if (input.ShowDialog() == DialogResult.OK) {
+                        CID = input.input;
+                    } else {
+                        //id say we just assume nothing else is gonna happen and...feel like i've said this before...
+                        return;
+                    }
+                }
+            }
+
+
+
+
+            foreach (DataGridViewCell cell in dgvShapeData.SelectedCells) {
+                UpdateFromDGV(cell.ColumnIndex, cell.RowIndex, CID ?? cell.Value);
+            }
+
+
+        }
+
+        private void fillSelectedWithRandomNumbersToolStripMenuItem_Click(object sender, EventArgs e) {
+            foreach (DataGridViewCell cell in dgvShapeData.SelectedCells) {
+                switch (cell.ColumnIndex) {
+                    case 6:
+                        cell.Value = XF.Random(0, 255);
+                        break;
+                    case 8:
+                    case 9:
+                        cell.Value = XF.Randomf();
+                        break;
+                    default:
+                        cell.Value = XF.Random();
+                        break;
+                }
+            }
+        }
+
+        private void selectInvertedSelectionToolStripMenuItem_Click(object sender, EventArgs e) {
+            foreach (DataGridViewCell cell in dgvShapeData.SelectedCells) {
+                cell.Selected = !cell.Selected;
+            }
+        }
+
+        private void selectAllCellsToolStripMenuItem_Click(object sender, EventArgs e) {
+            dgvShapeData.SelectAll();
+        }
+
+        private void selectAllCellsInColumToolStripMenuItem_Click(object sender, EventArgs e) {
+            int selcol = dgvShapeData.SelectedCells[dgvShapeData.SelectedCells.Count - 1].ColumnIndex;
+            for (int i = 0;i < dgvShapeData.Rows.Count;i++) {
+                dgvShapeData.Rows[i].Cells[selcol].Selected = true;
+            }
+        }
+
+        private void dgvShapeData_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e) {
+            dgvShapeData.ignoreCellValueChanged = false; //pre-empt that stuff gonna start changing, doesnt matter if it doesnt as it'll only be one update
+        }
+
+        private void dgvShapeData_CellEnter(object sender, DataGridViewCellEventArgs e) {
+
         }
     }
 }
