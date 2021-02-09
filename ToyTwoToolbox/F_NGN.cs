@@ -215,6 +215,9 @@ namespace ToyTwoToolbox {
                     int NodeCount = 0;
                     for (int i = 0;;i++) {
                         if (NodeOffset >= FCL) {
+                            if(chr.nodeCount!=0 && chr.nodeCount < NodeCount) {
+                                SessionManager.Report("Node count in Character <" + chr.name + "> was invalid!", SessionManager.RType.WARN);
+                            }
                             chr.nodeCount = NodeCount;
                             break;
                         }
@@ -714,7 +717,13 @@ namespace ToyTwoToolbox {
                             //NODES & CHARACTERS
                             fw.AddInt32(512); //characters Function ID
                             fw.AddInt32(4); //?
-                            fw.AddInt32((chr.shapes.Count == 1) ? 1 : chr.shapes.Count - 1);
+                            /*  BUG 019 - 09/02/2021
+                                    We need to check if the last shape inside the character is of type Patch.
+                                    If not, we do not do the subtraction. This needs looking into more.
+                                    For now, we will check if the last shape is a patch as well as the initial count == 1 check
+                                    In the future, it should be verified that both checks are required, as the patch check might do the ==1 check's job
+                            */
+                            fw.AddInt32((chr.shapes.Count == 1) ? 1 : chr.shapes.Count - chr.shapes[chr.shapes.Count - 1]._SPType);
 
                             //NODE STRUCT
                             fw.AddInt32(514);

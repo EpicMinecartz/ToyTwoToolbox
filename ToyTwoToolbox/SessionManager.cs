@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Security.Policy;
 using System.Threading;
 using System.Windows.Forms;
 using ToyTwoToolbox.Properties;
@@ -154,6 +155,7 @@ namespace ToyTwoToolbox {
         public string MainArg = null;
         public List<Form> SessionPool = new List<Form>();
         public List<int> SessionIDs = new List<int>();
+        public InternalCopy ICL = new InternalCopy();
 
 
         //SYSTEM WIDE GLOBAL VARIABLES
@@ -579,6 +581,42 @@ namespace ToyTwoToolbox {
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e) {
 
+        }
+    }
+
+    /// <summary>Handles copying of data throughout the toolbox</summary>
+    public class InternalCopy {
+        List<object> ICLA = new List<object>();
+        ICLFormat ICLF = ICLFormat.Unknown;
+        Type ICLT = typeof(object);
+
+        /// <summary>Creates a pointer reference to an object of ICLT into ICLA</summary>
+        public void Copy(object Object) {
+            ICLA.Add(Object);
+        }
+
+        /// <summary>For now, just return ICLA as a standard format until things are better implemented</summary>
+        public List<object> Paste() {
+            return ICLA;
+        }
+
+        public void Clear() {
+            ICLA.Clear();
+        }
+        
+        /// <summary>Attempts to pipe the ICLA into the Windows clipboard</summary>
+        public void SendClipboard() {
+            Clipboard.SetDataObject(ICLA);
+        }
+
+        public void SetCopyType(ICLFormat type) {
+            ICLF = type;
+            ICLT = typeof(object);
+        }
+
+        public enum ICLFormat {
+            Unknown = -1,
+            DGV = 0
         }
     }
 }

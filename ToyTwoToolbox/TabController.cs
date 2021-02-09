@@ -17,8 +17,8 @@ namespace ToyTwoToolbox {
         }
 
 
-        /// <summary>Return a <seealso cref="List{"/> of <seealso cref="F_NGN"/> from the TCTAB pool</summary>
-        /// <returns>A <seealso cref="List{"/> containing all the currently opened levels </returns>
+        /// <summary>Return a <see cref="List{"/> of <see cref="F_NGN"/> from the TCTAB pool</summary>
+        /// <returns>A <see cref="List{"/> containing all the currently opened levels </returns>
         public List<F_NGN> GetAllLevels() {
             List<F_NGN> levs = new List<F_NGN>();
             foreach (TCTab tab in Tabs) {
@@ -29,10 +29,11 @@ namespace ToyTwoToolbox {
             return levs;
         }
 
-        /// <summary>Return a <seealso cref="F_NGN"/> from the <seealso cref="TCTab"/> pool</summary>
-        /// <param name="index">The TCT ID to return for level data</param>
-        /// <returns>The <seealso cref="F_NGN"/> referenced by the <paramref name="index"/> </returns>
-        public F_NGN GetLevel(int index) {
+        /// <summary>Return a <see cref="F_NGN"/> from the <see cref="TCTab"/> pool</summary>
+        /// <param name="index">The TCT ID to return for level data, or -1 to use the pointer to the <see cref="TabContainer"/></param>
+        /// <returns>The <see cref="F_NGN"/> referenced by the <paramref name="index"/> </returns>
+        public F_NGN GetLevel(int index = -1) {
+            if(index==-1) { index = TabContainer.SelectedIndex; }
             if (Tabs[index].File.FileType == FileProcessor.FileTypes.NGN) {
                 return (F_NGN)Tabs[index].File;
             } else {

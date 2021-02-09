@@ -35,8 +35,8 @@ namespace ToyTwoToolbox {
         }
 
         private void ProcessBaseTabControlState(Object sender, TabPageChangeEventArgs e) {
-            
-                //i messed up, this invoke needs to go to TabController.CS and NOT T2TabControl.CS
+
+            //i messed up, this invoke needs to go to TabController.CS and NOT T2TabControl.CS
         }
 
         void Form1_DragEnter(object sender, DragEventArgs e) {
@@ -289,12 +289,12 @@ namespace ToyTwoToolbox {
 
         private void openNewToolboxWindowToolStripMenuItem_Click(object sender, EventArgs e) {
             SessionManager.SMptr.RequestNewSession();
-        } 
+        }
 
         public void RegisterMultiMaterial(Material mat) {
             Globals.gMMaterials.Add(mat);
         }
-        
+
         /// <summary>This class holds any file data that needs to persist across tabs</summary>
         public sealed class Globals {
             /// <summary>Used for the Multi-Material Editor</summary>
@@ -308,9 +308,24 @@ namespace ToyTwoToolbox {
         }
 
         private void firstOpenPanel1_Paint(object sender, PaintEventArgs e) {
-            
+
         }
 
+        private void setAllShadingToColorToolStripMenuItem_Click(object sender, EventArgs e) {
+            F_NGN lev = TabControl.GetLevel();
+            if (lev != null) {
+                ColorDialog cd = new ColorDialog { FullOpen = true };
+                if (cd.ShowDialog() == DialogResult.OK) {
+                    foreach (Geometry geom in lev.Geometries) {
+                        foreach (Shape shape in geom.shapes) {
+                            for (int i = 0;i < shape.rawVertexShading.Count;i++) {
+                                shape.rawVertexShading[i] = cd.Color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }

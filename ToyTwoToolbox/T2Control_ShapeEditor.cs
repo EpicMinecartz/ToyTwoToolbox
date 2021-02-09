@@ -303,7 +303,7 @@ namespace ToyTwoToolbox {
         /// <summary>This method updates the appropriate data inside the shape based on the parameters supplied (from a DGV)</summary>
         public void _UpdateFromDGV(int ColumnID = -1, int RowID = -1, object Value = null) {
             if (RowID > -1 && RowID < dgvShapeData.RowCount) {
-                int selectedVertex = selectedPrim.vertices[loadedShape.rawPrimitives[comboPrimitive.SelectedIndex].vertices[RowID]];
+                int selectedVertex = loadedShape.rawPrimitives[comboPrimitive.SelectedIndex].vertices[RowID];
                 if (ColumnID == 0) {                ///use column as the [index]
                     loadedShape.rawVertices[selectedVertex].X = Convert.ToSingle(Value);
                 } else if (ColumnID == 1) {
@@ -481,6 +481,42 @@ namespace ToyTwoToolbox {
 
         private void dgvShapeData_CellEnter(object sender, DataGridViewCellEventArgs e) {
 
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e) {
+            SessionManager.SMptr.ICL.SetCopyType(InternalCopy.ICLFormat.DGV);
+            SessionManager.SMptr.ICL.Clear();
+            for (int i = 0;i < dgvShapeData.SelectedCells.Count;i++) {
+                SessionManager.SMptr.ICL.Copy(dgvShapeData.SelectedCells[i].Value);
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e) {
+            //get lowest so we dont overflow ouch!
+            List<object> ICLP = SessionManager.SMptr.ICL.Paste();
+            int lcp = Math.Min(ICLP.Count, dgvShapeData.SelectedCells.Count);
+            for (int i = 0;i < lcp;i++) {
+                dgvShapeData.SelectedCells[i].Value = ICLP[i];
+            }
+        }
+
+        private void incrementNumericalItemsByToolStripMenuItem_Click(object sender, EventArgs e) {
+            using (InputDialog input = new InputDialog()) {
+                if (input.ShowDialogEx(true) == DialogResult.OK) {
+                    int rep = 0;
+                    if (Int32.TryParse(input.input, out rep)) { //we dont need to verify here, but why not lmao
+                        for (int i = 0;i < dgvShapeData.SelectedCells.Count;i++) {
+                            int init = 0;
+                            if (Int32.TryParse(dgvShapeData.SelectedCells[i].Value.ToString(), out init)) {
+                                dgvShapeData.SelectedCells[i].Value = rep + init;
+                            }
+                        }
+                    }
+                } else {
+                    //id say we just assume nothing else is gonna happen and...feel like i've said this before...
+                    return;
+                }
+            }
         }
     }
 }

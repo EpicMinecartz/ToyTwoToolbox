@@ -84,6 +84,7 @@
             this.radioPatch = new System.Windows.Forms.RadioButton();
             this.radioPrim = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
+            this.incrementNumericalItemsByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.t2TTabControl4.SuspendLayout();
             this.tabPage12.SuspendLayout();
             this.t2TTabControl5.SuspendLayout();
@@ -422,6 +423,7 @@
             // 
             this.contextDGV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.replaceSelectedValuesToolStripMenuItem,
+            this.incrementNumericalItemsByToolStripMenuItem,
             this.fillSelectedWithRandomNumbersToolStripMenuItem,
             this.copyToolStripMenuItem,
             this.pasteToolStripMenuItem,
@@ -430,7 +432,7 @@
             this.selectAllCellsToolStripMenuItem,
             this.selectAllCellsInColumToolStripMenuItem});
             this.contextDGV.Name = "contextDGV";
-            this.contextDGV.Size = new System.Drawing.Size(257, 164);
+            this.contextDGV.Size = new System.Drawing.Size(257, 208);
             this.contextDGV.Opening += new System.ComponentModel.CancelEventHandler(this.contextDGV_Opening);
             // 
             // replaceSelectedValuesToolStripMenuItem
@@ -455,6 +457,7 @@
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.copyToolStripMenuItem.Text = "&Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // pasteToolStripMenuItem
             // 
@@ -462,6 +465,7 @@
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.pasteToolStripMenuItem.Text = "&Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -793,6 +797,14 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Shape name:";
             // 
+            // incrementNumericalItemsByToolStripMenuItem
+            // 
+            this.incrementNumericalItemsByToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
+            this.incrementNumericalItemsByToolStripMenuItem.Name = "incrementNumericalItemsByToolStripMenuItem";
+            this.incrementNumericalItemsByToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.incrementNumericalItemsByToolStripMenuItem.Text = "Increment numerical items by...";
+            this.incrementNumericalItemsByToolStripMenuItem.Click += new System.EventHandler(this.incrementNumericalItemsByToolStripMenuItem_Click);
+            // 
             // T2Control_ShapeEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -890,5 +902,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectInvertedSelectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllCellsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllCellsInColumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem incrementNumericalItemsByToolStripMenuItem;
     }
 }
