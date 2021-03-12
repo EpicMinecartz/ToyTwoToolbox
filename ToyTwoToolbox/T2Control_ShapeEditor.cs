@@ -11,7 +11,7 @@ namespace ToyTwoToolbox {
 
         private Shape[] loadedShapes;
         public T2Control_NGNEditor owner;
-        Shape loadedShape {
+        Shape loadedShape { //pls fix
             get {
                 return loadedShapes[0]; //For reference, it doesnt really matter which we return here, as when the user changes something it will modify update all shapes. So we just pick the first.
             }
@@ -25,7 +25,7 @@ namespace ToyTwoToolbox {
         }
         F_NGN loadedNGN;
         IPrimitive selectedPrim;
-        ISL materialISL = new ISL(new List<int>(new int[] { -1, 1, 2, 10, 11 }), new List<string>(new string[] { "Disable Metadata", "Solid Texture", "Transparency", "Transparency", "Transparency" }));
+        ISL materialISL = new ISL(new List<int>(new int[] { -1, 1, 2, 4, 6, 14, 10, 11 }), new List<string>(new string[] { "Disable Metadata", "Solid Texture", "Transparency", "Reflection", "Reflect/Transparent", "Reflect/Transparent", "Transparency", "Transparency" })); //conv to sw-case void?
         bool multiMatEdit = false;
 
         public T2Control_ShapeEditor() {
@@ -459,8 +459,10 @@ namespace ToyTwoToolbox {
         }
 
         private void selectInvertedSelectionToolStripMenuItem_Click(object sender, EventArgs e) {
-            foreach (DataGridViewCell cell in dgvShapeData.SelectedCells) {
-                cell.Selected = !cell.Selected;
+            foreach (DataGridViewRow row in dgvShapeData.Rows) {
+                foreach (DataGridViewCell cell in row.Cells) {
+                    cell.Selected = !cell.Selected;
+                }
             }
         }
 

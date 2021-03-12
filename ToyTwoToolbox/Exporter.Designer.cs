@@ -36,6 +36,7 @@
             this.checkGY = new System.Windows.Forms.CheckBox();
             this.checkGX = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkTrans = new System.Windows.Forms.CheckBox();
             this.checkAlpha = new System.Windows.Forms.CheckBox();
             this.checkVCOL = new System.Windows.Forms.CheckBox();
             this.checkTextures = new System.Windows.Forms.CheckBox();
@@ -43,6 +44,7 @@
             this.butexport = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.EditableLabelOutputName = new ToyTwoToolbox.T2Control_EditableLabel();
+            this.checkOpacity = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -85,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 168);
+            this.label2.Location = new System.Drawing.Point(6, 192);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 3;
@@ -95,7 +97,7 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 184);
+            this.radioButton1.Location = new System.Drawing.Point(6, 208);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(98, 17);
             this.radioButton1.TabIndex = 4;
@@ -118,7 +120,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(15, 88);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(365, 206);
+            this.groupBox1.Size = new System.Drawing.Size(365, 235);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output Settings";
@@ -141,7 +143,7 @@
             this.checkRot.AutoSize = true;
             this.checkRot.Checked = true;
             this.checkRot.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkRot.Location = new System.Drawing.Point(6, 114);
+            this.checkRot.Location = new System.Drawing.Point(6, 138);
             this.checkRot.Name = "checkRot";
             this.checkRot.Size = new System.Drawing.Size(58, 17);
             this.checkRot.TabIndex = 0;
@@ -157,7 +159,7 @@
             this.groupBox4.Controls.Add(this.checkGY);
             this.groupBox4.Controls.Add(this.checkGX);
             this.groupBox4.ForeColor = System.Drawing.Color.White;
-            this.groupBox4.Location = new System.Drawing.Point(6, 116);
+            this.groupBox4.Location = new System.Drawing.Point(6, 140);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(353, 49);
             this.groupBox4.TabIndex = 4;
@@ -203,21 +205,33 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.checkOpacity);
+            this.groupBox2.Controls.Add(this.checkTrans);
             this.groupBox2.Controls.Add(this.checkAlpha);
             this.groupBox2.Controls.Add(this.checkVCOL);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(6, 42);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(353, 68);
+            this.groupBox2.Size = new System.Drawing.Size(353, 92);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
+            // 
+            // checkTrans
+            // 
+            this.checkTrans.AutoSize = true;
+            this.checkTrans.Checked = true;
+            this.checkTrans.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkTrans.Location = new System.Drawing.Point(6, 45);
+            this.checkTrans.Name = "checkTrans";
+            this.checkTrans.Size = new System.Drawing.Size(182, 17);
+            this.checkTrans.TabIndex = 3;
+            this.checkTrans.Text = "Replace green with transparency";
+            this.checkTrans.UseVisualStyleBackColor = true;
             // 
             // checkAlpha
             // 
             this.checkAlpha.AutoSize = true;
-            this.checkAlpha.Checked = true;
-            this.checkAlpha.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkAlpha.Location = new System.Drawing.Point(6, 46);
+            this.checkAlpha.Location = new System.Drawing.Point(194, 45);
             this.checkAlpha.Name = "checkAlpha";
             this.checkAlpha.Size = new System.Drawing.Size(127, 17);
             this.checkAlpha.TabIndex = 2;
@@ -252,7 +266,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 297);
+            this.label3.Location = new System.Drawing.Point(12, 326);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(143, 52);
             this.label3.TabIndex = 7;
@@ -265,7 +279,7 @@
             this.butexport.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.butexport.Enabled = false;
             this.butexport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butexport.Location = new System.Drawing.Point(14, 355);
+            this.butexport.Location = new System.Drawing.Point(14, 384);
             this.butexport.Name = "butexport";
             this.butexport.Size = new System.Drawing.Size(366, 23);
             this.butexport.TabIndex = 8;
@@ -293,12 +307,22 @@
             this.EditableLabelOutputName.Size = new System.Drawing.Size(365, 20);
             this.EditableLabelOutputName.TabIndex = 10;
             // 
+            // checkOpacity
+            // 
+            this.checkOpacity.AutoSize = true;
+            this.checkOpacity.Location = new System.Drawing.Point(6, 68);
+            this.checkOpacity.Name = "checkOpacity";
+            this.checkOpacity.Size = new System.Drawing.Size(153, 17);
+            this.checkOpacity.TabIndex = 4;
+            this.checkOpacity.Text = "Apply ambient opacity data";
+            this.checkOpacity.UseVisualStyleBackColor = true;
+            // 
             // Exporter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ClientSize = new System.Drawing.Size(396, 390);
+            this.ClientSize = new System.Drawing.Size(396, 419);
             this.Controls.Add(this.EditableLabelOutputName);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.butexport);
@@ -345,5 +369,7 @@
         private System.Windows.Forms.Button butexport;
         private System.Windows.Forms.Label label4;
         private T2Control_EditableLabel EditableLabelOutputName;
+        private System.Windows.Forms.CheckBox checkTrans;
+        private System.Windows.Forms.CheckBox checkOpacity;
     }
 }

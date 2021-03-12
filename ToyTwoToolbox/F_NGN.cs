@@ -215,7 +215,7 @@ namespace ToyTwoToolbox {
                     int NodeCount = 0;
                     for (int i = 0;;i++) {
                         if (NodeOffset >= FCL) {
-                            if(chr.nodeCount!=0 && chr.nodeCount < NodeCount) {
+                            if (chr.nodeCount != 0 && chr.nodeCount < NodeCount) {
                                 SessionManager.Report("Node count in Character <" + chr.name + "> was invalid!", SessionManager.RType.WARN);
                             }
                             chr.nodeCount = NodeCount;
@@ -1031,7 +1031,7 @@ namespace ToyTwoToolbox {
         public void Extract(IWorldObject worldObject) {
             Exporter ex = new Exporter();
             if (ex.Prompt(worldObject) == DialogResult.OK) {
-                ExtractModel(worldObject, ex.ex_path, Format3D.obj, ex.ex_name, ex.ex_tex, ex.ex_mat, true, ex.ex_alpha, ex.ex_vcol, ex.ex_rot);
+                ExtractModel(worldObject, ex.ex_path, Format3D.obj, ex.ex_name, ex.ex_tex, ex.ex_mat, true, ex.ex_alpha, ex.ex_opa, ex.ex_trn, ex.ex_vcol, ex.ex_rot);
             }
         }
 
@@ -1044,7 +1044,7 @@ namespace ToyTwoToolbox {
         /// <param name="GenerateApha">Whether to generate and copy alpha maps for materials and store them in the output directory</param>
         /// <param name="SimVColor">Whether to average out the vertex color data and use that rather than global material color</param>
         /// <param name="GeomTrans">What axis to apply translation to</param>
-        public void ExtractModel(IWorldObject objdata, string path, Format3D format, string OutputName, bool CopyMaps, bool CreateMats, bool VertexColorOBJ, bool GenerateApha, bool SimVColor, Vector3 GeomTrans) {
+        public void ExtractModel(IWorldObject objdata, string path, Format3D format, string OutputName, bool CopyMaps, bool CreateMats, bool VertexColorOBJ, bool GenerateApha, bool MaterialOpacity, bool ConvertTransparent, bool SimVColor, Vector3 GeomTrans) {
             SessionManager.Report("Begining object extraction");
             string name = objdata.name ?? "test";
             SessionManager.Report("Target: " + name);
@@ -1148,19 +1148,24 @@ namespace ToyTwoToolbox {
 
                         obj.append("g " + objname + "\n");
                         string mn = "s" + i + "p" + j;
+                        //Note, this whole material section is complete utter garbage
+                        //when someone gets the time, this needs MAJOR refinement
+                        //espc if we decide to support other formats
                         if (CreateMats) {
                             string mt = "";
+                            bool usesalpha = false;
                             Material selmat = shape.materials[prim.materialID];
                             if (selmat.textureIndex != 65535) {
                                 mt = textures[selmat.textureIndexRelative].name;
                                 texselection[selmat.textureIndexRelative] = true;
                             }
-                            if (selmat.metadata == 2 || selmat.metadata == 11) {
+                            if (selmat.metadata == 2 || selmat.metadata == 6 || selmat.metadata == 14 || selmat.metadata == 11 || selmat.metadata == 10) {
                                 alphaselection[selmat.textureIndexRelative] = true;
+                                usesalpha = true;
                             }
                             bool mtla = true;
                             foreach (MtlM mat in materials) {
-                                if (mat.name == mn && mat.texcname == mt + ".bmp" && mat.texaname == ((GenerateApha) ? mt + "_a" : "")) {
+                                if (mat.name == mn && mat.texcname == mt + ".png" && mat.texaname == ((GenerateApha) ? mt + "_a" : "")) {
                                     mtla = false;
                                 }
                             }
@@ -1170,9 +1175,10 @@ namespace ToyTwoToolbox {
                                     name = mn,
                                     mrgb = (SimVColor) ? AverageVC(shape.rawVertexShading, prim.vertices) : shape.materials[prim.materialID].RGB,
                                     opacity = AverageAlpha(shape.rawVertexShading, prim.vertices), //this needs properly implementing, along with the import
-                                    texcname = mt + ".bmp",
+                                    usesAlpha = usesalpha,
+                                    texcname = mt + ".png",
                                     texaname = (GenerateApha) ? mt + "_a" : ""
-                                });
+                                }); ;
                             }
                             obj.append("usemtl " + mn);
                         }
@@ -1197,31 +1203,76 @@ namespace ToyTwoToolbox {
                 i++;
             }
             if (CreateMats) {
-                SessionManager.Report("Compiling Material Component...", SessionManager.RType.DEBUG);
+                SessionManager.Report("Compiling Material Components...", SessionManager.RType.DEBUG);
                 foreach (MtlM mtl in materials) {
-                    mtlsb.Append("newmtl " + mtl.name + "\nillum2\n");
-                    mtlsb.Append("d " + mtl.opacity + " \n");
+                    mtlsb.Append("newmtl " + mtl.name + "\nillum 2\n");
+                    mtlsb.Append("d " + ((MaterialOpacity) ? mtl.opacity : 1.0M) + " \n");
                     mtlsb.Append("Kd " + mtl.mrgb[0] + " " + mtl.mrgb[1] + " " + mtl.mrgb[2] + " \n");
                     mtlsb.Append("Ka " + 0 + " " + 0 + " " + 0 + " \n");
-                    if (mtl.texcname != ".bmp") { mtlsb.Append("map_Kd " + mtl.texcname + "\n"); }
-                    if (mtl.texaname != ".bmp") { mtlsb.Append("map_Ka " + mtl.texaname + "\n"); }
+                    mtlsb.Append("Ks " + 0 + " " + 0 + " " + 0 + " \n");
+                    if (mtl.texcname != ".png") { mtlsb.Append("map_Kd " + mtl.texcname + "\n"); }
+                    if (mtl.usesAlpha) {
+                        /*
+                            i feel like its important i note this down for future reference
+                            ur welcome for the free knowledge
+
+                        1st and foremost, yes obv not going through the hassle of making transparent maps will save on export time
+                        which is a very good reason to check if we need to, but theres another, deep dark reason...
+
+                        Open blender, create a cube and a flat plane
+                        bring the flat plane above the cube and with a principled bsdf shader applied, input a random png image WITHOUT TRANSPARENCY into the base color slot
+                        then, export the scene as an OBJ file, with materials
+
+                        open the MTL file in an editor of your choice, and duplicate the "mat_Kd....." line 
+                        on the duplicated line, rename "mat_kd" to "mat_d", the save the MTL file
+
+                        back in blender, import the obj file back in, and switch the viewport shading style to one that supports materials
+                        and would you look at that, the material has gone all...strange?
+
+                        taking a look at the shader editor will reveal what has happened
+
+                        when importing, blender was unable to find an alpha channel on the image in the mat_d slot
+                        so rather than hook the image into the alpha slot by the alpha channel, it's forced to hook via the color output channel of the image texture
+
+                        therefore we need to make sure we dont mat_d a material that has a texture without the valid alpha chanel
+
+                        yes i found this out from a bug
+                        and yes, this was a huge pain to figure out the first time when everything was all fadey for some reason
+
+                        i'd like to also thank myself for helping out with all this
+                        without them i'd not have fixed it, so thank you me
+
+                        anyway...
+                        */
+                        if (mtl.texcname != ".png" && ConvertTransparent) { mtlsb.Append("map_d " + mtl.texcname + "\n"); }
+
+                    }
+                    //if (mtl.texaname != ".png") { mtlsb.Append("map_Ka " + mtl.texaname + "\n"); } //no
                 }
                 for (int j = 0;j < texselection.Count;j++) {
                     if (texselection[j] == true) {
-                        XF.ExportImage(path + "\\" + textures[j].name + ".bmp", textures[j].image, ImageFormat.Bmp);
+                        Bitmap o = (Bitmap)textures[j].image.Clone();
                         if (alphaselection[j] == true) {
-                            Bitmap CLIPIMG = (Bitmap)textures[j].image.Clone();
-                            XF.GenerateAlphaMap(CLIPIMG);
-                            XF.ExportImage(path + "\\" + textures[j].name + "_a.bmp", CLIPIMG, ImageFormat.Bmp);
-                            CLIPIMG.Dispose();
+                            if (ConvertTransparent) { o.MakeTransparent(Color.FromArgb(0, 255, 0)); }
+                            if (GenerateApha) {
+                                Bitmap CLIPIMG = (Bitmap)textures[j].image.Clone();
+                                XF.GenerateAlphaMap(CLIPIMG);
+                                XF.ExportImage(path + "\\" + textures[j].name + "_a.png", CLIPIMG, ImageFormat.Png);
+                                CLIPIMG.Dispose();
+                            }
                         }
+                        XF.ExportImage(path + "\\" + textures[j].name + ".png", o, ImageFormat.Png);
                     }
                 }
+
+
                 File.WriteAllText(path + "\\" + OutputName + ".mtl", mtlsb.ToString());
             }
             File.WriteAllText(path + "\\" + OutputName + ".obj", obj.fstream.ToString());
-            SessionManager.Report("Successfully written OBJ and MTL files!", SessionManager.RType.TEXT, Color.Green);
+            SessionManager.Report("Successfully written OBJ and MTL files to " + path, SessionManager.RType.TEXT, Color.Green);
         }
+
+
 
         public List<double> AverageVC(List<Color> vc, List<int> selection = null) {
             int r = 0;

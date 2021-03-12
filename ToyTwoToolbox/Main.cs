@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
@@ -327,5 +328,73 @@ namespace ToyTwoToolbox {
             }
         }
 
+        private void generateNameMapToolStripMenuItem_Click(object sender, EventArgs e) {
+            F_NGN lev = TabControl.GetLevel();
+            StringBuilder sb = new StringBuilder();
+            if (lev != null) {
+                Geometry geom = lev.Geometries[0];
+                for (int i = 0;i < geom.shapes.Count;i++) {
+                    if (i < 3) {
+                        geom.shapes[i].name = "Buzz";
+                    } else if (i > 2 && i < 8) {
+                        geom.shapes[i].name = "OOB Token";
+
+                    } else {
+                        geom.shapes[i].name = "Geometry" + i;
+                    }
+                    sb.Append(i.ToString() + " : " + geom.shapes[i].name + "\n");
+                }
+            }
+            Console.WriteLine(sb.ToString());
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e) {
+            F_NGN lev = TabControl.GetLevel();
+            if (lev != null) {
+                ColorDialog cd = new ColorDialog { FullOpen = true };
+                if (cd.ShowDialog() == DialogResult.OK) {
+                    foreach (Character chr in lev.characters) {
+                        foreach (Shape shape in chr.shapes) {
+                            for (int i = 0;i < shape.rawVertexShading.Count;i++) {
+                                shape.rawVertexShading[i] = cd.Color;
+                                shape.rawVertexData[i] = new Vector3();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void findMaterialsThatUseTextureOfNameToolStripMenuItem_Click(object sender, EventArgs e) {
+            F_NGN lev = TabControl.GetLevel();
+            if (lev != null) {
+                InputDialog id = new InputDialog();
+                List<string> tlocations = new List<string>();
+                if (id.ShowDialog() == DialogResult.OK) {
+                    string inp = id.input;
+                    int reltexid = lev.TexNameToGlobalID(inp);
+                    foreach (Character chr in lev.characters) {
+                        foreach (Shape shape in chr.shapes) {
+                            for (int i = 0;i < shape.materials.Count;i++) {
+                                if (shape.materials[i].textureIndexRelative == reltexid) {
+                                    tlocations.Add(String.Format("Found Texture : {0} > {1} > Material {2}", chr.name, (shape.name == "") ? "<Shape" + i + ">" : shape.name, i));
+                                }
+                            }
+                        }
+                    }
+                    foreach (Geometry geo in lev.Geometries) {
+                        for (int s = 0;s < geo.shapes.Count;s++) {
+                            Shape shape = geo.shapes[s];
+                            for (int i = 0;i < shape.materials.Count;i++) {
+                                if (shape.materials[i].textureIndexRelative == reltexid) {
+                                    tlocations.Add(String.Format("Found Texture : {0} > {1} > Material {2}", geo.name, (shape.name=="")? "<Shape" + i + ">" : shape.name, i));
+                                }
+                            }
+                        }
+                    }
+                    SessionManager.Report("Search for "+inp+" in level returned " + tlocations.Count + " results :\n" + string.Join("\n", tlocations));
+                }
+            }
+        }
     }
 }

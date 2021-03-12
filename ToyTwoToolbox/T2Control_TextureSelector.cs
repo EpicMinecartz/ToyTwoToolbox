@@ -23,7 +23,7 @@ namespace ToyTwoToolbox {
             }
             set {
                 if (value < TexturePanels.Count) {
-                    TPChange((value==-1) ? null : TexturePanels[value], false);
+                    TPChange((value == -1) ? null : TexturePanels[value], false);
                 }
             }
         }
@@ -31,7 +31,7 @@ namespace ToyTwoToolbox {
         public T2Control_TextureSelector() {
             InitializeComponent();
             TPChanged += new TPChangedEventHandler(TPChange);
-            CurrentWidth = BasePanel.Width-20;
+            CurrentWidth = BasePanel.Width - 20;
         }
 
         public void Init(List<Texture> textures) {
@@ -65,10 +65,10 @@ namespace ToyTwoToolbox {
                 SelectedPanel = null;
                 return;
             }
-            if(TP!=null) {
-            SelectedPanel = TP;
-            if (InvokeSelectionChanged) { SelectedIndexChanged.Invoke((SelectedPanel == null) ? -1 : TexturePanels.IndexOf(SelectedPanel)); }
-            TP.ChangeSelection();
+            if (TP != null) {
+                SelectedPanel = TP;
+                if (InvokeSelectionChanged) { SelectedIndexChanged.Invoke((SelectedPanel == null) ? -1 : TexturePanels.IndexOf(SelectedPanel)); }
+                TP.ChangeSelection();
             }
         }
 

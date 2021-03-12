@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -23,6 +22,7 @@ namespace ToyTwoToolbox {
             tabControl1.DrawItem += new DrawItemEventHandler(DarkThemeTabControlRender.tabControl_DrawItem);
             contextTexture.Renderer = new DarkThemeMenuRender();
             contextCharShapes.Renderer = new DarkThemeMenuRender();
+            contextDGV.Renderer = new DarkThemeMenuRender();
             listviewTextures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listviewTextures.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             dvgAP.DefaultCellStyle = SessionManager.DarkThemeCellDGV;
@@ -35,6 +35,7 @@ namespace ToyTwoToolbox {
             this.main = this;
             if (file != null) { LoadFile(file); } //if this doesnt load in constructor, you will have to do it yourself later
             checkBox1.Visible = SessionManager.Debug;
+
         }
 
         /// <summary>
@@ -464,7 +465,9 @@ namespace ToyTwoToolbox {
         }
 
         private void butSaveChar_Click(object sender, EventArgs e) {
+            butSaveChar.Visible = false;
             loadedNGN.Extract(loadedNGN.characters[comboCharacters.SelectedIndex]);
+            butSaveChar.Visible = true;
         }
 
         private void aboveToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -547,8 +550,8 @@ namespace ToyTwoToolbox {
                     this.listCharShapes.DoDragDrop(this.listCharShapes.SelectedItem, DragDropEffects.Move);
                 }
             } else {
-            //    listCharShapes.SelectedItems.Clear();
-            //    listCharShapes.SelectedIndex = this.listCharShapes.IndexFromPoint(e.Location);
+                //    listCharShapes.SelectedItems.Clear();
+                //    listCharShapes.SelectedIndex = this.listCharShapes.IndexFromPoint(e.Location);
             }
             base.OnMouseDown(e);
         }
@@ -826,7 +829,7 @@ namespace ToyTwoToolbox {
             Linker l = new Linker(0, 0);
             loadedNGN.ObjectLinks.Add(l);
             ShapeLinkEditor.Rows.Add();
-            DataGridViewRow DGVRow = ShapeLinkEditor.Rows[ShapeLinkEditor.Rows.Count-2];
+            DataGridViewRow DGVRow = ShapeLinkEditor.Rows[ShapeLinkEditor.Rows.Count - 2];
             DGVRow.Cells[0].Value = l.ShapeID;
             DGVRow.Cells[1].Value = l.LinkID;
         }
@@ -836,7 +839,7 @@ namespace ToyTwoToolbox {
             for (int i = 0;i < selectedRowCount;i++) {
                 loadedNGN.ObjectLinks.RemoveAt(ShapeLinkEditor.SelectedRows[i].Index);
                 ShapeLinkEditor.Rows.Remove(ShapeLinkEditor.SelectedRows[i]);
-            }         
+            }
         }
 
         private void butShapeLinkMoveUp_Click(object sender, EventArgs e) {
@@ -978,12 +981,15 @@ namespace ToyTwoToolbox {
             //}
         }
 
+        //WARNING THERE IS NO WARNING, THIS NEEDS LOOKING AT
         private void butDSRemove_Click(object sender, EventArgs e) {
-            SessionManager.Report(SessionManager.Errors.NotImplemented);
+            loadedNGN.GScales[comboGeometry.SelectedIndex].Remove(loadedNGN.GScales.Count);
+            dgvDS.Rows.RemoveAt(loadedNGN.GScales.Count);
         }
 
         private void butDSAdd_Click(object sender, EventArgs e) {
-            SessionManager.Report(SessionManager.Errors.NotImplemented);
+            loadedNGN.GScales[comboGeometry.SelectedIndex].Append(dgvDS.Rows.Count - 1);
+            dgvDS.Rows.Add(dgvDS.Rows.Count - 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         }
 
         private void butDSMoveDown_Click(object sender, EventArgs e) {
@@ -1040,7 +1046,7 @@ namespace ToyTwoToolbox {
 
         private void listGeomShapes_DrawItem(object sender, DrawItemEventArgs e) {
             Color backcolor = e.BackColor;
-                e.DrawBackground();
+            e.DrawBackground();
             if (e.Index != -1) {
                 if (listGeomShapes_dragging) {
                     if (e.Index == this.listGeomShapes.IndexFromPoint(listGeomShapes.PointToClient(MousePosition))) {
@@ -1088,6 +1094,145 @@ namespace ToyTwoToolbox {
         private void listGeomShapes_MouseUp(object sender, MouseEventArgs e) {
             listGeomShapes_dragging = false;
             listGeomShapes.Invalidate();//Such a cheap fix jesus
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e) {
+            SessionManager.SMptr.ICL.SetCopyType(InternalCopy.ICLFormat.DGV);
+            SessionManager.SMptr.ICL.Clear();
+            for (int i = 0;i < dgvDS.SelectedCells.Count;i++) {
+                SessionManager.SMptr.ICL.Copy(dgvDS.SelectedCells[i].Value);
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e) {
+            //get lowest so we dont overflow ouch!
+            List<object> ICLP = SessionManager.SMptr.ICL.Paste();
+            int lcp = Math.Min(ICLP.Count, dgvDS.SelectedCells.Count);
+            for (int i = 0;i < lcp;i++) {
+                dgvDS.SelectedCells[i].Value = ICLP[i];
+            }
+        }
+
+        private void incrementNumericalItemsByToolStripMenuItem_Click(object sender, EventArgs e) {
+            using (InputDialog input = new InputDialog()) {
+                if (input.ShowDialogEx(true) == DialogResult.OK) {
+                    int rep = 0;
+                    if (Int32.TryParse(input.input, out rep)) { //we dont need to verify here, but why not lmao
+                        for (int i = 0;i < dgvDS.SelectedCells.Count;i++) {
+                            int init = 0;
+                            if (Int32.TryParse(dgvDS.SelectedCells[i].Value.ToString(), out init)) {
+                                dgvDS.SelectedCells[i].Value = rep + init;
+                            }
+                        }
+                    }
+                } else {
+                    //id say we just assume nothing else is gonna happen and...feel like i've said this before...
+                    return;
+                }
+            }
+        }
+
+
+        private void replaceSelectedValuesToolStripMenuItem_Click(object sender, EventArgs e) {
+            using (InputDialog input = new InputDialog()) {
+                if (input.ShowDialog() == DialogResult.OK) {
+                    string ip = input.input;
+                    foreach (DataGridViewCell cell in dgvDS.SelectedCells) {
+                        UpdateFromDGV(cell.ColumnIndex, cell.RowIndex, ip ?? cell.Value);
+                    }
+                } else {
+                    //id say we just assume nothing else is gonna happen and...feel like i've said this before...
+                    return;
+                }
+            }
+
+
+
+
+
+
+
+        }
+
+        private void fillSelectedWithRandomNumbersToolStripMenuItem_Click(object sender, EventArgs e) {
+            foreach (DataGridViewCell cell in dgvDS.SelectedCells) {
+                switch (cell.ColumnIndex) {
+                    case 0:
+                        cell.Value = XF.Random(0, 65535);
+                        break;
+                    case 10:
+                        cell.Value = XF.Random(0, 65535);
+                        break;
+                    default:
+                        cell.Value = XF.Randomf();
+                        break;
+                }
+            }
+        }
+
+        private void selectInvertedSelectionToolStripMenuItem_Click(object sender, EventArgs e) {
+            foreach (DataGridViewRow row in dgvDS.Rows) {
+                foreach (DataGridViewCell cell in row.Cells) {
+                    cell.Selected = !cell.Selected;
+                }
+            }
+        }
+
+        private void selectAllCellsToolStripMenuItem_Click(object sender, EventArgs e) {
+            dgvDS.SelectAll();
+        }
+
+        private void selectAllCellsInColumToolStripMenuItem_Click(object sender, EventArgs e) {
+            int selcol = dgvDS.CurrentCell.ColumnIndex;// dgvDS.SelectedCells[dgvDS.SelectedCells.Count - 1].ColumnIndex;
+            for (int i = 0;i < dgvDS.Rows.Count;i++) {
+                dgvDS.Rows[i].Cells[selcol].Selected = true;
+            }
+        }
+
+        private void dgvDS_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e) {
+            dgvDS.ignoreCellValueChanged = false; //pre-empt that stuff gonna start changing, doesnt matter if it doesnt as it'll only be one update
+        }
+
+        private void dgvShapeData_CellValueChanged(object sender, DataGridViewCellEventArgs e) {
+            //cell contents updated
+            if (dgvDS.ignoreCellValueChanged == false) {
+                UpdateFromDGV(e.ColumnIndex, e.RowIndex, dgvDS.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+            }
+        }
+
+        public void UpdateFromDGV(int ColumnID = -1, int RowID = -1, object Value = null) {
+            _UpdateFromDGV(ColumnID, RowID, Value);
+        }
+
+        /// <summary>This method updates the appropriate data inside the shape based on the parameters supplied (from a DGV)</summary>
+        public void _UpdateFromDGV(int ColumnID = -1, int RowID = -1, object Value = null) {
+            if (RowID > -1 && RowID < dgvDS.RowCount) {
+                DynamicScaler ds = loadedNGN.GScales[comboGeometry.SelectedIndex];
+                if (ColumnID == 0) {                ///use column as the [index]
+                    ds.ShapeID[RowID] = Convert.ToInt32(Value);
+                } else if (ColumnID == 1) {
+                    ds.Translation[RowID].X = Convert.ToSingle(Value);
+                } else if (ColumnID == 2) {
+                    ds.Translation[RowID].Y = Convert.ToSingle(Value);
+                } else if (ColumnID == 3) {
+                    ds.Translation[RowID].Z = Convert.ToSingle(Value);
+                } else if (ColumnID == 4) {
+                    ds.Rotation[RowID].X = Convert.ToSingle(Value);
+                } else if (ColumnID == 5) {
+                    ds.Rotation[RowID].Y = Convert.ToSingle(Value);
+                } else if (ColumnID == 6) {
+                    ds.Rotation[RowID].Z = Convert.ToSingle(Value);
+                } else if (ColumnID == 7) {
+                    ds.Scale[RowID].X = Convert.ToSingle(Value);
+                } else if (ColumnID == 8) {
+                    ds.Scale[RowID].Y = Convert.ToSingle(Value);
+                } else if (ColumnID == 9) {
+                    ds.Scale[RowID].Z = Convert.ToSingle(Value);
+                } else if (ColumnID == 10) {
+                    ds.Unknown[RowID] = Convert.ToInt32(Value);
+                }
+            }
+            dgvDS.Rows[RowID].Cells[ColumnID].Value = Value;
         }
     }
 }

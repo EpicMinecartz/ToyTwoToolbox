@@ -36,7 +36,7 @@ namespace ToyTwoToolbox {
         /// <param name="CenterY">Whether to center along the Y axis</param>
         /// <param name="IsLoaded">Whether to manually specifiy if the form is loaded</param>
         /// <param name="PrintNewCoords">Whether to print the new coords of the control</param>
-        /// <returns>The new <seealso cref="Point"/> of the control</returns>
+        /// <returns>The new <see cref="Point"/> of the control</returns>
         public static Point CenterObject(Control Obj, bool bypasscontainer = false, bool CenterX = true, bool CenterY = true, bool IsLoaded = true, bool PrintNewCoords = false) {
             Form Owner = Obj.FindForm();
             if (IsLoaded == true || IsFormLoaded(Owner)) { //protect from early open
@@ -184,9 +184,9 @@ namespace ToyTwoToolbox {
             return new string(c);
         }
 
-        /// <summary>This function takes any <seealso cref="Image"/> and outputs a standard 24-bit bitmap from it</summary>
+        /// <summary>This function takes any <see cref="Image"/> and outputs a standard 24-bit bitmap from it</summary>
         /// <param name="IMG">Input Image</param>
-        /// <returns>Converted <seealso cref="Image"/></returns>
+        /// <returns>Converted <see cref="Image"/></returns>
         public static Image ProParseImage(Image IMG) {
             try {
                 using (Bitmap oldBmp = new Bitmap(IMG)) {
@@ -250,7 +250,7 @@ namespace ToyTwoToolbox {
                 if (Math.Sign(offset) == 1) {
                     if (index + offset > list.Count) { if (pushToLimit) { offset = list.Count - index; } else { return 0; } }
                 } else {
-                    if (index + offset < 0) { if (pushToLimit) { offset =0; } else { return 0; } }
+                    if (index + offset < 0) { if (pushToLimit) { offset = 0; } else { return 0; } }
                 }
                 list.Insert(index + offset, item);
                 return index + offset;

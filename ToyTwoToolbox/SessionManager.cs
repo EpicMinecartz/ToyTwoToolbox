@@ -12,11 +12,19 @@ namespace ToyTwoToolbox {
     public partial class SessionManager : Form {
         [System.Runtime.InteropServices.DllImportAttribute("uxtheme.dll")]
         private static extern int SetWindowTheme(IntPtr hWnd, string appname, string idlist);
+        [System.Runtime.InteropServices.DllImport("dwmapi.dll")]
+        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
 
         public enum Errors {
             Unknown = -1,
             Generic,
             NotImplemented
+        }
+
+        private static void DWMDark(IntPtr handle, bool enabled) {
+            int useImmersiveDarkMode = enabled ? 1 : 0;
+            if (DwmSetWindowAttribute(handle, 19, ref useImmersiveDarkMode, 4) != 0)
+                DwmSetWindowAttribute(handle, 20, ref useImmersiveDarkMode, 4);
         }
 
         protected override void OnHandleCreated(EventArgs e) {
@@ -135,7 +143,7 @@ namespace ToyTwoToolbox {
 
             //PRINT REPORT TYPE
             if (Tag) {
-                stdout.SelectionColor = RTC[Math.Abs((int)ReportType)];
+                stdout.SelectionColor = (int)ReportType == -1 ? Color.Purple : RTC[Math.Abs((int)ReportType)];
                 stdout.AppendText("[" + ReportType.ToString() + "] ");
             }
 
@@ -257,6 +265,7 @@ namespace ToyTwoToolbox {
 
         private Form CreateNewSession(string StartupParam = "", int SessionPoolID = 0) {
             Main NM = new Main();
+            NM.HandleCreated += HookClientHandle;
             try {
                 if (SessionPoolID == 0) {
                     int uuid = GenSessionToken();
@@ -268,6 +277,7 @@ namespace ToyTwoToolbox {
                 NM.PrintMessages = PrintMessages;
                 NM.LSID = (SessionPoolID == 0) ? SessionPool.Count - 1 : SessionPoolID;
                 NM.Init(StartupParam);
+                DWMDark(NM.Handle, true);
                 ClientActive = true;
             } catch (Exception ex) {
                 Report("Failed to create session:\n" + ex.ToString());
@@ -275,6 +285,10 @@ namespace ToyTwoToolbox {
             CheckExecution();
             //  RefreshUI()
             return NM;
+        }
+
+        private void HookClientHandle(object sender, EventArgs e) {
+            
         }
 
         private Form ReloadSession(int SessionID) {
@@ -299,7 +313,7 @@ namespace ToyTwoToolbox {
 
         private static readonly Random r = new Random();
         public static int R() {
-            return r.Next(0, 2147483647);
+            return r.Next(0, Int32.MaxValue);
         }
 
         public bool ReRegisterSessions() {
@@ -534,53 +548,8 @@ namespace ToyTwoToolbox {
             return 0; //bad
         }
 
-        private void contextDGV_Opening(object sender, CancelEventArgs e) {
-
-        }
-
-        private void replaceSelectedValuesToolStripMenuItem_Click(object sender, EventArgs e) {
-            ((T2Control_DGV)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).ignoreCellValueChanged = false;
-            InputDialog input = new InputDialog();
-            if (input.ShowDialog() == DialogResult.OK) {
-                foreach (DataGridViewCell cell in ((T2Control_DGV)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedCells) {
-                    cell.Value = input.input;
-                }
-            }
-            ((T2Control_DGV)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).ignoreCellValueChanged = true;
-        }
-
-        private void contextDGV_Closing(object sender, ToolStripDropDownClosingEventArgs e) {
-            //((T2Control_DGV)((ContextMenuStrip)sender).SourceControl).ignoreCellValueChanged = true;
-        }
-
         private void ADVDStripMenuItem_Click(object sender, EventArgs e) {
             advd = ADVDStripMenuItem.Checked;
-        }
-
-        private void selectInvertedSelectionToolStripMenuItem_Click(object sender, EventArgs e) {
-            foreach (DataGridViewCell cell in ((T2Control_DGV)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectedCells) {
-                cell.Selected = !cell.Selected;
-            }
-        }
-
-        private void selectAllCellsToolStripMenuItem_Click(object sender, EventArgs e) {
-            ((T2Control_DGV)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl).SelectAll();
-        }
-
-        private void selectAllCellsInColumToolStripMenuItem_Click(object sender, EventArgs e) {
-            DataGridView dgv = ((T2Control_DGV)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
-            int selcol = dgv.SelectedCells[dgv.SelectedCells.Count - 1].ColumnIndex;
-            for (int i = 0;i < dgv.Rows.Count;i++) {
-                dgv.Rows[i].Cells[selcol].Selected = true;
-            }
-        }
-
-        private void copyToolStripMenuItem_Click(object sender, EventArgs e) {
-
-        }
-
-        private void pasteToolStripMenuItem_Click(object sender, EventArgs e) {
-
         }
     }
 

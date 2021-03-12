@@ -11,14 +11,11 @@ namespace ToyTwoToolbox {
         public string name { get; set; }
         ///<summary>The geometry data, containing the <seealso cref="Shape"/> data</summary>
         public List<Shape> shapes { get; set; }
-        ///<summary>The realtime transformation data</summary>
-        public DynamicScaler dynamicScaler;
 
         public Geometry() {
             owner = null;
             name = "";
             shapes = new List<Shape>();
-            dynamicScaler = new DynamicScaler();
         }
 
         public List<Material> GetMaterials() {

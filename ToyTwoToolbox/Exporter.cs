@@ -4,17 +4,21 @@ using System.IO;
 using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
+    //Note, this thing is a bit of a mess.
+    /// <summary>A dialog based window to configure NGN export settings</summary>
     public partial class Exporter : Form {
         public string ex_path;
         public bool ex_tex;
         public bool ex_mat;
         public bool ex_vcol;
         public bool ex_alpha;
-        public Vector3 ex_rot = new Vector3(0, 0, 0);
+        public Vector3 ex_rot = new Vector3();
         public bool ex_gx;
         public bool ex_gy;
         public bool ex_gz;
         public string ex_name;
+        public bool ex_trn;
+        public bool ex_opa;
         public IWorldObject obj;
 
         public Exporter() {
@@ -49,6 +53,8 @@ namespace ToyTwoToolbox {
             ex_gz = checkRot.Checked && checkGZ.Checked;
             ex_rot = new Vector3((ex_gx) ? 1 : 0, (ex_gy) ? 1 : 0, (ex_gz) ? 1 : 0);
             ex_name = EditableLabelOutputName.Text;
+            ex_trn = checkMaterials.Checked && checkTrans.Checked;
+            ex_opa = checkMaterials.Checked && checkOpacity.Checked;
         }
 
         private void checkRot_CheckedChanged(object sender, EventArgs e) {

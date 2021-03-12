@@ -71,7 +71,7 @@ namespace ToyTwoToolbox {
         }
 
         private void T2Control_DGV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e) {
-            e.Graphics.DrawString((e.RowIndex + 1).ToString(), new Font("Courier New", 8.0F), new SolidBrush(Color.FromArgb(255, 255, 255)), new Rectangle(e.RowBounds.Left, e.RowBounds.Top, ((DataGridView)sender).RowHeadersWidth, e.RowBounds.Height), new StringFormat {Alignment =  StringAlignment.Far,LineAlignment = StringAlignment.Center});
+            e.Graphics.DrawString((e.RowIndex).ToString(), new Font("Courier New", 8.0F), new SolidBrush(Color.FromArgb(255, 255, 255)), new Rectangle(e.RowBounds.Left, e.RowBounds.Top, ((DataGridView)sender).RowHeadersWidth, e.RowBounds.Height), new StringFormat {Alignment =  StringAlignment.Far,LineAlignment = StringAlignment.Center});
         }
     }
 }
