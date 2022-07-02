@@ -5,10 +5,9 @@ using System.Linq;
 using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
-    /// <summary>
-    /// eXtended winforms Functionaility
-    /// </summary>
+    /// <summary>eXtended winforms Functionaility</summary>
     class XF {
+
         public static System.Collections.IEnumerable GetControls(System.Windows.Forms.Control parent, bool searchContainers) {
             List<System.Windows.Forms.Control> ctrls = new List<System.Windows.Forms.Control>();
             if (!ctrls.Contains(parent)) {
@@ -122,42 +121,6 @@ namespace ToyTwoToolbox {
             }
         }
 
-        public static Bitmap CreateTextFromImageFont(string text, Bitmap FontImage, string availableCharacters, Size CharacterBounds, int CharactersPerLine, int CharacterSpacing) {
-            Bitmap BBase;
-
-            if (FontImage != null && CharacterBounds.Width != 0 && CharacterBounds.Height != 0 && availableCharacters.Length > 0) {
-                int BBWidth = TextClean(text) * (CharacterBounds.Width + CharacterSpacing);
-                int BBHeight = TextClean(text, true) * (CharacterBounds.Height + CharacterSpacing);
-                BBase = new Bitmap(BBWidth, BBHeight);
-                int textOffset = 0;
-                int textNewLines = 0;
-                //using (SolidBrush brush = new SolidBrush(this.ForeColor)) { graphics.DrawString(this.Text, new Font("Courier New", _CharacterBounds.Height, GraphicsUnit.Pixel), brush, 1, 1); }
-                using (Graphics graphics = Graphics.FromImage(BBase)) {
-                    foreach (char chr in text.ToLower()) {
-                        if (availableCharacters.IndexOf(chr) == -1) { continue; }
-                        if (chr == 13) { continue; }
-                        if (chr == 10) { textOffset++; textNewLines = 0; continue; }
-
-                        int FTRow = (int)Math.Ceiling((decimal)(availableCharacters.IndexOf(chr) / CharactersPerLine));
-                        int FTCol = availableCharacters.IndexOf(chr) % CharactersPerLine;
-
-                        int PXOff = CharacterBounds.Width * FTCol;
-                        int PYOff = CharacterBounds.Height * FTRow;
-                        Bitmap cloneBitmap = FontImage.Clone(
-                            new Rectangle {
-                                Width = CharacterBounds.Width,
-                                Height = CharacterBounds.Height,
-                                X = PXOff,
-                                Y = PYOff
-                            }, FontImage.PixelFormat);
-                        graphics.DrawImage(cloneBitmap, new Point((CharacterBounds.Width + CharacterSpacing) * textOffset, (CharacterBounds.Height + CharacterSpacing) * textNewLines));
-                    }
-                }
-                return BBase;
-            }
-            return null;
-        }
-
         public static Color GetTransparentColor(Control CSC) {
             for (;;){
                 if (CSC.BackColor != Color.Transparent) {
@@ -172,6 +135,9 @@ namespace ToyTwoToolbox {
             }
         }
 
+        /// <summary>Byte array into a hex string</summary>
+        /// <param name="bytes">The bytes</param>
+        /// <returns>Hexy string</returns>
         public static string BytesToHex(byte[] bytes) {
             char[] c = new char[(bytes.Length * 2)];
             int b = 0;
@@ -200,10 +166,14 @@ namespace ToyTwoToolbox {
             }
         }
 
-        public static void ExportImage(string FilePath, Image Img, System.Drawing.Imaging.ImageFormat BaseFormat, string OverrideFormat = null) {
+        /// <summary>Generic method to export a <see cref="Image"/> to a file, with format override</summary>
+        /// <param name="FilePath">The output path and filename</param>
+        /// <param name="Img">The image to export</param>
+        /// <param name="OverrideFormat">The format to convert the output to</param>
+        public static void ExportImage(string FilePath, Image Img, string OverrideFormat = null) {
             if (Img != null) {
-                System.Drawing.Imaging.ImageFormat Imgformat = BaseFormat;
-                if (!(string.IsNullOrEmpty(OverrideFormat))) {
+                System.Drawing.Imaging.ImageFormat Imgformat = Img.RawFormat;
+                if (!string.IsNullOrEmpty(OverrideFormat)) {
                     if (OverrideFormat.ToLower().Contains("bmp")) {
                         Imgformat = System.Drawing.Imaging.ImageFormat.Bmp;
                     } else if (OverrideFormat.ToLower().Contains("jpeg")) {
@@ -218,6 +188,8 @@ namespace ToyTwoToolbox {
             }
         }
 
+        /// <summary>Very sad primitive way of generating an alpha map based on the green component</summary>
+        /// <param name="IMG">The bitmap to use</param>
         public static void GenerateAlphaMap(Bitmap IMG) {
             BitmapLocker bml = new BitmapLocker();
             bml.AllocateLock(IMG);
@@ -257,20 +229,6 @@ namespace ToyTwoToolbox {
             }
             return 0;
         }
-        //public static int ListMoveItem(System.Collections.IList list, int index, int offset, bool pushToLimit = true) {
-        //    if (index != -1) {
-        //        var item = list[index];
-        //        list.RemoveAt(index);
-        //        if (Math.Sign(offset) == 1) {
-        //            if (index + offset > list.Count) { if (pushToLimit) { offset = list.Count - index; } else { return 0; } }
-        //        } else {
-        //            if (index + offset < 0) { if (pushToLimit) { offset = -(index + (index - offset)); } else { return 0; } }
-        //        }
-        //        list.Insert(index + offset, item);
-        //        return index + offset;
-        //    }
-        //    return 0;
-        //}
 
         public static Color NGNColToColor(List<double> ARGBL) {
             //if theres an instance of a ngn color having 4 values, ill fix it then
@@ -341,48 +299,10 @@ namespace ToyTwoToolbox {
     }
 
     public static class Extentions {
-        /// <summary>This is an extention method for the List class that enables Deep Copying</summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="Obj"></param>
-        /// <returns></returns>
-        //public static T DeepCopy<T>(this T Obj) {
-        //    if (Obj.GetType().IsSerializable == false) {
-        //        return default(T);
-        //    }
-
-        //    using (System.IO.MemoryStream MStream = new System.IO.MemoryStream()) {
-        //        System.Runtime.Serialization.Formatters.Binary.BinaryFormatter Formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-        //        Formatter.Serialize(MStream, Obj);
-        //        MStream.Position = 0;
-        //        return (T)Formatter.Deserialize(MStream);
-        //    }
-        //}
-
-
         public static void Swap<T>(this List<T> list, int indexA, int indexB) {
             T tmp = list[indexA];
             list[indexA] = list[indexB];
             list[indexB] = tmp;
         }
-
-        /// <summary>
-        /// Move an item in a list based on it's current position in the list
-        /// </summary>
-        /// <typeparam name="T">the list</typeparam>
-        /// <param name="list"></param>
-        /// <param name="item"></param>
-        /// <param name="offset"></param>
-        /// <param name="pushToLimit"></param>
-        //public static void MoveItem<T>(this T list, T item, int offset, bool pushToLimit = true) {
-        //	var litem = item;
-        //	int index = list.IndexOf(item);
-        //	list.Remove(item);
-        //	if (Math.Sign(offset) == 1) {
-        //		if (index + offset > list.Count) { if (pushToLimit) { offset = list.Count - index; } else { return; } }
-        //	} else {
-        //		if (index + offset < 0) { if(pushToLimit) { offset = -(index + (index - offset)); } else { return; } }
-        //	}
-        //	list.Insert(index + offset, litem);
-        //}
     }
 }

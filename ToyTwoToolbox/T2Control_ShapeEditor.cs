@@ -27,6 +27,7 @@ namespace ToyTwoToolbox {
         IPrimitive selectedPrim;
         ISL materialISL = new ISL(new List<int>(new int[] { -1, 1, 2, 4, 6, 14, 10, 11 }), new List<string>(new string[] { "Disable Metadata", "Solid Texture", "Transparency", "Reflection", "Reflect/Transparent", "Reflect/Transparent", "Transparency", "Transparency" })); //conv to sw-case void?
         bool multiMatEdit = false;
+        string alternateName = "";
 
         public T2Control_ShapeEditor() {
             InitializeComponent();
@@ -65,18 +66,40 @@ namespace ToyTwoToolbox {
                 loadedShape = shape;
             }
             loadedNGN = NGN;
+            alternateName = altname;
 
-            fieldShapeName.Text = (shape.name == "") ? (altname == "") ? "<Untitled>" : altname : shape.name;
-            numericCharShapeID.Value = shape.type;
-            numericCharShapeID2.Value = shape.type2;
+            this.Reload();
+        }
+
+        public void ReplaceShape(ref Shape shape) {
+            DialogResult msg = MessageBox.Show("Are you sure you want to replace this shape (" + loadedShape.name + ") with " + shape.name + "?", "Shape Replace", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (msg == DialogResult.Yes) {
+                loadedShape.materials = shape.materials.Copy();
+                loadedShape.textures = shape.textures.Copy();
+                loadedShape.rawPrimitives = shape.rawPrimitives.Copy();
+                loadedShape.rawVertexData = shape.rawVertexData.Copy();
+                loadedShape.rawVertexShading = shape.rawVertexShading.Copy();
+                loadedShape.rawVertexTextureCoords = shape.rawVertexTextureCoords.Copy();
+                loadedShape.rawVertices = shape.rawVertices.Copy();
+                loadedShape.texturesGlobal = shape.texturesGlobal.Copy();
+                loadedShape.type = shape.type;
+                loadedShape.type2 = shape.type2;
+                loadedShape._SPType = shape._SPType;
+            }
+        }
+
+        public void Reload() {
+            fieldShapeName.Text = (loadedShape.name == "") ? (alternateName == "") ? "<Untitled>" : alternateName : loadedShape.name;
+            numericCharShapeID.Value = loadedShape.type;
+            numericCharShapeID2.Value = loadedShape.type2;
 
             if (loadedNGN.textures.Count > 0) {
                 t2Control_TextureSelector1.Init(loadedNGN.textures);
             }
             groupMaterialProperties.Visible = false;
             comboMaterial.Items.Clear();
-            if (shape.materials.Count > 0) {
-                for (int i = 0;i < shape.materials.Count;i++) {
+            if (loadedShape.materials.Count > 0) {
+                for (int i = 0;i < loadedShape.materials.Count;i++) {
                     comboMaterial.Items.Add("Material " + i);
                 }
                 comboMaterial.SelectedIndex = 0;
@@ -84,10 +107,10 @@ namespace ToyTwoToolbox {
 
             dgvShapeData.Rows.Clear();
             comboPrimitive.Items.Clear();
-            if (shape.rawPrimitives.Count > 0) {
+            if (loadedShape.rawPrimitives.Count > 0) {
                 int i = 0;
-                foreach (IPrimitive prim in shape.rawPrimitives) {
-                    comboPrimitive.Items.Add((prim.PrimType == typeof(Prim) ? "Prim " : "Patch ") + i);
+                foreach (IPrimitive prim in loadedShape.rawPrimitives) {
+                    comboPrimitive.Items.Add((prim.PrimType.Name == "Prim" ? "Prim " : "Patch ") + i);
                     i++;
                 }
                 comboPrimitive.SelectedIndex = -1;
@@ -132,7 +155,8 @@ namespace ToyTwoToolbox {
 
                 numericPatchMaterialID.Value = selectedPrim.materialID;
                 numericPatchType.Value = selectedPrim.type;
-                if (selectedPrim.PrimType == typeof(Prim)) { radioPrim.Checked = true; } else { radioPatch.Checked = true; }
+                if (selectedPrim.PrimType.Name == "Prim") { radioPrim.Checked = true; } else { radioPatch.Checked = true; } //uh, yeah idk why this doesnt work
+                                                                            //it becomes a runtimetype when you deep clone, so we just check the name, time to file a bug report...
                 if (partialUpdate == false) {
                     dgvShapeData.Rows.Clear();
                     dgvShapeData.SuspendLayout();
@@ -296,12 +320,19 @@ namespace ToyTwoToolbox {
             }
         }
 
+        public enum DGV_Type {
+            DGV_CHAR,
+            DGV_GEOM,
+            DGV_DS
+        }
+
         public void UpdateFromDGV(int ColumnID = -1, int RowID = -1, object Value = null) {
             _UpdateFromDGV(ColumnID, RowID, Value);
         }
 
         /// <summary>This method updates the appropriate data inside the shape based on the parameters supplied (from a DGV)</summary>
-        public void _UpdateFromDGV(int ColumnID = -1, int RowID = -1, object Value = null) {
+        public void _UpdateFromDGV( int ColumnID = -1, int RowID = -1, object Value = null) {
+        //public void _UpdateFromDGV(DGV_Type dgv, int ColumnID = -1, int RowID = -1, object Value = null) {
             if (RowID > -1 && RowID < dgvShapeData.RowCount) {
                 int selectedVertex = loadedShape.rawPrimitives[comboPrimitive.SelectedIndex].vertices[RowID];
                 if (ColumnID == 0) {                ///use column as the [index]
@@ -486,19 +517,41 @@ namespace ToyTwoToolbox {
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e) {
+            //SessionManager.SMptr.ICL.SetCopyType(InternalCopy.ICLFormat.DGV);
+            //SessionManager.SMptr.ICL.Clear();
+            //for (int i = 0;i < dgvShapeData.SelectedCells.Count;i++) {
+            //    SessionManager.SMptr.ICL.Copy(dgvShapeData.SelectedCells[i].Value);
+
+            //}
             SessionManager.SMptr.ICL.SetCopyType(InternalCopy.ICLFormat.DGV);
             SessionManager.SMptr.ICL.Clear();
-            for (int i = 0;i < dgvShapeData.SelectedCells.Count;i++) {
-                SessionManager.SMptr.ICL.Copy(dgvShapeData.SelectedCells[i].Value);
-            }
+            SessionManager.SMptr.ICL.Copy(InternalCopy.DGV_GetOrderedList(dgvShapeData));
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e) {
-            //get lowest so we dont overflow ouch!
-            List<object> ICLP = SessionManager.SMptr.ICL.Paste();
-            int lcp = Math.Min(ICLP.Count, dgvShapeData.SelectedCells.Count);
-            for (int i = 0;i < lcp;i++) {
-                dgvShapeData.SelectedCells[i].Value = ICLP[i];
+            ////get lowest so we dont overflow ouch!
+            //List<object> ICLP = SessionManager.SMptr.ICL.Paste();
+            //int lcp = Math.Min(ICLP.Count, dgvShapeData.SelectedCells.Count);
+            //for (int i = 0;i < lcp;i++) {
+            //    //dgvShapeData.SelectedCells[i].Value = ICLP[i];
+            //    //int index = lcp - i;
+            //    UpdateFromDGV(dgvShapeData.SelectedCells[i].ColumnIndex, dgvShapeData.SelectedCells[i].RowIndex, ICLP[i] ?? dgvShapeData.SelectedCells[i].Value);
+            //}
+            ////int i = 0;
+            ////foreach (DataGridViewCell cell in dgvDS.SelectedCells) {
+            ////    UpdateFromDGV(cell.ColumnIndex, cell.RowIndex, ICLP[i++] ?? cell.Value);
+            ////}
+            
+            //okay, hopefully this works as a quick patch in the meantime.
+            if(SessionManager.SMptr.ICL.GetCopyType() == InternalCopy.ICLFormat.DGV) {
+                List<DataGridViewCell> sources = (List<DataGridViewCell>)SessionManager.SMptr.ICL.Paste()[0];
+                //and now, we do it again...
+                List<DataGridViewCell> targets = InternalCopy.DGV_GetOrderedList(dgvShapeData);
+                int maxCells = Math.Min(sources.Count, targets.Count);
+                for (int i = 0;i < maxCells;i++) {//only work with what we got
+                    //targets[i].Value = sources[i].Value;
+                    UpdateFromDGV(targets[i].ColumnIndex, targets[i].RowIndex, sources[i].Value);
+                }
             }
         }
 
@@ -510,7 +563,10 @@ namespace ToyTwoToolbox {
                         for (int i = 0;i < dgvShapeData.SelectedCells.Count;i++) {
                             int init = 0;
                             if (Int32.TryParse(dgvShapeData.SelectedCells[i].Value.ToString(), out init)) {
-                                dgvShapeData.SelectedCells[i].Value = rep + init;
+                                //dgvShapeData.SelectedCells[i].Value = rep + init;
+                                int final = (int)dgvShapeData.SelectedCells[i].Value;
+                                final = rep + init;
+                                UpdateFromDGV(dgvShapeData.SelectedCells[i].ColumnIndex, dgvShapeData.SelectedCells[i].RowIndex, rep + init);
                             }
                         }
                     }
@@ -519,6 +575,10 @@ namespace ToyTwoToolbox {
                     return;
                 }
             }
+        }
+
+        private void fieldShapeName_Load(object sender, EventArgs e) {
+
         }
     }
 }

@@ -134,6 +134,8 @@
             this.GeomEditor = new ToyTwoToolbox.T2TTabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.butPasteGeomShape = new System.Windows.Forms.Button();
+            this.butCopyGeomShape = new System.Windows.Forms.Button();
             this.butNewGeomShape = new System.Windows.Forms.Button();
             this.butMoveGeomShapeDown = new System.Windows.Forms.Button();
             this.butMoveGeomShapeUp = new System.Windows.Forms.Button();
@@ -155,6 +157,16 @@
             this.DSSY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DSSZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DSU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextDGV = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.replaceSelectedValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.incrementNumericalItemsByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fillSelectedWithRandomNumbersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.selectInvertedSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllCellsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllCellsInColumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.butDSRemove = new System.Windows.Forms.Button();
             this.butDSMoveUp = new System.Windows.Forms.Button();
             this.butDSMoveDown = new System.Windows.Forms.Button();
@@ -178,16 +190,6 @@
             this.ShapeLinkEditor = new ToyTwoToolbox.T2Control_DGV();
             this.slsid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sllid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextDGV = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.replaceSelectedValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.incrementNumericalItemsByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fillSelectedWithRandomNumbersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.selectInvertedSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllCellsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectAllCellsInColumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -226,6 +228,7 @@
             this.tabPage6.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDS)).BeginInit();
+            this.contextDGV.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
             this.splitContainer6.Panel1.SuspendLayout();
@@ -234,7 +237,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dvgAP)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShapeLinkEditor)).BeginInit();
-            this.contextDGV.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -297,11 +299,11 @@
             // 
             this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(153, 398);
+            this.checkBox1.Location = new System.Drawing.Point(185, 398);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(78, 17);
+            this.checkBox1.Size = new System.Drawing.Size(48, 17);
             this.checkBox1.TabIndex = 21;
-            this.checkBox1.Text = "New Menu";
+            this.checkBox1.Text = "New";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -738,6 +740,7 @@
             this.butCopyChar.Size = new System.Drawing.Size(23, 23);
             this.butCopyChar.TabIndex = 15;
             this.butCopyChar.UseVisualStyleBackColor = true;
+            this.butCopyChar.Click += new System.EventHandler(this.butCopyChar_Click);
             // 
             // butSaveChar
             // 
@@ -1438,6 +1441,8 @@
             // 
             // splitContainer4.Panel1
             // 
+            this.splitContainer4.Panel1.Controls.Add(this.butPasteGeomShape);
+            this.splitContainer4.Panel1.Controls.Add(this.butCopyGeomShape);
             this.splitContainer4.Panel1.Controls.Add(this.butNewGeomShape);
             this.splitContainer4.Panel1.Controls.Add(this.butMoveGeomShapeDown);
             this.splitContainer4.Panel1.Controls.Add(this.butMoveGeomShapeUp);
@@ -1451,6 +1456,34 @@
             this.splitContainer4.Size = new System.Drawing.Size(1006, 346);
             this.splitContainer4.SplitterDistance = 234;
             this.splitContainer4.TabIndex = 1;
+            // 
+            // butPasteGeomShape
+            // 
+            this.butPasteGeomShape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butPasteGeomShape.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.Paste;
+            this.butPasteGeomShape.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butPasteGeomShape.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butPasteGeomShape.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butPasteGeomShape.Location = new System.Drawing.Point(180, 314);
+            this.butPasteGeomShape.Name = "butPasteGeomShape";
+            this.butPasteGeomShape.Size = new System.Drawing.Size(23, 23);
+            this.butPasteGeomShape.TabIndex = 20;
+            this.butPasteGeomShape.UseVisualStyleBackColor = true;
+            this.butPasteGeomShape.Click += new System.EventHandler(this.butPasteGeomShape_Click);
+            // 
+            // butCopyGeomShape
+            // 
+            this.butCopyGeomShape.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butCopyGeomShape.BackgroundImage = global::ToyTwoToolbox.Properties.Resources.CopyHS;
+            this.butCopyGeomShape.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.butCopyGeomShape.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butCopyGeomShape.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.butCopyGeomShape.Location = new System.Drawing.Point(151, 315);
+            this.butCopyGeomShape.Name = "butCopyGeomShape";
+            this.butCopyGeomShape.Size = new System.Drawing.Size(23, 23);
+            this.butCopyGeomShape.TabIndex = 19;
+            this.butCopyGeomShape.UseVisualStyleBackColor = true;
+            this.butCopyGeomShape.Click += new System.EventHandler(this.butCopyGeomShape_Click);
             // 
             // butNewGeomShape
             // 
@@ -1690,6 +1723,90 @@
             // 
             this.DSU.HeaderText = "Unknown";
             this.DSU.Name = "DSU";
+            // 
+            // contextDGV
+            // 
+            this.contextDGV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.replaceSelectedValuesToolStripMenuItem,
+            this.incrementNumericalItemsByToolStripMenuItem,
+            this.fillSelectedWithRandomNumbersToolStripMenuItem,
+            this.toolStripMenuItem6,
+            this.toolStripMenuItem7,
+            this.toolStripSeparator3,
+            this.selectInvertedSelectionToolStripMenuItem,
+            this.selectAllCellsToolStripMenuItem,
+            this.selectAllCellsInColumToolStripMenuItem});
+            this.contextDGV.Name = "contextDGV";
+            this.contextDGV.Size = new System.Drawing.Size(257, 186);
+            // 
+            // replaceSelectedValuesToolStripMenuItem
+            // 
+            this.replaceSelectedValuesToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
+            this.replaceSelectedValuesToolStripMenuItem.Name = "replaceSelectedValuesToolStripMenuItem";
+            this.replaceSelectedValuesToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.replaceSelectedValuesToolStripMenuItem.Text = "&Replace selected values...";
+            this.replaceSelectedValuesToolStripMenuItem.Click += new System.EventHandler(this.replaceSelectedValuesToolStripMenuItem_Click);
+            // 
+            // incrementNumericalItemsByToolStripMenuItem
+            // 
+            this.incrementNumericalItemsByToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
+            this.incrementNumericalItemsByToolStripMenuItem.Name = "incrementNumericalItemsByToolStripMenuItem";
+            this.incrementNumericalItemsByToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.incrementNumericalItemsByToolStripMenuItem.Text = "Increment numerical items by...";
+            this.incrementNumericalItemsByToolStripMenuItem.Click += new System.EventHandler(this.incrementNumericalItemsByToolStripMenuItem_Click);
+            // 
+            // fillSelectedWithRandomNumbersToolStripMenuItem
+            // 
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgm_grandom;
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Name = "fillSelectedWithRandomNumbersToolStripMenuItem";
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Text = "&Fill selected with random numbers";
+            this.fillSelectedWithRandomNumbersToolStripMenuItem.Click += new System.EventHandler(this.fillSelectedWithRandomNumbersToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Image = global::ToyTwoToolbox.Properties.Resources.CopyHS;
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(256, 22);
+            this.toolStripMenuItem6.Text = "&Copy";
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Image = global::ToyTwoToolbox.Properties.Resources.Paste;
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(256, 22);
+            this.toolStripMenuItem7.Text = "&Paste";
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(253, 6);
+            // 
+            // selectInvertedSelectionToolStripMenuItem
+            // 
+            this.selectInvertedSelectionToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selinv;
+            this.selectInvertedSelectionToolStripMenuItem.Name = "selectInvertedSelectionToolStripMenuItem";
+            this.selectInvertedSelectionToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.selectInvertedSelectionToolStripMenuItem.Text = "Select inverted selection";
+            this.selectInvertedSelectionToolStripMenuItem.Click += new System.EventHandler(this.selectInvertedSelectionToolStripMenuItem_Click);
+            // 
+            // selectAllCellsToolStripMenuItem
+            // 
+            this.selectAllCellsToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selall;
+            this.selectAllCellsToolStripMenuItem.Name = "selectAllCellsToolStripMenuItem";
+            this.selectAllCellsToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.selectAllCellsToolStripMenuItem.Text = "Select all cells";
+            this.selectAllCellsToolStripMenuItem.Click += new System.EventHandler(this.selectAllCellsToolStripMenuItem_Click);
+            // 
+            // selectAllCellsInColumToolStripMenuItem
+            // 
+            this.selectAllCellsInColumToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selcol;
+            this.selectAllCellsInColumToolStripMenuItem.Name = "selectAllCellsInColumToolStripMenuItem";
+            this.selectAllCellsInColumToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.selectAllCellsInColumToolStripMenuItem.Text = "Select all cells in colum";
+            this.selectAllCellsInColumToolStripMenuItem.Click += new System.EventHandler(this.selectAllCellsInColumToolStripMenuItem_Click);
             // 
             // butDSRemove
             // 
@@ -2036,90 +2153,6 @@
             this.sllid.HeaderText = "Link ID";
             this.sllid.Name = "sllid";
             // 
-            // contextDGV
-            // 
-            this.contextDGV.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.replaceSelectedValuesToolStripMenuItem,
-            this.incrementNumericalItemsByToolStripMenuItem,
-            this.fillSelectedWithRandomNumbersToolStripMenuItem,
-            this.toolStripMenuItem6,
-            this.toolStripMenuItem7,
-            this.toolStripSeparator3,
-            this.selectInvertedSelectionToolStripMenuItem,
-            this.selectAllCellsToolStripMenuItem,
-            this.selectAllCellsInColumToolStripMenuItem});
-            this.contextDGV.Name = "contextDGV";
-            this.contextDGV.Size = new System.Drawing.Size(257, 186);
-            // 
-            // replaceSelectedValuesToolStripMenuItem
-            // 
-            this.replaceSelectedValuesToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
-            this.replaceSelectedValuesToolStripMenuItem.Name = "replaceSelectedValuesToolStripMenuItem";
-            this.replaceSelectedValuesToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.replaceSelectedValuesToolStripMenuItem.Text = "&Replace selected values...";
-            this.replaceSelectedValuesToolStripMenuItem.Click += new System.EventHandler(this.replaceSelectedValuesToolStripMenuItem_Click);
-            // 
-            // incrementNumericalItemsByToolStripMenuItem
-            // 
-            this.incrementNumericalItemsByToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
-            this.incrementNumericalItemsByToolStripMenuItem.Name = "incrementNumericalItemsByToolStripMenuItem";
-            this.incrementNumericalItemsByToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.incrementNumericalItemsByToolStripMenuItem.Text = "Increment numerical items by...";
-            this.incrementNumericalItemsByToolStripMenuItem.Click += new System.EventHandler(this.incrementNumericalItemsByToolStripMenuItem_Click);
-            // 
-            // fillSelectedWithRandomNumbersToolStripMenuItem
-            // 
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgm_grandom;
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Name = "fillSelectedWithRandomNumbersToolStripMenuItem";
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Text = "&Fill selected with random numbers";
-            this.fillSelectedWithRandomNumbersToolStripMenuItem.Click += new System.EventHandler(this.fillSelectedWithRandomNumbersToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.Image = global::ToyTwoToolbox.Properties.Resources.CopyHS;
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(256, 22);
-            this.toolStripMenuItem6.Text = "&Copy";
-            this.toolStripMenuItem6.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Image = global::ToyTwoToolbox.Properties.Resources.Paste;
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(256, 22);
-            this.toolStripMenuItem7.Text = "&Paste";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(253, 6);
-            // 
-            // selectInvertedSelectionToolStripMenuItem
-            // 
-            this.selectInvertedSelectionToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selinv;
-            this.selectInvertedSelectionToolStripMenuItem.Name = "selectInvertedSelectionToolStripMenuItem";
-            this.selectInvertedSelectionToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.selectInvertedSelectionToolStripMenuItem.Text = "Select inverted selection";
-            this.selectInvertedSelectionToolStripMenuItem.Click += new System.EventHandler(this.selectInvertedSelectionToolStripMenuItem_Click);
-            // 
-            // selectAllCellsToolStripMenuItem
-            // 
-            this.selectAllCellsToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selall;
-            this.selectAllCellsToolStripMenuItem.Name = "selectAllCellsToolStripMenuItem";
-            this.selectAllCellsToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.selectAllCellsToolStripMenuItem.Text = "Select all cells";
-            this.selectAllCellsToolStripMenuItem.Click += new System.EventHandler(this.selectAllCellsToolStripMenuItem_Click);
-            // 
-            // selectAllCellsInColumToolStripMenuItem
-            // 
-            this.selectAllCellsInColumToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.eicn_dgv_selcol;
-            this.selectAllCellsInColumToolStripMenuItem.Name = "selectAllCellsInColumToolStripMenuItem";
-            this.selectAllCellsInColumToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.selectAllCellsInColumToolStripMenuItem.Text = "Select all cells in colum";
-            this.selectAllCellsInColumToolStripMenuItem.Click += new System.EventHandler(this.selectAllCellsInColumToolStripMenuItem_Click);
-            // 
             // T2Control_NGNEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2172,6 +2205,7 @@
             this.tabPage6.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDS)).EndInit();
+            this.contextDGV.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.splitContainer6.Panel1.ResumeLayout(false);
             this.splitContainer6.Panel2.ResumeLayout(false);
@@ -2180,7 +2214,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dvgAP)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ShapeLinkEditor)).EndInit();
-            this.contextDGV.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2339,5 +2372,7 @@
         private System.Windows.Forms.ToolStripMenuItem selectInvertedSelectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllCellsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllCellsInColumToolStripMenuItem;
+        private System.Windows.Forms.Button butPasteGeomShape;
+        private System.Windows.Forms.Button butCopyGeomShape;
     }
 }

@@ -436,10 +436,7 @@ namespace ToyTwoToolbox {
 
         private void ForceGCToolStripMenuItem_Click(object sender, EventArgs e) {
             Int64 OldMem = System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64;
-            //SM(OldMem, "")
             GCC();
-            //Dim MemDif As Int64 = OldMem - System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64
-            //SM(System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64, "")
             ReportEx("Garbage cleared up: " + Math.Round((OldMem - System.Diagnostics.Process.GetCurrentProcess().VirtualMemorySize64) / Math.Pow(1024, 2), 2) + "MB", RType.SM);
         }
 
@@ -564,10 +561,16 @@ namespace ToyTwoToolbox {
             ICLA.Add(Object);
         }
 
-        /// <summary>For now, just return ICLA as a standard format until things are better implemented</summary>
+        /// <summary>Get Copy pool size</summary>
+        public int Count() {
+            return ICLA.Count;
+        }
+
+        ///// <summary>For now, just return ICLA as a standard format until things are better implemented</summary>
         public List<object> Paste() {
             return ICLA;
         }
+
 
         public void Clear() {
             ICLA.Clear();
@@ -578,14 +581,66 @@ namespace ToyTwoToolbox {
             Clipboard.SetDataObject(ICLA);
         }
 
+        /// <summary>
+        /// This is a custom copy method that will copy cells by row and column order correctly, regardless of how they were selected.
+        /// </summary>
+        /// <param name="dgv"></param>
+        /// <returns></returns>
+        public static List<DataGridViewCell> DGV_GetOrderedList(T2Control_DGV dgv) {
+            List<DataGridViewCell> list = new List<DataGridViewCell>();
+            //this again assumes that we are using box selection when we go to paste, as this literally just ensures the cells are in order
+            DataGridViewCell start = dgv.SelectedCells[0];
+            DataGridViewCell end = dgv.SelectedCells[dgv.SelectedCells.Count-1];
+            foreach (DataGridViewCell cell in dgv.SelectedRows) {
+                if (cell.ColumnIndex <= start.ColumnIndex && cell.RowIndex <= start.RowIndex) {
+                    start = cell;
+                }
+                if (cell.ColumnIndex >= start.ColumnIndex && cell.RowIndex >= start.RowIndex) {
+                    end = cell;
+                }
+            }
+            DataGridViewCell finalStart = start;
+            DataGridViewCell finalEnd = end;
+            //now we know where the start and end are, for sure, we can just grab every cell inbetween
+            //but, of course, we could be selecting up the DGV, in which case the start and end will be flipped...
+            //this doesn't really matter too much, as they should be distinct, so we can min and use the lowest as the first.
+            if (end.RowIndex <= start.RowIndex && end.ColumnIndex <= start.ColumnIndex) {
+                //end comes before start, swap
+                finalEnd = start;
+                finalStart = end;
+            }
+
+            //Right. Okay. There's probably a much better way of doing this...
+            int colStart = finalStart.ColumnIndex;
+            int colEnd = 0;
+            for (int i = finalStart.RowIndex;i <= finalEnd.RowIndex;i++) {
+                colStart = (i == finalStart.RowIndex) ? finalStart.ColumnIndex : 0;
+                colEnd = (i == finalEnd.RowIndex) ? finalEnd.ColumnIndex : dgv.ColumnCount - 1;
+                for (int j = colStart;j <= colEnd;j++) {
+                    list.Add(dgv.Rows[i].Cells[j]);
+                }
+            }
+            
+            return list;
+
+        }
+
         public void SetCopyType(ICLFormat type) {
             ICLF = type;
             ICLT = typeof(object);
         }
 
+        public ICLFormat GetCopyType() {
+            return ICLF;
+        }
+
         public enum ICLFormat {
             Unknown = -1,
-            DGV = 0
+            DGV = 0,
+            SHAPE = 1,
+            CHAR = 2,
+            GEOM = 3
+
         }
     }
 }

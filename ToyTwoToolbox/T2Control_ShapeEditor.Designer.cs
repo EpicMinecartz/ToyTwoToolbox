@@ -54,6 +54,7 @@
             this.V = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextDGV = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.replaceSelectedValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.incrementNumericalItemsByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fillSelectedWithRandomNumbersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,7 +85,6 @@
             this.radioPatch = new System.Windows.Forms.RadioButton();
             this.radioPrim = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.incrementNumericalItemsByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.t2TTabControl4.SuspendLayout();
             this.tabPage12.SuspendLayout();
             this.t2TTabControl5.SuspendLayout();
@@ -154,6 +154,7 @@
             this.fieldShapeName.Size = new System.Drawing.Size(177, 20);
             this.fieldShapeName.TabIndex = 12;
             this.fieldShapeName.ReportTextUpdate += new ToyTwoToolbox.T2Control_EditableLabel.TextUpdatedEventHandler(this.fieldShapeName_ReportTextUpdate);
+            this.fieldShapeName.Load += new System.EventHandler(this.fieldShapeName_Load);
             // 
             // t2TTabControl5
             // 
@@ -432,7 +433,7 @@
             this.selectAllCellsToolStripMenuItem,
             this.selectAllCellsInColumToolStripMenuItem});
             this.contextDGV.Name = "contextDGV";
-            this.contextDGV.Size = new System.Drawing.Size(257, 208);
+            this.contextDGV.Size = new System.Drawing.Size(257, 186);
             this.contextDGV.Opening += new System.ComponentModel.CancelEventHandler(this.contextDGV_Opening);
             // 
             // replaceSelectedValuesToolStripMenuItem
@@ -442,6 +443,14 @@
             this.replaceSelectedValuesToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.replaceSelectedValuesToolStripMenuItem.Text = "&Replace selected values...";
             this.replaceSelectedValuesToolStripMenuItem.Click += new System.EventHandler(this.replaceSelectedValuesToolStripMenuItem_Click);
+            // 
+            // incrementNumericalItemsByToolStripMenuItem
+            // 
+            this.incrementNumericalItemsByToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
+            this.incrementNumericalItemsByToolStripMenuItem.Name = "incrementNumericalItemsByToolStripMenuItem";
+            this.incrementNumericalItemsByToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.incrementNumericalItemsByToolStripMenuItem.Text = "Increment numerical items by...";
+            this.incrementNumericalItemsByToolStripMenuItem.Click += new System.EventHandler(this.incrementNumericalItemsByToolStripMenuItem_Click);
             // 
             // fillSelectedWithRandomNumbersToolStripMenuItem
             // 
@@ -796,14 +805,6 @@
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Shape name:";
-            // 
-            // incrementNumericalItemsByToolStripMenuItem
-            // 
-            this.incrementNumericalItemsByToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
-            this.incrementNumericalItemsByToolStripMenuItem.Name = "incrementNumericalItemsByToolStripMenuItem";
-            this.incrementNumericalItemsByToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.incrementNumericalItemsByToolStripMenuItem.Text = "Increment numerical items by...";
-            this.incrementNumericalItemsByToolStripMenuItem.Click += new System.EventHandler(this.incrementNumericalItemsByToolStripMenuItem_Click);
             // 
             // T2Control_ShapeEditor
             // 

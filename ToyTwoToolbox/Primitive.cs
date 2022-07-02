@@ -14,9 +14,7 @@ namespace ToyTwoToolbox {
     ///
 
 
-    /// <summary>
-    /// The primitive shape class
-    /// </summary>
+    /// <summary>The primitive shape class</summary>
     public class Prim : IPrimitive {
         public Type PrimType { get; } = typeof(Prim);
         private int _type;

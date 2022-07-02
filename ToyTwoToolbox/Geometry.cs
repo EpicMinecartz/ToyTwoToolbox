@@ -11,11 +11,14 @@ namespace ToyTwoToolbox {
         public string name { get; set; }
         ///<summary>The geometry data, containing the <seealso cref="Shape"/> data</summary>
         public List<Shape> shapes { get; set; }
+        ///<summary>The DS link, which <see cref="DynamicScaler"/> to use when exporting</summary>
+        public int dsLink { get; set; }
 
         public Geometry() {
             owner = null;
             name = "";
             shapes = new List<Shape>();
+            dsLink = 0;
         }
 
         public List<Material> GetMaterials() {

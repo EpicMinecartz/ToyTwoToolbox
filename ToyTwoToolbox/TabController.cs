@@ -66,10 +66,14 @@ namespace ToyTwoToolbox {
             return tc;
         }
 
-        public void ReloadTab(F_Base NewFile = null) {
-            Tabs[TabContainer.SelectedIndex].File = NewFile;
-            Tabs[TabContainer.SelectedIndex].editor = null;
-            Tabs[TabContainer.SelectedIndex].ImplementEditor();
+        /// <summary>Reload the currently selected tab with the specified file</summary>
+        /// <param name="NewFile">The file to load</param>
+        public void ReloadTab(F_Base NewFile) {
+            if(NewFile!=null) {
+                Tabs[TabContainer.SelectedIndex].File = NewFile;
+                Tabs[TabContainer.SelectedIndex].editor = null;
+                Tabs[TabContainer.SelectedIndex].ImplementEditor();
+            }
         }
 
         public void CloseTab(int? tabID = null) {
@@ -161,7 +165,7 @@ namespace ToyTwoToolbox {
 
             //call this to save the the loaded file in the selected tab based on the editor, not the file direct
             public void Save(string path) {
-                if (editor.SaveChanges(false, path) == true) {
+                if (editor!=null && editor.SaveChanges(false, path) == true) {
                     tabpage.Text = System.IO.Path.GetFileNameWithoutExtension(File.FilePath);
                 }
             }

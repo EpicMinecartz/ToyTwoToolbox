@@ -75,6 +75,8 @@
             this.setAllShadingToColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.characterShadingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findMaterialsThatUseTextureOfNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateNameMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.vlab = new System.Windows.Forms.ToolStripStatusLabel();
@@ -93,8 +95,8 @@
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firstOpenPanel1 = new ToyTwoToolbox.FirstOpenPanel();
             this.tabControl1 = new ToyTwoToolbox.T2TTabControl();
-            this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.findMaterialsThatUseTextureOfNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.dumpAllCorrectedTexturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -406,7 +408,9 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem,
-            this.openNewToolboxWindowToolStripMenuItem});
+            this.openNewToolboxWindowToolStripMenuItem,
+            this.toolStripSeparator6,
+            this.dumpAllCorrectedTexturesToolStripMenuItem});
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
@@ -416,14 +420,14 @@
             // 
             this.optionsToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources._126_Edit_16x16_72;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // openNewToolboxWindowToolStripMenuItem
             // 
             this.openNewToolboxWindowToolStripMenuItem.Image = global::ToyTwoToolbox.Properties.Resources.T2Image_SaveLives;
             this.openNewToolboxWindowToolStripMenuItem.Name = "openNewToolboxWindowToolStripMenuItem";
-            this.openNewToolboxWindowToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.openNewToolboxWindowToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.openNewToolboxWindowToolStripMenuItem.Text = "Open New &Toolbox Window";
             this.openNewToolboxWindowToolStripMenuItem.Click += new System.EventHandler(this.openNewToolboxWindowToolStripMenuItem_Click);
             // 
@@ -509,7 +513,7 @@
             this.levelShadingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setAllShadingToColorToolStripMenuItem});
             this.levelShadingToolStripMenuItem.Name = "levelShadingToolStripMenuItem";
-            this.levelShadingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.levelShadingToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.levelShadingToolStripMenuItem.Text = "Level Shading";
             // 
             // setAllShadingToColorToolStripMenuItem
@@ -524,7 +528,7 @@
             this.characterShadingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2});
             this.characterShadingToolStripMenuItem.Name = "characterShadingToolStripMenuItem";
-            this.characterShadingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.characterShadingToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.characterShadingToolStripMenuItem.Text = "Character Shading";
             // 
             // toolStripMenuItem2
@@ -533,6 +537,21 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(196, 22);
             this.toolStripMenuItem2.Text = "Set all shading to Color";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // searchToolStripMenuItem
+            // 
+            this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.findMaterialsThatUseTextureOfNameToolStripMenuItem});
+            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.searchToolStripMenuItem.Text = "Search";
+            // 
+            // findMaterialsThatUseTextureOfNameToolStripMenuItem
+            // 
+            this.findMaterialsThatUseTextureOfNameToolStripMenuItem.Name = "findMaterialsThatUseTextureOfNameToolStripMenuItem";
+            this.findMaterialsThatUseTextureOfNameToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.findMaterialsThatUseTextureOfNameToolStripMenuItem.Text = "Find materials that use texture of name";
+            this.findMaterialsThatUseTextureOfNameToolStripMenuItem.Click += new System.EventHandler(this.findMaterialsThatUseTextureOfNameToolStripMenuItem_Click);
             // 
             // generateNameMapToolStripMenuItem
             // 
@@ -734,20 +753,10 @@
             this.tabControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.tabControl1.DragLeave += new System.EventHandler(this.Form1_DragLeave);
             // 
-            // searchToolStripMenuItem
+            // toolStripSeparator6
             // 
-            this.searchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.findMaterialsThatUseTextureOfNameToolStripMenuItem});
-            this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.searchToolStripMenuItem.Text = "Search";
-            // 
-            // findMaterialsThatUseTextureOfNameToolStripMenuItem
-            // 
-            this.findMaterialsThatUseTextureOfNameToolStripMenuItem.Name = "findMaterialsThatUseTextureOfNameToolStripMenuItem";
-            this.findMaterialsThatUseTextureOfNameToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.findMaterialsThatUseTextureOfNameToolStripMenuItem.Text = "Find materials that use texture of name";
-            this.findMaterialsThatUseTextureOfNameToolStripMenuItem.Click += new System.EventHandler(this.findMaterialsThatUseTextureOfNameToolStripMenuItem_Click);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(222, 6);
             // 
             // Main
             // 
@@ -854,6 +863,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findMaterialsThatUseTextureOfNameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem dumpAllCorrectedTexturesToolStripMenuItem;
     }
 }
 

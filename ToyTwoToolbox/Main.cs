@@ -1,6 +1,8 @@
-﻿using System;
+﻿using FolderDialog;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -237,12 +239,9 @@ namespace ToyTwoToolbox {
         }
 
         private void reloadFileToolStripMenuItem_Click(object sender, EventArgs e) {
-            F_Base file = FileProcessor.ProcessFile(TabControl.Tabs[tabControl1.SelectedIndex].File.FilePath);
-            TabControl.ReloadTab(file);
+            TabControl.ReloadTab(FileProcessor.ProcessFile(TabControl.Tabs[tabControl1.SelectedIndex].File.FilePath));
             SessionManager.GCC();
         }
-
-
 
         private void openToolStripMenuItem1_Click(object sender, EventArgs e) {
             if (Globals.MultiMaterialTab != null) {

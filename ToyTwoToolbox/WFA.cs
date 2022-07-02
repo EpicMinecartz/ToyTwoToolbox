@@ -61,36 +61,6 @@ namespace ToyTwoToolbox {
         /// <summary>Reverses the current animation.</summary>
         /// <returns>The <see cref="UIA.Reversed"/> flag.</returns>
         public bool ReverseAnimation(bool AutoStartTimer = false) {
-            //new addition
-            //if a reversed state doesnt exist we generate one ourselves
-            //if(ReversedStates.Count<States.Count) {
-            //	ReversedStates.Insert(State, new UIAS(States[State].Position1, States[State].Position0));
-            //         }
-
-            //if (Reversed == false) { //we arent reversed yet
-            //						 //the problem is any value < 100 is normal, while > 100 is reversed
-            //						 //thus setting reversed=true while offset = 50 will mean we have to go to 100, then to 200
-            //						 //so our animating item will go forward 50%, then back 100%
-            //						 //not good, so we need to check if we are =, if so then shift Time forward
-            //						 //if not =, then we multiply both, like this
-            //						 //if(CycleOffset <> CycleTime) {
-            //						 //    CycleOffset *= 2
-            //						 //}
-            //						 //CycleTime *= 2
-            //} else { //we are reversed, revert original state
-            //		 //on the way back its a bit more complicated
-            //		 //we gotta make sure we dont ?/0 at any time, obv lol
-            //		 //in this scenario, cycle time is 200, and cycle offset can be =, or anything below, fuck
-            //		 //luckily, 200 = 0 (in cycletime sense), so we do a similar check to above
-            //		 //if cycleoffset = cycletime then set cycletime to 100 and cycleoffset to 0
-            //		 //otherwise just divide by two as we are mid anim, and 50 = 150 (i have 800 iq, dont @ me)
-            //	if (CycleOffset != CycleTime * 2) {
-            //		CycleOffset /= 2;
-            //	} else {
-            //		CycleOffset = 0;
-            //	}
-            //	//CycleTime /= 2
-            //}
             Reversed = !Reversed;
             if (AutoStartTimer == true) { Timer_Handle.Start(); }
             return Reversed;
@@ -128,25 +98,6 @@ namespace ToyTwoToolbox {
             }
             return CycleOffset;
         }
-        //public int Increment(int Value = 0) {
-        //	//if we have access to the parent timer, then we can auto stop the timer if we reach maxium, or flip and stop
-        //	if (CycleOffset >= ((Reversed == true) ? CycleTime * 2 : CycleTime)) { //the maximum has been reached
-        //		if (Timer_Handle != null) { //we have access to the timer...
-        //			if (Timer_DestroyOnEnd == true) {
-        //				Timer_Handle.Dispose();
-        //			}
-        //			if (Timer_ReverseAnimWhenMaximum == true) { //when CycleOffset = CycleTime reverse animation?
-        //				ReverseAnimation();
-        //			}
-        //			if (Timer_AutoStop == true) { //when CycleOffset = CycleTime should we stop the timer automatically?
-        //				Timer_Handle.Stop();
-        //			}
-        //		}
-        //	} else { //we still got a bit more to go
-        //		CycleOffset += Value;
-        //	}
-        //	return CycleOffset;
-        //}
     }
 
     //Custom WinForms Animation Object

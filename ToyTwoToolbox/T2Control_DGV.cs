@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace ToyTwoToolbox {
-    class T2Control_DGV : DataGridView {
+    public class T2Control_DGV : DataGridView {
         /// <summary>
         /// This value will be enabled by default. Why? Because you often populate more than you edit.
         /// <para/> Just toggle it FALSE when you want to actually track changes

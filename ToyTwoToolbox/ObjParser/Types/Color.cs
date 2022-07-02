@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 namespace ObjParser.Types {
     public class Color : IType {
         public float r { get; set; }

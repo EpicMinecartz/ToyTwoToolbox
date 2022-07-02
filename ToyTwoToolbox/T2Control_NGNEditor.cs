@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static OpenTK.Graphics.OpenGL.GL;
 
 namespace ToyTwoToolbox {
     public partial class T2Control_NGNEditor : UserControl, IEditor {
@@ -181,7 +182,7 @@ namespace ToyTwoToolbox {
                 Title = "Save texture"
             };
             if (SFD.ShowDialog() == DialogResult.OK) {
-                XF.ExportImage(SFD.FileName, loadedNGN.textures[listviewTextures.SelectedIndices[0]].image, ImageFormat.Bmp, Path.GetExtension(SFD.FileName).ToLower());
+                //XF.ExportImage(SFD.FileName, loadedNGN.textures[listviewTextures.SelectedIndices[0]].image, ImageFormat.Bmp, Path.GetExtension(SFD.FileName).ToLower());
             }
         }
 
@@ -217,7 +218,7 @@ namespace ToyTwoToolbox {
             if (SFD.ShowDialog() == DialogResult.OK) {
                 Bitmap CLIPIMG = (Bitmap)loadedNGN.textures[listviewTextures.SelectedIndices[0]].image.Clone();
                 XF.GenerateAlphaMap(CLIPIMG);
-                XF.ExportImage(SFD.FileName, CLIPIMG, ImageFormat.Bmp, Path.GetExtension(SFD.FileName).ToLower());
+                //XF.ExportImage(SFD.FileName, CLIPIMG, ImageFormat.Bmp, Path.GetExtension(SFD.FileName).ToLower());
                 CLIPIMG.Dispose();
             }
 
@@ -311,7 +312,7 @@ namespace ToyTwoToolbox {
             FolderSelectDialog fsd = new FolderSelectDialog();
             if (fsd.ShowDialog() == true) {
                 for (int i = 0;i < textureIDs.Length;i++) {
-                    XF.ExportImage(fsd.FileName + "\\" + loadedNGN.textures[i].name + ".bmp", loadedNGN.textures[i].image, ImageFormat.Bmp);
+                    XF.ExportImage(fsd.FileName + "\\" + loadedNGN.textures[i].name + ".bmp", loadedNGN.textures[i].image, "bmp");
                 }
             }
         }
@@ -453,10 +454,6 @@ namespace ToyTwoToolbox {
                     }
                 }
             }
-        }
-
-        private void butPasteCharShapeData_Click(object sender, EventArgs e) {
-
         }
 
         private void button2_Click(object sender, EventArgs e) {
@@ -1233,6 +1230,45 @@ namespace ToyTwoToolbox {
                 }
             }
             dgvDS.Rows[RowID].Cells[ColumnID].Value = Value;
+        }
+
+        private void butCopyGeomShape_Click(object sender, EventArgs e) {
+            //Yes, I know this is awful, i never got around to doing it properly. One day.
+            SessionManager.SMptr.ICL.SetCopyType(InternalCopy.ICLFormat.SHAPE);
+            SessionManager.SMptr.ICL.Clear();
+            //SessionManager.SMptr.ICL.Copy(comboGeometry.SelectedIndex);
+            //SessionManager.SMptr.ICL.Copy(listGeomShapes.SelectedIndex);
+            Shape shp = loadedNGN.Geometries[comboGeometry.SelectedIndex].shapes[listGeomShapes.SelectedIndex].Copy();
+            SessionManager.SMptr.ICL.Copy(shp);
+        }
+
+        private void butPasteGeomShape_Click(object sender, EventArgs e) {
+            //No seriously, this is truly horrible, and might actually be one of the worse bodges of my life...
+            if(SessionManager.SMptr.ICL.GetCopyType() == InternalCopy.ICLFormat.SHAPE) {
+                //Shape shp = loadedNGN.Geometries[(int)SessionManager.SMptr.ICL.Paste()[0]].shapes[(int)SessionManager.SMptr.ICL.Paste()[1]];
+                Shape shp = (Shape)SessionManager.SMptr.ICL.Paste()[0];
+                GeomShapeEditor.ReplaceShape(ref shp);
+                GeomShapeEditor.Reload();
+            }
+        }
+
+        private void butCopyChar_Click(object sender, EventArgs e) {
+            SessionManager.SMptr.ICL.SetCopyType(InternalCopy.ICLFormat.CHAR);
+            SessionManager.SMptr.ICL.Clear();
+            Character chr = loadedNGN.characters[comboCharacters.SelectedIndex].Copy();
+            SessionManager.SMptr.ICL.Copy(chr);
+        }
+
+        private void butPasteCharShapeData_Click(object sender, EventArgs e) {
+            Character chr = (Character)SessionManager.SMptr.ICL.Paste()[0];
+            loadedNGN.characters[comboCharacters.SelectedIndex].nodes = chr.nodes.Copy();
+            loadedNGN.characters[comboCharacters.SelectedIndex].nodeCount = chr.nodeCount;
+            loadedNGN.characters[comboCharacters.SelectedIndex].shapes = chr.shapes.Copy();
+            DialogResult msg = MessageBox.Show("Copy Animation Data?", "Character Animation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (msg == DialogResult.Yes) {
+                loadedNGN.characters[comboCharacters.SelectedIndex].Anims = chr.Anims.Copy();
+            }
+            comboCharacters_SelectedIndexChanged(this, EventArgs.Empty);
         }
     }
 }

@@ -93,6 +93,7 @@
     <Compile Include="FileWriter.cs" />
     <Compile Include="FolderSelectDialog.cs" />
     <Compile Include="F_Base.cs" />
+    <Compile Include="F_BIN.cs" />
     <Compile Include="F_NGN.cs" />
     <Compile Include="FileProcessor.cs" />
     <Compile Include="FirstOpenPanel.cs">
@@ -215,6 +216,12 @@
     <Compile Include="T2Control_MaterialProperties.Designer.cs">
       <DependentUpon>T2Control_MaterialProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="T2Control_RAWEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="T2Control_RAWEditor.Designer.cs">
+      <DependentUpon>T2Control_RAWEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="T2Control_ShapeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -326,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="T2Control_MaterialProperties.resx">
       <DependentUpon>T2Control_MaterialProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="T2Control_RAWEditor.resx">
+      <DependentUpon>T2Control_RAWEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="T2Control_ShapeEditor.resx">
       <DependentUpon>T2Control_ShapeEditor.cs</DependentUpon>

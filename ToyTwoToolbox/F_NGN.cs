@@ -616,6 +616,12 @@ namespace ToyTwoToolbox {
                 DS.ShapeID.Add(fr._readint(ref ptr, 4));
                 if (!unknown) { DS.Unknown.Add(fr._readint(ref ptr, 4)); }
             }
+            //new stuff
+            //LODs dont appear to export properly, and it seems like a DS issue.
+            //The actual shapes etc are fine, but their global position and rotation are f'd.
+            //I think the problem here is that in the export we only use DS[0], so we need to add a link into the geom that specifies what DS to use.
+            //We can do that here, because we export the geom, then the DS, then the next geom, then the DS, etc...
+            this.Geometries[this.Geometries.Count - 1].dsLink = this.GScales.Count;
             return DS;
         }
 
@@ -1096,10 +1102,12 @@ namespace ToyTwoToolbox {
 
                         if (j == 0) {
                             if (GScales != null) {
+                                SessionManager.Report("Exporting DynamicScaler. Using DS[" + ((Geometry)objdata).dsLink + "]", SessionManager.RType.DEBUG);
+                                DynamicScaler ds = GScales[((Geometry)objdata).dsLink];
                                 Matrix4D GTM = new Matrix4D();
-                                Matrix4D_Scale(GTM, new Vector3(GScales[0].Scale[i].X - 0.0f, GScales[0].Scale[i].Y - 0.0f, GScales[0].Scale[i].Z - 0.0f));
-                                Matrix4D_Translate3D(GTM, GScales[0].RotationMatrix[i]);
-                                Matrix4D_Transform(GTM, GScales[0].Translation[i]);
+                                Matrix4D_Scale(GTM, new Vector3(ds.Scale[i].X - 0.0f, ds.Scale[i].Y - 0.0f, ds.Scale[i].Z - 0.0f));
+                                Matrix4D_Translate3D(GTM, ds.RotationMatrix[i]);
+                                Matrix4D_Transform(GTM, ds.Translation[i]);
                                 Vector3.TransformPoints(GTM, ref transformv3d);
                                 Vector3.TransformPoints(GTMF, ref transformv3d);
                             }
@@ -1155,13 +1163,17 @@ namespace ToyTwoToolbox {
                             string mt = "";
                             bool usesalpha = false;
                             Material selmat = shape.materials[prim.materialID];
-                            if (selmat.textureIndex != 65535) {
-                                mt = textures[selmat.textureIndexRelative].name;
-                                texselection[selmat.textureIndexRelative] = true;
-                            }
-                            if (selmat.metadata == 2 || selmat.metadata == 6 || selmat.metadata == 14 || selmat.metadata == 11 || selmat.metadata == 10) {
-                                alphaselection[selmat.textureIndexRelative] = true;
-                                usesalpha = true;
+                            if (selmat.textureIndexRelative != -1) {
+                                if (selmat.textureIndex != 65535) {
+                                    mt = textures[selmat.textureIndexRelative].name;
+                                    texselection[selmat.textureIndexRelative] = true;
+                                }
+                                if (selmat.metadata == 2 || selmat.metadata == 6 || selmat.metadata == 14 || selmat.metadata == 11 || selmat.metadata == 10) {
+                                    alphaselection[selmat.textureIndexRelative] = true;
+                                    usesalpha = true;
+                                }
+                            } else {
+                                SessionManager.Report("Material relative texture index was -1! Shape:" + shape.name + " matID:" + prim.materialID, SessionManager.RType.WARN);
                             }
                             bool mtla = true;
                             foreach (MtlM mat in materials) {
@@ -1257,11 +1269,11 @@ namespace ToyTwoToolbox {
                             if (GenerateApha) {
                                 Bitmap CLIPIMG = (Bitmap)textures[j].image.Clone();
                                 XF.GenerateAlphaMap(CLIPIMG);
-                                XF.ExportImage(path + "\\" + textures[j].name + "_a.png", CLIPIMG, ImageFormat.Png);
+                                XF.ExportImage(path + "\\" + textures[j].name + "_a.png", CLIPIMG);
                                 CLIPIMG.Dispose();
                             }
                         }
-                        XF.ExportImage(path + "\\" + textures[j].name + ".png", o, ImageFormat.Png);
+                        XF.ExportImage(path + "\\" + textures[j].name + ".png", o);
                     }
                 }
 
@@ -1406,6 +1418,10 @@ namespace ToyTwoToolbox {
             return true;
         }
 
+        //this can be improved as its still based on the old method
+        //the GS stores a const list for global use much like the csrc
+        //multiple calls still route, but return only predefined, again like the csrc
+        //raw ref - fmul-fsin-fstp(GSDword)
         public void Matrix4D_Translate3D(Matrix4D GTM, Vector3 RotationMatrix) {
             //Vector3 sine = new Vector3(SessionManager.GenerateV3DSine(RotationMatrix,false));
             //Vector3 cosine = new Vector3(SessionManager.GenerateV3DSine(RotationMatrix,true));

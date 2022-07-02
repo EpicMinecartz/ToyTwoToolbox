@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ToyTwoToolbox {
     public class FileProcessor {
@@ -33,7 +36,7 @@ namespace ToyTwoToolbox {
             } else if(editortype == EditorTypes.DATEditor) {
                 return null;
             } else if (editortype == EditorTypes.BINEditor) {
-                return null;
+                return new T2Control_RAWEditor();
             } else if (editortype == EditorTypes.MultiMatEditor) {
                 return new T2Control_MaterialEditor();
             } else {
@@ -51,9 +54,15 @@ namespace ToyTwoToolbox {
                 file = new F_NGN().Import(path);
             } else if (ext == ".sav") {
                 file = F_Save.ImportSave(path);
+            } else if (ext == ".bin") {
+                file = F_BIN.ImportBin(path);
             } else {
-                //throw new TypeInitializationException("None", null);
-                file = null;
+                DialogResult msg = MessageBox.Show("Would you like to force process this file as a .NGN?", "Is this an NGN?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (msg == DialogResult.Yes) {
+                    file = new F_NGN().Import(path);
+                } else {
+                    file = null;
+                }
             }
             return file;
         }
